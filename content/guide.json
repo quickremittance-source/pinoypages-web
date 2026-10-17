@@ -56,11 +56,11 @@
       "tagline": "Badge-eligible listing with your own QR and ZCard bridge page.",
       "print": "Listing with logo and the ✓ Verified Kabayan badge once earned",
       "web": "Your own listing page with ZCard bridge section, Save contact, and the “Digital card by ZCard” mark",
-      "qr": "Dynamic QR via pinoypages.ca/go (never goes stale) + monthly scan count",
+      "qr": "Dynamic QR to your web page (never goes stale) + monthly scan count",
       "badge": "Eligible — earned by the verification visit",
       "extras": [
         "Verified Kabayan badge eligibility",
-        "Dynamic QR via pinoypages.ca/go",
+        "Dynamic QR to your web page",
         "ZCard bridge page",
         "Save contact",
         "Monthly scan count"

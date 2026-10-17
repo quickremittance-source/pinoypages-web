@@ -24,21 +24,21 @@ Puwedeng ma-lista nang **libre** ang bawat qualified na negosyo: **pangalan ng n
 
 _Presyo ng Pilot Edition, **kada issue**. Lahat ng presyo ay CAD, dagdag ang applicable HST._
 
-| Option                          | Presyo | Ano ang makukuha mo                                                                                                                                                       |
-| ------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Free**                        | $0     | Pangalan ng negosyo at contact details lang. Unverified: walang badge, QR, Save contact button o ZCard                                                                    |
-| **Verified**                    | $99    | Puwedeng makakuha ng **Verified Kabayan** badge, **dynamic QR** sa pinoypages.ca, sariling **ZCard bridge page**, **Save contact** button at **buwanang bilang ng scans** |
-| **Verified Plus** (best seller) | $199   | Lahat ng nasa Verified, dagdag ang **featured na puwesto** sa category mo at **QR counter card** para sa tindahan mo                                                      |
-| **Verified Ad — half page**     | $350   | Half-page ad na may QR at badge sa sulok, naka-mirror online. Kasama ang Verified Plus                                                                                    |
-| **Verified Ad — full page**     | $600   | Full-page ad na may QR at badge sa sulok, naka-mirror online. Kasama ang Verified Plus                                                                                    |
+| Option                          | Presyo | Ano ang makukuha mo                                                                                                                                                             |
+| ------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Free**                        | $0     | Pangalan ng negosyo at contact details lang. Unverified: walang badge, QR, Save contact button o ZCard                                                                          |
+| **Verified**                    | $99    | Puwedeng makakuha ng **Verified Kabayan** badge, **dynamic QR** papunta sa web page mo, sariling **ZCard bridge page**, **Save contact** button at **buwanang bilang ng scans** |
+| **Verified Plus** (best seller) | $199   | Lahat ng nasa Verified, dagdag ang **featured na puwesto** sa category mo at **QR counter card** para sa tindahan mo                                                            |
+| **Verified Ad — half page**     | $350   | Half-page ad na may QR at badge sa sulok, naka-mirror online. Kasama ang Verified Plus                                                                                          |
+| **Verified Ad — full page**     | $600   | Full-page ad na may QR at badge sa sulok, naka-mirror online. Kasama ang Verified Plus                                                                                          |
 
 **Hindi nabibili ang badge.** Ang mga paid tier ay _eligible_ lang. Nakukuha ang Verified Kabayan badge sa ~15 minutong pagbisita na may tatlong check: kabayan ang may-ari o nagpapatakbo, talagang may negosyo, at kumpleto ang ZCard mo.
 
-**Kasama nang libre ang website mirror:** lalabas din sa **pinoypages.ca** ang bawat listing at ad nang walang dagdag na bayad.
+**Kasama nang libre ang website mirror:** lalabas din sa website ng Pinoy Pages ang bawat listing at ad nang walang dagdag na bayad.
 
 ## Dapat mong malaman
 
-- **Mag-scan nang ligtas.** Bawat QR ng Pinoy Pages ay bumubukas sa pinoypages.ca. Tingnan na pinoypages.ca ang nasa preview bago i-tap. Hindi kailanman hihingi ang page namin ng login, bayad o personal na impormasyon.
+- **Mag-scan nang ligtas.** Bawat QR ng Pinoy Pages ay bumubukas sa isang page sa website ng Pinoy Pages. Tingnan na pinoypages.ca ang nasa preview bago i-tap. Hindi kailanman hihingi ang page namin ng login, bayad o personal na impormasyon.
 - **Walang garantiya.** Hindi kami nangangako ng tawag, kliyente o benta. **Ire-report namin buwan-buwan ang bilang ng scans mo** (Verified pataas), para ikaw mismo ang makahusga.
 - **May label ang paid placements.** Laging alam ng mambabasa kung alin ang upgrade.
 - **Ano ang ibig sabihin ng badge.** Tatlong bagay lang ang kinukumpirma ng Verified Kabayan: kabayan ang may-ari o nagpapatakbo, talagang may negosyo, at may totoong tao sa likod ng ZCard. Hindi ito rekomendasyon sa kalidad ng serbisyo. Hinihikayat namin ang mga mambabasa na mag-check muna.
