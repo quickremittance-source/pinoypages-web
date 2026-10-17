@@ -93,11 +93,10 @@ export function InquiryForm({ slot }: { slot?: string }) {
         I&apos;m interested in *
         <select name="product" className="field" defaultValue="">
           <option value="">Choose…</option>
-          <option value="starter">Starter</option>
-          <option value="featured">Featured listing</option>
-          <option value="half">Half-page ad</option>
-          <option value="full">Full-page ad</option>
-          <option value="sponsor">Sponsorship (invitation only)</option>
+          <option value="verified">Verified ($99)</option>
+          <option value="plus">Verified Plus ($199)</option>
+          <option value="half">Verified Ad — half page ($350)</option>
+          <option value="full">Verified Ad — full page ($600)</option>
         </select>
         {fe?.product && <span className="text-sm font-normal text-coral-dk">{fe.product[0]}</span>}
       </label>
@@ -131,10 +130,10 @@ export function ClaimForm({ listing, listingName }: { listing?: string; listingN
         <div className="mt-2 grid gap-2 sm:grid-cols-5">
           {[
             ["free", "Keep free"],
-            ["starter", "Starter"],
-            ["featured", "Featured"],
-            ["half", "Half page"],
-            ["full", "Full page"],
+            ["verified", "Verified"],
+            ["plus", "Verified Plus"],
+            ["half", "Verified Ad half"],
+            ["full", "Verified Ad full"],
           ].map(([v, l]) => (
             <label key={v} className="flex items-center gap-2 rounded-lg border border-sea/30 p-2">
               <input type="radio" name="plan" value={v} defaultChecked={v === "free"} /> {l}

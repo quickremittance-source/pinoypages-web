@@ -70,7 +70,7 @@ test("CPP estimator caps at 2026 maximums", async ({ page }) => {
 test("claim flow from a listing validates then succeeds", async ({ page }) => {
   await page.goto("/directory/tax-accounting");
   await page
-    .getByRole("link", { name: /Claim or upgrade/ })
+    .getByRole("link", { name: /Claim or get Verified/ })
     .first()
     .click();
   await expect(page).toHaveURL(/\/upgrade\?listing=/);
@@ -80,7 +80,7 @@ test("claim flow from a listing validates then succeeds", async ({ page }) => {
   await page.getByLabel("Your name *").fill("Test Person");
   await page.getByLabel("Business name *").fill("Test Business");
   await page.getByLabel("Email *").fill("test@example.com");
-  await page.getByLabel("Featured").check();
+  await page.getByLabel("Verified Plus", { exact: true }).check();
   await page.getByRole("checkbox").check();
   await page.getByRole("button", { name: "Claim my listing" }).click();
   await expect(page.getByRole("status").first()).toContainText("verify your listing");
@@ -132,9 +132,13 @@ test("paid tiers: branded QR decodes to their counted /go/ link; free listings h
     expect(await (await request.get(`/qr/${l.id}/qr.svg`)).text()).toContain("Find us on");
     const pdf = await request.get(`/qr/${l.id}/qr.pdf`);
     expect((await pdf.body()).subarray(0, 5).toString()).toBe("%PDF-");
+    // QR counter card: Verified Plus and up only.
+    const counter = await request.get(`/qr/${l.id}/counter.pdf`);
+    expect(counter.status(), l.id).toBe(l.tier === "verified" ? 404 : 200);
+    if (counter.ok()) expect((await counter.body()).subarray(0, 5).toString()).toBe("%PDF-");
   }
   for (const l of free) {
-    for (const f of ["qr.png", "qr.svg", "qr.pdf", "basic.png"])
+    for (const f of ["qr.png", "qr.svg", "qr.pdf", "counter.pdf", "basic.png"])
       expect((await request.get(`/qr/${l.id}/${f}`)).status()).toBe(404);
     expect((await request.get(`/go/${l.id}`, { maxRedirects: 0 })).status()).toBe(404);
     expect((await request.get(`/vcard/${l.id}.vcf`)).status()).toBe(404);
@@ -170,32 +174,91 @@ test("vCard downloads are valid for paid tiers", async ({ request }) => {
   }
 });
 
-test("free listing page = name + contact only: no QR, no vCard, no photos", async ({ page }) => {
+test("free listing page = name + contact only: no QR, no Save contact, no badge, no ZCard", async ({ page }) => {
   await page.goto("/listing/tax-02");
   await expect(page.getByText("905-555-0102")).toBeVisible();
   await expect(page.getByRole("img", { name: /QR code/ })).toHaveCount(0);
   await expect(page.getByRole("link", { name: "Save contact" })).toHaveCount(0);
+  await expect(page.getByTestId("vk-badge")).toHaveCount(0);
+  await expect(page.getByTestId("zcard-bridge")).toHaveCount(0);
+  await expect(page.getByText(guide.brand.zcardMark)).toHaveCount(0);
   await expect(page.getByLabel("Photos")).toHaveCount(0);
   await expect(page.getByText("Languages")).toHaveCount(0);
-  await expect(page.getByRole("link", { name: "Upgrade to Featured" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Upgrade to Verified" })).toBeVisible();
 });
 
-test("Starter page: Verified, Save contact and QR; Featured adds Call / Book and photos", async ({ page }) => {
+test("paid = eligible, not verified: badge + date only after the visit; ZCard bridge on every paid page", async ({
+  page,
+}) => {
+  for (const l of paid) {
+    await page.goto(`/listing/${l.id}`);
+    const bridge = page.getByTestId("zcard-bridge");
+    await expect(bridge).toBeVisible();
+    await expect(bridge.getByText(guide.brand.zcardMark)).toBeVisible();
+    await expect(bridge.getByText(guide.brand.qrLine)).toBeVisible();
+    await expect(bridge.getByRole("link", { name: "Save contact" })).toHaveAttribute("href", `/vcard/${l.id}.vcf`);
+    const verified = !!l.verifiedOn && !!l.zcard?.completed;
+    await expect(bridge.getByTestId("vk-badge")).toHaveCount(verified ? 1 : 0);
+    if (verified) await expect(bridge.getByText(/· Verified \w{3}, \w{3} \d{1,2}, \d{4}/)).toBeVisible();
+    else await expect(bridge.getByTestId("verification-pending")).toBeVisible();
+  }
+  // ind-01 is paid (Verified) but not yet visited: no badge anywhere on the page.
   await page.goto("/listing/ind-01");
-  await expect(page.getByText("✓ Verified").first()).toBeVisible();
-  await expect(page.getByRole("link", { name: "Save contact" })).toHaveAttribute("href", "/vcard/ind-01.vcf");
+  await expect(page.getByTestId("vk-badge")).toHaveCount(0);
   await expect(page.getByRole("img", { name: /QR code for/ })).toBeVisible();
   await expect(page.getByRole("link", { name: "Call / Book" })).toHaveCount(0);
+  await expect(page.getByRole("link", { name: "Counter card (PDF)" })).toHaveCount(0);
   await page.goto("/listing/tax-01");
   await expect(page.getByRole("link", { name: "Call / Book" })).toHaveAttribute("href", "/go/tax-01?via=call");
   await expect(page.getByLabel("Photos")).toBeVisible();
   await expect(page.getByRole("link", { name: "Print-ready label (PDF)" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Counter card (PDF)" })).toHaveAttribute(
+    "href",
+    "/qr/tax-01/counter.pdf",
+  );
+});
+
+test("ZCard bridge never asks for login, payment or personal data", async ({ page }) => {
+  for (const l of paid) {
+    await page.goto(`/listing/${l.id}`);
+    const bridge = page.getByTestId("zcard-bridge");
+    await expect(bridge.locator("form, input, select, textarea, iframe")).toHaveCount(0);
+    await expect(bridge.getByText(/password|sign in|log ?in to|card number|SIN\b|credit card/i)).toHaveCount(0);
+    await expect(bridge.getByText(/never asks for a login, a payment or personal information/)).toBeVisible();
+    for (const href of await bridge.locator("a").evaluateAll((as) => as.map((a) => a.getAttribute("href") ?? "")))
+      expect(href, l.id).toMatch(/^(\/vcard\/|\/go\/|mailto:)/);
+  }
+  // The page that QR scans land on has no forms at all.
+  await page.goto("/listing/tax-01");
+  await expect(page.locator("form, input[type=password]")).toHaveCount(0);
+});
+
+test("categories: Money & Business is the live category; Travel, Padala & Remit is coming next edition", async ({
+  page,
+}) => {
+  expect(guide.brand.tagline).toBe("The Filipino Business Directory");
+  expect(guide.sections.map((x) => [x.name, x.status])).toEqual([
+    ["Money & Business", "live"],
+    ["Travel, Padala & Remit", "coming"],
+  ]);
+  const live = JSON.stringify([guide.categories, guide.listings, guide.ads, guide.adMenu]);
+  expect(live).not.toMatch(/remit|padala|money transfer/i);
+  await page.goto("/");
+  await expect(page.getByTestId("category-tag")).toHaveText("Category: Money & Business");
+  await page.goto("/directory");
+  await expect(page.getByRole("heading", { name: /Category: Money & Business/ })).toBeVisible();
+  const coming = page.locator('[data-section="travel-padala-remit"]');
+  await expect(coming).toContainText("Coming next edition");
+  await expect(coming.getByRole("link")).toHaveCount(0);
+  expect((await page.goto("/directory/remittance"))?.status()).toBe(404);
 });
 
 test("directory: free entries are one line; featured shows tagline", async ({ page }) => {
   await page.goto("/directory/tax-accounting");
   await expect(page.locator('li[data-tier="free"]').first()).not.toContainText("Tagalog");
-  await expect(page.locator('li[data-tier="featured"]')).toContainText("Personal & self-employed returns");
+  await expect(page.locator('li[data-tier="full"]')).toContainText("Personal & self-employed returns");
+  await expect(page.locator('li[data-tier="free"]').getByTestId("vk-badge")).toHaveCount(0);
+  await expect(page.locator('li[data-tier="full"]').getByTestId("vk-badge")).toBeVisible();
 });
 
 test("sold ad mirrors online with corner QR and tap-to-open button", async ({ page }) => {
@@ -233,7 +296,7 @@ test("analytics: QR scan, call, map, website and ad-tap clicks are counted per l
   expect(await count(page, "tax-01", "call")).toBeGreaterThan(before.call);
   expect(await count(page, "tax-01", "map")).toBeGreaterThan(before.map);
   expect(await count(page, "tax-01", "website")).toBeGreaterThan(before.website);
-  // Starter has no Call / Book; free listings have no counted links at all.
+  // Verified (not Plus) has no Call / Book; free listings have no counted links at all.
   expect((await request.get("/go/ind-01?via=call", { maxRedirects: 0 })).status()).toBe(404);
   expect((await request.get("/go/tax-02?via=map", { maxRedirects: 0 })).status()).toBe(404);
 });
@@ -288,7 +351,7 @@ test("Money & Business Calendar: CRA deadlines, free vs featured events, sponsor
   request,
 }) => {
   const price = Object.fromEntries(guide.eventMenu.map((o) => [o.id, [o.price, o.founding]]));
-  expect(price).toEqual({ "event-free": [0, 0], "event-featured": [49, 49], "calendar-sponsor": [450, 360] });
+  expect(price).toEqual({ "event-free": [0, 0], "event-featured": [49, 49] });
   expect(guide.pages.find((p) => p.page === 11)).toMatchObject({ route: "/calendar", ad: "slot-cal" });
   for (const e of guide.events.filter((x) => x.kind === "deadline"))
     expect(e.source).toMatch(/^https:\/\/www\.canada\.ca\//);
@@ -328,33 +391,41 @@ test("event submission validates then succeeds (member featured event is free)",
   await expect(page.getByRole("status").first()).toContainText("As a member your featured event is free");
 });
 
-test("public menu = 3 choices (Free, Featured, Ad); Starter QR + events are add-ons; prices from config", async ({
+test("pilot menu = Free / Verified $99 / Verified Plus $199 / Verified Ad $350·$600; no add-ons; prices from config", async ({
   page,
 }) => {
-  const main = guide.adMenu.filter((a) => a.menu === "main").map((a) => a.id);
-  expect(main).toEqual(["free", "featured", "half", "full"]);
-  expect(guide.adMenu.filter((a) => a.menu === "addon").map((a) => a.id)).toEqual(["starter"]);
-  const price = Object.fromEntries(guide.adMenu.map((a) => [a.id, [a.price, a.founding]]));
-  expect(price).toEqual({ free: [0, 0], starter: [99, 79], featured: [390, 299], half: [450, 360], full: [850, 690] });
-  expect(JSON.stringify(guide.adMenu)).not.toMatch(/lead/i);
-  for (const o of guide.adMenu.filter((x) => x.price > 0)) expect(o.unit).toMatch(/12-month listing/);
-  expect(JSON.stringify(guide)).not.toMatch(/yearbook|guarantee(d)? (leads|results|calls)|results report/i);
+  const price = Object.fromEntries(guide.adMenu.map((a) => [a.id, a.price]));
+  expect(price).toEqual({ free: 0, verified: 99, plus: 199, half: 350, full: 600 });
+  expect(guide.adMenu.map((a) => a.name)).toEqual([
+    "Free",
+    "Verified",
+    "Verified Plus",
+    "Verified Ad — half page",
+    "Verified Ad — full page",
+  ]);
+  expect(guide.adMenu.every((a) => a.menu === "main")).toBe(true);
+  expect(guide.adMenu.find((a) => a.recommended)?.id).toBe("plus");
+  expect(guide.sponsors).toEqual([]);
+  const menu = JSON.stringify(guide.adMenu);
+  expect(menu).not.toMatch(/lead|bundle|founding|bronze|silver|gold|platinum|starter/i);
+  expect(JSON.stringify(guide)).not.toMatch(/\$(299|390|360|450|690|850)\b/);
+  for (const o of guide.adMenu.filter((x) => x.price > 0)) expect(o.unit).toMatch(/per issue/);
+  expect(JSON.stringify(guide)).not.toMatch(/yearbook|guarantee(d)? (leads|results|calls)|results report|pinoypera/i);
+  expect(guide.brand.siteUrl).toBe("https://pinoypages.ca");
   for (const path of ["/upgrade", "/advertise"]) {
     await page.goto(path);
     await expect(
-      page.getByText(/Pinoy Pages 2026–2027 · Spring · Summer · Fall · Annual edition/).first(),
+      page.getByText(/Pinoy Pages 2026–2027 · Spring · Summer · Fall · Pilot Edition/).first(),
     ).toBeVisible();
-    await expect(
-      page.getByText(/The website is the product. Print is the proof copy \(100 copies\)/).first(),
-    ).toBeVisible();
-    await expect(page.getByRole("row", { name: /Starter/ })).toHaveCount(0);
-    await expect(page.getByTestId("addons")).toContainText("Starter QR $99 ($79 founding)");
-    await expect(page.getByTestId("addons")).toContainText("Featured event $49, free for paying members");
-    await expect(page.getByTestId("addons")).toContainText("Calendar sponsor $450 ($360 founding)");
-    await expect(page.getByText(/Invitation-only extras/)).toContainText("$1,950");
-    await expect(page.getByText(/Founding price locked:/).first()).toBeVisible();
-    await expect(page.getByText(/Member renewal discount|\$239/)).toHaveCount(0);
+    await expect(page.getByTestId("badge-rule").first()).toContainText("Payment never buys the badge");
+    for (const name of ["Free", "Verified", "Verified Plus", "Verified Ad — half page", "Verified Ad — full page"])
+      await expect(page.getByRole("rowheader", { name: new RegExp(`^${name}`) }).first()).toBeVisible();
+    await expect(page.getByRole("rowheader", { name: /^(Starter|Featured|Bronze|Silver|Gold|Platinum)/ })).toHaveCount(
+      0,
+    );
+    await expect(page.getByText(/founding|add-on|Invitation-only|Member renewal discount|\$159/i)).toHaveCount(0);
     await expect(page.getByText(/pay-per-lead|per lead/i)).toHaveCount(0);
+    await expect(page.getByText(/Prices per issue, in CAD, plus applicable HST/)).toBeVisible();
   }
   await page.goto("/upgrade");
   await expect(page.getByText(guide.brand.pitch)).toBeVisible();
@@ -364,13 +435,15 @@ test("public menu = 3 choices (Free, Featured, Ad); Starter QR + events are add-
   await page.getByLabel("Your name *").fill("Test Person");
   await page.getByLabel("Business name *").fill("Test Business");
   await page.getByLabel("Email *").fill("test@example.com");
-  await page.getByLabel("Featured", { exact: true }).check();
+  await page.getByLabel("Verified", { exact: true }).check();
   await page.getByRole("checkbox").check();
   await page.getByRole("button", { name: "Claim my listing" }).click();
   await expect(page.getByRole("status").first()).toContainText("verify your listing");
+  // Renewal discount: draft terms only, recalculated on the new prices.
   await page.goto("/terms");
-  await expect(page.getByText(/Founding price lock \(firm rule\)/)).toBeVisible();
+  await expect(page.getByText(/payment never buys the badge/i)).toBeVisible();
   await expect(page.getByText(/flat 20% off their locked price/)).toBeVisible();
+  await expect(page.getByRole("row", { name: /Verified Plus \$199 \$159/ })).toBeVisible();
   await expect(page.getByText(/No guarantee of results/)).toBeVisible();
 });
 

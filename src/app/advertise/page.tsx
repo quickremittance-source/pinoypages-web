@@ -22,9 +22,10 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
         <p className="rounded-xl bg-sand p-4">
           <strong>{brand.pitch}</strong> {brand.productNote} You are buying web presence: your ad appears on its
           matching page with a tap-to-open button to your listing page, and its QR (built into a fixed corner) brings
-          people from your own cards, flyers and signs to the same page. Every ad includes Featured (branded QR, Save
-          contact, monthly counts). The printed guide is a proof copy: you get your own copy showing your placement,
-          plus a year-end summary of your scan and click counts. We report counts; we do not guarantee results.
+          people from your own cards, flyers and signs to the same page. Every Verified Ad includes Verified Plus
+          (dynamic QR, ZCard bridge, Save contact, featured spot, counter card, monthly scan count). The printed edition
+          is a proof copy: you get your own copy showing your placement. {brand.badgeRule} We report counts; we do not
+          guarantee results.
         </p>
         <PlanTable />
         <section aria-labelledby="inq">

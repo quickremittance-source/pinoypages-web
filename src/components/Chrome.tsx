@@ -25,7 +25,9 @@ export function Header() {
       <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-3">
         <Link href="/" className="font-display text-xl font-semibold text-sea">
           {brand.name} <span className="text-coral-dk">{brand.edition}</span>
-          <span className="block text-xs font-normal text-ink">Money &amp; Business · {brand.tagline}</span>
+          <span className="block text-xs font-normal text-ink">
+            {brand.tagline} · {brand.region} · {brand.categoryLabel}
+          </span>
         </Link>
         <nav aria-label="Main">
           <ul className="flex flex-wrap gap-1 text-sm font-bold text-sea">

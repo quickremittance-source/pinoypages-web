@@ -1,6 +1,6 @@
 // Rolls the yearly template forward: writes content/guide.<next>.json for review (never overwrites guide.json).
 // Bumps edition label, UTM campaign and every date by one year; sold ads become "renewal" (offered to the same
-// member first, at locked founding price minus the member renewal discount); listings and page order are kept.
+// member first, at the locked pilot price minus the member renewal discount); listings and page order are kept.
 import { readFileSync, writeFileSync } from "node:fs";
 const g = JSON.parse(readFileSync(new URL("../content/guide.json", import.meta.url)));
 const [y1, y2] = g.brand.edition.split(/[–-]/).map(Number);

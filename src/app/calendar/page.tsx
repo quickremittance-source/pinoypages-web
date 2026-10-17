@@ -76,7 +76,7 @@ export default function Page() {
             {eventMenu.map((o) => (
               <li key={o.id}>
                 <strong>{o.name}</strong>: {o.price ? money(o.price) : "Free"}
-                {o.founding !== o.price && ` (${money(o.founding)} founding)`} {o.unit} — {o.includes} {o.memberNote}
+                {o.unit} — {o.includes} {o.memberNote}
               </li>
             ))}
           </ul>

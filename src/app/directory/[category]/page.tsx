@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PageHead } from "@/components/Chrome";
 import { ListingCard } from "@/components/ListingCard";
-import { categories, listingsIn } from "@/lib/guide";
+import { brand, categories, listingsIn } from "@/lib/guide";
 
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -23,7 +23,7 @@ export default async function Page({ params }: P) {
   return (
     <>
       <PageHead
-        kicker="Directory"
+        kicker={`Directory · ${brand.categoryLabel}`}
         page={c.page}
         title={c.name}
         intro="Sample listings shown until real listings are verified."

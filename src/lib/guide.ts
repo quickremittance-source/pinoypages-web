@@ -3,7 +3,8 @@ import data from "../../content/guide.json";
 /** ONE shared data source: the same JSON drives the website and the print flat plan (scripts/print-plan.mjs). */
 export type AdSize = "full" | "half";
 export type Ad = (typeof data.ads)[number] & { size: AdSize; listing: string; sample?: boolean };
-export type Tier = "free" | "starter" | "featured";
+export type Tier = "free" | "verified" | "plus" | "half" | "full";
+export type ZCard = { person: string; role: string; completed: boolean };
 export type Listing = {
   id: string;
   category: string;
@@ -16,24 +17,45 @@ export type Listing = {
   tagline?: string;
   website?: string;
   sample: boolean;
+  /** ISO date of the verification visit (paid tiers only). Paid = eligible; the visit earns the badge. */
+  verifiedOn?: string | null;
+  zcard?: ZCard;
 };
 export type GuidePage = (typeof data.pages)[number] & { ad?: string; ad2?: string; toolQr?: string };
 
 export const brand = data.brand;
 export const dates = data.dates;
 export type MenuItem = (typeof data.adMenu)[number] & { recommended?: boolean };
+export const tierName = (t: Tier) => data.adMenu.find((o) => o.id === t)?.name ?? t;
 export const adMenu = data.adMenu as MenuItem[];
 export const renewal = data.renewal;
 export const terms = data.terms;
-/** Member renewal price = locked founding price minus the member renewal discount (one config value in guide.json). */
-export const renewalPrice = (founding: number) => Math.round(founding * (1 - renewal.memberDiscountPct / 100));
+/** Member renewal price = locked pilot price minus the member renewal discount (draft terms only; never public). */
+export const renewalPrice = (price: number) => Math.round(price * (1 - renewal.memberDiscountPct / 100));
 export const pages = data.pages as GuidePage[];
 export const ads = data.ads as Ad[];
 export const categories = data.categories;
+/** Top-level categories, one per section (expandable): live now, or "coming" in a later edition. */
+export type Section = {
+  slug: string;
+  name: string;
+  status: "live" | "coming";
+  edition: string;
+  note?: string;
+  subcategories: string[];
+};
+export const sections = data.sections as Section[];
 export const listings = data.listings as Listing[];
-export const sponsors = data.sponsors;
-/** Paid tiers (Starter and up) get the counted /go/ link, branded QR, vCard and Verified badge. */
+const rank: Record<Tier, number> = { full: 4, half: 3, plus: 2, verified: 1, free: 0 };
+/** Paid tiers (Verified and up) get the counted /go/ link, QR, ZCard bridge and Save contact. Free = unverified. */
 export const isPaid = (l?: Pick<Listing, "tier">) => !!l && l.tier !== "free";
+/** Verified Plus and up: featured spot, Call / Book, photos and a QR counter card. */
+export const isFeatured = (l?: Pick<Listing, "tier">) => !!l && rank[l.tier] >= rank.plus;
+/**
+ * Verified Kabayan badge: never bought. Shown only when the listing is paid (eligible) AND the visit passed all three
+ * checks (kabayan-owned/run, really trading, ZCard completed), recorded as verifiedOn + zcard.completed.
+ */
+export const isVerified = (l?: Listing) => !!l && isPaid(l) && !!l.verifiedOn && !!l.zcard?.completed;
 /** Directions link (Google Maps search by business name + area; no address stored). */
 export const mapUrl = (l: Pick<Listing, "name" | "area">) =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${l.name}, ${l.area}, ON`)}`;
@@ -88,7 +110,6 @@ export const listingsIn = (slug: string) =>
   listings
     .filter((l) => l.category === slug)
     .sort((a, b) => rank[b.tier] - rank[a.tier] || a.name.localeCompare(b.name));
-const rank: Record<Tier, number> = { featured: 2, starter: 1, free: 0 };
 export const money = (n: number) => (n === 0 ? "Free" : `$${n.toLocaleString("en-CA")}`);
 export const longDate = (iso: string) =>
   new Date(`${iso}T12:00:00`).toLocaleDateString("en-CA", {

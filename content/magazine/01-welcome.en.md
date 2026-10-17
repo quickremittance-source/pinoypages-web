@@ -8,7 +8,7 @@ meta_description: "Pinoy Pages is an annual GTA directory of Filipino-Canadian t
 last_checked: 2026-10-17
 ---
 
-# Welcome to Pinoy Pages 2026–2027: The Filipino Money & Business Directory
+# Welcome to Pinoy Pages 2026–2027: The Filipino Business Directory (Category: Money & Business)
 
 Mabuhay! **Pinoy Pages 2026–2027** is the annual directory of Filipino-Canadian money and business services in the Greater Toronto Area. This edition covers **Spring, Summer and Fall** and is released on **April 16, 2027**, and the directory is online all year at pinoypages.ca. It covers the topic our kababayan ask about most: **money**. That means tax preparers, bookkeepers and accountants, insurance advisors, banking and mortgage professionals, and the independent pros and small businesses our community relies on.
 

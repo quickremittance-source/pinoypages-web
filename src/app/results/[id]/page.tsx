@@ -38,7 +38,8 @@ export default async function Page({ params, searchParams }: P) {
               Your listing is being counted
             </h2>
             <p className="mt-2">
-              Results are shown to Starter, Featured and ad members. Upgrade to see your monthly views and clicks.
+              Results are shown to Verified, Verified Plus and Verified Ad members. Upgrade to see your monthly views
+              and clicks.
             </p>
             <Link className="btn mt-4" href={`/upgrade?listing=${l.id}`}>
               Upgrade to see your results

@@ -17,7 +17,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ l
         page={19}
         kicker="For listed businesses"
         title={`Get listed in ${brand.editionName}`}
-        intro="Your free listing stays free. Claim it to fix your details, or upgrade to get your own page, a QR that sends people to it, and monthly scan and click counts."
+        intro="Your free listing stays free. Claim it to fix your details, or get Verified: your own ZCard bridge page, a QR that sends people to it, and a monthly scan count."
       />
       <div className="mx-auto max-w-5xl space-y-8 px-4 py-8">
         <section className="rounded-2xl border-2 border-sunset bg-sand p-6" aria-labelledby="qrpitch">
@@ -26,10 +26,10 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ l
           </h2>
           <p className="mt-2 font-bold">{brand.pitch}</p>
           <p className="mt-2">
-            {brand.productNote} Three choices: a Free listing (name + contact), Featured ($299 founding, regular $390,
-            12-month listing) with a branded QR, Save contact button, monthly scan and click counts, bold listing with
-            logo in print and top of your category online, or an Ad (half or full page) that includes Featured. Renew on
-            time each edition and your founding price stays locked. Free listings have no QR.
+            {brand.productNote} Four choices: Free (name and contact only, unverified), Verified ($99 per issue: dynamic
+            QR, ZCard bridge page, Save contact, monthly scan count), Verified Plus ($199, best seller: adds a featured
+            spot and a QR counter card), or a Verified Ad ($350 half page, $600 full page, includes Verified Plus). Free
+            listings have no badge, QR, Save contact or ZCard.
           </p>
         </section>
         <PlanTable />

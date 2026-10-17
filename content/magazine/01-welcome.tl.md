@@ -3,14 +3,14 @@ piece: 1
 slug: /tl/about/welcome
 lang: tl
 status: DRAFT — CONFIDENTIAL — not for publication — ⚠️ NEEDS NATIVE-SPEAKER REVIEW
-seo_title: "Pinoy Pages 2026–2027: Pinoy Money & Business sa GTA"
+seo_title: "Pinoy Pages 2026–2027: Money & Business sa GTA"
 meta_description: "Taunang direktoryo ng Filipino-Canadian tax, accounting, insurance at mortgage pros sa GTA, may libreng HST, CPP at tax deadline tools."
 last_checked: 2026-10-17
 ---
 
 > ⚠️ **DRAFT NA SALIN SA TAGALOG.** Kailangang i-review ng native speaker bago i-publish.
 
-# Welcome sa Pinoy Pages 2026–2027: The Filipino Money & Business Directory
+# Welcome sa Pinoy Pages 2026–2027: The Filipino Business Directory (Category: Money & Business)
 
 Mabuhay! Ang **Pinoy Pages 2026–2027** ay ang taunang direktoryo ng mga Filipino-Canadian na negosyo at serbisyo tungkol sa pera sa Greater Toronto Area. Sakop ng edition na ito ang **Spring, Summer at Fall**, ilalabas ito sa **April 16, 2027**, at online ang direktoryo buong taon sa pinoypages.ca. Ito ang topic na pinakamadalas itanong ng ating mga kababayan: **pera**. Kasama dito ang mga tax preparer, bookkeeper at accountant, insurance advisor, banking at mortgage professional, at mga independent pro at small business na nagsisilbi sa ating komunidad.
 

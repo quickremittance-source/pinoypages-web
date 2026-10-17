@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { PageHead } from "@/components/Chrome";
-import { adMenu, brand, money, terms } from "@/lib/guide";
+import { adMenu, brand, money, renewal, renewalPrice, terms } from "@/lib/guide";
 
 export const metadata: Metadata = { title: "Advertiser terms (draft)", alternates: { canonical: "/terms" } };
 
 export default function Page() {
-  const paid = adMenu.filter((o) => o.founding > 0);
+  const paid = adMenu.filter((o) => o.price > 0);
   return (
     <>
       <PageHead kicker={brand.editionLabel} title="Advertiser terms (draft)" intro={brand.annualNote} />
@@ -17,7 +17,7 @@ export default function Page() {
         </ol>
         <table className="w-full rounded-2xl bg-white text-left">
           <caption className="p-3 text-left text-sm">
-            Founding prices stay locked for advertisers who renew on time. CAD, plus HST.
+            Prices per issue. Pilot prices stay locked for advertisers who renew on time. CAD, plus applicable HST.
           </caption>
           <thead className="bg-sea text-white">
             <tr>
@@ -25,10 +25,10 @@ export default function Page() {
                 Tier
               </th>
               <th scope="col" className="p-3">
-                Regular
+                Per issue
               </th>
               <th scope="col" className="p-3">
-                Founding (locked on time)
+                Member renewal by Dec 18 (−{renewal.memberDiscountPct}%)
               </th>
             </tr>
           </thead>
@@ -39,7 +39,7 @@ export default function Page() {
                   {o.name}
                 </th>
                 <td className="p-3">{money(o.price)}</td>
-                <td className="p-3">{money(o.founding)}</td>
+                <td className="p-3">{money(renewalPrice(o.price))}</td>
               </tr>
             ))}
           </tbody>

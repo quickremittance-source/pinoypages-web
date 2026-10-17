@@ -14,7 +14,15 @@ export default function Home() {
           <h1 className="mt-2 text-5xl font-semibold text-sea">
             {brand.name} {brand.edition}
           </h1>
-          <p className="mt-4 max-w-2xl text-xl">{brand.tagline}.</p>
+          <p className="mt-4 max-w-2xl text-xl">
+            {brand.tagline} · {brand.region}.
+          </p>
+          <p
+            className="mt-2 inline-block rounded bg-white px-2 py-1 text-sm font-bold text-sea"
+            data-testid="category-tag"
+          >
+            {brand.categoryLabel}
+          </p>
           <p className="mt-4 max-w-2xl">
             Find Filipino-serving tax, accounting, insurance and business pros in the GTA, plus free money tools and
             deadlines.

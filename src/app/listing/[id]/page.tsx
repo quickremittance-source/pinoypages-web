@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageHead } from "@/components/Chrome";
-import { Verified } from "@/components/ListingCard";
+import { VerifiedKabayan } from "@/components/Badge";
 import { QrSection } from "@/components/QrSection";
 import { ViewBeacon } from "@/components/ViewBeacon";
-import { categories, isPaid, listings } from "@/lib/guide";
+import { ZCardBridge } from "@/components/ZCardBridge";
+import { brand, categories, isFeatured, isPaid, listings, tierName } from "@/lib/guide";
 
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -17,23 +18,27 @@ export async function generateMetadata({ params }: P): Promise<Metadata> {
   return { title: listings.find((l) => l.id === id)?.name, alternates: { canonical: `/listing/${id}` } };
 }
 
-/** Online entry mirrors the print entry: free = name + contact only; paid tiers add what they bought. */
+/**
+ * Online entry mirrors the print entry. Free = unverified: name + contact only (no badge, QR, Save contact, ZCard).
+ * Paid tiers get the ZCard bridge (where QR scans land) and are ELIGIBLE for the badge; the visit earns it.
+ */
 export default async function Page({ params }: P) {
   const { id } = await params;
   const l = listings.find((x) => x.id === id);
   if (!l) notFound();
   const c = categories.find((x) => x.slug === l.category)!;
   const paid = isPaid(l);
-  const featured = l.tier === "featured";
+  const featured = isFeatured(l);
   return (
     <>
       <ViewBeacon id={l.id} />
       <PageHead kicker={c.name} page={c.page} title={l.name} intro={featured ? l.tagline : undefined} />
       <div className="mx-auto max-w-3xl px-4 py-8">
-        <div className="rounded-2xl bg-white p-6" data-tier={l.tier}>
+        {paid && <ZCardBridge l={l} />}
+        <div className="mt-6 rounded-2xl bg-white p-6" data-tier={l.tier}>
           {paid && (
-            <p className="mb-3">
-              <Verified />
+            <p className="mb-3 text-sm">
+              <strong>{tierName(l.tier)}</strong> <VerifiedKabayan l={l} />
             </p>
           )}
           <dl className="grid gap-2">
@@ -45,20 +50,9 @@ export default async function Page({ params }: P) {
               <dt className="font-bold">Area</dt>
               <dd>{l.area}</dd>
             </div>
-            {paid && (
-              <div>
-                <dt className="font-bold">Languages</dt>
-                <dd>{l.languages}</dd>
-              </div>
-            )}
           </dl>
           {paid && (
             <div className="mt-4 flex flex-wrap gap-3">
-              {featured && (
-                <a className="btn" href={`/go/${l.id}?via=call`}>
-                  Call / Book
-                </a>
-              )}
               <a className="btn bg-sea" href={`/go/${l.id}?via=map`}>
                 Directions
               </a>
@@ -67,9 +61,6 @@ export default async function Page({ params }: P) {
                   Website
                 </a>
               )}
-              <a className="btn bg-sea" href={`/vcard/${l.id}.vcf`} download>
-                Save contact
-              </a>
             </div>
           )}
           {featured && (
@@ -81,6 +72,7 @@ export default async function Page({ params }: P) {
               ))}
             </div>
           )}
+          {!paid && <p className="mt-4 text-sm">Free listing · unverified.</p>}
         </div>
         <QrSection l={l} />
         {!featured && (
@@ -91,7 +83,10 @@ export default async function Page({ params }: P) {
             <h2 id="claim" className="text-xl font-semibold text-sea">
               Is this your business?
             </h2>
-            <p className="mt-2">Claim this listing to correct details, or upgrade to Starter, Featured or an ad.</p>
+            <p className="mt-2">
+              Claim this listing to correct details, or upgrade to Verified, Verified Plus or a Verified Ad.{" "}
+              {brand.badgeRule}
+            </p>
             <Link className="btn mt-4" href={`/upgrade?listing=${l.id}`}>
               Claim / upgrade this listing
             </Link>

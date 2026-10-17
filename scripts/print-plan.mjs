@@ -49,8 +49,8 @@ const csv = (rows) => rows.map((r) => r.map((v) => `"${String(v).replace(/"/g, '
 writeFileSync(
   new URL("../print/admenu.csv", import.meta.url),
   csv([
-    ["edition", "option", "term", "price", "founding", "print", "web", "qr"],
-    ...g.adMenu.map((o) => [g.brand.editionLabel, o.name, o.unit, o.price, o.founding, o.print, o.web, o.qr]),
+    ["edition", "option", "term", "price", "badge", "print", "web", "qr"],
+    ...g.adMenu.map((o) => [g.brand.editionLabel, o.name, o.unit, o.price, o.badge, o.print, o.web, o.qr]),
   ]),
 );
 console.log(
