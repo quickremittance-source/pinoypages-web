@@ -16,16 +16,14 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
       <PageHead
         kicker="Advertise"
         title={`Advertise in ${brand.editionName}`}
-        intro={`${open} of ${ads.length} ad spaces open. Every ad lives on its matching web page, and is shown in the printed proof copy for advertisers.`}
+        intro={`April 2027 edition (preview): ${open} of ${ads.length} ad spaces open. ${brand.adsNote} No ads are sold in the Pilot Edition.`}
       />
       <div className="mx-auto max-w-5xl space-y-8 px-4 py-8">
         <p className="rounded-xl bg-sand p-4">
-          <strong>{brand.pitch}</strong> {brand.productNote} You are buying web presence: your ad appears on its
-          matching page with a tap-to-open button to your listing page, and its QR (built into a fixed corner) brings
-          people from your own cards, flyers and signs to the same page. Every Verified Ad includes Verified Plus
-          (dynamic QR, ZCard bridge, Save contact, featured spot, counter card, monthly scan count). The printed edition
-          is a proof copy: you get your own copy showing your placement. {brand.badgeRule} We report counts; we do not
-          guarantee results.
+          <strong>{brand.pitch}</strong> {brand.productNote} The Pilot Edition has two tiers: Free, or Verified ($199,
+          everything included). {brand.adsNote} The ad spaces below show the April 2027 edition (preview): register
+          interest now and we will contact you when ad rates are announced. {brand.badgeRule} We report counts; we do
+          not guarantee results.
         </p>
         <PlanTable />
         <section aria-labelledby="inq">

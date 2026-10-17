@@ -6,7 +6,7 @@ const VIA = { scan: "scan", tap: "tap", call: "call", map: "map", web: "website"
 type Via = keyof typeof VIA;
 
 /**
- * Counted link for paid tiers. QR codes use /go/<id> (a scan); ?via=tap (ad tap-to-open), ?via=call (Verified Plus+
+ * Counted link for paid tiers. QR codes use /go/<id> (a scan); ?via=tap (ad tap-to-open), ?via=call (Verified
  * Call / Book), ?via=map (directions) and ?via=web (website). Each hit adds 1 to that listing's monthly count
  * (no personal data), then redirects.
  */

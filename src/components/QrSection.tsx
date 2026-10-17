@@ -6,7 +6,7 @@ import { goUrl } from "@/lib/qr";
 export const QR_USES = "one QR for your business cards, brochures, flyers, storefront signs and vehicle decals";
 const verified = adMenu.find((o) => o.id === "verified")!;
 
-/** Paid tiers: dynamic QR + files + scan count (+ counter card for Verified Plus and up). Free: upsell, no QR. */
+/** Paid tiers: dynamic QR + files + scan count (+ counter card; everything is included in Verified). Free: upsell, no QR. */
 export function QrSection({ l }: { l: Listing }) {
   if (!isPaid(l)) {
     return (

@@ -15,7 +15,7 @@ export function MirrorNote() {
   );
 }
 
-/** The pilot menu (X-style): Free · Verified · Verified Plus · Verified Ad (half / full). No add-ons or bundles. */
+/** The pilot menu: two tiers, Free and Verified ($199, everything included). No add-ons or bundles. */
 export function PlanTable() {
   return (
     <div className="space-y-3">
@@ -23,11 +23,25 @@ export function PlanTable() {
       <p className="rounded-xl border-l-4 border-phred bg-white p-4 font-bold" data-testid="badge-rule">
         {brand.badgeRule}
       </p>
-      <div className="overflow-x-auto" role="region" aria-label="Listing and ad options" tabIndex={0}>
+      <section
+        className="rounded-xl border-l-4 border-turqdk bg-white p-4"
+        data-testid="keep-rules"
+        aria-labelledby="keeph"
+      >
+        <h3 id="keeph" className="font-bold text-sea">
+          Keeping your badge
+        </h3>
+        <ul className="mt-1 list-disc pl-5 text-sm">
+          {brand.keepRules.map((r) => (
+            <li key={r}>{r}</li>
+          ))}
+        </ul>
+      </section>
+      <div className="overflow-x-auto" role="region" aria-label="Listing options" tabIndex={0}>
         <table className="w-full rounded-2xl bg-white text-left">
           <caption className="p-3 text-left text-sm">
-            Prices per issue, in CAD, plus applicable HST. Ads close {longDate(dates.adClose)}. Four choices: Free,
-            Verified, Verified Plus, or a Verified Ad (half or full page, includes Verified Plus).
+            Prices per issue, in CAD, plus applicable HST. Listings close {longDate(dates.adClose)}. Two choices: Free,
+            or Verified with everything included. {brand.adsNote}
           </caption>
           <thead className="bg-sea text-white">
             <tr>
@@ -58,7 +72,7 @@ export function PlanTable() {
                   {o.name}
                   {o.recommended && (
                     <span className="mt-1 block w-fit rounded bg-coral-dk px-2 py-0.5 text-xs text-white">
-                      Best seller
+                      Everything included
                     </span>
                   )}
                 </th>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { VerifiedKabayan, ZCardMark } from "@/components/Badge";
-import { isFeatured, isVerified, tierName, type Listing } from "@/lib/guide";
+import { badgeState, isFeatured, isVerified, tierName, type Listing } from "@/lib/guide";
 
 export function ListingCard({ l }: { l: Listing }) {
   if (l.tier === "free") {
@@ -23,6 +23,7 @@ export function ListingCard({ l }: { l: Listing }) {
       className={`rounded-xl p-4 ${featured ? "border-2 border-phred bg-white" : "border border-turqdk bg-white"}`}
       data-tier={l.tier}
       data-verified={isVerified(l) ? "yes" : "no"}
+      data-badge={badgeState(l)}
     >
       <div className="flex items-start gap-3">
         <span

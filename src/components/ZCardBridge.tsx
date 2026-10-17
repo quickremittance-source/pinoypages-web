@@ -1,5 +1,5 @@
 import { VerifiedKabayan, ZCardMark } from "@/components/Badge";
-import { brand, isFeatured, isVerified, type Listing } from "@/lib/guide";
+import { badgeState, brand, isFeatured, mutualPartners, type Listing } from "@/lib/guide";
 
 /**
  * ZCard bridge: the person behind a paid listing. QR scans land here. By design it has NO form, NO login, NO payment
@@ -7,6 +7,8 @@ import { brand, isFeatured, isVerified, type Listing } from "@/lib/guide";
  */
 export function ZCardBridge({ l }: { l: Listing }) {
   const z = l.zcard;
+  const state = badgeState(l);
+  const partners = mutualPartners(l);
   const initials = (z?.person ?? l.name)
     .split(" ")
     .slice(0, 2)
@@ -40,14 +42,27 @@ export function ZCardBridge({ l }: { l: Listing }) {
           )}
           <p className="text-sm">Languages: {l.languages}</p>
           <p className="mt-2">
-            {isVerified(l) ? (
+            {state === "active" ? (
               <VerifiedKabayan l={l} withDate />
+            ) : state === "paused" ? (
+              <span className="text-sm font-bold text-coral-dk" data-testid="vk-paused">
+                Badge paused pending review{l.badge?.pausedReason ? ` (${l.badge.pausedReason.toLowerCase()})` : ""}.
+              </span>
+            ) : state === "expired" ? (
+              <span className="text-sm font-bold text-ink" data-testid="vk-expired">
+                Badge expired: renew for the light re-check to restore it.
+              </span>
             ) : (
               <span className="text-sm font-bold text-ink" data-testid="verification-pending">
-                Verification visit pending: no badge until the visit is passed.
+                Verification pending: no badge until the visit is passed and one mutual vouch is confirmed.
               </span>
             )}
           </p>
+          {state === "active" && partners.length > 0 && (
+            <p className="mt-1 text-sm font-bold" data-testid="partner-stars">
+              <span aria-hidden="true">★</span> {partners.length} mutual partner{partners.length > 1 ? "s" : ""}
+            </p>
+          )}
         </div>
       </div>
       <div className="mt-4 flex flex-wrap gap-3">

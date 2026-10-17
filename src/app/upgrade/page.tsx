@@ -26,10 +26,10 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ l
           </h2>
           <p className="mt-2 font-bold">{brand.pitch}</p>
           <p className="mt-2">
-            {brand.productNote} Four choices: Free (name and contact only, unverified), Verified ($99 per issue: dynamic
-            QR, ZCard bridge page, Save contact, monthly scan count), Verified Plus ($199, best seller: adds a featured
-            spot and a QR counter card), or a Verified Ad ($350 half page, $600 full page, includes Verified Plus). Free
-            listings have no badge, QR, Save contact or ZCard.
+            {brand.productNote} Two choices: Free (name and contact only, unverified), or Verified ($199 per issue,
+            everything included: dynamic QR, ZCard with Save contact, featured spot, counter card, monthly scan report,
+            mutual partner stars). Free listings have no badge, QR, Save contact or ZCard, and can&apos;t give or
+            receive vouches.
           </p>
         </section>
         <PlanTable />

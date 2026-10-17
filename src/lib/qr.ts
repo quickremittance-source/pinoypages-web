@@ -52,7 +52,7 @@ export async function qrPdf(id: string, name: string) {
 }
 
 /**
- * QR counter card (Verified Plus and up): 4" x 6" portrait for a shop counter or desk. Full-bleed design so a
+ * QR counter card (every Verified listing): 4" x 6" portrait for a shop counter or desk. Full-bleed design so a
  * sticker swap is obvious; carries the badge only if earned, plus the QR-hygiene line.
  */
 export async function counterPdf(id: string) {

@@ -4,10 +4,10 @@ import { counterPdf, qrPdf, qrPng, qrSvg } from "@/lib/qr";
 export const dynamic = "force-static";
 export const dynamicParams = false;
 const FILES = ["qr.svg", "qr.png", "qr.pdf"];
-const COUNTER = "counter.pdf"; // Verified Plus and up
+const COUNTER = "counter.pdf"; // every Verified listing
 const filesFor = (l: (typeof listings)[number]) => (isFeatured(l) ? [...FILES, COUNTER] : FILES);
 
-/** QR files exist for paid tiers only (Verified and up); counter card for Verified Plus and up. Free has no QR. */
+/** QR files exist for paid tiers only (Verified); counter card included. Free has no QR. */
 export function generateStaticParams() {
   return listings.filter(isPaid).flatMap((l) => filesFor(l).map((file) => ({ id: l.id, file })));
 }

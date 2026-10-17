@@ -3,8 +3,20 @@ import data from "../../content/guide.json";
 /** ONE shared data source: the same JSON drives the website and the print flat plan (scripts/print-plan.mjs). */
 export type AdSize = "full" | "half";
 export type Ad = (typeof data.ads)[number] & { size: AdSize; listing: string; sample?: boolean };
-export type Tier = "free" | "verified" | "plus" | "half" | "full";
+export type Tier = "free" | "verified";
 export type ZCard = { person: string; role: string; completed: boolean };
+/** Badge upkeep record. "paused" = dead phone, closed business, lapsed vouch or a complaint under review. */
+export type BadgeStatus = "active" | "paused";
+export type BadgeRecord = {
+  status: BadgeStatus;
+  /** Listing ids this business vouches for. A vouch counts only when it is mutual (both sides list each other). */
+  vouches: string[];
+  /** Pilot: founding members are vouched for at the verification visit. */
+  foundingVouch?: boolean;
+  /** ISO date the last mutual vouch was removed; a 60-day grace period applies. */
+  vouchLostOn?: string | null;
+  pausedReason?: string;
+};
 export type Listing = {
   id: string;
   category: string;
@@ -20,6 +32,7 @@ export type Listing = {
   /** ISO date of the verification visit (paid tiers only). Paid = eligible; the visit earns the badge. */
   verifiedOn?: string | null;
   zcard?: ZCard;
+  badge?: BadgeRecord;
 };
 export type GuidePage = (typeof data.pages)[number] & { ad?: string; ad2?: string; toolQr?: string };
 
@@ -46,16 +59,47 @@ export type Section = {
 };
 export const sections = data.sections as Section[];
 export const listings = data.listings as Listing[];
-const rank: Record<Tier, number> = { full: 4, half: 3, plus: 2, verified: 1, free: 0 };
-/** Paid tiers (Verified and up) get the counted /go/ link, QR, ZCard bridge and Save contact. Free = unverified. */
-export const isPaid = (l?: Pick<Listing, "tier">) => !!l && l.tier !== "free";
-/** Verified Plus and up: featured spot, Call / Book, photos and a QR counter card. */
-export const isFeatured = (l?: Pick<Listing, "tier">) => !!l && rank[l.tier] >= rank.plus;
+const rank: Record<Tier, number> = { verified: 1, free: 0 };
+/** Two tiers. Verified ($199, everything included) gets the counted /go/ link, QR, ZCard, Save contact,
+ * featured spot, Call / Book, photos and a counter card. Free = unverified, name + contact only. */
+export const isPaid = (l?: Pick<Listing, "tier">) => !!l && l.tier === "verified";
+/** Kept for call sites: in the two-tier pilot every Verified listing is featured. */
+export const isFeatured = isPaid;
+
+const DAY = 86_400_000;
+export const BADGE_VALID_MONTHS = 12;
+export const VOUCH_GRACE_DAYS = 60;
+const addMonths = (iso: string, n: number) => {
+  const d = new Date(`${iso}T12:00:00Z`);
+  d.setUTCMonth(d.getUTCMonth() + n);
+  return d;
+};
+/** Mutual vouches: partners this listing vouches for that are Verified and vouch back. */
+export function mutualPartners(l: Listing, all: Listing[] = listings) {
+  return (l.badge?.vouches ?? [])
+    .map((id) => all.find((x) => x.id === id))
+    .filter((p): p is Listing => !!p && isPaid(p) && (p.badge?.vouches ?? []).includes(l.id));
+}
+export type BadgeState = "none" | "pending" | "active" | "paused" | "expired";
 /**
- * Verified Kabayan badge: never bought. Shown only when the listing is paid (eligible) AND the visit passed all three
- * checks (kabayan-owned/run, really trading, ZCard completed), recorded as verifiedOn + zcard.completed.
+ * Verified Kabayan badge state. Never bought: a Verified listing is only eligible. "active" needs
+ * the visit (verifiedOn + ZCard completed), one mutual vouch (or the pilot founding vouch, or a removed vouch
+ * still inside the 60-day grace period), status "active", and a verification date within the last 12 months.
  */
-export const isVerified = (l?: Listing) => !!l && isPaid(l) && !!l.verifiedOn && !!l.zcard?.completed;
+export function badgeState(l: Listing | undefined, now: Date = new Date(), all: Listing[] = listings): BadgeState {
+  if (!l || !isPaid(l)) return "none";
+  if (!l.verifiedOn || !l.zcard?.completed) return "pending";
+  if (l.badge?.status === "paused") return "paused";
+  if (now.getTime() >= addMonths(l.verifiedOn, BADGE_VALID_MONTHS).getTime()) return "expired";
+  const b = l.badge;
+  const inGrace =
+    !!b?.vouchLostOn && now.getTime() - new Date(`${b.vouchLostOn}T12:00:00Z`).getTime() <= VOUCH_GRACE_DAYS * DAY;
+  const vouched = !!b?.foundingVouch || mutualPartners(l, all).length > 0 || inGrace;
+  if (!vouched) return b?.vouchLostOn ? "paused" : "pending";
+  return b?.status === "active" ? "active" : "pending";
+}
+/** The badge shows only when the state is "active". */
+export const isVerified = (l?: Listing, now?: Date) => badgeState(l, now) === "active";
 /** Directions link (Google Maps search by business name + area; no address stored). */
 export const mapUrl = (l: Pick<Listing, "name" | "area">) =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${l.name}, ${l.area}, ON`)}`;

@@ -27,7 +27,7 @@ const contact = {
 
 const inquirySchema = z.object({
   ...contact,
-  product: z.enum(["verified", "plus", "half", "full"], { message: "Choose an option" }),
+  product: z.enum(["verified", "ad-2027"], { message: "Choose an option" }),
   slot: z.enum(slotIds).optional().or(z.literal("")),
   message: optional(z.string().trim().max(600)),
 });
@@ -35,7 +35,7 @@ const inquirySchema = z.object({
 const claimSchema = z.object({
   ...contact,
   listing: z.enum(listingIds).optional().or(z.literal("")),
-  plan: z.enum(["free", "verified", "plus", "half", "full"], { message: "Choose a plan" }),
+  plan: z.enum(["free", "verified"], { message: "Choose a plan" }),
   corrections: optional(z.string().trim().max(600)),
 });
 

@@ -84,7 +84,7 @@ export default async function Page({ params }: P) {
               Is this your business?
             </h2>
             <p className="mt-2">
-              Claim this listing to correct details, or upgrade to Verified, Verified Plus or a Verified Ad.{" "}
+              Claim this listing to correct details, or upgrade to Verified ($199, everything included).{" "}
               {brand.badgeRule}
             </p>
             <Link className="btn mt-4" href={`/upgrade?listing=${l.id}`}>

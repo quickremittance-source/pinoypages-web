@@ -7,9 +7,9 @@
     "siteUrl": "https://pinoypages.ca",
     "email": "info@pinoypages.ca",
     "utmCampaign": "pp2627",
-    "mirrorNote": "Your page on Pinoy Pages is the product, and the web mirror is included in every tier at no extra charge. Your QR connects your own cards, flyers, signs and counter card to that page.",
-    "reportNote": "Scan counts reported monthly for every Verified tier. No results are guaranteed.",
-    "printNote": "The printed edition is a short-run proof copy: one copy for each paid advertiser, plus sales copies. It is not sold or handed out to the public.",
+    "mirrorNote": "Your page on Pinoy Pages is the product, and the web page is included at no extra charge. Your QR connects your own cards, flyers, signs and counter card to that page.",
+    "reportNote": "Scan counts reported monthly for every Verified listing. No results are guaranteed.",
+    "printNote": "The printed edition is a short-run proof copy: one copy for each Verified listing, plus sales copies. It is not sold or handed out to the public.",
     "editionLabel": "2026–2027 Pilot Edition",
     "annualNote": "Pilot Edition (magazine + directory). Prices are per issue. The website is updated year-round.",
     "category": "Money & Business",
@@ -20,12 +20,20 @@
     "seasons": "Spring · Summer · Fall",
     "validity": "Released spring (April 16, 2027) and valid through summer and fall until the next edition.",
     "pilotLabel": "Pilot Edition",
-    "badgeRule": "Payment never buys the badge. Paid tiers are only eligible for Verified Kabayan; the badge is earned by a ~15-minute visit with three checks: kabayan-owned or run, really trading, ZCard completed.",
+    "badgeRule": "Payment never buys the badge. Verified makes a business eligible for Verified Kabayan; the badge is earned by four checks: a ~15-minute visit (kabayan-owned or run, really trading, ZCard completed) plus one mutual vouch from a verified business. Pilot: founding members are vouched for at the visit.",
     "qrLine": "Check the preview says pinoypages.ca before you tap.",
     "bridgeRule": "This page never asks for a login, a payment or personal information. Only “Save contact” and “Call”. If a page that looks like ours asks for more, do not enter anything and report it.",
     "zcardMark": "Digital card by ZCard",
     "region": "Greater Toronto Area",
-    "categoryLabel": "Category: Money & Business"
+    "categoryLabel": "Category: Money & Business",
+    "keepRules": [
+      "One year at a time: the badge is valid for one edition. A light re-check at renewal updates “Verified [date]”.",
+      "A vouch stays active: keep at least one mutual vouch. If it's removed, you have 60 days to replace it.",
+      "Details stay current: keep your phone and ZCard up to date. A dead phone or a closed business pauses the badge.",
+      "Renew to keep it: no renewal, no badge. The listing drops to Free.",
+      "Complaints are reviewed: a complaint pauses the badge while we review it."
+    ],
+    "adsNote": "Ads return in the April 2027 edition."
   },
   "dates": {
     "salesOpen": "2026-11-16",
@@ -44,67 +52,31 @@
       "print": "One text line in the proof copy",
       "web": "A text-only entry: business name and contact details",
       "qr": "No QR code",
-      "badge": "Not eligible (unverified)",
+      "badge": "Not eligible (unverified); can't give or receive vouches",
       "extras": [],
       "menu": "main"
     },
     {
       "id": "verified",
       "name": "Verified",
-      "price": 99,
-      "unit": "per issue (Pilot Edition)",
-      "tagline": "Badge-eligible listing with your own QR and ZCard bridge page.",
-      "print": "Listing with logo and the ✓ Verified Kabayan badge once earned",
-      "web": "Your own listing page with ZCard bridge section, Save contact, and the “Digital card by ZCard” mark",
-      "qr": "Dynamic QR to your web page (never goes stale) + monthly scan count",
-      "badge": "Eligible — earned by the verification visit",
-      "extras": [
-        "Verified Kabayan badge eligibility",
-        "Dynamic QR to your web page",
-        "ZCard bridge page",
-        "Save contact",
-        "Monthly scan count"
-      ],
-      "menu": "main"
-    },
-    {
-      "id": "plus",
-      "name": "Verified Plus",
       "price": 199,
       "unit": "per issue (Pilot Edition)",
       "recommended": true,
-      "tagline": "Everything in Verified, plus a featured spot and a counter card.",
-      "print": "Bold featured listing with logo near the top of your category",
-      "web": "Featured spot at the top of your category with Call / Book and photos",
-      "qr": "Everything in Verified + a printable QR counter card for your shop",
-      "badge": "Eligible — earned by the verification visit",
-      "extras": ["Everything in Verified", "Featured spot in your category", "QR counter card", "Call / Book button"],
-      "menu": "main"
-    },
-    {
-      "id": "half",
-      "name": "Verified Ad — half page",
-      "price": 350,
-      "unit": "per issue (Pilot Edition)",
-      "tagline": "A half-page ad that includes Verified Plus.",
-      "print": "Half-page ad with your QR and badge in the ad corner",
-      "web": "Your ad mirrored on its matching web page with a tap-to-open button",
-      "qr": "Everything in Verified Plus + QR in a fixed corner of your ad",
-      "badge": "Eligible — earned by the verification visit",
-      "extras": ["Everything in Verified Plus", "Half-page ad (print + web)", "QR + badge in the ad corner"],
-      "menu": "main"
-    },
-    {
-      "id": "full",
-      "name": "Verified Ad — full page",
-      "price": 600,
-      "unit": "per issue (Pilot Edition)",
-      "tagline": "A full-page ad that includes Verified Plus.",
-      "print": "Full-page ad with your QR and badge in the ad corner",
-      "web": "Your ad mirrored on its matching web page with a tap-to-open button",
-      "qr": "Everything in Verified Plus + QR in a fixed corner of your ad",
-      "badge": "Eligible — earned by the verification visit",
-      "extras": ["Everything in Verified Plus", "Full-page ad (print + web)", "QR + badge in the ad corner"],
+      "tagline": "One tier, everything included. Badge-eligible.",
+      "print": "Featured listing with logo and the ✓ Verified Kabayan badge once earned",
+      "web": "Your own web page: featured spot in your category, ZCard with Save contact, Call / Book, photos and the “Digital card by ZCard” mark",
+      "qr": "Dynamic QR to your web page (never goes stale) + QR counter card + monthly scan report",
+      "badge": "Eligible — earned by the visit (3 checks) + one mutual vouch",
+      "extras": [
+        "Verified Kabayan badge eligibility",
+        "Dynamic QR to your web page",
+        "ZCard with Save contact",
+        "Featured spot in your category",
+        "QR counter card",
+        "Monthly scan report",
+        "Mutual partner stars",
+        "Eligible for the awards"
+      ],
       "menu": "main"
     }
   ],
@@ -252,7 +224,7 @@
       "page": 19,
       "section": "upgrade",
       "part": "back",
-      "title": "Get listed / upgrade: Free, Verified, Verified Plus or Verified Ad",
+      "title": "Get listed / upgrade: Free or Verified",
       "route": "/upgrade",
       "ad": "slot-10"
     },
@@ -420,7 +392,7 @@
       "area": "Scarborough",
       "phone": "416-555-0101",
       "languages": "English, Tagalog",
-      "tier": "full",
+      "tier": "verified",
       "sample": true,
       "email": "tax-01@example.com",
       "tagline": "Personal & self-employed returns, done right",
@@ -430,6 +402,11 @@
         "person": "Sample Owner A",
         "role": "Tax preparer",
         "completed": true
+      },
+      "badge": {
+        "status": "active",
+        "vouches": ["ins-01"],
+        "foundingVouch": true
       }
     },
     {
@@ -461,7 +438,7 @@
       "area": "Etobicoke",
       "phone": "416-555-0201",
       "languages": "English, Tagalog",
-      "tier": "plus",
+      "tier": "verified",
       "sample": true,
       "email": "ins-01@example.com",
       "tagline": "Life, home & auto cover for Filipino families",
@@ -471,6 +448,11 @@
         "person": "Sample Owner B",
         "role": "Licensed insurance advisor",
         "completed": true
+      },
+      "badge": {
+        "status": "active",
+        "vouches": ["tax-01"],
+        "foundingVouch": false
       }
     },
     {
@@ -485,13 +467,37 @@
       "email": ""
     },
     {
+      "id": "ins-03",
+      "category": "insurance-financial",
+      "name": "Sample Insurance Advisor 03",
+      "area": "Etobicoke",
+      "phone": "416-555-0123",
+      "languages": "English, Tagalog",
+      "tier": "verified",
+      "sample": true,
+      "email": "ins03@example.com",
+      "tagline": "Life, home & auto cover for Filipino families",
+      "verifiedOn": "2026-11-23",
+      "zcard": {
+        "person": "Sample Owner E",
+        "role": "Insurance advisor",
+        "completed": true
+      },
+      "badge": {
+        "status": "paused",
+        "vouches": ["tax-01"],
+        "foundingVouch": false,
+        "pausedReason": "Complaint under review"
+      }
+    },
+    {
       "id": "biz-01",
       "category": "business-services",
       "name": "Sample Bookkeeping 01",
       "area": "Markham",
       "phone": "905-555-0301",
       "languages": "English, Tagalog",
-      "tier": "half",
+      "tier": "verified",
       "sample": true,
       "email": "biz-01@example.com",
       "tagline": "Bookkeeping, payroll & HST filing for small business",
@@ -501,6 +507,11 @@
         "person": "Sample Owner D",
         "role": "Bookkeeper",
         "completed": true
+      },
+      "badge": {
+        "status": "active",
+        "vouches": [],
+        "foundingVouch": true
       }
     },
     {
@@ -531,7 +542,12 @@
         "role": "Freelance designer",
         "completed": false
       },
-      "tagline": "Sample tagline — money services in English and Tagalog"
+      "tagline": "Sample tagline — money services in English and Tagalog",
+      "badge": {
+        "status": "active",
+        "vouches": [],
+        "foundingVouch": false
+      }
     },
     {
       "id": "ind-02",
@@ -564,7 +580,7 @@
     "outreachMonth": "November",
     "nextOnTimeDeadline": "2027-12-18",
     "foundingLockNote": "Pilot price locked: advertisers who renew on time keep their pilot tier price for the next edition.",
-    "memberNote": "Member renewal discount: existing paid members who renew by Dec 18 get a flat 20% off their locked price (e.g. Verified Plus $199 becomes $159). Not public; renewal letter and terms only.",
+    "memberNote": "Member renewal discount: existing paid members who renew by Dec 18 get a flat 20% off their locked price (e.g. Verified $199 becomes $159). Not public; renewal letter and terms only.",
     "public": false,
     "stacking": false,
     "validFor": "One renewal year (the next edition only); reviewed each edition.",
@@ -572,15 +588,20 @@
   },
   "terms": [
     "Pilot Edition: Pinoy Pages 2026–2027 (Category: Money & Business, Greater Toronto Area). The printed proof copy is released spring (April 16, 2027); the website is updated year-round.",
-    "Prices are per issue: Free; Verified $99; Verified Plus $199; Verified Ad half page $350 or full page $600 (an Ad includes Verified Plus). No add-ons, bundles or founding discounts in the pilot.",
-    "Verified Kabayan badge: payment never buys the badge. Paid tiers are only eligible; the badge is earned by a ~15-minute verification visit with three checks (kabayan-owned or run, really trading, ZCard completed). We may withhold or remove the badge if a check fails; the paid listing continues without it.",
-    "Free listings are unverified: name and contact only, with no badge, no QR code, no Save contact button and no ZCard.",
+    "Prices are per issue: Free, or Verified $199 with everything included. No add-ons, bundles or founding discounts in the pilot. Ads return in the April 2027 edition.",
+    "Verified Kabayan badge: payment never buys the badge. Verified listings are only eligible; the badge is earned by four checks: a ~15-minute verification visit (kabayan-owned or run, really trading, ZCard completed) plus one mutual vouch from a verified business, confirmed by both. In the pilot, founding members are vouched for at the visit. We may withhold the badge if a check fails; the Verified listing continues without it.",
+    "Free listings are unverified: name and contact only, with no badge, no QR code, no Save contact button, no ZCard, and they can't give or receive vouches.",
+    "Keeping your badge — validity: the badge is valid for one edition (12 months from the verification date). A light re-check at renewal updates the “Verified [date]”.",
+    "Keeping your badge — vouch: at least one mutual vouch must stay active. If a vouch is removed, you have a 60-day grace period to replace it; after that the badge is paused.",
+    "Keeping your badge — current details: contact details and the ZCard must stay current. A dead phone number or a closed business pauses the badge.",
+    "Keeping your badge — renewal: if you don't renew, the badge is removed and the listing drops to a Free listing.",
+    "Keeping your badge — complaints: a complaint pauses the badge pending review. Paused badges are not shown.",
     "QR codes always resolve through pinoypages.ca. Our pages never ask for a login, a payment or personal information.",
     "Pilot price lock: advertisers who renew on time (paid by December 18 each year) keep their pilot tier price for the next edition.",
-    "Member renewal discount: existing paid members who renew by the on-time date (December 18) get a flat 20% off their locked price for the next edition (e.g. Verified Plus $199 becomes $159). Existing members only; not available to new sign-ups; does not stack or compound; valid for one renewal year and reviewed each edition.",
+    "Member renewal discount: existing paid members who renew by the on-time date (December 18) get a flat 20% off their locked price for the next edition (e.g. Verified $199 becomes $159). Existing members only; not available to new sign-ups; does not stack or compound; valid for one renewal year and reviewed each edition.",
     "Late renewal: renewals after the on-time date are charged the current regular price and lose the price lock and member discount.",
     "Website mirror: your online presence mirrors your print presence and is included free in every tier.",
-    "No guarantee of results: we report scan counts monthly (Verified and up). We do not promise any number of leads, calls, sales or visitors.",
+    "No guarantee of results: we report scan counts monthly (Verified). We do not promise any number of leads, calls, sales or visitors.",
     "Printed edition: a short-run proof copy for advertisers (one copy per paid advertiser) and a sales brochure for prospects. It is not sold or handed out to the public. If it does not print, print ad fees are refunded.",
     "Prices are in CAD, plus applicable HST. Draft terms, to be reviewed by a lawyer before launch."
   ],
