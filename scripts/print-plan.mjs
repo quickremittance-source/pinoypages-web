@@ -1,4 +1,5 @@
-// Builds the print flat plan + QR target list from the SAME data the website uses.
+// Reusable YEARLY template: page order, sections and QR targets come from guide.json; the edition label,
+// dates and UTM campaign roll forward each year (see scripts/new-edition.mjs). Builds the print flat plan + QR target list from the SAME data the website uses.
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 const g = JSON.parse(readFileSync(new URL("../content/guide.json", import.meta.url)));
 const base = process.env.NEXT_PUBLIC_SITE_URL ?? g.brand.siteUrl;
@@ -30,14 +31,28 @@ writeFileSync(
 );
 writeFileSync(
   new URL("../print/print-data.json", import.meta.url),
-  JSON.stringify({ brand: g.brand, adMenu: g.adMenu, pages: rows.slice(1), listings }, null, 2),
+  JSON.stringify(
+    {
+      edition: g.brand.editionLabel,
+      brand: g.brand,
+      renewal: g.renewal,
+      terms: g.terms,
+      adMenu: g.adMenu,
+      pages: rows.slice(1),
+      listings,
+    },
+    null,
+    2,
+  ),
 );
 const csv = (rows) => rows.map((r) => r.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(",")).join("\n") + "\n";
 writeFileSync(
   new URL("../print/admenu.csv", import.meta.url),
   csv([
-    ["option", "price", "founding", "print", "web", "qr"],
-    ...g.adMenu.map((o) => [o.name, o.price, o.founding, o.print, o.web, o.qr]),
+    ["edition", "option", "term", "price", "founding", "print", "web", "qr"],
+    ...g.adMenu.map((o) => [g.brand.editionLabel, o.name, o.unit, o.price, o.founding, o.print, o.web, o.qr]),
   ]),
 );
-console.log(`print/flatplan.csv: ${rows.length - 1} pages, ${g.ads.length} ad slots, ${g.listings.length} listings`);
+console.log(
+  `${g.brand.editionLabel} print/flatplan.csv: ${rows.length - 1} pages, ${g.ads.length} ad slots, ${g.listings.length} listings`,
+);

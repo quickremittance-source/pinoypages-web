@@ -2,14 +2,17 @@ import type { Metadata } from "next";
 import { PageHead } from "@/components/Chrome";
 import { HstTool } from "./HstTool";
 
-export const metadata: Metadata = { title: "Do I need to register for HST?", alternates: { canonical: "/tools/hst" } };
+export const metadata: Metadata = {
+  title: "Do I need to register for HST?",
+  alternates: { canonical: "/tools/hst-checker" },
+};
 
 export default function Page() {
   return (
     <>
       <PageHead
         kicker="Free tool"
-        page={4}
+        page={5}
         title="Do I need to register for HST?"
         intro="Enter your sales for each of the last four calendar quarters. Based on CRA's $30,000 small-supplier rule."
       />

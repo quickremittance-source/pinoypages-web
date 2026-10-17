@@ -1,6 +1,13 @@
 import { defineConfig, devices } from "@playwright/test";
 
 const PORT = 3200;
+/** Test-only secrets for the signed results links and the admin table (never used outside tests). */
+export const TEST_ENV = {
+  ANALYTICS_SECRET: "test-secret-not-for-production",
+  ADMIN_KEY: "test-admin-key",
+  ANALYTICS_STORE: "json",
+  ANALYTICS_FILE: "data/analytics.test.json",
+};
 
 export default defineConfig({
   testDir: "./tests",
@@ -24,5 +31,6 @@ export default defineConfig({
     url: `http://localhost:${PORT}`,
     reuseExistingServer: !process.env.CI,
     timeout: 60_000,
+    env: TEST_ENV,
   },
 });

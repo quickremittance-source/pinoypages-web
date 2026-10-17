@@ -3,7 +3,7 @@ import { PageHead } from "@/components/Chrome";
 import { AdGrid } from "@/components/AdCard";
 import { InquiryForm } from "@/components/Forms";
 import { PlanTable } from "@/components/PlanTable";
-import { adsForRoute, ads } from "@/lib/guide";
+import { adsForRoute, ads, brand } from "@/lib/guide";
 
 export const metadata: Metadata = { title: "Advertise", alternates: { canonical: "/advertise" } };
 
@@ -15,15 +15,16 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
     <>
       <PageHead
         kicker="Advertise"
-        page={19}
-        title="Advertise in the guide"
-        intro={`${open} of ${ads.length} ad spaces open. Every ad runs in print and on the matching web page.`}
+        title={`Advertise in ${brand.editionName}`}
+        intro={`${open} of ${ads.length} ad spaces open. Every ad lives on its matching web page, and is shown in the printed proof copy for advertisers.`}
       />
       <div className="mx-auto max-w-5xl space-y-8 px-4 py-8">
         <p className="rounded-xl bg-sand p-4">
-          Every Featured listing and ad includes the <strong>QR Kit</strong>: a branded QR for your cards, brochures,
-          flyers, storefront signs and vehicle decals, with a monthly scan count. Not ready for an ad? The QR Kit alone
-          is $99/yr ($79 founding).
+          <strong>{brand.pitch}</strong> {brand.productNote} You are buying web presence: your ad appears on its
+          matching page with a tap-to-open button to your listing page, and its QR (built into a fixed corner) brings
+          people from your own cards, flyers and signs to the same page. Every ad includes Featured (branded QR, Save
+          contact, monthly counts). The printed guide is a proof copy: you get your own copy showing your placement,
+          plus a year-end summary of your scan and click counts. We report counts; we do not guarantee results.
         </p>
         <PlanTable />
         <section aria-labelledby="inq">

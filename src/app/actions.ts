@@ -4,6 +4,9 @@ import { z } from "zod";
 import { appendFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import { ads, listings } from "@/lib/guide";
+import { saveContact, type ListKey } from "@/lib/contacts";
+
+const urlOk = z.url("Enter a full link starting with https://").max(300);
 
 export type FormState =
   | { status: "idle" }
@@ -24,7 +27,7 @@ const contact = {
 
 const inquirySchema = z.object({
   ...contact,
-  product: z.enum(["qrkit", "featured", "half", "full"], { message: "Choose an option" }),
+  product: z.enum(["starter", "featured", "half", "full", "sponsor"], { message: "Choose an option" }),
   slot: z.enum(slotIds).optional().or(z.literal("")),
   message: optional(z.string().trim().max(600)),
 });
@@ -32,7 +35,7 @@ const inquirySchema = z.object({
 const claimSchema = z.object({
   ...contact,
   listing: z.enum(listingIds).optional().or(z.literal("")),
-  plan: z.enum(["free", "qrkit", "featured", "half", "full"], { message: "Choose a plan" }),
+  plan: z.enum(["free", "starter", "featured", "half", "full"], { message: "Choose a plan" }),
   corrections: optional(z.string().trim().max(600)),
 });
 
@@ -53,6 +56,14 @@ async function store(kind: string, data: Record<string, unknown>) {
   }
 }
 
+/** Source tag for the contacts adapter: form name + utm_source passed through a hidden field. */
+const src = (form: string, fd: FormData) => {
+  const utm = String(fd.get("utm_source") ?? "")
+    .replace(/[^\w-]/g, "")
+    .slice(0, 40);
+  return `form:${form}${utm ? `|utm:${utm}` : ""}`;
+};
+
 function parse<T extends z.ZodTypeAny>(schema: T, fd: FormData) {
   return schema.safeParse(Object.fromEntries(fd));
 }
@@ -67,6 +78,15 @@ export async function submitInquiry(_p: FormState, fd: FormData): Promise<FormSt
       fieldErrors: z.flattenError(r.error).fieldErrors,
     };
   await store("ad-inquiry", r.data);
+  await saveContact({
+    email: r.data.email,
+    name: r.data.name,
+    business: r.data.business,
+    phone: r.data.phone,
+    lists: ["prospects"],
+    source: src("advertise", fd),
+    attributes: { INTEREST: r.data.product },
+  });
   return {
     status: "success",
     message: "Thanks! We received your request and will contact you within 2 business days.",
@@ -83,5 +103,83 @@ export async function submitClaim(_p: FormState, fd: FormData): Promise<FormStat
       fieldErrors: z.flattenError(r.error).fieldErrors,
     };
   await store("listing-claim", r.data);
+  const lists: ListKey[] = ["claimed"];
+  if (r.data.plan !== "free") lists.push("prospects");
+  await saveContact({
+    email: r.data.email,
+    name: r.data.name,
+    business: r.data.business,
+    phone: r.data.phone,
+    lists,
+    source: src("upgrade", fd),
+    attributes: { LISTING: r.data.listing ?? "", PLAN: r.data.plan },
+  });
   return { status: "success", message: "Thanks! We'll verify your listing and send your proof page." };
+}
+
+const eventSchema = z.object({
+  eventName: z.string().trim().min(3, "Enter the event name").max(140),
+  date: z.iso.date("Choose a date"),
+  time: optional(z.string().trim().max(40)),
+  place: z.string().trim().min(2, "Enter the place").max(140),
+  organizer: z.string().trim().min(2, "Enter the organizer").max(120),
+  email: z.email("Enter a valid email").max(200),
+  phone: optional(z.string().trim().max(40)),
+  plan: z.enum(["event-free", "event-featured"], { message: "Choose free or featured" }),
+  memberListing: z.enum(listingIds).optional().or(z.literal("")),
+  description: optional(z.string().trim().max(600)),
+  link: urlOk.optional().or(z.literal("")),
+  consent: z.literal("on", { message: "Please agree so we can contact you" }),
+});
+
+/** Event submissions for the Money & Business Calendar (stored locally; reviewed before publishing). */
+export async function submitEvent(_p: FormState, fd: FormData): Promise<FormState> {
+  if (String(fd.get("website_url") ?? "")) return { status: "success", message: "Thanks!" };
+  const r = parse(eventSchema, fd);
+  if (!r.success)
+    return {
+      status: "error",
+      message: "Please fix the highlighted fields.",
+      fieldErrors: z.flattenError(r.error).fieldErrors,
+    };
+  const member = listings.find((l) => l.id === r.data.memberListing && l.tier !== "free");
+  await store("event-submission", { ...r.data, memberFree: r.data.plan === "event-featured" && !!member });
+  await saveContact({
+    email: r.data.email,
+    name: r.data.organizer,
+    phone: r.data.phone,
+    lists: ["event-organizers"],
+    source: src("event", fd),
+    attributes: { EVENT_PLAN: r.data.plan },
+  });
+  return {
+    status: "success",
+    message:
+      r.data.plan === "event-featured"
+        ? member
+          ? "Thanks! As a member your featured event is free. We'll review it and confirm by email."
+          : "Thanks! We'll review your event and send a $49 invoice for the featured upgrade."
+        : "Thanks! We'll review your free event listing and confirm by email.",
+  };
+}
+
+const signupSchema = z.object({
+  name: optional(z.string().trim().max(120)),
+  email: z.email("Enter a valid email").max(200),
+  consent: z.literal("on", { message: "Please agree so we can email you" }),
+});
+
+/** Monthly member email sign-up (newsletter list). Explicit consent required (CASL). */
+export async function submitSignup(_p: FormState, fd: FormData): Promise<FormState> {
+  if (String(fd.get("website_url") ?? "")) return { status: "success", message: "Thanks!" };
+  const r = parse(signupSchema, fd);
+  if (!r.success)
+    return {
+      status: "error",
+      message: "Please fix the highlighted fields.",
+      fieldErrors: z.flattenError(r.error).fieldErrors,
+    };
+  await store("newsletter-signup", r.data);
+  await saveContact({ email: r.data.email, name: r.data.name, lists: ["newsletter"], source: src("signup", fd) });
+  return { status: "success", message: "Salamat! You're on the list for the monthly member email." };
 }

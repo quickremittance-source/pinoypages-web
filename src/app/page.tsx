@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { AdGrid } from "@/components/AdCard";
 import { JsonLd } from "@/components/JsonLd";
-import { adsForRoute, brand, dates, longDate, pages, SITE_URL } from "@/lib/guide";
+import { adsForRoute, brand, pages, SITE_URL } from "@/lib/guide";
 
 export default function Home() {
   const contents = pages.filter((p) => p.section !== "ad" && p.section !== "cover");
@@ -16,8 +16,8 @@ export default function Home() {
           </h1>
           <p className="mt-4 max-w-2xl text-xl">{brand.tagline}.</p>
           <p className="mt-4 max-w-2xl">
-            This site mirrors the printed guide page for page. Every QR code in print opens the matching page here.
-            Printed edition: {longDate(dates.inPrint)}.
+            Find Filipino-serving tax, accounting, insurance and business pros in the GTA, plus free money tools and
+            deadlines.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link className="btn" href="/directory">

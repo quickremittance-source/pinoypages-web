@@ -1,18 +1,31 @@
 {
   "brand": {
-    "name": "Pinoy Pages Pera",
-    "short": "Pera",
-    "tagline": "Money & Finance guide for Filipino families, freelancers and small businesses in the GTA",
-    "edition": "2027",
-    "siteUrl": "https://pera.pinoypages.ca",
+    "name": "Pinoy Pages",
+    "short": "Pinoy Pages",
+    "tagline": "The Filipino Money & Business Directory",
+    "edition": "2026–2027",
+    "siteUrl": "https://money.pinoypages.ca",
     "email": "info@pinoypages.ca",
-    "utmCampaign": "pera2027"
+    "utmCampaign": "pp2627",
+    "mirrorNote": "Your page on Pinoy Pages is the product, and it is included in every tier at no extra charge. Your QR connects your own cards, flyers, signs and decals to that page.",
+    "reportNote": "Scan and click counts reported monthly (Starter and up). No results are guaranteed.",
+    "printNote": "The printed edition is a short-run proof copy for advertisers and a sales brochure for prospects (100 copies). It is not sold or handed out to the public.",
+    "editionLabel": "2026–2027 Edition",
+    "annualNote": "Annual edition (magazine + directory): one printed edition per year, website updated year-round. All paid choices are 12-month terms that renew with each edition.",
+    "category": "Money & Business",
+    "eventNote": "Official deadlines come from Canada Revenue Agency pages. 2027 dates follow CRA's published rules; confirm each on canada.ca when CRA posts its 2027 list.",
+    "editionName": "Pinoy Pages 2026–2027",
+    "pitch": "Get your business in Pinoy Pages 2026–2027 — online all year, with a QR code that brings customers to your page.",
+    "productNote": "The website is the product. Print is the proof copy (100 copies).",
+    "seasons": "Spring · Summer · Fall",
+    "validity": "Released spring (April 16, 2027) and valid through summer and fall until the next edition."
   },
   "dates": {
     "salesOpen": "2026-11-16",
     "earlyBirdEnds": "2026-12-18",
     "adClose": "2027-02-26",
-    "inPrint": "2027-04-16"
+    "inPrint": "2027-04-16",
+    "siteLive": "2026-11-09"
   },
   "adMenu": [
     {
@@ -20,176 +33,238 @@
       "name": "Free listing",
       "price": 0,
       "founding": 0,
-      "print": "Name, phone and category on a listings page",
-      "web": "Directory listing with QR link",
-      "qr": "Basic plain QR code to your listing page (PNG/SVG)"
+      "unit": "",
+      "print": "Shown as one line in the proof copy",
+      "web": "A basic entry in the online directory: name + contact details (same one line as print)",
+      "qr": "No QR code",
+      "extras": [],
+      "menu": "main"
     },
     {
-      "id": "qrkit",
-      "name": "QR Kit add-on",
+      "id": "starter",
+      "name": "Starter QR",
       "price": 99,
       "founding": 79,
-      "unit": "per year",
-      "print": "—",
-      "web": "Branded QR to your listing",
-      "qr": "Branded QR + print-ready files for business cards, brochures, flyers, storefront signs and vehicle decals (PNG/SVG/PDF) + monthly scan count"
+      "unit": "12-month listing, renews each edition",
+      "print": "One line + ✓ Verified in the proof copy",
+      "web": "Your own verified listing page with a Save contact button; scan and click counts reported monthly",
+      "qr": "Branded QR to your page (counted /go/ link) + print-ready files for business cards, brochures, signs and vehicle decals",
+      "extras": [
+        "Branded QR code",
+        "Print-ready files",
+        "Monthly scan count",
+        "Save contact button",
+        "Verified badge"
+      ],
+      "menu": "addon"
     },
     {
       "id": "featured",
-      "name": "Featured listing",
+      "name": "Featured",
       "price": 390,
       "founding": 299,
-      "print": "Bold listing with a star",
-      "web": "Top of your category, photo, link and monthly report",
-      "qr": "QR Kit INCLUDED: branded QR + print-ready files + monthly scan count"
+      "unit": "12-month listing, renews each edition",
+      "print": "Bold listing with logo and tagline in the proof copy",
+      "web": "Top of your category with logo, tagline, photos, Call / Book, Save contact and a Verified badge; scan and click counts reported monthly",
+      "qr": "Branded QR to your page (counted link) + print-ready files for cards, brochures, signs and vehicle decals",
+      "extras": [
+        "Branded QR code + print-ready files",
+        "Save contact button",
+        "Monthly scan and click counts",
+        "Bold listing with logo in print",
+        "Top of category online with photos and Call / Book"
+      ],
+      "menu": "main"
     },
     {
       "id": "half",
       "name": "Half-page ad",
       "price": 450,
       "founding": 360,
-      "print": "Half page + printed copies",
-      "web": "Banner card on the matching page + Featured for 3 months",
-      "qr": "QR Kit INCLUDED: branded QR + print-ready files + monthly scan count"
+      "unit": "12-month listing, renews each edition",
+      "print": "Half-page ad in the proof copy, your own printed copy, and a year-end scan and click summary",
+      "web": "Your ad on its matching web page with a tap-to-open button to your listing page; scan and click counts reported monthly",
+      "qr": "Everything in Featured, plus the QR built into a fixed corner of your ad (print and web)",
+      "extras": [
+        "Everything in Featured",
+        "Your ad on the web + in the proof copy",
+        "QR built into a fixed corner",
+        "Printed copy",
+        "Year-end scan & click summary"
+      ],
+      "menu": "main"
     },
     {
       "id": "full",
       "name": "Full-page ad",
       "price": 850,
       "founding": 690,
-      "print": "Full page + printed copies",
-      "web": "Large card on the matching page + Featured for 3 months",
-      "qr": "QR Kit INCLUDED: branded QR + print-ready files + monthly scan count"
+      "unit": "12-month listing, renews each edition",
+      "print": "Full-page ad in the proof copy, your own printed copy, and a year-end scan and click summary",
+      "web": "Your ad on its matching web page with a tap-to-open button to your listing page; scan and click counts reported monthly",
+      "qr": "Everything in Featured, plus the QR built into a fixed corner of your ad (print and web)",
+      "extras": [
+        "Everything in Featured",
+        "Your ad on the web + in the proof copy",
+        "QR built into a fixed corner",
+        "Printed copy",
+        "Year-end scan & click summary"
+      ],
+      "menu": "main"
     }
   ],
   "pages": [
     {
       "page": 1,
       "section": "cover",
-      "title": "Cover",
-      "route": "/"
+      "part": "cover",
+      "title": "Cover: Pinoy Pages 2026–2027 • Spring · Summer · Fall — The Filipino Money & Business Directory",
+      "route": "/edition"
     },
     {
       "page": 2,
-      "section": "welcome",
-      "title": "Welcome & how to use the QR codes",
-      "route": "/"
+      "section": "magazine",
+      "part": "magazine",
+      "title": "Welcome",
+      "route": "/magazine/welcome"
     },
     {
       "page": 3,
       "section": "ad",
+      "part": "magazine",
       "title": "Full-page ad",
-      "route": "/",
+      "route": "/magazine",
       "ad": "slot-01"
     },
     {
       "page": 4,
-      "section": "tool",
-      "title": "Do I need to register for HST?",
-      "route": "/tools/hst"
+      "section": "magazine",
+      "part": "magazine",
+      "title": "2027 tax season: the deadlines that matter (for your 2026 return)",
+      "route": "/magazine/tax-deadlines-2027",
+      "ad": "slot-02",
+      "toolQr": "/tax-deadlines"
     },
     {
       "page": 5,
-      "section": "tool",
-      "title": "Self-employed CPP estimator",
-      "route": "/tools/cpp"
+      "section": "magazine",
+      "part": "magazine",
+      "title": "Do I need to register for HST? The $30,000 small supplier rule, explained + HST checker",
+      "route": "/magazine/do-i-need-hst",
+      "toolQr": "/tools/hst-checker"
     },
     {
       "page": 6,
-      "section": "deadlines",
-      "title": "2027 deadlines & checklist",
-      "route": "/deadlines",
-      "ad": "slot-02"
+      "section": "magazine",
+      "part": "magazine",
+      "title": "Self-employed in Canada: CPP contributions explained (2026 tax year) + CPP estimator",
+      "route": "/magazine/cpp-self-employed",
+      "toolQr": "/tools/cpp-estimator"
     },
     {
       "page": 7,
       "section": "ad",
+      "part": "magazine",
       "title": "Full-page ad",
-      "route": "/deadlines",
+      "route": "/magazine",
       "ad": "slot-03"
     },
     {
       "page": 8,
-      "section": "listings",
-      "title": "Tax & accounting",
-      "route": "/directory/tax-accounting"
+      "section": "magazine",
+      "part": "magazine",
+      "title": "Newcomer's first Canadian tax return: a checklist",
+      "route": "/magazine/newcomer-first-tax-return",
+      "ad": "slot-04"
     },
     {
       "page": 9,
-      "section": "listings",
-      "title": "Insurance & financial advisors",
-      "route": "/directory/insurance-financial"
+      "section": "magazine",
+      "part": "magazine",
+      "title": "Benefits Filipino families often miss, and why filing matters",
+      "route": "/magazine/benefits-families-miss"
     },
     {
       "page": 10,
-      "section": "listings",
-      "title": "Bookkeeping & business services",
-      "route": "/directory/business-services"
+      "section": "magazine",
+      "part": "magazine",
+      "title": "How to choose a tax preparer: red flags and questions to ask",
+      "route": "/magazine/choose-tax-preparer",
+      "ad": "slot-05"
     },
     {
       "page": 11,
-      "section": "listings",
-      "title": "Independent pros & freelancers",
-      "route": "/directory/independents"
+      "section": "calendar",
+      "part": "magazine",
+      "title": "Money & Business Calendar",
+      "route": "/calendar",
+      "ad": "slot-cal"
     },
     {
       "page": 12,
       "section": "ad",
-      "title": "Two half-page ads",
-      "route": "/directory",
-      "ad": "slot-04",
-      "ad2": "slot-05"
-    },
-    {
-      "page": 13,
-      "section": "ad",
+      "part": "magazine",
       "title": "Full-page ad",
-      "route": "/directory",
+      "route": "/magazine",
       "ad": "slot-06"
     },
     {
+      "page": 13,
+      "section": "directory",
+      "part": "directory",
+      "title": "Directory: Tax & accounting",
+      "route": "/directory/tax-accounting"
+    },
+    {
       "page": 14,
-      "section": "destination",
-      "title": "Boracay",
-      "route": "/destinations/boracay"
+      "section": "directory",
+      "part": "directory",
+      "title": "Directory: Insurance, banking & mortgage",
+      "route": "/directory/insurance-financial"
     },
     {
       "page": 15,
-      "section": "destination",
-      "title": "Palawan",
-      "route": "/destinations/palawan"
+      "section": "directory",
+      "part": "directory",
+      "title": "Directory: Bookkeeping & business services",
+      "route": "/directory/business-services"
     },
     {
       "page": 16,
-      "section": "destination",
-      "title": "Cebu & Bohol",
-      "route": "/destinations/cebu-bohol"
+      "section": "directory",
+      "part": "directory",
+      "title": "Directory: Independent pros · Money transfer & remittance",
+      "route": "/directory/independents"
     },
     {
       "page": 17,
       "section": "ad",
-      "title": "Full-page ad",
-      "route": "/destinations",
-      "ad": "slot-07"
+      "part": "directory",
+      "title": "Two half-page ads",
+      "route": "/directory",
+      "ad": "slot-07",
+      "ad2": "slot-08"
     },
     {
       "page": 18,
       "section": "ad",
-      "title": "Two half-page ads",
-      "route": "/destinations",
-      "ad": "slot-08",
-      "ad2": "slot-09"
+      "part": "directory",
+      "title": "Full-page ad",
+      "route": "/directory",
+      "ad": "slot-09"
     },
     {
       "page": 19,
-      "section": "advertise",
-      "title": "Get listed / advertise",
-      "route": "/advertise",
+      "section": "upgrade",
+      "part": "back",
+      "title": "Get listed / upgrade: Free, Featured or Ad (+ add-ons)",
+      "route": "/upgrade",
       "ad": "slot-10"
     },
     {
       "page": 20,
       "section": "ad",
+      "part": "back",
       "title": "Back cover full-page ad",
       "route": "/",
       "ad": "slot-11"
@@ -199,11 +274,13 @@
     {
       "id": "slot-01",
       "size": "full",
-      "status": "open",
-      "advertiser": "",
-      "headline": "",
-      "body": "",
-      "url": ""
+      "status": "sold",
+      "advertiser": "Sample Tax Preparer 01",
+      "headline": "SAMPLE AD — Tax season made easy",
+      "body": "Personal and self-employed returns in English and Tagalog. This is a sample ad to show how a sold full page appears online.",
+      "url": "",
+      "listing": "tax-01",
+      "sample": true
     },
     {
       "id": "slot-02",
@@ -212,7 +289,8 @@
       "advertiser": "",
       "headline": "",
       "body": "",
-      "url": ""
+      "url": "",
+      "listing": ""
     },
     {
       "id": "slot-03",
@@ -221,7 +299,8 @@
       "advertiser": "",
       "headline": "",
       "body": "",
-      "url": ""
+      "url": "",
+      "listing": ""
     },
     {
       "id": "slot-04",
@@ -230,7 +309,8 @@
       "advertiser": "",
       "headline": "",
       "body": "",
-      "url": ""
+      "url": "",
+      "listing": ""
     },
     {
       "id": "slot-05",
@@ -239,7 +319,8 @@
       "advertiser": "",
       "headline": "",
       "body": "",
-      "url": ""
+      "url": "",
+      "listing": ""
     },
     {
       "id": "slot-06",
@@ -248,16 +329,18 @@
       "advertiser": "",
       "headline": "",
       "body": "",
-      "url": ""
+      "url": "",
+      "listing": ""
     },
     {
       "id": "slot-07",
-      "size": "full",
+      "size": "half",
       "status": "open",
       "advertiser": "",
       "headline": "",
       "body": "",
-      "url": ""
+      "url": "",
+      "listing": ""
     },
     {
       "id": "slot-08",
@@ -266,16 +349,18 @@
       "advertiser": "",
       "headline": "",
       "body": "",
-      "url": ""
+      "url": "",
+      "listing": ""
     },
     {
       "id": "slot-09",
-      "size": "half",
+      "size": "full",
       "status": "open",
       "advertiser": "",
       "headline": "",
       "body": "",
-      "url": ""
+      "url": "",
+      "listing": ""
     },
     {
       "id": "slot-10",
@@ -284,7 +369,8 @@
       "advertiser": "",
       "headline": "",
       "body": "",
-      "url": ""
+      "url": "",
+      "listing": ""
     },
     {
       "id": "slot-11",
@@ -293,29 +379,46 @@
       "advertiser": "",
       "headline": "",
       "body": "",
-      "url": ""
+      "url": "",
+      "listing": ""
+    },
+    {
+      "id": "slot-cal",
+      "size": "half",
+      "status": "open",
+      "advertiser": "",
+      "headline": "",
+      "body": "",
+      "url": "",
+      "listing": "",
+      "sponsor": "calendar"
     }
   ],
   "categories": [
     {
       "slug": "tax-accounting",
       "name": "Tax & accounting",
-      "page": 8
+      "page": 13
     },
     {
       "slug": "insurance-financial",
-      "name": "Insurance & financial advisors",
-      "page": 9
+      "name": "Insurance, banking & mortgage",
+      "page": 14
     },
     {
       "slug": "business-services",
       "name": "Bookkeeping & business services",
-      "page": 10
+      "page": 15
     },
     {
       "slug": "independents",
       "name": "Independent pros & freelancers",
-      "page": 11
+      "page": 16
+    },
+    {
+      "slug": "remittance",
+      "name": "Money transfer & remittance",
+      "page": 16
     }
   ],
   "listings": [
@@ -327,7 +430,10 @@
       "phone": "416-555-0101",
       "languages": "English, Tagalog",
       "tier": "featured",
-      "sample": true
+      "sample": true,
+      "email": "tax-01@example.com",
+      "tagline": "Personal & self-employed returns, done right",
+      "website": "https://example.com/tax-01"
     },
     {
       "id": "tax-02",
@@ -337,7 +443,8 @@
       "phone": "905-555-0102",
       "languages": "English, Tagalog",
       "tier": "free",
-      "sample": true
+      "sample": true,
+      "email": ""
     },
     {
       "id": "tax-03",
@@ -347,7 +454,8 @@
       "phone": "416-555-0103",
       "languages": "English, Ilocano",
       "tier": "free",
-      "sample": true
+      "sample": true,
+      "email": ""
     },
     {
       "id": "ins-01",
@@ -357,7 +465,10 @@
       "phone": "416-555-0201",
       "languages": "English, Tagalog",
       "tier": "featured",
-      "sample": true
+      "sample": true,
+      "email": "ins-01@example.com",
+      "tagline": "Life, home & auto cover for Filipino families",
+      "website": "https://example.com/ins-01"
     },
     {
       "id": "ins-02",
@@ -367,7 +478,8 @@
       "phone": "905-555-0202",
       "languages": "English, Cebuano",
       "tier": "free",
-      "sample": true
+      "sample": true,
+      "email": ""
     },
     {
       "id": "biz-01",
@@ -377,7 +489,8 @@
       "phone": "905-555-0301",
       "languages": "English, Tagalog",
       "tier": "free",
-      "sample": true
+      "sample": true,
+      "email": ""
     },
     {
       "id": "biz-02",
@@ -387,7 +500,8 @@
       "phone": "416-555-0302",
       "languages": "English",
       "tier": "free",
-      "sample": true
+      "sample": true,
+      "email": ""
     },
     {
       "id": "ind-01",
@@ -396,8 +510,10 @@
       "area": "Toronto",
       "phone": "416-555-0401",
       "languages": "English, Tagalog",
-      "tier": "qrkit",
-      "sample": true
+      "tier": "starter",
+      "sample": true,
+      "email": "ind-01@example.com",
+      "website": "https://example.com/ind-01"
     },
     {
       "id": "ind-02",
@@ -407,7 +523,8 @@
       "phone": "905-555-0402",
       "languages": "English, Tagalog",
       "tier": "free",
-      "sample": true
+      "sample": true,
+      "email": ""
     },
     {
       "id": "ind-03",
@@ -417,30 +534,357 @@
       "phone": "905-555-0403",
       "languages": "English, Kapampangan",
       "tier": "free",
-      "sample": true
+      "sample": true,
+      "email": ""
+    },
+    {
+      "id": "rem-01",
+      "category": "remittance",
+      "name": "Sample Remittance Co 01",
+      "area": "Toronto",
+      "phone": "416-555-0201",
+      "languages": "English, Tagalog",
+      "tier": "free",
+      "sample": true,
+      "email": "rem-01@example.com"
+    },
+    {
+      "id": "rem-02",
+      "category": "remittance",
+      "name": "Sample Remittance Co 02",
+      "area": "Toronto",
+      "phone": "416-555-0202",
+      "languages": "English, Tagalog",
+      "tier": "free",
+      "sample": true,
+      "email": "rem-02@example.com"
     }
   ],
-  "destinations": [
+  "sponsors": [
     {
-      "slug": "boracay",
-      "name": "Boracay",
-      "region": "Aklan, Western Visayas",
-      "blurb": "White Beach, island hopping and sunsets. Fly to Caticlan or Kalibo, then a short boat ride.",
-      "tip": "Budget the trip in pesos before you book — check today's rate with your remittance app."
+      "id": "season",
+      "name": "Season sponsor",
+      "price": 1950,
+      "founding": 1550,
+      "note": "Invitation only — cover position, newsletter, events"
     },
     {
-      "slug": "palawan",
-      "name": "Palawan",
-      "region": "MIMAROPA",
-      "blurb": "El Nido lagoons, Coron wrecks and the Puerto Princesa Underground River.",
-      "tip": "Island-hopping tours are priced per person; carry cash for environmental fees."
-    },
-    {
-      "slug": "cebu-bohol",
-      "name": "Cebu & Bohol",
-      "region": "Central Visayas",
-      "blurb": "Heritage churches, the Chocolate Hills, tarsiers and quick ferries between islands.",
-      "tip": "Bringing a balikbayan box? Plan shipping well before the Christmas cut-offs."
+      "id": "tool",
+      "name": "Tool sponsor",
+      "price": 1200,
+      "founding": 950,
+      "note": "Invitation only — presenting sponsor of one free tool"
     }
-  ]
+  ],
+  "renewal": {
+    "memberDiscountPct": 20,
+    "label": "Member renewal discount",
+    "onTimeRule": "Renew on time = paid by the next edition's early-bird date (Dec 18 each year).",
+    "outreachMonth": "November",
+    "nextOnTimeDeadline": "2027-12-18",
+    "foundingLockNote": "Founding price locked: advertisers who renew on time keep their founding price for every annual edition.",
+    "memberNote": "Member renewal discount: existing paid members who renew by Dec 18 get a flat 20% off their locked price for the next edition. Existing members only, not new sign-ups. No stacking or compounding; valid for one renewal year and reviewed each edition. Offered in renewal outreach only, not advertised publicly.",
+    "public": false,
+    "stacking": false,
+    "validFor": "One renewal year (the next edition only); reviewed each edition.",
+    "pitchPairing": "Every renewal offer is sent with the member's year-end scan and click summary."
+  },
+  "terms": [
+    "Annual edition: one printed edition per year (Pinoy Pages 2026–2027: released spring, April 16 2027, valid through summer and fall until the next edition); the website is updated year-round.",
+    "Term: every paid choice (Featured, Half-page ad, Full-page ad, and the Starter QR add-on) is a 12-month listing that renews with each annual edition. Free listings stay free.",
+    "Founding price: available on orders paid by the early-bird date of the first edition you join.",
+    "Founding price lock (firm rule): advertisers who renew on time keep their founding price for every annual edition.",
+    "Renewing on time means paying by the next edition's early-bird date (December 18 each year). Renewal reminders go out in November.",
+    "Member renewal discount: existing paid members who renew by the on-time date (December 18) get a flat 20% off their locked price for the next edition (e.g. Featured $299 becomes $239). Existing members only; not available to new sign-ups. It does not stack with any other discount and does not compound year over year: it is always 20% off the locked price, valid for one renewal year, and reviewed each edition. Offered in renewal outreach with your year-end scan and click summary.",
+    "Late renewal: renewals after the on-time date are charged the current regular price and lose the founding lock and member discount.",
+    "Website mirror: your online presence mirrors your print presence and is included free in every tier; there is never a separate charge for it.",
+    "No guarantee of results: we report scan and click counts monthly (Starter and up). We do not promise any number of leads, calls, sales or visitors.",
+    "Printed guide: a short-run proof copy for advertisers and a sales brochure for prospects. It is not sold or handed out to the public. The print run goes ahead only once ads are paid by the ad-close date; if it does not print, ad fees for print are refunded.",
+    "Prices are in CAD, plus HST. Draft terms, to be reviewed by a lawyer before launch."
+  ],
+  "tools": [
+    {
+      "id": "hst",
+      "title": "HST registration checker",
+      "route": "/tools/hst-checker",
+      "enabled": true,
+      "phase": "v1"
+    },
+    {
+      "id": "cpp",
+      "title": "Self-employed CPP estimator",
+      "route": "/tools/cpp-estimator",
+      "enabled": true,
+      "phase": "v1"
+    },
+    {
+      "id": "benefits",
+      "title": "Benefits finder",
+      "route": "/tools/benefits",
+      "enabled": false,
+      "phase": "v1.1+"
+    },
+    {
+      "id": "price-compare",
+      "title": "Tax-prep price compare",
+      "route": "/tools/price-compare",
+      "enabled": false,
+      "phase": "v2"
+    },
+    {
+      "id": "invoice",
+      "title": "Invoice generator",
+      "route": "/tools/invoice",
+      "enabled": false,
+      "phase": "v2"
+    }
+  ],
+  "eventMenu": [
+    {
+      "id": "event-free",
+      "name": "Free event listing",
+      "price": 0,
+      "founding": 0,
+      "unit": "per event",
+      "includes": "Event name, date/time, place, organizer contact. No QR, image or link button.",
+      "memberFree": false
+    },
+    {
+      "id": "event-featured",
+      "name": "Featured event",
+      "price": 49,
+      "founding": 49,
+      "unit": "per event",
+      "includes": "Highlighted, image/logo, description, QR + registration link, counted views and clicks.",
+      "memberFree": true,
+      "memberNote": "Free for paid members (Starter and above)."
+    },
+    {
+      "id": "calendar-sponsor",
+      "name": "Calendar sponsor",
+      "price": 450,
+      "founding": 360,
+      "unit": "per edition, one sponsor",
+      "includes": "'Presented by' branding on the calendar (print + web) + a half-page ad beside it.",
+      "memberFree": false
+    }
+  ],
+  "events": [
+    {
+      "id": "ev-rrsp-2027",
+      "kind": "deadline",
+      "tier": "free",
+      "name": "RRSP / PRPP / SPP contribution deadline (2026 tax year)",
+      "date": "2027-03-01",
+      "time": "",
+      "place": "Canada-wide",
+      "organizer": "Canada Revenue Agency",
+      "contact": "canada.ca/taxes",
+      "source": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/important-dates-individuals.html"
+    },
+    {
+      "id": "ev-inst-q1-2027",
+      "kind": "deadline",
+      "tier": "free",
+      "name": "Quarterly tax instalment due (if CRA asked you to pay instalments)",
+      "date": "2027-03-15",
+      "time": "",
+      "place": "Canada-wide",
+      "organizer": "Canada Revenue Agency",
+      "contact": "canada.ca/taxes",
+      "source": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/making-payments-individuals/paying-your-income-tax-instalments.html"
+    },
+    {
+      "id": "ev-file-2027",
+      "kind": "deadline",
+      "tier": "free",
+      "name": "Personal tax filing and payment deadline (2026 tax year)",
+      "date": "2027-04-30",
+      "time": "",
+      "place": "Canada-wide",
+      "organizer": "Canada Revenue Agency",
+      "contact": "canada.ca/taxes",
+      "source": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/important-dates-individuals.html"
+    },
+    {
+      "id": "ev-inst-q2-2027",
+      "kind": "deadline",
+      "tier": "free",
+      "name": "Quarterly tax instalment due",
+      "date": "2027-06-15",
+      "time": "",
+      "place": "Canada-wide",
+      "organizer": "Canada Revenue Agency",
+      "contact": "canada.ca/taxes",
+      "source": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/making-payments-individuals/paying-your-income-tax-instalments.html"
+    },
+    {
+      "id": "ev-self-2027",
+      "kind": "deadline",
+      "tier": "free",
+      "name": "Self-employed filing deadline (payment was due Apr 30)",
+      "date": "2027-06-15",
+      "time": "",
+      "place": "Canada-wide",
+      "organizer": "Canada Revenue Agency",
+      "contact": "canada.ca/taxes",
+      "source": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/important-dates-individuals.html"
+    },
+    {
+      "id": "ev-inst-q3-2027",
+      "kind": "deadline",
+      "tier": "free",
+      "name": "Quarterly tax instalment due",
+      "date": "2027-09-15",
+      "time": "",
+      "place": "Canada-wide",
+      "organizer": "Canada Revenue Agency",
+      "contact": "canada.ca/taxes",
+      "source": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/making-payments-individuals/paying-your-income-tax-instalments.html"
+    },
+    {
+      "id": "ev-inst-q4-2027",
+      "kind": "deadline",
+      "tier": "free",
+      "name": "Quarterly tax instalment due",
+      "date": "2027-12-15",
+      "time": "",
+      "place": "Canada-wide",
+      "organizer": "Canada Revenue Agency",
+      "contact": "canada.ca/taxes",
+      "source": "https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/making-payments-individuals/paying-your-income-tax-instalments.html"
+    },
+    {
+      "id": "ev-sample-free",
+      "kind": "community",
+      "tier": "free",
+      "sample": true,
+      "name": "SAMPLE: Free tax clinic night",
+      "date": "2027-03-20",
+      "time": "6:00 pm",
+      "place": "Scarborough (sample)",
+      "organizer": "Sample Community Group",
+      "contact": "416-555-0199"
+    },
+    {
+      "id": "ev-sample-featured",
+      "kind": "community",
+      "tier": "featured",
+      "sample": true,
+      "name": "SAMPLE: Self-employed tax workshop (Tagalog & English)",
+      "date": "2027-02-27",
+      "time": "10:00 am",
+      "place": "Mississauga (sample)",
+      "organizer": "Sample Tax Preparer 01",
+      "contact": "416-555-0101",
+      "description": "A sample featured event: what self-employed Filipinos should bring to tax season. Shows how a featured event looks.",
+      "link": "https://example.com/register",
+      "listing": "tax-01"
+    }
+  ],
+  "articles": [
+    {
+      "n": 1,
+      "slug": "welcome",
+      "file": "01-welcome",
+      "title": "Welcome to Pinoy Money & Business — Mabuhay!",
+      "tl": true
+    },
+    {
+      "n": 2,
+      "slug": "tax-deadlines-2027",
+      "file": "02-tax-deadlines-2027",
+      "title": "2027 tax season: the deadlines that matter (for your 2026 return)",
+      "tl": true
+    },
+    {
+      "n": 3,
+      "slug": "do-i-need-hst",
+      "file": "03-do-i-need-hst",
+      "title": "Do I need to register for HST? The $30,000 small supplier rule, explained",
+      "tl": true
+    },
+    {
+      "n": 4,
+      "slug": "cpp-self-employed",
+      "file": "04-cpp-self-employed",
+      "title": "Self-employed in Canada: CPP contributions explained (2026 tax year)",
+      "tl": true
+    },
+    {
+      "n": 5,
+      "slug": "newcomer-first-tax-return",
+      "file": "05-newcomer-first-tax-return",
+      "title": "Newcomer's first Canadian tax return: a checklist",
+      "tl": true
+    },
+    {
+      "n": 6,
+      "slug": "benefits-families-miss",
+      "file": "06-benefits-families-miss",
+      "title": "Benefits Filipino families often miss, and why filing matters",
+      "tl": true
+    },
+    {
+      "n": 7,
+      "slug": "choose-tax-preparer",
+      "file": "07-choose-tax-preparer",
+      "title": "How to choose a tax preparer: red flags and questions to ask",
+      "tl": true
+    },
+    {
+      "n": 8,
+      "slug": "get-listed",
+      "file": "08-get-listed",
+      "title": "Get listed free, or stand out with an upgrade",
+      "tl": true
+    }
+  ],
+  "seasons": [
+    {
+      "id": "spring",
+      "name": "Spring (tax season, Jan–May)",
+      "months": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "id": "summer",
+      "name": "Summer (Jun–Aug)",
+      "months": [
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "id": "fall",
+      "name": "Fall (Sep–Dec)",
+      "months": [
+        9,
+        10,
+        11,
+        12
+      ]
+    }
+  ],
+  "contacts": {
+    "adapter": "local",
+    "provider": "brevo",
+    "note": "List IDs are filled in when Brevo lists are created. Nothing is sent to Brevo until CONTACTS_ADAPTER=brevo and BREVO_API_KEY are set.",
+    "lists": {
+      "free-listers": null,
+      "claimed": null,
+      "paid-featured": null,
+      "paid-ad": null,
+      "paid-starter": null,
+      "prospects": null,
+      "event-organizers": null,
+      "newsletter": null
+    }
+  }
 }

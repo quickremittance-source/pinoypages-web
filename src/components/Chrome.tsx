@@ -1,11 +1,14 @@
 import Link from "next/link";
+import { liveTools } from "@/lib/registry";
 import { brand } from "@/lib/guide";
 
 const nav = [
-  { href: "/tools/hst", label: "Free tools" },
-  { href: "/deadlines", label: "Deadlines" },
+  { href: "/edition", label: "2027 Edition" },
+  { href: "/magazine", label: "Magazine" },
   { href: "/directory", label: "Directory" },
-  { href: "/destinations", label: "Destinations" },
+  { href: "/calendar", label: "Calendar" },
+  { href: liveTools[0]?.route ?? "/", label: "Free tools" },
+  { href: "/tax-deadlines", label: "Deadlines" },
   { href: "/upgrade", label: "Upgrade listing" },
   { href: "/advertise", label: "Advertise" },
 ];
@@ -22,6 +25,7 @@ export function Header() {
       <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-3">
         <Link href="/" className="font-display text-xl font-semibold text-sea">
           {brand.name} <span className="text-coral-dk">{brand.edition}</span>
+          <span className="block text-xs font-normal text-ink">Money &amp; Business · {brand.tagline}</span>
         </Link>
         <nav aria-label="Main">
           <ul className="flex flex-wrap gap-1 text-sm font-bold text-sea">
@@ -44,7 +48,8 @@ export function Footer() {
     <footer className="mt-16 bg-sea text-white">
       <div className="mx-auto flex max-w-5xl flex-wrap justify-between gap-4 px-4 py-8 text-sm">
         <p>
-          © {brand.edition} {brand.name}. General information only — not tax, legal or financial advice.
+          © {brand.edition} {brand.editionName} (annual edition). General information only — not tax, legal or financial
+          advice.
         </p>
         <p className="flex gap-4">
           <Link href="/privacy" className="underline">
@@ -52,6 +57,9 @@ export function Footer() {
           </Link>
           <Link href="/advertise" className="underline">
             Advertise
+          </Link>
+          <Link href="/terms" className="underline">
+            Terms
           </Link>
         </p>
       </div>
@@ -75,7 +83,7 @@ export function PageHead({
       <div className="mx-auto max-w-5xl px-4 py-10">
         <p className="kicker">
           {kicker}
-          {page ? ` · Guide page ${page}` : ""}
+          {page ? ` · Print page ${page}` : ""}
         </p>
         <h1 className="mt-2 text-4xl font-semibold text-sea">{title}</h1>
         {intro && <p className="mt-3 max-w-2xl text-lg">{intro}</p>}

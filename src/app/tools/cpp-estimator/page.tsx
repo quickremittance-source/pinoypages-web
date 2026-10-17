@@ -2,14 +2,17 @@ import type { Metadata } from "next";
 import { PageHead } from "@/components/Chrome";
 import { CppTool } from "./CppTool";
 
-export const metadata: Metadata = { title: "Self-employed CPP estimator", alternates: { canonical: "/tools/cpp" } };
+export const metadata: Metadata = {
+  title: "Self-employed CPP estimator",
+  alternates: { canonical: "/tools/cpp-estimator" },
+};
 
 export default function Page() {
   return (
     <>
       <PageHead
         kicker="Free tool"
-        page={5}
+        page={6}
         title="Self-employed CPP estimator"
         intro="Self-employed people pay both halves of CPP. Enter your 2026 net business income (after expenses)."
       />

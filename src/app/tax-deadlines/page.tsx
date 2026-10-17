@@ -3,7 +3,10 @@ import { PageHead } from "@/components/Chrome";
 import { AdGrid } from "@/components/AdCard";
 import { adsForRoute } from "@/lib/guide";
 
-export const metadata: Metadata = { title: "2027 tax deadlines & checklist", alternates: { canonical: "/deadlines" } };
+export const metadata: Metadata = {
+  title: "2027 tax deadlines & checklist",
+  alternates: { canonical: "/tax-deadlines" },
+};
 
 const deadlines = [
   { date: "Mon Mar 1, 2027", what: "RRSP contribution deadline for the 2026 tax year" },
@@ -31,7 +34,7 @@ export default function Page() {
     <>
       <PageHead
         kicker="Deadlines & checklist"
-        page={6}
+        page={4}
         title="2027 tax deadlines & checklist"
         intro="Key dates for the 2026 tax year. Source: Canada Revenue Agency."
       />
@@ -59,7 +62,7 @@ export default function Page() {
           </ul>
         </section>
       </div>
-      <AdGrid ads={adsForRoute("/deadlines")} />
+      <AdGrid ads={adsForRoute("/tax-deadlines")} />
     </>
   );
 }

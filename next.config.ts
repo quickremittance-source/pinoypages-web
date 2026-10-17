@@ -17,6 +17,13 @@ const csp = [
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  async redirects() {
+    return [
+      { source: "/tools/hst", destination: "/tools/hst-checker", permanent: true },
+      { source: "/tools/cpp", destination: "/tools/cpp-estimator", permanent: true },
+      { source: "/deadlines", destination: "/tax-deadlines", permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

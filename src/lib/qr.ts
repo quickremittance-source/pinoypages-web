@@ -1,11 +1,11 @@
 import "server-only";
 import QRCode from "qrcode";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
-import { abs, brand, listings } from "@/lib/guide";
+import { abs, brand, isPaid as paidTier, listingById } from "@/lib/guide";
 
 /** Stable short URL printed in every lister's own QR. /go/ logs the scan, then redirects with UTM tags. */
 export const goUrl = (id: string) => abs(`/go/${id}`);
-export const isPaid = (id: string) => listings.find((l) => l.id === id)?.tier !== "free";
+export const isPaid = (id: string) => paidTier(listingById(id));
 const SEA = "#0B5E7A";
 
 export async function qrSvg(id: string, branded: boolean) {

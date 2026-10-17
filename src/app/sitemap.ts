@@ -1,19 +1,24 @@
 import type { MetadataRoute } from "next";
-import { abs, categories, destinations, listings } from "@/lib/guide";
+import { abs, categories, listings } from "@/lib/guide";
+import { articles } from "@/lib/magazine";
+import { liveTools } from "@/lib/registry";
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
     "/",
-    "/tools/hst",
-    "/tools/cpp",
-    "/deadlines",
+    "/tax-deadlines",
     "/directory",
-    "/destinations",
+    "/edition",
+    "/magazine",
+    "/calendar",
     "/advertise",
     "/upgrade",
     "/privacy",
+    "/terms",
   ].concat(
+    liveTools.map((t) => t.route),
     categories.map((c) => `/directory/${c.slug}`),
-    destinations.map((d) => `/destinations/${d.slug}`),
+    articles.map((a) => `/magazine/${a.slug}`),
+    articles.filter((a) => a.tl).map((a) => `/magazine/${a.slug}/tl`),
     listings.map((l) => `/listing/${l.id}`),
   );
   return paths.map((p) => ({ url: abs(p) }));
