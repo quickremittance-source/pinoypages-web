@@ -78,12 +78,7 @@
       "web": "Featured spot at the top of your category with Call / Book and photos",
       "qr": "Everything in Verified + a printable QR counter card for your shop",
       "badge": "Eligible — earned by the verification visit",
-      "extras": [
-        "Everything in Verified",
-        "Featured spot in your category",
-        "QR counter card",
-        "Call / Book button"
-      ],
+      "extras": ["Everything in Verified", "Featured spot in your category", "QR counter card", "Call / Book button"],
       "menu": "main"
     },
     {
@@ -96,11 +91,7 @@
       "web": "Your ad mirrored on its matching web page with a tap-to-open button",
       "qr": "Everything in Verified Plus + QR in a fixed corner of your ad",
       "badge": "Eligible — earned by the verification visit",
-      "extras": [
-        "Everything in Verified Plus",
-        "Half-page ad (print + web)",
-        "QR + badge in the ad corner"
-      ],
+      "extras": ["Everything in Verified Plus", "Half-page ad (print + web)", "QR + badge in the ad corner"],
       "menu": "main"
     },
     {
@@ -113,11 +104,7 @@
       "web": "Your ad mirrored on its matching web page with a tap-to-open button",
       "qr": "Everything in Verified Plus + QR in a fixed corner of your ad",
       "badge": "Eligible — earned by the verification visit",
-      "extras": [
-        "Everything in Verified Plus",
-        "Full-page ad (print + web)",
-        "QR + badge in the ad corner"
-      ],
+      "extras": ["Everything in Verified Plus", "Full-page ad (print + web)", "QR + badge in the ad corner"],
       "menu": "main"
     }
   ],
@@ -830,32 +817,17 @@
     {
       "id": "spring",
       "name": "Spring (tax season, Jan–May)",
-      "months": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ]
+      "months": [1, 2, 3, 4, 5]
     },
     {
       "id": "summer",
       "name": "Summer (Jun–Aug)",
-      "months": [
-        6,
-        7,
-        8
-      ]
+      "months": [6, 7, 8]
     },
     {
       "id": "fall",
       "name": "Fall (Sep–Dec)",
-      "months": [
-        9,
-        10,
-        11,
-        12
-      ]
+      "months": [9, 10, 11, 12]
     }
   ],
   "contacts": {
@@ -879,12 +851,7 @@
       "name": "Money & Business",
       "status": "live",
       "edition": "2026–2027",
-      "subcategories": [
-        "tax-accounting",
-        "insurance-financial",
-        "business-services",
-        "independents"
-      ]
+      "subcategories": ["tax-accounting", "insurance-financial", "business-services", "independents"]
     },
     {
       "slug": "travel-padala-remit",
