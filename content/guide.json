@@ -1,0 +1,252 @@
+{
+  "brand": {
+    "name": "Pinoy Pages Pera",
+    "short": "Pera",
+    "tagline": "Money & Finance guide for Filipino families, freelancers and small businesses in the GTA",
+    "edition": "2027",
+    "siteUrl": "https://pera.pinoypages.ca",
+    "email": "info@pinoypages.ca",
+    "utmCampaign": "pera2027"
+  },
+  "dates": {
+    "salesOpen": "2026-11-16",
+    "earlyBirdEnds": "2026-12-18",
+    "adClose": "2027-02-26",
+    "inPrint": "2027-04-16"
+  },
+  "adMenu": [
+    {
+      "id": "free",
+      "name": "Free listing",
+      "price": 0,
+      "founding": 0,
+      "print": "Name, phone and category on a listings page",
+      "web": "Directory listing with QR link"
+    },
+    {
+      "id": "featured",
+      "name": "Featured listing",
+      "price": 390,
+      "founding": 299,
+      "print": "Bold listing with a star",
+      "web": "Top of your category, photo, link and monthly report"
+    },
+    {
+      "id": "half",
+      "name": "Half-page ad",
+      "price": 450,
+      "founding": 360,
+      "print": "Half page + printed copies",
+      "web": "Banner card on the matching page + Featured for 3 months"
+    },
+    {
+      "id": "full",
+      "name": "Full-page ad",
+      "price": 850,
+      "founding": 690,
+      "print": "Full page + printed copies",
+      "web": "Large card on the matching page + Featured for 3 months"
+    }
+  ],
+  "pages": [
+    { "page": 1, "section": "cover", "title": "Cover", "route": "/" },
+    { "page": 2, "section": "welcome", "title": "Welcome & how to use the QR codes", "route": "/" },
+    { "page": 3, "section": "ad", "title": "Full-page ad", "route": "/", "ad": "slot-01" },
+    { "page": 4, "section": "tool", "title": "Do I need to register for HST?", "route": "/tools/hst" },
+    { "page": 5, "section": "tool", "title": "Self-employed CPP estimator", "route": "/tools/cpp" },
+    {
+      "page": 6,
+      "section": "deadlines",
+      "title": "2027 deadlines & checklist",
+      "route": "/deadlines",
+      "ad": "slot-02"
+    },
+    { "page": 7, "section": "ad", "title": "Full-page ad", "route": "/deadlines", "ad": "slot-03" },
+    { "page": 8, "section": "listings", "title": "Tax & accounting", "route": "/directory/tax-accounting" },
+    {
+      "page": 9,
+      "section": "listings",
+      "title": "Insurance & financial advisors",
+      "route": "/directory/insurance-financial"
+    },
+    {
+      "page": 10,
+      "section": "listings",
+      "title": "Bookkeeping & business services",
+      "route": "/directory/business-services"
+    },
+    {
+      "page": 11,
+      "section": "listings",
+      "title": "Independent pros & freelancers",
+      "route": "/directory/independents"
+    },
+    {
+      "page": 12,
+      "section": "ad",
+      "title": "Two half-page ads",
+      "route": "/directory",
+      "ad": "slot-04",
+      "ad2": "slot-05"
+    },
+    { "page": 13, "section": "ad", "title": "Full-page ad", "route": "/directory", "ad": "slot-06" },
+    { "page": 14, "section": "destination", "title": "Boracay", "route": "/destinations/boracay" },
+    { "page": 15, "section": "destination", "title": "Palawan", "route": "/destinations/palawan" },
+    { "page": 16, "section": "destination", "title": "Cebu & Bohol", "route": "/destinations/cebu-bohol" },
+    { "page": 17, "section": "ad", "title": "Full-page ad", "route": "/destinations", "ad": "slot-07" },
+    {
+      "page": 18,
+      "section": "ad",
+      "title": "Two half-page ads",
+      "route": "/destinations",
+      "ad": "slot-08",
+      "ad2": "slot-09"
+    },
+    { "page": 19, "section": "advertise", "title": "Get listed / advertise", "route": "/advertise", "ad": "slot-10" },
+    { "page": 20, "section": "ad", "title": "Back cover full-page ad", "route": "/", "ad": "slot-11" }
+  ],
+  "ads": [
+    { "id": "slot-01", "size": "full", "status": "open", "advertiser": "", "headline": "", "body": "", "url": "" },
+    { "id": "slot-02", "size": "half", "status": "open", "advertiser": "", "headline": "", "body": "", "url": "" },
+    { "id": "slot-03", "size": "full", "status": "open", "advertiser": "", "headline": "", "body": "", "url": "" },
+    { "id": "slot-04", "size": "half", "status": "open", "advertiser": "", "headline": "", "body": "", "url": "" },
+    { "id": "slot-05", "size": "half", "status": "open", "advertiser": "", "headline": "", "body": "", "url": "" },
+    { "id": "slot-06", "size": "full", "status": "open", "advertiser": "", "headline": "", "body": "", "url": "" },
+    { "id": "slot-07", "size": "full", "status": "open", "advertiser": "", "headline": "", "body": "", "url": "" },
+    { "id": "slot-08", "size": "half", "status": "open", "advertiser": "", "headline": "", "body": "", "url": "" },
+    { "id": "slot-09", "size": "half", "status": "open", "advertiser": "", "headline": "", "body": "", "url": "" },
+    { "id": "slot-10", "size": "half", "status": "open", "advertiser": "", "headline": "", "body": "", "url": "" },
+    { "id": "slot-11", "size": "full", "status": "open", "advertiser": "", "headline": "", "body": "", "url": "" }
+  ],
+  "categories": [
+    { "slug": "tax-accounting", "name": "Tax & accounting", "page": 8 },
+    { "slug": "insurance-financial", "name": "Insurance & financial advisors", "page": 9 },
+    { "slug": "business-services", "name": "Bookkeeping & business services", "page": 10 },
+    { "slug": "independents", "name": "Independent pros & freelancers", "page": 11 }
+  ],
+  "listings": [
+    {
+      "id": "tax-01",
+      "category": "tax-accounting",
+      "name": "Sample Tax Preparer 01",
+      "area": "Scarborough",
+      "phone": "416-555-0101",
+      "languages": "English, Tagalog",
+      "tier": "featured",
+      "sample": true
+    },
+    {
+      "id": "tax-02",
+      "category": "tax-accounting",
+      "name": "Sample CPA Office 02",
+      "area": "Mississauga",
+      "phone": "905-555-0102",
+      "languages": "English, Tagalog",
+      "tier": "free",
+      "sample": true
+    },
+    {
+      "id": "tax-03",
+      "category": "tax-accounting",
+      "name": "Sample Tax Clinic 03",
+      "area": "North York",
+      "phone": "416-555-0103",
+      "languages": "English, Ilocano",
+      "tier": "free",
+      "sample": true
+    },
+    {
+      "id": "ins-01",
+      "category": "insurance-financial",
+      "name": "Sample Insurance Advisor 01",
+      "area": "Etobicoke",
+      "phone": "416-555-0201",
+      "languages": "English, Tagalog",
+      "tier": "featured",
+      "sample": true
+    },
+    {
+      "id": "ins-02",
+      "category": "insurance-financial",
+      "name": "Sample Financial Planner 02",
+      "area": "Brampton",
+      "phone": "905-555-0202",
+      "languages": "English, Cebuano",
+      "tier": "free",
+      "sample": true
+    },
+    {
+      "id": "biz-01",
+      "category": "business-services",
+      "name": "Sample Bookkeeping 01",
+      "area": "Markham",
+      "phone": "905-555-0301",
+      "languages": "English, Tagalog",
+      "tier": "free",
+      "sample": true
+    },
+    {
+      "id": "biz-02",
+      "category": "business-services",
+      "name": "Sample Payroll Services 02",
+      "area": "Toronto",
+      "phone": "416-555-0302",
+      "languages": "English",
+      "tier": "free",
+      "sample": true
+    },
+    {
+      "id": "ind-01",
+      "category": "independents",
+      "name": "Sample Freelance Designer 01",
+      "area": "Toronto",
+      "phone": "416-555-0401",
+      "languages": "English, Tagalog",
+      "tier": "free",
+      "sample": true
+    },
+    {
+      "id": "ind-02",
+      "category": "independents",
+      "name": "Sample Home Caterer 02",
+      "area": "Vaughan",
+      "phone": "905-555-0402",
+      "languages": "English, Tagalog",
+      "tier": "free",
+      "sample": true
+    },
+    {
+      "id": "ind-03",
+      "category": "independents",
+      "name": "Sample Cleaning Pro 03",
+      "area": "Mississauga",
+      "phone": "905-555-0403",
+      "languages": "English, Kapampangan",
+      "tier": "free",
+      "sample": true
+    }
+  ],
+  "destinations": [
+    {
+      "slug": "boracay",
+      "name": "Boracay",
+      "region": "Aklan, Western Visayas",
+      "blurb": "White Beach, island hopping and sunsets. Fly to Caticlan or Kalibo, then a short boat ride.",
+      "tip": "Budget the trip in pesos before you book — check today's rate with your remittance app."
+    },
+    {
+      "slug": "palawan",
+      "name": "Palawan",
+      "region": "MIMAROPA",
+      "blurb": "El Nido lagoons, Coron wrecks and the Puerto Princesa Underground River.",
+      "tip": "Island-hopping tours are priced per person; carry cash for environmental fees."
+    },
+    {
+      "slug": "cebu-bohol",
+      "name": "Cebu & Bohol",
+      "region": "Central Visayas",
+      "blurb": "Heritage churches, the Chocolate Hills, tarsiers and quick ferries between islands.",
+      "tip": "Bringing a balikbayan box? Plan shipping well before the Christmas cut-offs."
+    }
+  ]
+}

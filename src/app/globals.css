@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@theme {
+  --color-sea: #0b5e7a;
+  --color-turq: #1fb5b0;
+  --color-aqua: #ddf3f1;
+  --color-sand: #f4e7d1;
+  --color-sandlt: #fbf6ec;
+  --color-coral: #f26b5b;
+  --color-coral-dk: #b83a2b;
+  --color-sunset: #f7a541;
+  --color-palm: #13806f;
+  --color-ink: #1e2a2f;
+  --color-turqdk: #0e7470;
+  --font-display: var(--font-fredoka), ui-rounded, sans-serif;
+  --font-sans: var(--font-nunito), system-ui, sans-serif;
+}
+body {
+  @apply bg-sandlt text-ink font-sans antialiased;
+}
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+}
+.kicker {
+  @apply text-xs font-extrabold uppercase tracking-[0.16em] text-turqdk;
+}
+.btn {
+  @apply inline-block rounded-full bg-coral-dk px-5 py-2.5 font-bold text-white hover:bg-sea;
+}
+.field {
+  @apply mt-1 w-full rounded-lg border border-sea/40 bg-white px-3 py-2;
+}
+:focus-visible {
+  outline: 3px solid var(--color-coral);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
