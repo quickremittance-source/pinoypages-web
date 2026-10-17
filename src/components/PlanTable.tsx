@@ -37,6 +37,7 @@ export function PlanTable() {
               <td className="p-3 font-bold text-coral-dk">{money(o.founding)}</td>
               <td className="p-3">{o.print}</td>
               <td className="p-3">{o.web}</td>
+              <td className="p-3">{o.qr}</td>
             </tr>
           ))}
         </tbody>

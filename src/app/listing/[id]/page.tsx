@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageHead } from "@/components/Chrome";
+import { QrSection } from "@/components/QrSection";
 import { categories, listings } from "@/lib/guide";
 
 export const dynamicParams = false;
@@ -37,6 +38,7 @@ export default async function Page({ params }: P) {
             <dd>{l.languages}</dd>
           </div>
         </dl>
+        <QrSection l={l} />
         <section className="mt-6 rounded-2xl border-2 border-dashed border-turqdk bg-aqua p-6" aria-labelledby="claim">
           <h2 id="claim" className="text-xl font-semibold text-sea">
             Is this your business?

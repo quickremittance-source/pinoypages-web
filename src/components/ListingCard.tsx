@@ -12,6 +12,7 @@ export function ListingCard({ l }: { l: Listing }) {
       <p className="text-sm">
         {l.area} · {l.phone} · {l.languages}
       </p>
+      {l.tier === "qrkit" && <span className="ml-1 text-xs font-bold text-turqdk">QR Kit</span>}
       {!featured && (
         <Link href={`/upgrade?listing=${l.id}`} className="mt-2 inline-block text-sm font-bold text-coral-dk underline">
           Is this your business? Claim or upgrade

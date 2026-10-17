@@ -20,6 +20,11 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
         intro={`${open} of ${ads.length} ad spaces open. Every ad runs in print and on the matching web page.`}
       />
       <div className="mx-auto max-w-5xl space-y-8 px-4 py-8">
+        <p className="rounded-xl bg-sand p-4">
+          Every Featured listing and ad includes the <strong>QR Kit</strong>: a branded QR for your cards, brochures,
+          flyers, storefront signs and vehicle decals, with a monthly scan count. Not ready for an ad? The QR Kit alone
+          is $99/yr ($79 founding).
+        </p>
         <PlanTable />
         <section aria-labelledby="inq">
           <h2 id="inq" className="mb-3 text-2xl font-semibold text-sea">

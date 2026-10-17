@@ -82,6 +82,7 @@ export function InquiryForm({ slot }: { slot?: string }) {
         I&apos;m interested in *
         <select name="product" className="field" defaultValue="">
           <option value="">Choose…</option>
+          <option value="qrkit">QR Kit add-on</option>
           <option value="featured">Featured listing</option>
           <option value="half">Half-page ad</option>
           <option value="full">Full-page ad</option>
@@ -115,9 +116,10 @@ export function ClaimForm({ listing, listingName }: { listing?: string; listingN
       <Common fe={fe} />
       <fieldset>
         <legend className="font-bold">Choose a plan *</legend>
-        <div className="mt-2 grid gap-2 sm:grid-cols-4">
+        <div className="mt-2 grid gap-2 sm:grid-cols-5">
           {[
             ["free", "Keep free"],
+            ["qrkit", "QR Kit"],
             ["featured", "Featured"],
             ["half", "Half page"],
             ["full", "Full page"],

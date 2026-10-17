@@ -21,7 +21,18 @@
       "price": 0,
       "founding": 0,
       "print": "Name, phone and category on a listings page",
-      "web": "Directory listing with QR link"
+      "web": "Directory listing with QR link",
+      "qr": "Basic plain QR code to your listing page (PNG/SVG)"
+    },
+    {
+      "id": "qrkit",
+      "name": "QR Kit add-on",
+      "price": 99,
+      "founding": 79,
+      "unit": "per year",
+      "print": "—",
+      "web": "Branded QR to your listing",
+      "qr": "Branded QR + print-ready files for business cards, brochures, flyers, storefront signs and vehicle decals (PNG/SVG/PDF) + monthly scan count"
     },
     {
       "id": "featured",
@@ -29,7 +40,8 @@
       "price": 390,
       "founding": 299,
       "print": "Bold listing with a star",
-      "web": "Top of your category, photo, link and monthly report"
+      "web": "Top of your category, photo, link and monthly report",
+      "qr": "QR Kit INCLUDED: branded QR + print-ready files + monthly scan count"
     },
     {
       "id": "half",
@@ -37,7 +49,8 @@
       "price": 450,
       "founding": 360,
       "print": "Half page + printed copies",
-      "web": "Banner card on the matching page + Featured for 3 months"
+      "web": "Banner card on the matching page + Featured for 3 months",
+      "qr": "QR Kit INCLUDED: branded QR + print-ready files + monthly scan count"
     },
     {
       "id": "full",
@@ -45,15 +58,42 @@
       "price": 850,
       "founding": 690,
       "print": "Full page + printed copies",
-      "web": "Large card on the matching page + Featured for 3 months"
+      "web": "Large card on the matching page + Featured for 3 months",
+      "qr": "QR Kit INCLUDED: branded QR + print-ready files + monthly scan count"
     }
   ],
   "pages": [
-    { "page": 1, "section": "cover", "title": "Cover", "route": "/" },
-    { "page": 2, "section": "welcome", "title": "Welcome & how to use the QR codes", "route": "/" },
-    { "page": 3, "section": "ad", "title": "Full-page ad", "route": "/", "ad": "slot-01" },
-    { "page": 4, "section": "tool", "title": "Do I need to register for HST?", "route": "/tools/hst" },
-    { "page": 5, "section": "tool", "title": "Self-employed CPP estimator", "route": "/tools/cpp" },
+    {
+      "page": 1,
+      "section": "cover",
+      "title": "Cover",
+      "route": "/"
+    },
+    {
+      "page": 2,
+      "section": "welcome",
+      "title": "Welcome & how to use the QR codes",
+      "route": "/"
+    },
+    {
+      "page": 3,
+      "section": "ad",
+      "title": "Full-page ad",
+      "route": "/",
+      "ad": "slot-01"
+    },
+    {
+      "page": 4,
+      "section": "tool",
+      "title": "Do I need to register for HST?",
+      "route": "/tools/hst"
+    },
+    {
+      "page": 5,
+      "section": "tool",
+      "title": "Self-employed CPP estimator",
+      "route": "/tools/cpp"
+    },
     {
       "page": 6,
       "section": "deadlines",
@@ -61,8 +101,19 @@
       "route": "/deadlines",
       "ad": "slot-02"
     },
-    { "page": 7, "section": "ad", "title": "Full-page ad", "route": "/deadlines", "ad": "slot-03" },
-    { "page": 8, "section": "listings", "title": "Tax & accounting", "route": "/directory/tax-accounting" },
+    {
+      "page": 7,
+      "section": "ad",
+      "title": "Full-page ad",
+      "route": "/deadlines",
+      "ad": "slot-03"
+    },
+    {
+      "page": 8,
+      "section": "listings",
+      "title": "Tax & accounting",
+      "route": "/directory/tax-accounting"
+    },
     {
       "page": 9,
       "section": "listings",
@@ -89,11 +140,38 @@
       "ad": "slot-04",
       "ad2": "slot-05"
     },
-    { "page": 13, "section": "ad", "title": "Full-page ad", "route": "/directory", "ad": "slot-06" },
-    { "page": 14, "section": "destination", "title": "Boracay", "route": "/destinations/boracay" },
-    { "page": 15, "section": "destination", "title": "Palawan", "route": "/destinations/palawan" },
-    { "page": 16, "section": "destination", "title": "Cebu & Bohol", "route": "/destinations/cebu-bohol" },
-    { "page": 17, "section": "ad", "title": "Full-page ad", "route": "/destinations", "ad": "slot-07" },
+    {
+      "page": 13,
+      "section": "ad",
+      "title": "Full-page ad",
+      "route": "/directory",
+      "ad": "slot-06"
+    },
+    {
+      "page": 14,
+      "section": "destination",
+      "title": "Boracay",
+      "route": "/destinations/boracay"
+    },
+    {
+      "page": 15,
+      "section": "destination",
+      "title": "Palawan",
+      "route": "/destinations/palawan"
+    },
+    {
+      "page": 16,
+      "section": "destination",
+      "title": "Cebu & Bohol",
+      "route": "/destinations/cebu-bohol"
+    },
+    {
+      "page": 17,
+      "section": "ad",
+      "title": "Full-page ad",
+      "route": "/destinations",
+      "ad": "slot-07"
+    },
     {
       "page": 18,
       "section": "ad",
@@ -102,27 +180,143 @@
       "ad": "slot-08",
       "ad2": "slot-09"
     },
-    { "page": 19, "section": "advertise", "title": "Get listed / advertise", "route": "/advertise", "ad": "slot-10" },
-    { "page": 20, "section": "ad", "title": "Back cover full-page ad", "route": "/", "ad": "slot-11" }
+    {
+      "page": 19,
+      "section": "advertise",
+      "title": "Get listed / advertise",
+      "route": "/advertise",
+      "ad": "slot-10"
+    },
+    {
+      "page": 20,
+      "section": "ad",
+      "title": "Back cover full-page ad",
+      "route": "/",
+      "ad": "slot-11"
+    }
   ],
   "ads": [
-    { "id": "slot-01", "size": "full", "status": "open", "advertiser": "", "headline": "", "body": "", "url": "" },
-    { "id": "slot-02", "size": "half", "status": "open", "advertiser": "", "headline": "", "body": "", "url": "" },
-    { "id": "slot-03", "size": "full", "status": "open", "advertiser": "", "headline": "", "body": "", "url": "" },
-    { "id": "slot-04", "size": "half", "status": "open", "advertiser": "", "headline": "", "body": "", "url": "" },
-    { "id": "slot-05", "size": "half", "status": "open", "advertiser": "", "headline": "", "body": "", "url": "" },
-    { "id": "slot-06", "size": "full", "status": "open", "advertiser": "", "headline": "", "body": "", "url": "" },
-    { "id": "slot-07", "size": "full", "status": "open", "advertiser": "", "headline": "", "body": "", "url": "" },
-    { "id": "slot-08", "size": "half", "status": "open", "advertiser": "", "headline": "", "body": "", "url": "" },
-    { "id": "slot-09", "size": "half", "status": "open", "advertiser": "", "headline": "", "body": "", "url": "" },
-    { "id": "slot-10", "size": "half", "status": "open", "advertiser": "", "headline": "", "body": "", "url": "" },
-    { "id": "slot-11", "size": "full", "status": "open", "advertiser": "", "headline": "", "body": "", "url": "" }
+    {
+      "id": "slot-01",
+      "size": "full",
+      "status": "open",
+      "advertiser": "",
+      "headline": "",
+      "body": "",
+      "url": ""
+    },
+    {
+      "id": "slot-02",
+      "size": "half",
+      "status": "open",
+      "advertiser": "",
+      "headline": "",
+      "body": "",
+      "url": ""
+    },
+    {
+      "id": "slot-03",
+      "size": "full",
+      "status": "open",
+      "advertiser": "",
+      "headline": "",
+      "body": "",
+      "url": ""
+    },
+    {
+      "id": "slot-04",
+      "size": "half",
+      "status": "open",
+      "advertiser": "",
+      "headline": "",
+      "body": "",
+      "url": ""
+    },
+    {
+      "id": "slot-05",
+      "size": "half",
+      "status": "open",
+      "advertiser": "",
+      "headline": "",
+      "body": "",
+      "url": ""
+    },
+    {
+      "id": "slot-06",
+      "size": "full",
+      "status": "open",
+      "advertiser": "",
+      "headline": "",
+      "body": "",
+      "url": ""
+    },
+    {
+      "id": "slot-07",
+      "size": "full",
+      "status": "open",
+      "advertiser": "",
+      "headline": "",
+      "body": "",
+      "url": ""
+    },
+    {
+      "id": "slot-08",
+      "size": "half",
+      "status": "open",
+      "advertiser": "",
+      "headline": "",
+      "body": "",
+      "url": ""
+    },
+    {
+      "id": "slot-09",
+      "size": "half",
+      "status": "open",
+      "advertiser": "",
+      "headline": "",
+      "body": "",
+      "url": ""
+    },
+    {
+      "id": "slot-10",
+      "size": "half",
+      "status": "open",
+      "advertiser": "",
+      "headline": "",
+      "body": "",
+      "url": ""
+    },
+    {
+      "id": "slot-11",
+      "size": "full",
+      "status": "open",
+      "advertiser": "",
+      "headline": "",
+      "body": "",
+      "url": ""
+    }
   ],
   "categories": [
-    { "slug": "tax-accounting", "name": "Tax & accounting", "page": 8 },
-    { "slug": "insurance-financial", "name": "Insurance & financial advisors", "page": 9 },
-    { "slug": "business-services", "name": "Bookkeeping & business services", "page": 10 },
-    { "slug": "independents", "name": "Independent pros & freelancers", "page": 11 }
+    {
+      "slug": "tax-accounting",
+      "name": "Tax & accounting",
+      "page": 8
+    },
+    {
+      "slug": "insurance-financial",
+      "name": "Insurance & financial advisors",
+      "page": 9
+    },
+    {
+      "slug": "business-services",
+      "name": "Bookkeeping & business services",
+      "page": 10
+    },
+    {
+      "slug": "independents",
+      "name": "Independent pros & freelancers",
+      "page": 11
+    }
   ],
   "listings": [
     {
@@ -202,7 +396,7 @@
       "area": "Toronto",
       "phone": "416-555-0401",
       "languages": "English, Tagalog",
-      "tier": "free",
+      "tier": "qrkit",
       "sample": true
     },
     {

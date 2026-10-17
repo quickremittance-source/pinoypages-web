@@ -30,6 +30,14 @@ writeFileSync(
 );
 writeFileSync(
   new URL("../print/print-data.json", import.meta.url),
-  JSON.stringify({ brand: g.brand, pages: rows.slice(1), listings }, null, 2),
+  JSON.stringify({ brand: g.brand, adMenu: g.adMenu, pages: rows.slice(1), listings }, null, 2),
+);
+const csv = (rows) => rows.map((r) => r.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(",")).join("\n") + "\n";
+writeFileSync(
+  new URL("../print/admenu.csv", import.meta.url),
+  csv([
+    ["option", "price", "founding", "print", "web", "qr"],
+    ...g.adMenu.map((o) => [o.name, o.price, o.founding, o.print, o.web, o.qr]),
+  ]),
 );
 console.log(`print/flatplan.csv: ${rows.length - 1} pages, ${g.ads.length} ad slots, ${g.listings.length} listings`);

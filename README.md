@@ -7,6 +7,7 @@ Lean Next.js 15 site that mirrors the 20-page printed guide, page for page.
 - **Rename the brand:** edit `brand` in `content/guide.json` (name, short, tagline, siteUrl, utmCampaign). Nothing else needs changing.
 - **Sell an ad:** set the slot's `status` to `"sold"` and fill in advertiser/headline/body/url. It then shows on the matching web page and in the flat plan.
 - **Forms:** ad inquiry and claim/upgrade use Server Actions + zod. Nothing is emailed. Locally, submissions go to `data/submissions.jsonl` (git-ignored); on Vercel they go to function logs only.
+- **QR codes:** every listing has a stable short link `/go/<id>`, which logs the scan and redirects with UTM tags. QR files are generated at build time at `/qr/<id>/basic.{png,svg}`. Paid tiers (QR Kit $99/yr, or Featured/ads, which include it) also get `/qr/<id>/branded.{png,svg,pdf}`. Tests decode every QR.
 - **Private:** `noindex` header + robots disallow-all until launch.
 
 ```bash
