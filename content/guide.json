@@ -9,7 +9,7 @@
     "utmCampaign": "pp2627",
     "mirrorNote": "Your page on Pinoy Pages is the product, and the web mirror is included in every tier at no extra charge. Your QR connects your own cards, flyers, signs and counter card to that page.",
     "reportNote": "Scan counts reported monthly for every Verified tier. No results are guaranteed.",
-    "printNote": "The printed edition is a short-run proof copy: one copy for each paid advertiser plus sales copies (pilot run about 54 copies; 100 under review). It is not sold or handed out to the public.",
+    "printNote": "The printed edition is a short-run proof copy: one copy for each paid advertiser, plus sales copies. It is not sold or handed out to the public.",
     "editionLabel": "2026–2027 Pilot Edition",
     "annualNote": "Pilot Edition (magazine + directory). Prices are per issue. The website is updated year-round.",
     "category": "Money & Business",
@@ -78,7 +78,12 @@
       "web": "Featured spot at the top of your category with Call / Book and photos",
       "qr": "Everything in Verified + a printable QR counter card for your shop",
       "badge": "Eligible — earned by the verification visit",
-      "extras": ["Everything in Verified", "Featured spot in your category", "QR counter card", "Call / Book button"],
+      "extras": [
+        "Everything in Verified",
+        "Featured spot in your category",
+        "QR counter card",
+        "Call / Book button"
+      ],
       "menu": "main"
     },
     {
@@ -91,7 +96,11 @@
       "web": "Your ad mirrored on its matching web page with a tap-to-open button",
       "qr": "Everything in Verified Plus + QR in a fixed corner of your ad",
       "badge": "Eligible — earned by the verification visit",
-      "extras": ["Everything in Verified Plus", "Half-page ad (print + web)", "QR + badge in the ad corner"],
+      "extras": [
+        "Everything in Verified Plus",
+        "Half-page ad (print + web)",
+        "QR + badge in the ad corner"
+      ],
       "menu": "main"
     },
     {
@@ -104,7 +113,11 @@
       "web": "Your ad mirrored on its matching web page with a tap-to-open button",
       "qr": "Everything in Verified Plus + QR in a fixed corner of your ad",
       "badge": "Eligible — earned by the verification visit",
-      "extras": ["Everything in Verified Plus", "Full-page ad (print + web)", "QR + badge in the ad corner"],
+      "extras": [
+        "Everything in Verified Plus",
+        "Full-page ad (print + web)",
+        "QR + badge in the ad corner"
+      ],
       "menu": "main"
     }
   ],
@@ -817,17 +830,32 @@
     {
       "id": "spring",
       "name": "Spring (tax season, Jan–May)",
-      "months": [1, 2, 3, 4, 5]
+      "months": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
     },
     {
       "id": "summer",
       "name": "Summer (Jun–Aug)",
-      "months": [6, 7, 8]
+      "months": [
+        6,
+        7,
+        8
+      ]
     },
     {
       "id": "fall",
       "name": "Fall (Sep–Dec)",
-      "months": [9, 10, 11, 12]
+      "months": [
+        9,
+        10,
+        11,
+        12
+      ]
     }
   ],
   "contacts": {
@@ -851,7 +879,12 @@
       "name": "Money & Business",
       "status": "live",
       "edition": "2026–2027",
-      "subcategories": ["tax-accounting", "insurance-financial", "business-services", "independents"]
+      "subcategories": [
+        "tax-accounting",
+        "insurance-financial",
+        "business-services",
+        "independents"
+      ]
     },
     {
       "slug": "travel-padala-remit",
