@@ -28,6 +28,8 @@ export type Listing = {
   tier: Tier;
   tagline?: string;
   website?: string;
+  /** Up to three services shown on the Verified card. */
+  services?: string[];
   sample: boolean;
   /** ISO date of the verification visit (paid tiers only). Paid = eligible; the visit earns the badge. */
   verifiedOn?: string | null;
@@ -162,3 +164,37 @@ export const longDate = (iso: string) =>
     month: "short",
     day: "numeric",
   });
+
+// ---------- Prototype v1 helpers (directory, cards, search) ----------
+export const categoryBySlug = (slug: string) => categories.find((c) => c.slug === slug);
+export const sectionBySlug = (slug: string) => sections.find((s) => s.slug === slug);
+export const langsOf = (l: Pick<Listing, "languages">) => l.languages.split(",").map((s) => s.trim());
+export const cities = [...new Set(listings.map((l) => l.area))].sort();
+export const languages = [...new Set(listings.flatMap(langsOf))].sort((a, b) =>
+  a === "English" ? -1 : b === "English" ? 1 : a.localeCompare(b),
+);
+/** Two-letter logo mark for a business (prototype: no uploaded logos yet). */
+export const initials = (name: string) =>
+  name
+    .replace(/[^A-Za-z ]/g, "")
+    .split(" ")
+    .filter((w) => w.length > 2 || /^[A-Z]/.test(w))
+    .slice(0, 2)
+    .map((w) => w[0]!.toUpperCase())
+    .join("");
+const LOGO_COLORS = ["#C8102E", "#0E7C86", "#0A5F67", "#9B1B30", "#14606B", "#B5452F"];
+export const logoColor = (id: string) =>
+  LOGO_COLORS[[...id].reduce((a, c) => a + c.charCodeAt(0), 0) % LOGO_COLORS.length]!;
+/** "Oct 6, 2026" */
+export const shortDate = (iso: string) =>
+  new Date(`${iso}T12:00:00`).toLocaleDateString("en-CA", { year: "numeric", month: "short", day: "numeric" });
+/** Verified listings first (active badge before pending/paused/expired), then free; alphabetical inside. */
+export function sortListings(ls: Listing[], now = new Date()) {
+  const w = (l: Listing) => (l.tier === "free" ? 0 : badgeState(l, now) === "active" ? 2 : 1);
+  return ls.slice().sort((a, b) => w(b) - w(a) || a.name.localeCompare(b.name));
+}
+export const featuredListings = (now = new Date()) =>
+  sortListings(
+    listings.filter((l) => isVerified(l, now)),
+    now,
+  );

@@ -3,7 +3,7 @@ import { createHmac } from "node:crypto";
 import { TEST_ENV } from "../playwright.config";
 import AxeBuilder from "@axe-core/playwright";
 import guide from "../content/guide.json";
-import { badgeState, isVerified, listings as allListings, type Listing } from "../src/lib/guide";
+import { badgeState, isVerified, listings as allListings, mutualPartners, type Listing } from "../src/lib/guide";
 import jsQR from "jsqr";
 import { PNG } from "pngjs";
 
@@ -18,6 +18,13 @@ const routes = [...new Set(guide.pages.map((p) => p.route))].concat([
   "/privacy",
   "/terms",
   "/listing/tax-02",
+  "/listing/tax-01",
+  "/directory/money-business",
+  "/get-verified",
+  "/awards",
+  "/card/tax-01",
+  "/card/ins-04",
+  "/report/tax-01",
 ]);
 
 for (const path of [...new Set(routes)]) {
@@ -38,13 +45,18 @@ test("every printed QR target (with UTM) resolves and canonical drops UTM", asyn
   }
 });
 
-test("all ad slots (11 + calendar sponsor) from the shared data render on the site", async ({ page }) => {
-  let count = 0;
-  for (const r of [...new Set(guide.pages.filter((p) => p.ad).map((p) => p.route))]) {
+test("all ad slots (11 + calendar sponsor) show on /advertise as the April 2027 preview; none on pilot pages", async ({
+  page,
+}) => {
+  await page.goto("/advertise");
+  await expect(page.getByRole("heading", { name: /April 2027 edition \(preview\)/ })).toBeVisible();
+  expect(await page.locator('aside[aria-label^="Ad space"], aside[aria-label^="Advertisement"]').count()).toBe(
+    guide.ads.length,
+  );
+  for (const r of ["/", "/directory", "/get-verified", "/upgrade"]) {
     await page.goto(r);
-    count += await page.locator('aside[aria-label^="Ad space"], aside[aria-label^="Advertisement"]').count();
+    await expect(page.locator('aside[aria-label^="Ad space"], aside[aria-label^="Advertisement"]')).toHaveCount(0);
   }
-  expect(count).toBe(guide.ads.length);
 });
 
 test("HST checker verdicts", async ({ page }) => {
@@ -150,7 +162,7 @@ test("/go/ counted link redirects paid listings with UTM", async ({ request }) =
   const res = await request.get("/go/ind-01", { maxRedirects: 0 });
   expect(res.status()).toBe(307);
   expect(res.headers()["location"]).toMatch(
-    /\/listing\/ind-01\?utm_source=own-qr&utm_medium=qr&utm_campaign=lister&utm_content=ind-01$/,
+    /\/card\/ind-01\?utm_source=own-qr&utm_medium=qr&utm_campaign=lister&utm_content=ind-01$/,
   );
   expect((await request.get("/go/nope", { maxRedirects: 0 })).status()).toBe(404);
   const call = await request.get("/go/tax-01?via=call", { maxRedirects: 0 });
@@ -200,8 +212,9 @@ test("paid = eligible, not verified: badge + date only after the visit; ZCard br
     await expect(bridge.getByRole("link", { name: "Save contact" })).toHaveAttribute("href", `/vcard/${l.id}.vcf`);
     const state = badgeState(l as Listing);
     await expect(bridge.getByTestId("vk-badge")).toHaveCount(state === "active" ? 1 : 0);
-    if (state === "active") await expect(bridge.getByText(/· Verified \w{3}, \w{3} \d{1,2}, \d{4}/)).toBeVisible();
+    if (state === "active") await expect(bridge.getByText(/· Verified \w{3} \d{1,2}, \d{4}/)).toBeVisible();
     else if (state === "paused") await expect(bridge.getByTestId("vk-paused")).toBeVisible();
+    else if (state === "expired") await expect(bridge.getByTestId("vk-expired")).toBeVisible();
     else await expect(bridge.getByTestId("verification-pending")).toBeVisible();
   }
   // ind-01 is Verified (everything included) but not yet visited: no badge anywhere on the page.
@@ -258,7 +271,7 @@ test("categories: Money & Business is the live category; Travel, Padala & Remit 
 test("directory: free entries are one line; featured shows tagline", async ({ page }) => {
   await page.goto("/directory/tax-accounting");
   await expect(page.locator('li[data-tier="free"]').first()).not.toContainText("Tagalog");
-  const tax01 = page.locator('li[data-tier="verified"]').filter({ hasText: "Sample Tax Preparer 01" });
+  const tax01 = page.locator('li[data-tier="verified"]').filter({ hasText: "Bituin Tax & Bookkeeping" });
   await expect(tax01).toContainText("Personal & self-employed returns");
   await expect(page.locator('li[data-tier="free"]').getByTestId("vk-badge")).toHaveCount(0);
   await expect(tax01.getByTestId("vk-badge")).toBeVisible();
@@ -266,7 +279,7 @@ test("directory: free entries are one line; featured shows tagline", async ({ pa
 
 test("sold ad mirrors online with corner QR and tap-to-open button", async ({ page }) => {
   await page.goto("/magazine");
-  const ad = page.getByRole("complementary", { name: /Advertisement: Sample Tax Preparer 01/ });
+  const ad = page.getByRole("complementary", { name: /Advertisement: Bituin Tax & Bookkeeping/ });
   await expect(ad.getByRole("img", { name: /QR code for/ })).toBeVisible();
   await expect(ad.getByRole("link", { name: /Tap to open/ })).toHaveAttribute("href", "/go/tax-01?via=tap");
 });
@@ -345,9 +358,9 @@ test("analytics access control: signed results links, paid vs free, admin key", 
     expect((await request.get(url)).status()).toBe(404);
   const s = await (await request.get(`/admin/analytics/summary?key=${TEST_ENV.ADMIN_KEY}&month=2026-11`)).text();
   expect(s).toContain("DRAFTS ONLY — NOT SENT (2026-11)");
-  expect(s).toContain("Sample Tax Preparer 01: your Pinoy Pages counts for November 2026");
+  expect(s).toContain("Bituin Tax & Bookkeeping: your Pinoy Pages counts for November 2026");
   expect(s).toContain("not a promise of future results");
-  expect(s).not.toContain("Sample CPA Office 02"); // free listing: counted, never emailed
+  expect(s).not.toContain("Araw CPA Professional Corp."); // free listing: counted, never emailed
 });
 
 test("Money & Business Calendar: CRA deadlines, free vs featured events, sponsor slot, prices in config", async ({
@@ -509,10 +522,10 @@ const L = (id: string) => allListings.find((l) => l.id === id)!;
 const at = (iso: string) => new Date(`${iso}T12:00:00Z`);
 
 test("badge logic: shows only within 12 months of the verification date and only when status is active", () => {
-  const tax = L("tax-01"); // verified 2026-11-20, founding vouch + mutual vouch with ins-01
+  const tax = L("tax-01"); // verified 2026-10-06, founding vouch + mutual vouches with ins-01 and biz-01
   expect(badgeState(tax, at("2026-12-01"))).toBe("active");
-  expect(badgeState(tax, at("2027-11-19"))).toBe("active");
-  expect(badgeState(tax, at("2027-11-20"))).toBe("expired");
+  expect(badgeState(tax, at("2027-10-05"))).toBe("active");
+  expect(badgeState(tax, at("2027-10-06"))).toBe("expired");
   expect(isVerified(tax, at("2028-01-01"))).toBe(false);
   // Paused: never shown, whatever the date.
   const paused: Listing = { ...tax, badge: { ...tax.badge!, status: "paused" } };
@@ -555,7 +568,197 @@ test("paused badge: listing keeps its Verified page, but no badge anywhere; dire
 
 test("mutual partner stars show on active badges only", async ({ page }) => {
   await page.goto("/listing/tax-01");
-  await expect(page.getByTestId("partner-stars")).toContainText("1 mutual partner");
+  await expect(page.getByTestId("partner-stars")).toContainText("2 mutual partners");
   await page.goto("/listing/ins-03");
   await expect(page.getByTestId("partner-stars")).toHaveCount(0);
+});
+
+// ---------- Prototype v1: search, ZCard bridge pages, /go counting, report demo, home, awards ----------
+const visible = (page: Page) => page.locator("#results li[data-listing]:visible");
+
+test("directory search filters by name, sub-category, city and language (and syncs the URL)", async ({ page }) => {
+  await page.goto("/directory");
+  const search = page.getByRole("search", { name: "Search the directory" });
+  await expect(search.getByTestId("search-count")).toHaveText(`${guide.listings.length} businesses shown`);
+  await search.getByLabel("Business name").fill("bituin");
+  await expect(visible(page)).toHaveCount(1);
+  await expect(visible(page).first()).toHaveAttribute("data-listing", "tax-01");
+  await expect(search.getByTestId("search-count")).toHaveText("1 business shown");
+  await expect(page).toHaveURL(/\?q=bituin$/);
+  await search.getByRole("button", { name: "Clear" }).click();
+  await search.getByLabel("City").selectOption("Mississauga");
+  const miss = guide.listings.filter((l) => l.area === "Mississauga");
+  await expect(visible(page)).toHaveCount(miss.length);
+  for (const city of await visible(page).evaluateAll((els) => els.map((e) => e.getAttribute("data-city"))))
+    expect(city).toBe("Mississauga");
+  await search.getByLabel("Language").selectOption("Cebuano");
+  const both = miss.filter((l) => l.languages.includes("Cebuano")).map((l) => l.id);
+  await expect(visible(page)).toHaveCount(both.length);
+  await expect(page).toHaveURL(/city=Mississauga/);
+  await expect(page).toHaveURL(/lang=Cebuano/);
+  await search.getByRole("button", { name: "Clear" }).click();
+  await search.getByLabel("Sub-category").selectOption("independents");
+  await expect(visible(page)).toHaveCount(guide.listings.filter((l) => l.category === "independents").length);
+  await search.getByLabel("Business name").fill("zzz-nothing");
+  await expect(visible(page)).toHaveCount(0);
+  await expect(search.getByTestId("search-count")).toContainText("No businesses match");
+  await expect(page.locator('#results [data-group="verified"]')).toBeHidden();
+  // A shared filtered link opens pre-filtered; the home page search lands here too.
+  await page.goto("/directory?lang=Ilocano");
+  await expect(visible(page)).toHaveCount(guide.listings.filter((l) => l.languages.includes("Ilocano")).length);
+  await page.goto("/");
+  await page.getByRole("search", { name: "Find a business" }).getByLabel("Business name").fill("perlas");
+  await page.getByRole("button", { name: "Search" }).click();
+  await expect(page).toHaveURL(/\/directory\?q=perlas/);
+  await expect(visible(page)).toHaveCount(1);
+});
+
+test("directory cards: Free = one text line; Verified = card with logo, badge + date, stars, Call/Book, .vcf, QR, states", async ({
+  page,
+}) => {
+  await page.goto("/directory/money-business");
+  const free = page.locator('li[data-tier="free"]');
+  await expect(free).toHaveCount(guide.listings.filter((l) => l.tier === "free").length);
+  await expect(free.first().getByRole("img")).toHaveCount(0);
+  await expect(free.first().getByRole("link", { name: "Save contact" })).toHaveCount(0);
+  const tax = page.locator('li[data-listing="tax-01"]');
+  await expect(tax.getByTestId("vk-badge")).toContainText(/Verified Kabayan · Verified Oct 6, 2026/);
+  await expect(tax).toContainText("2 mutual partners");
+  await expect(tax.getByRole("link", { name: "Call / Book" })).toHaveAttribute("href", "/go/tax-01?via=call");
+  await expect(tax.getByRole("link", { name: "Save contact" })).toHaveAttribute("href", "/vcard/tax-01.vcf");
+  await expect(tax.getByRole("link", { name: "ZCard", exact: true })).toHaveAttribute("href", "/card/tax-01");
+  await expect(page.locator('li[data-listing="ins-04"]')).toHaveAttribute("data-badge", "expired");
+  await expect(page.locator('li[data-listing="ins-04"]').getByTestId("vk-badge")).toHaveCount(0);
+  await expect(page.locator('li[data-listing="ins-04"]')).toContainText("Badge expired");
+  await expect(page.locator('li[data-listing="ins-03"]')).toContainText("Badge paused");
+  await expect(page.locator('li[data-listing="ind-01"]')).toContainText("Verification pending");
+});
+
+test("ZCard bridge page (/card/<id>): one per Verified listing, mobile-first, no login, payment or personal info", async ({
+  page,
+  request,
+}) => {
+  for (const l of paid) {
+    const res = await page.goto(`/card/${l.id}`);
+    expect(res?.status(), l.id).toBe(200);
+    const bridge = page.getByTestId("zcard-bridge");
+    await expect(bridge.getByRole("heading", { level: 1 })).toHaveText(l.zcard!.person);
+    await expect(bridge.getByRole("link", { name: "Save contact" })).toHaveAttribute("href", `/vcard/${l.id}.vcf`);
+    await expect(bridge.getByText(guide.brand.qrLine)).toBeVisible();
+    await expect(page.locator("main").locator("form, input, select, textarea, iframe")).toHaveCount(0);
+    await expect(page.getByText(/password|sign in|log ?in to|card number|credit card/i)).toHaveCount(0);
+    const state = badgeState(l as Listing);
+    await expect(bridge).toHaveAttribute("data-state", state);
+    await expect(bridge.getByTestId("vk-badge")).toHaveCount(state === "active" ? 1 : 0);
+    if (state === "active") {
+      await expect(bridge.getByText(/· Verified \w{3} \d{1,2}, \d{4}/)).toBeVisible();
+      const n = mutualPartners(l as Listing).length;
+      if (n) await expect(bridge.getByTestId("partner-stars")).toContainText(`${n} mutual partner`);
+    }
+    if (state === "expired") await expect(bridge.getByTestId("vk-expired")).toBeVisible();
+    if (state === "paused") await expect(bridge.getByTestId("vk-paused")).toBeVisible();
+    if (state === "pending") await expect(bridge.getByTestId("verification-pending")).toBeVisible();
+    // Mobile-first: no horizontal scrolling.
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  }
+  for (const l of free) expect((await request.get(`/card/${l.id}`)).status()).toBe(404);
+});
+
+test("/go/<id> counts every scan and lands on the ZCard; /report/<id> shows the live count + SAMPLE numbers", async ({
+  page,
+  request,
+}) => {
+  const id = "biz-03";
+  await page.goto(`/report/${id}`);
+  await expect(page.getByTestId("sample-banner")).toContainText("SAMPLE");
+  await expect(page.getByRole("img", { name: /SAMPLE QR scans per month/ })).toBeVisible();
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+  const before = Number(await page.getByTestId("live-scans").innerText());
+  for (let i = 0; i < 2; i++) {
+    const r = await request.get(`/go/${id}`, { maxRedirects: 0 });
+    expect(r.status()).toBe(307);
+    expect(r.headers()["location"]).toContain(`/card/${id}?utm_source=own-qr`);
+  }
+  await page.reload();
+  expect(Number(await page.getByTestId("live-scans").innerText())).toBeGreaterThanOrEqual(before + 2);
+  // Bots are not counted.
+  const now = Number(await page.getByTestId("live-scans").innerText());
+  await request.get(`/go/${id}`, { maxRedirects: 0, headers: { "user-agent": "Googlebot/2.1" } });
+  await page.reload();
+  expect(Number(await page.getByTestId("live-scans").innerText())).toBeLessThanOrEqual(now + 2);
+  // Following the redirect opens the ZCard.
+  await page.goto(`/go/${id}`);
+  await expect(page).toHaveURL(new RegExp(`/card/${id}\\?`));
+  await expect(page.getByTestId("zcard-bridge")).toBeVisible();
+  // Unlisted: Verified only, never in the sitemap or linked from the site.
+  expect((await request.get("/report/tax-02")).status()).toBe(404);
+  expect((await request.get("/report/nope")).status()).toBe(404);
+  expect(await (await request.get("/sitemap.xml")).text()).not.toContain("/report/");
+});
+
+test("home: value proposition, category tiles, featured Verified, Get Verified CTA, free tools teaser", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    "Be the kabayan they can trust — and see proof people found you",
+  );
+  await expect(page.getByRole("link", { name: /Tax & accounting/ }).first()).toHaveAttribute(
+    "href",
+    "/directory/tax-accounting",
+  );
+  const featured = page.getByTestId("featured-verified").locator("li");
+  expect(await featured.count()).toBeGreaterThan(0);
+  for (const b of await featured.evaluateAll((els) => els.map((e) => e.getAttribute("data-badge"))))
+    expect(b).toBe("active");
+  await expect(
+    page
+      .getByRole("main")
+      .getByRole("link", { name: /Get Verified/ })
+      .first(),
+  ).toHaveAttribute("href", "/get-verified");
+  for (const href of ["/tools/hst-checker", "/tools/cpp-estimator", "/tax-deadlines", "/calendar"])
+    await expect(page.locator(`main a[href="${href}"]`).first()).toBeVisible();
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+});
+
+test("Get Verified: Free vs Verified, the 4 checks, keeping-your-badge rules, and the claim form", async ({ page }) => {
+  await page.goto("/get-verified");
+  await expect(page.getByTestId("plan-free")).toContainText("$0");
+  await expect(page.getByTestId("plan-verified")).toContainText("$199");
+  const checks = page.getByTestId("badge-checks").getByRole("listitem");
+  await expect(checks).toHaveCount(4);
+  for (const t of ["Kabayan-owned or run", "Really trading", "ZCard completed", "One mutual vouch"])
+    await expect(page.getByTestId("badge-checks")).toContainText(t);
+  await expect(page.getByTestId("keep-rules").getByRole("listitem")).toHaveCount(5);
+  await page.getByRole("button", { name: "Claim my listing" }).click();
+  await expect(page.getByRole("alert").filter({ hasText: "Please fix" })).toBeVisible();
+  await page.getByLabel("Your name *").fill("Test Person");
+  await page.getByLabel("Business name *").fill("Test Business");
+  await page.getByLabel("Email *").fill("test@example.com");
+  await page.getByLabel("Verified", { exact: true }).check();
+  await page.getByRole("checkbox").check();
+  await page.getByRole("button", { name: "Claim my listing" }).click();
+  await expect(page.getByRole("status").first()).toContainText("verify your listing");
+});
+
+test("awards preview: three awards + category awards, coming April 2027, nothing to submit", async ({ page }) => {
+  await page.goto("/awards");
+  await expect(page.getByTestId("awards-coming")).toHaveText("Coming April 2027");
+  for (const a of ["Business of the Year", "Ad of the Year", "Kabayan’s Pick"])
+    await expect(page.getByRole("heading", { name: a })).toBeVisible();
+  await expect(page.getByText(/member vote/)).toBeVisible();
+  await expect(page.locator('[data-award^="cat-"]')).toHaveCount(guide.categories.length);
+  await expect(page.locator("main form")).toHaveCount(0);
+});
+
+test("sample data: ~12+ fictional SAMPLE businesses with 555 numbers across every sub-category", () => {
+  expect(guide.listings.length).toBeGreaterThanOrEqual(12);
+  for (const l of guide.listings) {
+    expect(l.sample, l.id).toBe(true);
+    expect(l.phone, l.id).toMatch(/^\d{3}-555-01\d{2}$/);
+    expect(l.email, l.id).toMatch(/@example\.com$/);
+  }
+  for (const c of guide.categories) expect(guide.listings.some((l) => l.category === c.slug)).toBe(true);
+  expect(allListings.filter((l) => badgeState(l) === "active").length).toBeGreaterThanOrEqual(5);
 });

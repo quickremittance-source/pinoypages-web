@@ -23,7 +23,8 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
   if (via === "call") return NextResponse.redirect(`tel:${l.phone.replace(/[^\d+]/g, "")}`, 307);
   if (via === "map") return NextResponse.redirect(mapUrl(l), 307);
   if (via === "web") return NextResponse.redirect(l.website!, 307);
-  const to = new URL(`/listing/${id}`, req.url);
+  // QR scans and taps land on the ZCard bridge (mobile-first, no forms).
+  const to = new URL(`/card/${id}`, req.url);
   to.search = new URLSearchParams({
     utm_source: via === "scan" ? "own-qr" : "site",
     utm_medium: via === "scan" ? "qr" : via,

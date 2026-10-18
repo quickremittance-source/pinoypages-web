@@ -1,91 +1,119 @@
-import { VerifiedKabayan, ZCardMark } from "@/components/Badge";
-import { badgeState, brand, isFeatured, mutualPartners, type Listing } from "@/lib/guide";
+import { LogoTile, PartnerStars, SampleChip, VerifiedKabayan, ZCardMark } from "@/components/Badge";
+import { badgeState, brand, mutualPartners, shortDate, type Listing } from "@/lib/guide";
 
 /**
- * ZCard bridge: the person behind a paid listing. QR scans land here. By design it has NO form, NO login, NO payment
- * and asks for NO personal data: only Save contact and Call. Anything that asks for more is not us.
+ * ZCard bridge: the person behind a Verified listing. QR scans land here (/go/<id> → /card/<id>). By design it has
+ * NO form, NO login, NO payment and asks for NO personal data: only Save contact and Call. Anything that asks for
+ * more is not us. Links inside are limited to /vcard/, /go/ (counted) and mailto: (report).
  */
-export function ZCardBridge({ l }: { l: Listing }) {
+export function ZCardBridge({ l, standalone = false }: { l: Listing; standalone?: boolean }) {
   const z = l.zcard;
   const state = badgeState(l);
   const partners = mutualPartners(l);
-  const initials = (z?.person ?? l.name)
-    .split(" ")
-    .slice(0, 2)
-    .map((w) => w[0])
-    .join("");
+  const H = standalone ? "h1" : "h2";
   return (
     <section
       id="zcard"
       data-testid="zcard-bridge"
+      data-state={state}
       aria-labelledby="zcard-h"
-      className="mt-6 rounded-2xl border-2 border-turqdk bg-white p-6"
+      className="card overflow-hidden"
     >
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 id="zcard-h" className="text-xl font-semibold text-sea">
-          ZCard: the person behind {l.name}
-        </h2>
-        <ZCardMark />
-      </div>
-      <div className="mt-4 flex items-start gap-4">
-        <span
-          aria-hidden="true"
-          className="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-sea text-xl font-bold text-white"
-        >
-          {initials}
-        </span>
-        <div>
-          {z && (
-            <p className="font-bold">
-              {z.person} · <span className="font-normal">{z.role}</span>
+      <div className={`h-1.5 ${state === "active" ? "bg-phred" : "bg-sand"}`} aria-hidden="true" />
+      <div className="p-5 sm:p-6">
+        <div className="flex items-center justify-between gap-2">
+          <p className="kicker">ZCard{l.sample ? " · Sample" : ""}</p>
+          <ZCardMark />
+        </div>
+        <div className="mt-4 flex items-center gap-4">
+          <LogoTile l={l} size="lg" />
+          <div className="min-w-0">
+            <H id="zcard-h" className={`${standalone ? "text-2xl" : "text-xl"} leading-tight font-extrabold text-ink`}>
+              {z?.person ?? l.name}
+            </H>
+            {z && <p className="text-sm text-muted">{z.role}</p>}
+            <p className="mt-0.5 font-semibold text-sea">
+              {l.name} {l.sample && <SampleChip />}
             </p>
-          )}
-          <p className="text-sm">Languages: {l.languages}</p>
-          <p className="mt-2">
-            {state === "active" ? (
+          </div>
+        </div>
+
+        <div className="mt-4 rounded-xl bg-aqua/70 p-3">
+          {state === "active" ? (
+            <div className="space-y-1.5">
               <VerifiedKabayan l={l} withDate />
-            ) : state === "paused" ? (
-              <span className="text-sm font-bold text-coral-dk" data-testid="vk-paused">
-                Badge paused pending review{l.badge?.pausedReason ? ` (${l.badge.pausedReason.toLowerCase()})` : ""}.
-              </span>
-            ) : state === "expired" ? (
-              <span className="text-sm font-bold text-ink" data-testid="vk-expired">
-                Badge expired: renew for the light re-check to restore it.
-              </span>
-            ) : (
-              <span className="text-sm font-bold text-ink" data-testid="verification-pending">
-                Verification pending: no badge until the visit is passed and one mutual vouch is confirmed.
-              </span>
-            )}
-          </p>
-          {state === "active" && partners.length > 0 && (
-            <p className="mt-1 text-sm font-bold" data-testid="partner-stars">
-              <span aria-hidden="true">★</span> {partners.length} mutual partner{partners.length > 1 ? "s" : ""}
+              <p className="text-xs text-muted">
+                Visited in person and vouched for by a verified business. Valid 12 months from{" "}
+                {shortDate(l.verifiedOn!)}.
+              </p>
+            </div>
+          ) : state === "paused" ? (
+            <p className="text-sm font-bold text-red-dk" data-testid="vk-paused">
+              Badge paused pending review{l.badge?.pausedReason ? ` (${l.badge.pausedReason.toLowerCase()})` : ""}.
+            </p>
+          ) : state === "expired" ? (
+            <p className="text-sm font-bold text-ink" data-testid="vk-expired">
+              Badge expired: last verified {shortDate(l.verifiedOn!)}. Renew for the light re-check to restore it.
+            </p>
+          ) : (
+            <p className="text-sm font-bold text-ink" data-testid="verification-pending">
+              Verification pending: no badge until the visit is passed and one mutual vouch is confirmed.
             </p>
           )}
         </div>
-      </div>
-      <div className="mt-4 flex flex-wrap gap-3">
-        <a className="btn bg-sea" href={`/vcard/${l.id}.vcf`} download>
-          Save contact
-        </a>
-        {isFeatured(l) && (
+
+        {state === "active" && partners.length > 0 && (
+          <div className="mt-4">
+            <PartnerStars n={partners.length} testId="partner-stars" />
+            <ul className="mt-1 text-sm" aria-label="Mutual partners">
+              {partners.map((p) => (
+                <li key={p.id}>
+                  {p.name} <span className="text-muted">· {p.area}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <p className="mt-4 text-sm text-muted">
+          {l.area} · Languages: {l.languages}
+        </p>
+
+        <div className="mt-4 grid grid-cols-2 gap-2">
           <a className="btn" href={`/go/${l.id}?via=call`}>
             Call / Book
           </a>
-        )}
-      </div>
-      <div className="mt-4 rounded-lg bg-aqua p-3 text-sm text-sea">
-        <p className="font-bold">{brand.qrLine}</p>
-        <p>{brand.bridgeRule}</p>
-        <p>
-          <a
-            className="underline"
-            href={`mailto:${brand.email}?subject=${encodeURIComponent(`Report this QR: ${l.id}`)}`}
-          >
-            Report this QR
+          <a className="btn btn-teal" href={`/vcard/${l.id}.vcf`} download>
+            Save contact
           </a>
-        </p>
+          <a className="btn btn-ghost" href={`/go/${l.id}?via=map`}>
+            Directions
+          </a>
+          {l.website && (
+            <a className="btn btn-ghost" href={`/go/${l.id}?via=web`} rel="nofollow">
+              Website
+            </a>
+          )}
+        </div>
+
+        <div className="mt-5 rounded-xl border border-turqdk/30 p-3 text-sm">
+          <p className="flex items-start gap-2 font-bold text-sea">
+            <svg aria-hidden="true" viewBox="0 0 20 20" className="mt-0.5 h-4 w-4 shrink-0" focusable="false">
+              <path d="M10 1.5l7 2.6v5c0 4.4-3 7.8-7 9.4-4-1.6-7-5-7-9.4v-5z" fill="#0E7C86" />
+              <path d="M6.8 10l2.1 2.1 4.3-4.3" fill="none" stroke="#fff" strokeWidth="1.8" />
+            </svg>
+            {brand.qrLine}
+          </p>
+          <p className="mt-1 text-muted">{brand.bridgeRule}</p>
+          <p className="mt-1">
+            <a
+              className="font-semibold text-turqdk underline"
+              href={`mailto:${brand.email}?subject=${encodeURIComponent(`Report this QR: ${l.id}`)}`}
+            >
+              Report this QR
+            </a>
+          </p>
+        </div>
       </div>
     </section>
   );

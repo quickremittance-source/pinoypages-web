@@ -1,60 +1,85 @@
 import Link from "next/link";
-import { VerifiedKabayan, ZCardMark } from "@/components/Badge";
-import { badgeState, isFeatured, isVerified, tierName, type Listing } from "@/lib/guide";
+import { BadgeStateChip, LogoTile, PartnerStars, SampleChip, VerifiedKabayan } from "@/components/Badge";
+import { badgeState, categoryBySlug, isVerified, mutualPartners, type Listing } from "@/lib/guide";
+
+/** data-* attributes read by the client-side directory search (name, sub-category, city, language). */
+const searchData = (l: Listing) => ({
+  "data-listing": l.id,
+  "data-name": l.name.toLowerCase(),
+  "data-sub": l.category,
+  "data-city": l.area,
+  "data-langs": l.languages,
+});
 
 export function ListingCard({ l }: { l: Listing }) {
   if (l.tier === "free") {
-    // Free = unverified: name + contact details only, one text line. No badge, QR, Save contact or ZCard.
+    // Free = unverified: one text line, name + contact only. No badge, logo, QR, Save contact or ZCard.
     return (
-      <li className="rounded-xl bg-white p-3" data-tier="free">
-        <Link href={`/listing/${l.id}`} className="font-bold text-sea">
+      <li
+        className="flex flex-wrap items-baseline gap-x-2 gap-y-1 border-b border-sand py-2.5 text-sm"
+        data-tier="free"
+        {...searchData(l)}
+      >
+        <Link href={`/listing/${l.id}`} className="font-semibold text-ink hover:underline">
           {l.name}
-        </Link>{" "}
-        · {l.phone} · {l.area}{" "}
-        <Link href={`/upgrade?listing=${l.id}`} className="block text-sm font-bold text-coral-dk underline">
-          Is this your business? Claim or get Verified
+        </Link>
+        <span className="text-muted">
+          · {l.phone} · {l.area}
+        </span>
+        {l.sample && <SampleChip />}
+        <Link href={`/upgrade?listing=${l.id}`} className="ml-auto text-xs font-semibold text-turqdk underline">
+          Claim or get Verified
         </Link>
       </li>
     );
   }
-  const featured = isFeatured(l);
+  const state = badgeState(l);
+  const partners = mutualPartners(l).length;
+  const sub = categoryBySlug(l.category)?.name;
   return (
     <li
-      className={`rounded-xl p-4 ${featured ? "border-2 border-phred bg-white" : "border border-turqdk bg-white"}`}
+      className={`card flex flex-col p-4 ${state === "active" ? "border-t-4 border-t-phred" : "border-t-4 border-t-sand"}`}
       data-tier={l.tier}
       data-verified={isVerified(l) ? "yes" : "no"}
-      data-badge={badgeState(l)}
+      data-badge={state}
+      {...searchData(l)}
     >
       <div className="flex items-start gap-3">
-        <span
-          aria-hidden="true"
-          className={`grid h-12 w-12 shrink-0 place-items-center rounded-lg font-display text-lg text-white ${featured ? "bg-phred" : "bg-sea"}`}
-        >
-          {l.name
-            .split(" ")
-            .slice(0, 2)
-            .map((w) => w[0])
-            .join("")}
-        </span>
-        <div>
-          <h3 className={`text-lg text-sea ${featured ? "font-bold" : "font-semibold"}`}>
-            <Link href={`/listing/${l.id}`}>{l.name}</Link> <VerifiedKabayan l={l} />
-            {featured && <span className="ml-1 text-sm text-coral-dk">★ Featured</span>}
+        <LogoTile l={l} />
+        <div className="min-w-0 flex-1">
+          <h3 className="text-lg leading-snug font-bold text-ink">
+            <Link href={`/listing/${l.id}`} className="hover:underline">
+              {l.name}
+            </Link>
           </h3>
-          {featured && l.tagline && <p className="font-bold">{l.tagline}</p>}
-          <p className="text-sm">
-            {l.area} · {l.phone} · {l.languages}
+          <p className="mt-0.5 text-xs text-muted">
+            {sub} {l.sample && <SampleChip />}
           </p>
-          <p className="mt-1 flex flex-wrap items-center gap-2 text-xs">
-            <span className="font-bold text-ink">{tierName(l.tier)}</span>
-            <ZCardMark />
-          </p>
-          {featured && (
-            <a href={`/go/${l.id}?via=call`} className="btn mt-2 text-sm">
-              Call / Book
-            </a>
-          )}
         </div>
+        <Link href={`/card/${l.id}`} className="hidden shrink-0 sm:block" aria-label={`Open the ZCard for ${l.name}`}>
+          {/* eslint-disable-next-line @next/next/no-img-element -- static SVG from our own route */}
+          <img src={`/qr/${l.id}/qr.svg`} alt={`QR code for ${l.name}`} width={58} height={72} className="rounded" />
+        </Link>
+      </div>
+      {l.tagline && <p className="mt-3 font-semibold">{l.tagline}</p>}
+      <div className="mt-2 flex flex-wrap items-center gap-2">
+        <VerifiedKabayan l={l} withDate />
+        <BadgeStateChip l={l} />
+        {state === "active" && <PartnerStars n={partners} />}
+      </div>
+      <p className="mt-2 text-sm text-muted">
+        {l.area} · {l.languages}
+      </p>
+      <div className="mt-auto flex flex-wrap gap-2 pt-4">
+        <a href={`/go/${l.id}?via=call`} className="btn px-3.5 py-2 text-sm">
+          Call / Book
+        </a>
+        <a href={`/vcard/${l.id}.vcf`} download className="btn btn-ghost px-3.5 py-2 text-sm">
+          Save contact
+        </a>
+        <Link href={`/card/${l.id}`} className="btn btn-ghost px-3.5 py-2 text-sm">
+          ZCard
+        </Link>
       </div>
     </li>
   );

@@ -242,7 +242,7 @@
       "id": "slot-01",
       "size": "full",
       "status": "sold",
-      "advertiser": "Sample Tax Preparer 01",
+      "advertiser": "Bituin Tax & Bookkeeping",
       "headline": "SAMPLE AD — Tax season made easy",
       "body": "Personal and self-employed returns in English and Tagalog. This is a sample ad to show how a sold full page appears online.",
       "url": "",
@@ -253,7 +253,7 @@
       "id": "slot-02",
       "size": "half",
       "status": "sold",
-      "advertiser": "Sample Bookkeeping 01",
+      "advertiser": "Perlas Bookkeeping & Payroll",
       "headline": "SAMPLE AD — Your books, done monthly",
       "body": "Bookkeeping, payroll and HST filing for small businesses. This is a sample half-page ad.",
       "url": "",
@@ -388,7 +388,7 @@
     {
       "id": "tax-01",
       "category": "tax-accounting",
-      "name": "Sample Tax Preparer 01",
+      "name": "Bituin Tax & Bookkeeping",
       "area": "Scarborough",
       "phone": "416-555-0101",
       "languages": "English, Tagalog",
@@ -397,179 +397,277 @@
       "email": "tax-01@example.com",
       "tagline": "Personal & self-employed returns, done right",
       "website": "https://example.com/tax-01",
-      "verifiedOn": "2026-11-20",
+      "verifiedOn": "2026-10-06",
+      "services": ["Personal tax returns", "Self-employed & gig income", "CRA letters explained"],
       "zcard": {
-        "person": "Sample Owner A",
-        "role": "Tax preparer",
+        "person": "Maria Santos",
+        "role": "Tax preparer · Owner",
         "completed": true
       },
       "badge": {
         "status": "active",
-        "vouches": ["ins-01"],
+        "vouches": ["ins-01", "biz-01"],
         "foundingVouch": true
       }
     },
     {
       "id": "tax-02",
       "category": "tax-accounting",
-      "name": "Sample CPA Office 02",
+      "name": "Araw CPA Professional Corp.",
       "area": "Mississauga",
       "phone": "905-555-0102",
       "languages": "English, Tagalog",
       "tier": "free",
       "sample": true,
-      "email": ""
+      "email": "tax-02@example.com"
     },
     {
       "id": "tax-03",
       "category": "tax-accounting",
-      "name": "Sample Tax Clinic 03",
+      "name": "Malaya Community Tax Clinic",
       "area": "North York",
       "phone": "416-555-0103",
       "languages": "English, Ilocano",
       "tier": "free",
       "sample": true,
-      "email": ""
+      "email": "tax-03@example.com"
+    },
+    {
+      "id": "tax-04",
+      "category": "tax-accounting",
+      "name": "Dagat Tax Services",
+      "area": "Mississauga",
+      "phone": "905-555-0104",
+      "languages": "English, Tagalog, Cebuano",
+      "tier": "verified",
+      "sample": true,
+      "email": "tax-04@example.com",
+      "tagline": "Newcomer & family returns, benefits and RRSP questions",
+      "website": "https://example.com/tax-04",
+      "verifiedOn": "2026-10-09",
+      "services": ["Newcomer first return", "Canada Child Benefit", "RRSP & FHSA basics"],
+      "zcard": {
+        "person": "Ramon dela Cruz",
+        "role": "Tax preparer",
+        "completed": true
+      },
+      "badge": {
+        "status": "active",
+        "vouches": ["biz-03"],
+        "foundingVouch": true
+      }
     },
     {
       "id": "ins-01",
       "category": "insurance-financial",
-      "name": "Sample Insurance Advisor 01",
+      "name": "Hiraya Insurance & Mortgage",
       "area": "Etobicoke",
-      "phone": "416-555-0201",
+      "phone": "416-555-0111",
       "languages": "English, Tagalog",
       "tier": "verified",
       "sample": true,
       "email": "ins-01@example.com",
       "tagline": "Life, home & auto cover for Filipino families",
       "website": "https://example.com/ins-01",
-      "verifiedOn": "2026-11-21",
+      "verifiedOn": "2026-10-07",
+      "services": ["Life & critical illness", "Home & auto", "First-home mortgage intro"],
       "zcard": {
-        "person": "Sample Owner B",
+        "person": "Liza Reyes",
         "role": "Licensed insurance advisor",
         "completed": true
       },
       "badge": {
         "status": "active",
-        "vouches": ["tax-01"],
-        "foundingVouch": false
+        "vouches": ["tax-01"]
       }
     },
     {
       "id": "ins-02",
       "category": "insurance-financial",
-      "name": "Sample Financial Planner 02",
+      "name": "Kalayaan Financial Planning",
       "area": "Brampton",
-      "phone": "905-555-0202",
+      "phone": "905-555-0112",
       "languages": "English, Cebuano",
       "tier": "free",
       "sample": true,
-      "email": ""
+      "email": "ins-02@example.com"
     },
     {
       "id": "ins-03",
       "category": "insurance-financial",
-      "name": "Sample Insurance Advisor 03",
+      "name": "Tala Life & Auto Insurance",
       "area": "Etobicoke",
-      "phone": "416-555-0123",
+      "phone": "416-555-0113",
       "languages": "English, Tagalog",
       "tier": "verified",
       "sample": true,
-      "email": "ins03@example.com",
+      "email": "ins-03@example.com",
       "tagline": "Life, home & auto cover for Filipino families",
-      "verifiedOn": "2026-11-23",
+      "verifiedOn": "2026-10-07",
+      "services": ["Life insurance", "Auto insurance"],
       "zcard": {
-        "person": "Sample Owner E",
+        "person": "Jun Bautista",
         "role": "Insurance advisor",
         "completed": true
       },
       "badge": {
         "status": "paused",
         "vouches": ["tax-01"],
-        "foundingVouch": false,
         "pausedReason": "Complaint under review"
+      }
+    },
+    {
+      "id": "ins-04",
+      "category": "insurance-financial",
+      "name": "Luzon Mortgage Desk",
+      "area": "Brampton",
+      "phone": "905-555-0114",
+      "languages": "English, Tagalog, Ilocano",
+      "tier": "verified",
+      "sample": true,
+      "email": "ins-04@example.com",
+      "tagline": "Mortgage renewals and first homes, explained in Taglish",
+      "website": "https://example.com/ins-04",
+      "verifiedOn": "2025-09-12",
+      "services": ["Mortgage renewals", "First-home buyers"],
+      "zcard": {
+        "person": "Carmela Aquino",
+        "role": "Mortgage agent",
+        "completed": true
+      },
+      "badge": {
+        "status": "active",
+        "vouches": []
       }
     },
     {
       "id": "biz-01",
       "category": "business-services",
-      "name": "Sample Bookkeeping 01",
+      "name": "Perlas Bookkeeping & Payroll",
       "area": "Markham",
-      "phone": "905-555-0301",
+      "phone": "905-555-0121",
       "languages": "English, Tagalog",
       "tier": "verified",
       "sample": true,
       "email": "biz-01@example.com",
       "tagline": "Bookkeeping, payroll & HST filing for small business",
       "website": "https://example.com/biz-01",
-      "verifiedOn": "2026-11-24",
+      "verifiedOn": "2026-10-08",
+      "services": ["Monthly bookkeeping", "Payroll & T4s", "HST filing"],
       "zcard": {
-        "person": "Sample Owner D",
-        "role": "Bookkeeper",
+        "person": "Grace Villanueva",
+        "role": "Bookkeeper · Owner",
         "completed": true
       },
       "badge": {
         "status": "active",
-        "vouches": [],
+        "vouches": ["tax-01", "ind-04"],
         "foundingVouch": true
       }
     },
     {
       "id": "biz-02",
       "category": "business-services",
-      "name": "Sample Payroll Services 02",
+      "name": "Mabuhay Payroll Services",
       "area": "Toronto",
-      "phone": "416-555-0302",
+      "phone": "416-555-0122",
       "languages": "English",
       "tier": "free",
       "sample": true,
-      "email": ""
+      "email": "biz-02@example.com"
+    },
+    {
+      "id": "biz-03",
+      "category": "business-services",
+      "name": "Sampaguita Business Registry",
+      "area": "Vaughan",
+      "phone": "905-555-0123",
+      "languages": "English, Tagalog",
+      "tier": "verified",
+      "sample": true,
+      "email": "biz-03@example.com",
+      "tagline": "Register your business, get your HST number, start right",
+      "website": "https://example.com/biz-03",
+      "verifiedOn": "2026-10-13",
+      "services": ["Sole prop & corporation set-up", "HST / business number", "Year-one checklist"],
+      "zcard": {
+        "person": "Paolo Mendoza",
+        "role": "Business set-up consultant",
+        "completed": true
+      },
+      "badge": {
+        "status": "active",
+        "vouches": ["tax-04"]
+      }
     },
     {
       "id": "ind-01",
       "category": "independents",
-      "name": "Sample Freelance Designer 01",
+      "name": "Ligaya Creative Studio",
       "area": "Toronto",
-      "phone": "416-555-0401",
+      "phone": "416-555-0131",
       "languages": "English, Tagalog",
       "tier": "verified",
       "sample": true,
       "email": "ind-01@example.com",
+      "tagline": "Logos, menus and flyers for kabayan businesses",
       "website": "https://example.com/ind-01",
-      "verifiedOn": null,
+      "services": ["Logo design", "Menus & flyers"],
       "zcard": {
-        "person": "Sample Owner C",
+        "person": "Andrea Lim",
         "role": "Freelance designer",
-        "completed": false
+        "completed": true
       },
-      "tagline": "Sample tagline — money services in English and Tagalog",
       "badge": {
         "status": "active",
-        "vouches": [],
-        "foundingVouch": false
+        "vouches": []
       }
     },
     {
       "id": "ind-02",
       "category": "independents",
-      "name": "Sample Home Caterer 02",
+      "name": "Bayanihan Notary & Translation",
       "area": "Vaughan",
-      "phone": "905-555-0402",
+      "phone": "905-555-0132",
       "languages": "English, Tagalog",
       "tier": "free",
       "sample": true,
-      "email": ""
+      "email": "ind-02@example.com"
     },
     {
       "id": "ind-03",
       "category": "independents",
-      "name": "Sample Cleaning Pro 03",
+      "name": "Ilaw Virtual Assistants",
       "area": "Mississauga",
-      "phone": "905-555-0403",
+      "phone": "905-555-0133",
       "languages": "English, Kapampangan",
       "tier": "free",
       "sample": true,
-      "email": ""
+      "email": "ind-03@example.com"
+    },
+    {
+      "id": "ind-04",
+      "category": "independents",
+      "name": "Kidlat IT Support",
+      "area": "Richmond Hill",
+      "phone": "905-555-0134",
+      "languages": "English, Tagalog",
+      "tier": "verified",
+      "sample": true,
+      "email": "ind-04@example.com",
+      "tagline": "Laptops, Wi-Fi and POS help for small offices",
+      "website": "https://example.com/ind-04",
+      "verifiedOn": "2026-10-14",
+      "services": ["Office Wi-Fi & printers", "POS set-up", "Backups"],
+      "zcard": {
+        "person": "Mark Garcia",
+        "role": "IT technician",
+        "completed": true
+      },
+      "badge": {
+        "status": "active",
+        "vouches": ["biz-01"]
+      }
     }
   ],
   "sponsors": [],
@@ -769,7 +867,7 @@
       "date": "2027-02-27",
       "time": "10:00 am",
       "place": "Mississauga (sample)",
-      "organizer": "Sample Tax Preparer 01",
+      "organizer": "Bituin Tax & Bookkeeping",
       "contact": "416-555-0101",
       "description": "A sample featured event: what self-employed Filipinos should bring to tax season. Shows how a featured event looks.",
       "link": "https://example.com/register",

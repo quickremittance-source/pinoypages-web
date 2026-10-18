@@ -3,7 +3,7 @@ import { PageHead } from "@/components/Chrome";
 import { AdGrid } from "@/components/AdCard";
 import { InquiryForm } from "@/components/Forms";
 import { PlanTable } from "@/components/PlanTable";
-import { adsForRoute, ads, brand } from "@/lib/guide";
+import { ads, brand } from "@/lib/guide";
 
 export const metadata: Metadata = { title: "Advertise", alternates: { canonical: "/advertise" } };
 
@@ -27,13 +27,19 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
         </p>
         <PlanTable />
         <section aria-labelledby="inq">
-          <h2 id="inq" className="mb-3 text-2xl font-semibold text-sea">
+          <h2 id="inq" className="mb-3 text-2xl font-bold text-ink">
             Ask about an ad{valid ? ` (space ${valid})` : ""}
           </h2>
           <InquiryForm slot={valid} />
         </section>
       </div>
-      <AdGrid ads={adsForRoute("/advertise")} />
+      <section aria-labelledby="spaces" className="mx-auto mt-10 max-w-5xl px-4">
+        <h2 id="spaces" className="text-2xl font-bold text-ink">
+          Ad spaces · April 2027 edition (preview)
+        </h2>
+        <p className="mt-1 text-muted">{brand.adsNote} Sold spaces below are SAMPLE ads.</p>
+      </section>
+      <AdGrid ads={ads} />
     </>
   );
 }

@@ -1,40 +1,66 @@
 @import "tailwindcss";
 
+/* Pinoy Pages: white, Philippine red + teal, sans-serif, pinstripe accents. Legacy token names kept, re-mapped. */
 @theme {
-  --color-sea: #0b5e7a;
-  --color-turq: #1fb5b0;
-  --color-aqua: #ddf3f1;
-  --color-sand: #f4e7d1;
-  --color-sandlt: #fbf6ec;
-  --color-coral: #f26b5b;
-  --color-coral-dk: #b83a2b;
-  --color-sunset: #f7a541;
-  --color-palm: #13806f;
-  --color-ink: #1e2a2f;
-  --color-turqdk: #0e7470;
-  --color-phred: #b80f20;
-  --font-display: var(--font-fredoka), ui-rounded, sans-serif;
-  --font-sans: var(--font-nunito), system-ui, sans-serif;
+  --color-sea: #0a5f67;
+  --color-turq: #0e7c86;
+  --color-aqua: #e6f4f5;
+  --color-sand: #eef1f3;
+  --color-sandlt: #ffffff;
+  --color-coral: #c8102e;
+  --color-coral-dk: #c8102e;
+  --color-sunset: #f2b705;
+  --color-palm: #0e7c86;
+  --color-ink: #1b2328;
+  --color-muted: #55636b;
+  --color-turqdk: #0b6f78;
+  --color-phred: #c8102e;
+  --color-red-dk: #9e0c24;
+  --font-display: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 body {
-  @apply bg-sandlt text-ink font-sans antialiased;
+  @apply bg-white text-ink font-sans antialiased;
 }
 h1,
 h2,
 h3 {
   font-family: var(--font-display);
+  letter-spacing: -0.015em;
 }
-.kicker {
-  @apply text-xs font-extrabold uppercase tracking-[0.16em] text-turqdk;
+@layer components {
+  .kicker {
+    @apply text-xs font-bold uppercase tracking-[0.16em] text-turqdk;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-phred px-5 py-2.5 font-semibold text-white shadow-sm transition-colors hover:bg-red-dk;
+  }
+  .btn-teal {
+    @apply bg-turqdk hover:bg-sea;
+  }
+  .btn-ghost {
+    @apply border border-turqdk bg-white text-turqdk shadow-none hover:bg-aqua;
+  }
+  .field {
+    @apply mt-1 w-full rounded-lg border border-ink/25 bg-white px-3 py-2;
+  }
+  .card {
+    @apply rounded-2xl border border-sand bg-white shadow-[0_1px_2px_rgba(16,24,40,0.06)];
+  }
+  .sample-chip {
+    @apply inline-block rounded border border-ink/30 px-1.5 py-px text-[10px] font-bold uppercase tracking-wider text-muted;
+  }
 }
-.btn {
-  @apply inline-block rounded-full bg-coral-dk px-5 py-2.5 font-bold text-white hover:bg-sea;
+/* Pinstripe accents: thin red + teal rules. */
+.pinstripe {
+  height: 6px;
+  background: linear-gradient(to bottom, var(--color-phred) 0 2px, transparent 2px 4px, var(--color-turq) 4px 6px);
 }
-.field {
-  @apply mt-1 w-full rounded-lg border border-sea/40 bg-white px-3 py-2;
+.pinstripe-bg {
+  background-image: repeating-linear-gradient(90deg, rgba(14, 124, 134, 0.07) 0 1px, transparent 1px 14px);
 }
 :focus-visible {
-  outline: 3px solid var(--color-coral);
+  outline: 3px solid var(--color-turq);
   outline-offset: 2px;
 }
 @media (prefers-reduced-motion: reduce) {
