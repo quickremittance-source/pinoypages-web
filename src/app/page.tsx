@@ -3,6 +3,7 @@ import { LogoTile, PartnerStars, VerifiedKabayan } from "@/components/Badge";
 import { CategoryTiles } from "@/components/CategoryTiles";
 import { JsonLd } from "@/components/JsonLd";
 import { ListingCard } from "@/components/ListingCard";
+import { UpcomingEvents } from "@/components/UpcomingEvents";
 import { brand, featuredListings, listingById, mutualPartners, sections, SITE_URL } from "@/lib/guide";
 import { liveTools } from "@/lib/registry";
 
@@ -165,6 +166,39 @@ export default function Home() {
           </ul>
           <p className="mt-3 text-xs text-muted">Businesses marked SAMPLE are fictional, for the prototype.</p>
         </div>
+      </section>
+
+      <section aria-labelledby="list-band" className="mx-auto max-w-6xl px-4 pt-12" data-testid="list-band">
+        <h2 id="list-band" className="sr-only">
+          List your business
+        </h2>
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="card flex flex-col p-6">
+            <p className="kicker">Free</p>
+            <h3 className="mt-1 text-2xl font-extrabold text-ink">List your business free</h3>
+            <p className="mt-2 text-muted">
+              Your name, phone and city in the directory. Unverified, and free for as long as you want it.
+            </p>
+            <Link href="/list-free" className="btn btn-ghost mt-auto self-start">
+              List free
+            </Link>
+          </div>
+          <div className="card flex flex-col border-2 border-phred p-6">
+            <p className="kicker">Verified · {brand.pilotLabel}</p>
+            <h3 className="mt-1 text-2xl font-extrabold text-ink">Get Verified · $199</h3>
+            <p className="mt-2 text-muted">
+              A featured card, the badge once you pass the visit and a mutual vouch, your ZCard and QR, and a monthly
+              scan report. One price per issue, everything included.
+            </p>
+            <Link href="/get-verified" className="btn mt-4 self-start">
+              Get Verified
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pt-12">
+        <UpcomingEvents />
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-12" aria-labelledby="how">

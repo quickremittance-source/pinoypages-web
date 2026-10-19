@@ -3,7 +3,7 @@
 import { useActionState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
-import { submitClaim, submitEvent, submitInquiry, submitSignup, type FormState } from "@/app/actions";
+import { submitClaim, submitEvent, submitInquiry, submitListFree, submitSignup, type FormState } from "@/app/actions";
 
 const init: FormState = { status: "idle" };
 
@@ -175,6 +175,20 @@ export function EventForm({ members }: { members: { id: string; name: string }[]
         </div>
         {fe?.plan && <span className="text-sm text-coral-dk">{fe.plan[0]}</span>}
       </fieldset>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <label className="block font-bold">
+          Event category
+          <select name="category" className="field" defaultValue="">
+            <option value="">Choose…</option>
+            <option value="tax">Tax</option>
+            <option value="money">Saving & money</option>
+            <option value="business">Business</option>
+            <option value="insurance">Insurance</option>
+            <option value="community">Community</option>
+          </select>
+        </label>
+        <Field name="city" label="Event city" err={fe?.city} />
+      </div>
       <label className="block font-bold">
         Member? Choose your paid listing
         <select name="memberListing" className="field" defaultValue="">
@@ -237,6 +251,55 @@ export function SignupForm() {
       </label>
       <button className="btn" disabled={pending}>
         {pending ? "Sending…" : "Sign me up"}
+      </button>
+    </form>
+  );
+}
+
+export function ListFreeForm({ subs, listing }: { subs: { value: string; label: string }[]; listing?: string }) {
+  const [s, action, pending] = useActionState(submitListFree, init);
+  const fe = s.status === "error" ? s.fieldErrors : undefined;
+  return (
+    <form action={action} className="card space-y-4 p-6" noValidate aria-label="List your business free">
+      <Status s={s} />
+      <input type="hidden" name="listing" value={listing ?? ""} />
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field name="name" label="Your name" required err={fe?.name} />
+        <Field name="business" label="Business name" required err={fe?.business} />
+        <Field name="email" label="Email" type="email" required err={fe?.email} />
+        <Field name="phone" label="Business phone" type="tel" err={fe?.phone} />
+        <label className="block font-bold">
+          Sub-category *
+          <select name="sub" className="field" defaultValue="" aria-invalid={!!fe?.sub}>
+            <option value="">Choose…</option>
+            {subs.map((o) => (
+              <option key={o.value} value={o.value}>
+                {o.label}
+              </option>
+            ))}
+          </select>
+          {fe?.sub && <span className="text-sm font-normal text-coral-dk">{fe.sub[0]}</span>}
+        </label>
+        <Field name="city" label="City" required err={fe?.city} />
+      </div>
+      <Field name="languages" label="Languages spoken" err={fe?.languages} />
+      <input type="text" name="website_url" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
+      <Suspense>
+        <Utm />
+      </Suspense>
+      <label className="flex items-start gap-2">
+        <input type="checkbox" name="wantsVerified" className="mt-1" />
+        <span>Also send me the details on Verified ($199 per issue). Optional.</span>
+      </label>
+      <label className="flex items-start gap-2">
+        <input type="checkbox" name="consent" className="mt-1" />
+        <span>
+          I agree that Pinoy Pages may contact me about my listing. I can unsubscribe at any time. *
+          {fe?.consent && <span className="block text-sm text-coral-dk">{fe.consent[0]}</span>}
+        </span>
+      </label>
+      <button className="btn" disabled={pending}>
+        {pending ? "Sending…" : "List my business free"}
       </button>
     </form>
   );

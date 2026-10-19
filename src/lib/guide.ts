@@ -30,6 +30,13 @@ export type Listing = {
   website?: string;
   /** Up to three services shown on the Verified card. */
   services?: string[];
+  /** SAMPLE owner story (2–3 sentences), shown on Verified pages. */
+  story?: string;
+  /** Short SAMPLE quote from the owner (always labelled SAMPLE on the site). */
+  quote?: string;
+  why?: string;
+  hours?: string;
+  serviceArea?: string;
   sample: boolean;
   /** ISO date of the verification visit (paid tiers only). Paid = eligible; the visit earns the badge. */
   verifiedOn?: string | null;
@@ -120,7 +127,26 @@ export type CalEvent = {
   sample?: boolean;
   description?: string;
   link?: string;
+  /** Host listing id (linked from the event page when the host is Verified). */
   listing?: string;
+  category?: EventCategory;
+  /** Directory sub-category this event belongs to (shown on that sub-category page). */
+  sub?: string;
+  city?: string;
+  venue?: string;
+  address?: string;
+  /** 24h local start/end times, "18:30". */
+  start?: string;
+  end?: string;
+};
+export type EventCategory = "tax" | "money" | "business" | "insurance" | "community" | "awards";
+export const EVENT_CATEGORIES: Record<EventCategory, string> = {
+  tax: "Tax",
+  money: "Saving & money",
+  business: "Business",
+  insurance: "Insurance",
+  community: "Community",
+  awards: "Awards",
 };
 export const events = (data.events as CalEvent[]).slice().sort((a, b) => a.date.localeCompare(b.date));
 export const eventMenu = data.eventMenu;
@@ -198,3 +224,20 @@ export const featuredListings = (now = new Date()) =>
     listings.filter((l) => isVerified(l, now)),
     now,
   );
+
+/** Upcoming events (today or later), optionally for one sub-category; featured first within the same day. */
+export function upcomingEvents({
+  now = new Date(),
+  sub,
+  limit = 3,
+  community = true,
+}: { now?: Date; sub?: string; limit?: number; community?: boolean } = {}) {
+  const today = now.toISOString().slice(0, 10);
+  return events
+    .filter((e) => e.kind === "community" && e.date >= today)
+    .filter((e) => !sub || e.sub === sub || (community && !e.sub))
+    .slice(0, limit);
+}
+export const eventHost = (e: CalEvent) => (e.listing ? listingById(e.listing) : undefined);
+export const eventMapUrl = (e: CalEvent) =>
+  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${e.venue ?? e.place}, ${e.city ?? ""}, ON`)}`;

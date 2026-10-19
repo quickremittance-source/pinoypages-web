@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { PageHead } from "@/components/Chrome";
 import { CategoryTiles } from "@/components/CategoryTiles";
 import { ListingResults } from "@/components/ListingResults";
+import { UpcomingEvents } from "@/components/UpcomingEvents";
 import { categories, listings, listingsIn, sections } from "@/lib/guide";
 
 export const dynamicParams = false;
@@ -69,7 +70,10 @@ export default async function Page({ params }: P) {
         <p className="mb-4 text-sm text-muted">
           Businesses marked SAMPLE are fictional, shown until real listings are verified.
         </p>
-        <ListingResults items={listingsIn(sub.slug)} showSubFilter={false} />
+        <ListingResults items={listingsIn(sub.slug)} showSubFilter={false} subLabel={sub.name} />
+        <div className="mt-12">
+          <UpcomingEvents title={`Upcoming events · ${sub.name}`} sub={sub.slug} />
+        </div>
       </div>
     </>
   );

@@ -51,6 +51,67 @@ h3 {
     @apply inline-block rounded border border-ink/30 px-1.5 py-px text-[10px] font-bold uppercase tracking-wider text-muted;
   }
 }
+/* Long-form articles (Markdown → HTML). */
+.prose-article {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--color-ink);
+}
+.prose-article > * + * {
+  margin-top: 1em;
+}
+.prose-article h2 {
+  margin-top: 1.6em;
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+.prose-article h3 {
+  margin-top: 1.3em;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+.prose-article a {
+  color: var(--color-turqdk);
+  font-weight: 600;
+  text-decoration: underline;
+}
+.prose-article ul,
+.prose-article ol {
+  padding-left: 1.4em;
+}
+.prose-article ul {
+  list-style: disc;
+}
+.prose-article ol {
+  list-style: decimal;
+}
+.prose-article table {
+  width: 100%;
+  font-size: 0.95rem;
+  border-collapse: collapse;
+}
+.prose-article th,
+.prose-article td {
+  border-bottom: 1px solid var(--color-sand);
+  padding: 0.4em 0.5em;
+  text-align: left;
+}
+.prose-article blockquote {
+  border-left: 4px solid var(--color-phred);
+  padding-left: 1em;
+  color: var(--color-muted);
+}
+.prose-article em:only-child {
+  color: var(--color-muted);
+}
+.prose-article.dropcap > p:first-of-type::first-letter {
+  float: left;
+  font-size: 3.2em;
+  line-height: 0.9;
+  font-weight: 800;
+  padding: 0.05em 0.1em 0 0;
+  color: var(--color-phred);
+}
 /* Pinstripe accents: thin red + teal rules. */
 .pinstripe {
   height: 6px;

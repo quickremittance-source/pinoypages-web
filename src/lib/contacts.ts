@@ -48,6 +48,7 @@ export class BrevoContacts implements ContactsAdapter {
         COMPANY: c.business ?? "",
         SMS: c.phone ?? "",
         SOURCE: c.source,
+        LIST_TAGS: c.lists.join(","),
         CONSENT_AT: c.consent.at,
         CONSENT_TEXT: c.consent.text,
         ...c.attributes,

@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { abs, categories, isPaid, listings, sections } from "@/lib/guide";
+import { abs, categories, events, isPaid, listings, sections } from "@/lib/guide";
 import { articles } from "@/lib/magazine";
 import { liveTools } from "@/lib/registry";
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/upgrade",
     "/get-verified",
     "/awards",
+    "/list-free",
     "/privacy",
     "/terms",
   ].concat(
@@ -24,6 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     articles.filter((a) => a.tl).map((a) => `/magazine/${a.slug}/tl`),
     listings.map((l) => `/listing/${l.id}`),
     listings.filter(isPaid).map((l) => `/card/${l.id}`),
+    events.map((e) => `/calendar/${e.id}`),
   );
   return paths.map((p) => ({ url: abs(p) }));
 }

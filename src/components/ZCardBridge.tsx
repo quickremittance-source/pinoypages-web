@@ -78,6 +78,7 @@ export function ZCardBridge({ l, standalone = false }: { l: Listing; standalone?
         <p className="mt-4 text-sm text-muted">
           {l.area} · Languages: {l.languages}
         </p>
+        {l.hours && <p className="mt-1 text-sm text-muted">Hours: {l.hours}</p>}
 
         <div className="mt-4 grid grid-cols-2 gap-2">
           <a className="btn" href={`/go/${l.id}?via=call`}>

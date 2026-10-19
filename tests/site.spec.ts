@@ -1,3 +1,6 @@
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import ideasData from "../content/story-ideas.json";
 import { test, expect, type Page } from "@playwright/test";
 import { createHmac } from "node:crypto";
 import { TEST_ENV } from "../playwright.config";
@@ -13,6 +16,12 @@ const routes = [...new Set(guide.pages.map((p) => p.route))].concat([
   "/magazine",
   "/magazine/do-i-need-hst",
   "/magazine/do-i-need-hst/tl",
+  "/magazine/meet-bituin-tax",
+  "/magazine/fhsa-first-home",
+  "/magazine/ideas",
+  "/calendar/ev-sample-featured",
+  "/calendar/ev-newcomer-jan",
+  "/list-free",
   "/calendar",
   "/upgrade",
   "/privacy",
@@ -82,10 +91,7 @@ test("CPP estimator caps at 2026 maximums", async ({ page }) => {
 
 test("claim flow from a listing validates then succeeds", async ({ page }) => {
   await page.goto("/directory/tax-accounting");
-  await page
-    .getByRole("link", { name: /Claim or get Verified/ })
-    .first()
-    .click();
+  await page.getByRole("link", { name: "Claim it free" }).first().click();
   await expect(page).toHaveURL(/\/upgrade\?listing=/);
   await expect(page.getByText("Claiming:")).toBeVisible();
   await page.getByRole("button", { name: "Claim my listing" }).click();
@@ -376,10 +382,14 @@ test("Money & Business Calendar: CRA deadlines, free vs featured events, sponsor
   await expect(page.locator('[data-kind="deadline"]')).toHaveCount(
     guide.events.filter((x) => x.kind === "deadline").length,
   );
-  const free = page.locator('[data-event-tier="free"][data-kind="community"]');
-  await expect(free.getByRole("link")).toHaveCount(0); // name, date, place, organizer contact only
+  const free = page.locator('#cal [data-list] [data-event-tier="free"][data-kind="community"]');
+  // Free basic = text only: the name links to its event page; no image, no Register button.
+  for (const li of await free.all()) await expect(li.getByRole("link")).toHaveCount(1);
   await expect(free.locator("img, svg")).toHaveCount(0);
-  await expect(page.locator('[data-event-tier="featured"]').getByRole("link", { name: "Register" })).toBeVisible();
+  await expect(free.getByRole("link", { name: "Register" })).toHaveCount(0);
+  await expect(
+    page.locator('#cal [data-list] [data-event-tier="featured"]').getByRole("link", { name: "Register" }).first(),
+  ).toBeVisible();
   await expect(page.getByRole("complementary", { name: "Ad space slot-cal" })).toBeVisible();
   expect((await request.get("/e/ev-sample-free", { maxRedirects: 0 })).status()).toBe(404);
   const before = await count(page, "tax-01", "website"); // sanity: admin reachable
@@ -389,7 +399,7 @@ test("Money & Business Calendar: CRA deadlines, free vs featured events, sponsor
   expect(r.headers().location).toBe("https://example.com/register");
   await page.goto("/calendar/ev-sample-featured");
   await expect(page.getByRole("img", { name: /QR code to register/ })).toBeVisible();
-  expect((await request.get("/calendar/ev-sample-free")).status()).toBe(404);
+  expect((await request.get("/calendar/ev-sample-free")).status()).toBe(200);
 });
 
 test("event submission validates then succeeds (member featured event is free)", async ({ page }) => {
@@ -401,11 +411,13 @@ test("event submission validates then succeeds (member featured event is free)",
   await page.getByLabel("Place *").fill("Toronto");
   await page.getByLabel("Organizer *").fill("Test Org");
   await page.getByLabel("Organizer email *").fill("org@example.com");
-  await page.getByLabel(/Featured event/).check();
+  await page.getByRole("radio", { name: /Featured event/ }).check();
   await page.getByLabel("Member? Choose your paid listing").selectOption("ind-01");
   await page.getByRole("checkbox").check();
   await page.getByRole("button", { name: "Submit event" }).click();
-  await expect(page.getByRole("status").first()).toContainText("As a member your featured event is free");
+  await expect(page.getByRole("status").filter({ hasText: "Thanks" })).toContainText(
+    "As a member your featured event is free",
+  );
 });
 
 test("pilot menu = two tiers: Free / Verified $199 (everything included); no add-ons; prices from config", async ({
@@ -500,7 +512,8 @@ test("edition = magazine up front + directory at back; 20 pages, 11 ad slots + c
   await expect(page.getByRole("link", { name: "Basahin sa Tagalog" })).toBeVisible();
   await expect(page.getByRole("link", { name: "Open the free tool" })).toHaveAttribute("href", "/tools/hst-checker");
   await page.goto("/calendar");
-  for (const s of ["spring", "summer", "fall"]) await expect(page.locator(`[data-season="${s}"]`)).toBeVisible();
+  for (const s of ["spring", "summer", "fall"])
+    await expect(page.locator(`[data-season="${s}"]`).first()).toBeVisible();
   const sitemap = await (await request.get("/sitemap.xml")).text();
   for (const t of guide.tools) expect(sitemap.includes(t.route)).toBe(t.enabled);
 });
@@ -522,10 +535,10 @@ const L = (id: string) => allListings.find((l) => l.id === id)!;
 const at = (iso: string) => new Date(`${iso}T12:00:00Z`);
 
 test("badge logic: shows only within 12 months of the verification date and only when status is active", () => {
-  const tax = L("tax-01"); // verified 2026-10-06, founding vouch + mutual vouches with ins-01 and biz-01
+  const tax = L("tax-01"); // verified 2026-11-20 (matches print), founding vouch + mutual vouches with ins-01 and biz-01
   expect(badgeState(tax, at("2026-12-01"))).toBe("active");
-  expect(badgeState(tax, at("2027-10-05"))).toBe("active");
-  expect(badgeState(tax, at("2027-10-06"))).toBe("expired");
+  expect(badgeState(tax, at("2027-11-19"))).toBe("active");
+  expect(badgeState(tax, at("2027-11-20"))).toBe("expired");
   expect(isVerified(tax, at("2028-01-01"))).toBe(false);
   // Paused: never shown, whatever the date.
   const paused: Listing = { ...tax, badge: { ...tax.badge!, status: "paused" } };
@@ -622,7 +635,7 @@ test("directory cards: Free = one text line; Verified = card with logo, badge + 
   await expect(free.first().getByRole("img")).toHaveCount(0);
   await expect(free.first().getByRole("link", { name: "Save contact" })).toHaveCount(0);
   const tax = page.locator('li[data-listing="tax-01"]');
-  await expect(tax.getByTestId("vk-badge")).toContainText(/Verified Kabayan · Verified Oct 6, 2026/);
+  await expect(tax.getByTestId("vk-badge")).toContainText(/Verified Kabayan · Verified Nov 20, 2026/);
   await expect(tax).toContainText("2 mutual partners");
   await expect(tax.getByRole("link", { name: "Call / Book" })).toHaveAttribute("href", "/go/tax-01?via=call");
   await expect(tax.getByRole("link", { name: "Save contact" })).toHaveAttribute("href", "/vcard/tax-01.vcf");
@@ -761,4 +774,332 @@ test("sample data: ~12+ fictional SAMPLE businesses with 555 numbers across ever
   }
   for (const c of guide.categories) expect(guide.listings.some((l) => l.category === c.slug)).toBe(true);
   expect(allListings.filter((l) => badgeState(l) === "active").length).toBeGreaterThanOrEqual(5);
+});
+
+// ---------- Pilot content: rich SAMPLE listings, stories, story ideas ----------
+
+const contactsFile = path.join(process.cwd(), "data", "contacts.jsonl");
+const contactsFor = (email: string) =>
+  readFileSync(contactsFile, "utf8")
+    .trim()
+    .split("\n")
+    .map((l) => JSON.parse(l) as { email: string; lists: string[] })
+    .filter((c) => c.email === email);
+const uniq = (tag: string) => `${tag}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}@example.com`;
+const stories = guide.articles.filter((a) => "sample" in a && a.sample) as {
+  slug: string;
+  file: string;
+  title: string;
+  listings: string[];
+  tools: string[];
+}[];
+
+test("sample listings: 20–25 across 4 sub-categories, mostly Verified, with every state represented", () => {
+  expect(guide.listings.length).toBeGreaterThanOrEqual(20);
+  expect(guide.listings.length).toBeLessThanOrEqual(25);
+  const states = allListings.map((l) => badgeState(l));
+  const n = (s: string) => states.filter((x) => x === s).length;
+  expect(n("active")).toBeGreaterThan(guide.listings.length / 2);
+  for (const s of ["none", "paused", "expired", "pending"]) expect(n(s), s).toBeGreaterThan(0);
+  for (const l of guide.listings) {
+    for (const k of ["story", "why", "hours", "serviceArea", "services"] as const)
+      expect(l[k as keyof typeof l], `${l.id}.${k}`).toBeTruthy();
+    if (l.tier === "verified") expect(l.quote, l.id).toBeTruthy();
+    if (l.verifiedOn && l.verifiedOn > "2026-01-01") expect(l.verifiedOn.slice(0, 7), l.id).toBe("2026-11");
+  }
+  // Writing rules: no stock AI phrasing in the stories.
+  expect(JSON.stringify(guide.listings)).not.toMatch(
+    /navigate|empower|fast-paced|unlock|journey|seamless|in conclusion/i,
+  );
+});
+
+test("rich listing page: owner story, SAMPLE quote, why line, hours and service area; free pages stay name + contact", async ({
+  page,
+}) => {
+  await page.goto("/listing/tax-01");
+  await expect(page.getByTestId("owner-story")).toContainText("Sheppard Avenue");
+  await expect(page.getByTestId("owner-quote")).toContainText("SAMPLE quote");
+  await expect(page.getByTestId("why-choose")).toBeVisible();
+  await expect(page.getByText("Hours", { exact: true })).toBeVisible();
+  await expect(page.getByText("Service area", { exact: true })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Self-employed tax workshop (Tagalog & English)" })).toHaveAttribute(
+    "href",
+    "/calendar/ev-sample-featured",
+  );
+  await page.goto("/listing/tax-02");
+  await expect(page.getByTestId("owner-story")).toHaveCount(0);
+  await expect(page.getByTestId("owner-quote")).toHaveCount(0);
+});
+
+test("magazine: 6 SAMPLE stories with the editorial byline; edition articles still listed", async ({ page }) => {
+  expect(stories).toHaveLength(6);
+  await page.goto("/magazine");
+  for (const a of stories) {
+    const card = page.locator(`[data-story="${a.slug}"]`);
+    await expect(card).toContainText(a.title);
+    await expect(card).toContainText("Pinoy Pages Editorial (SAMPLE)");
+  }
+  await expect(page.getByRole("link", { name: /Do I need to register for HST/ })).toBeVisible();
+  await expect(page.locator('a[href="/magazine/ideas"]')).toHaveCount(0);
+});
+
+test("sample articles: 300–500 words, byline, links to their sample listings and tools, Get Verified CTA", async ({
+  page,
+}) => {
+  for (const a of stories) {
+    const raw = readFileSync(path.join("content", "magazine", `${a.file}.en.md`), "utf8").replace(
+      /^---\n[\s\S]*?\n---\n/,
+      "",
+    );
+    const words = raw.split(/\s+/).filter(Boolean).length;
+    expect(words, a.slug).toBeGreaterThanOrEqual(300);
+    expect(words, a.slug).toBeLessThanOrEqual(500);
+    expect(raw, a.slug).not.toMatch(
+      /navigate|empower|fast-paced|unlock|journey|seamless|whether you're|in conclusion/i,
+    );
+    const res = await page.goto(`/magazine/${a.slug}`);
+    expect(res?.status()).toBe(200);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(a.title);
+    await expect(page.getByTestId("byline")).toContainText("Pinoy Pages Editorial (SAMPLE)");
+    const article = page.locator("article");
+    for (const id of a.listings) {
+      await expect(article.locator(`a[href="/listing/${id}"]`).first(), `${a.slug} → ${id}`).toBeVisible();
+      await expect(page.locator(`[data-listing-mention="${id}"]`)).toBeVisible();
+    }
+    for (const t of a.tools) await expect(page.locator("main").locator(`a[href="${t}"]`).first()).toBeVisible();
+    const cta = page.getByTestId("article-cta");
+    await expect(cta.getByRole("heading", { name: "Featured in this story? Get Verified" })).toBeVisible();
+    await expect(cta.getByRole("link", { name: /Get Verified/ })).toHaveAttribute("href", "/get-verified");
+  }
+});
+
+test("story ideas: unlisted pipeline of 12 with angle, category, sample business and season", async ({
+  page,
+  request,
+}) => {
+  const ideas = ideasData.ideas;
+  expect(ideas).toHaveLength(12);
+  await page.goto("/magazine/ideas");
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+  await expect(page.locator("tr[data-idea]")).toHaveCount(12);
+  for (const i of ideas) {
+    const row = page.locator(`tr[data-idea="${i.id}"]`);
+    await expect(row).toContainText(i.title);
+    await expect(row).toContainText(i.angle);
+    await expect(row).toContainText(/Spring|Summer|Fall/);
+    if (i.listing) await expect(row.locator(`a[href="/listing/${i.listing}"]`)).toBeVisible();
+    if (i.status === "written") await expect(row.locator(`a[href="/magazine/${i.article}"]`)).toBeVisible();
+  }
+  expect(ideas.filter((i) => i.status === "written")).toHaveLength(6);
+  expect(await (await request.get("/sitemap.xml")).text()).not.toContain("/magazine/ideas");
+});
+
+// ---------- Event calendar ----------
+const community = guide.events.filter((e) => e.kind === "community");
+
+test("calendar data: ~15 SAMPLE events Nov 2026–Apr 2027, free and featured, incl. the Awards launch", () => {
+  expect(community.length).toBeGreaterThanOrEqual(14);
+  for (const e of community) {
+    expect(e.sample, e.id).toBe(true);
+    expect(e.date >= "2026-11-01" && e.date <= "2027-04-30", e.id).toBe(true);
+    expect("address" in e && e.address, e.id).toBeTruthy();
+  }
+  expect(community.some((e) => e.tier === "featured")).toBe(true);
+  expect(community.some((e) => e.tier === "free")).toBe(true);
+  expect(community.find((e) => e.id === "ev-awards-apr")?.date).toBe("2027-04-16");
+});
+
+test("calendar: list and month views, filters by category, city and free/featured; featured first in each month", async ({
+  page,
+}) => {
+  await page.goto("/calendar");
+  const list = page.locator("#cal [data-list] [data-ev]");
+  await expect(page.getByTestId("event-count")).toHaveText(`${guide.events.length} events`);
+  // Featured events sit at the top of their month.
+  for (const g of await page.locator("[data-month-group]").all()) {
+    const tiers = await g.locator("[data-ev]").evaluateAll((els) => els.map((e) => e.getAttribute("data-event-tier")));
+    const firstFree = tiers.indexOf("free");
+    if (firstFree >= 0) expect(tiers.slice(firstFree)).not.toContain("featured");
+  }
+  const controls = page.getByRole("group", { name: "Calendar view and filters" });
+  await controls.getByLabel("Listing type").selectOption("featured");
+  await expect(list.filter({ visible: true })).toHaveCount(guide.events.filter((e) => e.tier === "featured").length);
+  await controls.getByLabel("Listing type").selectOption("");
+  await controls.getByLabel("City").selectOption("Markham");
+  await expect(list.filter({ visible: true })).toHaveCount(community.filter((e) => e.city === "Markham").length);
+  await controls.getByLabel("City").selectOption("");
+  await controls.getByLabel("Category").selectOption("insurance");
+  await expect(list.filter({ visible: true })).toHaveCount(
+    guide.events.filter((e) => "category" in e && e.category === "insurance").length,
+  );
+  await expect(page).toHaveURL(/cat=insurance/);
+  await controls.getByLabel("Category").selectOption("");
+  // Month view.
+  await controls.getByRole("button", { name: "Month view" }).click();
+  await expect(page.getByTestId("month-view")).toBeVisible();
+  await expect(page.locator("#cal [data-list]")).toBeHidden();
+  await expect(page.getByTestId("month-label")).toHaveText("November 2026");
+  const nov = page.locator('[data-month-grid="2026-11"]');
+  await expect(nov.getByRole("link", { name: /Kabayan networking night/ })).toBeVisible();
+  await controls.getByRole("button", { name: "Next month" }).click();
+  await expect(page.getByTestId("month-label")).toHaveText("December 2026");
+  await expect(page.locator('[data-month-grid="2026-12"]').getByRole("link", { name: /Simbang Gabi/ })).toBeVisible();
+  await expect(page).toHaveURL(/view=month&m=2026-12/);
+  // Print mirror (page 11) lists the events too.
+  await expect(page.locator("[data-print-mirror]")).toContainText("Pinoy Pages Awards launch");
+});
+
+test("event pages: .ics, address + map, host, host listing link only when Verified; featured has image + QR", async ({
+  page,
+  request,
+}) => {
+  for (const e of guide.events) expect((await request.get(`/calendar/${e.id}`)).status(), e.id).toBe(200);
+  const ics = await request.get("/ics/ev-sample-featured.ics");
+  expect(ics.headers()["content-type"]).toContain("text/calendar");
+  const body = await ics.text();
+  expect(body).toMatch(/^BEGIN:VCALENDAR\r\n/);
+  expect(body).toContain("DTSTART;TZID=America/Toronto:20270227T100000");
+  expect(body).toContain("UID:ev-sample-featured@pinoypages.ca");
+  expect(body.trim().endsWith("END:VCALENDAR")).toBe(true);
+  expect(await (await request.get("/ics/ev-file-2027.ics")).text()).toContain("DTSTART;VALUE=DATE:20270430");
+  expect((await request.get("/ics/nope.ics")).status()).toBe(404);
+
+  await page.goto("/calendar/ev-sample-featured");
+  await expect(page.getByRole("link", { name: "Add to calendar (.ics)" })).toHaveAttribute(
+    "href",
+    "/ics/ev-sample-featured.ics",
+  );
+  await expect(page.getByTestId("event-address")).toContainText("Scarborough, ON");
+  await expect(page.getByRole("link", { name: "Directions in Google Maps" })).toHaveAttribute(
+    "href",
+    /google\.com\/maps/,
+  );
+  await expect(page.getByTestId("event-host").getByRole("link", { name: "Bituin Tax & Bookkeeping" })).toHaveAttribute(
+    "href",
+    "/listing/tax-01",
+  );
+  await expect(page.getByRole("img", { name: /Event image/ })).toBeVisible();
+  // Free basic event hosted by a Free (unverified) listing: no host link, no image, no Register.
+  await page.goto("/calendar/ev-newcomer-jan");
+  await expect(page.getByTestId("event-host")).toContainText("Malaya Community Tax Clinic");
+  await expect(page.getByTestId("event-host").getByRole("link")).toHaveCount(0);
+  await expect(page.getByRole("img", { name: /Event image|QR code/ })).toHaveCount(0);
+  await expect(page.getByRole("link", { name: "Register" })).toHaveCount(0);
+});
+
+test("submit your event: zod validation, CASL consent, interest only, tagged event-submitter", async ({ page }) => {
+  const email = uniq("event");
+  await page.goto("/calendar");
+  await page.getByLabel("Event name *").fill("Test info night");
+  await page.getByLabel("Date *").fill("2027-02-10");
+  await page.getByLabel("Place *").fill("Toronto");
+  await page.getByLabel("Organizer *").fill("Test Org");
+  await page.getByLabel("Organizer email *").fill(email);
+  await page.getByLabel("Event category").selectOption("money");
+  await page.getByRole("radio", { name: /Featured event/ }).check();
+  await page.getByRole("button", { name: "Submit event" }).click();
+  await expect(page.getByRole("alert").filter({ hasText: "Please fix" })).toBeVisible();
+  await expect(page.getByText("Please agree so we can contact you")).toBeVisible();
+  await page.getByLabel("Event name *").fill("Test info night");
+  await page.getByLabel("Date *").fill("2027-02-10");
+  await page.getByLabel("Place *").fill("Toronto");
+  await page.getByLabel("Organizer *").fill("Test Org");
+  await page.getByLabel("Organizer email *").fill(email);
+  await page.getByRole("radio", { name: /Featured event/ }).check();
+  await page.locator('input[name="consent"]').check();
+  await page.getByRole("button", { name: "Submit event" }).click();
+  await expect(page.getByRole("status").filter({ hasText: "Thanks" })).toContainText("before anything is charged");
+  await expect.poll(() => contactsFor(email).flatMap((c) => c.lists)).toContain("event-submitter");
+});
+
+test("upcoming events show on the home page and on sub-category pages", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByTestId("upcoming-events").locator("li")).toHaveCount(3);
+  await page.goto("/directory/tax-accounting");
+  const up = page.getByTestId("upcoming-events");
+  await expect(up.getByRole("heading", { name: "Upcoming events · Tax & accounting" })).toBeVisible();
+  for (const id of await up.locator("li").evaluateAll((els) => els.map((e) => e.getAttribute("data-event"))))
+    expect(["tax-accounting", undefined]).toContain(
+      (guide.events.find((e) => e.id === id) as { sub?: string } | undefined)?.sub,
+    );
+});
+
+// ---------- Marketing the free and paid listings ----------
+test("home band, free-card claim links, 'Be the first Verified' prompt and Why Verified with SAMPLE proof", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const band = page.getByTestId("list-band");
+  await expect(band.getByRole("link", { name: "List free" })).toHaveAttribute("href", "/list-free");
+  await expect(band.getByRole("link", { name: "Get Verified" })).toHaveAttribute("href", "/get-verified");
+  await page.goto("/directory/tax-accounting");
+  const claim = page.locator('li[data-listing="tax-02"]').getByTestId("free-claim");
+  await expect(claim).toContainText("Is this your business?");
+  await expect(claim.getByRole("link", { name: "Claim it free" })).toHaveAttribute("href", "/upgrade?listing=tax-02");
+  await expect(claim.getByRole("link", { name: "Get Verified" })).toHaveAttribute(
+    "href",
+    "/get-verified?listing=tax-02",
+  );
+  const first = page.locator("[data-first-cta]");
+  await expect(first).toBeHidden();
+  await page.getByRole("search").getByLabel("City").selectOption("North York");
+  await expect(first).toBeVisible();
+  await expect(first).toContainText("Be the first Verified Tax & accounting business in North York");
+  await page.goto("/get-verified");
+  const why = page.getByTestId("why-verified");
+  await expect(why.getByRole("heading", { name: "Why Verified" })).toBeVisible();
+  for (const q of await why.locator("[data-proof]").all()) await expect(q).toContainText("SAMPLE quote");
+  await expect(why).toContainText("mutual partner");
+  // No fake urgency anywhere on the sales pages.
+  for (const path of ["/", "/get-verified", "/list-free"]) {
+    await page.goto(path);
+    await expect(page.getByText(/only \d+ (spots|left)|limited time|act now|hurry|expires in/i)).toHaveCount(0);
+  }
+});
+
+test("/list-free: simple form (zod + consent), tags free-lister, optional verified-lead, links up to Verified", async ({
+  page,
+}) => {
+  await page.goto("/list-free");
+  await expect(
+    page.getByTestId("upsell-verified").getByRole("link", { name: "See how Verified works" }),
+  ).toHaveAttribute("href", "/get-verified");
+  const form = page.getByRole("form", { name: "List your business free" });
+  await form.getByRole("button", { name: "List my business free" }).click();
+  await expect(form.getByRole("alert")).toContainText("Please fix");
+  const email = uniq("free");
+  await form.getByLabel("Your name *").fill("Test Owner");
+  await form.getByLabel("Business name *").fill("Test Bakery");
+  await form.getByLabel("Email *").fill(email);
+  await form.getByLabel("Sub-category *").selectOption("business-services");
+  await form.getByLabel("City *").fill("Brampton");
+  await form.getByLabel(/Also send me the details on Verified/).check();
+  await form.getByLabel(/may contact me about my listing/).check();
+  await form.getByRole("button", { name: "List my business free" }).click();
+  await expect(form.getByRole("status")).toContainText("details on Verified");
+  await expect
+    .poll(() => contactsFor(email).flatMap((c) => c.lists))
+    .toEqual(expect.arrayContaining(["free-lister", "verified-lead"]));
+});
+
+test("sticky Get Verified bar: mobile only, dismissible, never on the ZCard or sign-up pages", async ({
+  page,
+}, info) => {
+  await page.goto("/directory");
+  const bar = page.getByTestId("sticky-cta");
+  if (info.project.name !== "mobile") {
+    await expect(bar).toBeHidden();
+    return;
+  }
+  await expect(bar).toBeVisible();
+  await expect(bar.getByRole("link", { name: "Get Verified" })).toHaveAttribute("href", "/get-verified");
+  for (const p of ["/card/tax-01", "/get-verified", "/list-free"]) {
+    await page.goto(p);
+    await expect(page.getByTestId("sticky-cta")).toHaveCount(0);
+  }
+  await page.goto("/magazine");
+  await page.getByTestId("sticky-cta").getByRole("button", { name: "Dismiss" }).click();
+  await expect(page.getByTestId("sticky-cta")).toHaveCount(0);
+  await page.goto("/directory");
+  await expect(page.getByTestId("sticky-cta")).toHaveCount(0);
 });

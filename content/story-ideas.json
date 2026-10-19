@@ -1,0 +1,125 @@
+{
+  "note": "Editorial pipeline for the pilot magazine. Unlisted. All businesses are SAMPLE.",
+  "ideas": [
+    {
+      "id": "i01",
+      "title": "The tax preparer who keeps tissues on the desk in April",
+      "angle": "A profile of a Scarborough preparer whose practice rests on patient, line-by-line explanation.",
+      "category": "Profile · Tax & accounting",
+      "listing": "tax-01",
+      "season": "spring",
+      "status": "written",
+      "article": "meet-bituin-tax"
+    },
+    {
+      "id": "i02",
+      "title": "A shoebox of receipts, and the bookkeeper who asked for it",
+      "angle": "How a fixed monthly fee changed the way small employers in Markham talk to their bookkeeper.",
+      "category": "Profile · Bookkeeping & business services",
+      "listing": "biz-01",
+      "season": "fall",
+      "status": "written",
+      "article": "meet-perlas-bookkeeping"
+    },
+    {
+      "id": "i03",
+      "title": "Two countries, two policies, one family",
+      "angle": "Reviewing life insurance bought overseas and in Canada before buying anything new.",
+      "category": "Money how-to · Insurance",
+      "listing": "ins-06",
+      "season": "summer",
+      "status": "written",
+      "article": "life-insurance-ofw-families"
+    },
+    {
+      "id": "i04",
+      "title": "The account built for a first home",
+      "angle": "The FHSA and the RRSP Home Buyers' Plan, explained for families pooling a down payment.",
+      "category": "Money how-to · Saving",
+      "listing": "ins-05",
+      "season": "spring",
+      "status": "written",
+      "article": "fhsa-first-home"
+    },
+    {
+      "id": "i05",
+      "title": "The call that sounded exactly like the CRA",
+      "angle": "Scam safety for seniors, and the limits of what a verification badge promises.",
+      "category": "Community",
+      "listing": "",
+      "season": "fall",
+      "status": "written",
+      "article": "why-verification-matters"
+    },
+    {
+      "id": "i06",
+      "title": "Kabayan's Pick, and the case for letting members decide",
+      "angle": "Why one award belongs to readers, and how the vote is designed to stay fair.",
+      "category": "Community · Awards",
+      "listing": "",
+      "season": "spring",
+      "status": "written",
+      "article": "kabayans-pick-preview"
+    },
+    {
+      "id": "i07",
+      "title": "Sending money home without overpaying",
+      "angle": "Comparing fees and exchange-rate margins on monthly transfers; for the Travel, Padala & Remit section planned for 2027–2028.",
+      "category": "Money how-to · Coming section",
+      "listing": "",
+      "season": "fall",
+      "status": "idea",
+      "article": ""
+    },
+    {
+      "id": "i08",
+      "title": "The weekend food stall and the $30,000 question",
+      "angle": "When a side business crosses the small supplier threshold, told through three hypothetical sellers.",
+      "category": "Money how-to · Tax",
+      "listing": "tax-05",
+      "season": "summer",
+      "status": "idea",
+      "article": ""
+    },
+    {
+      "id": "i09",
+      "title": "Arriving in September, filing in April",
+      "angle": "What a part-year newcomer's first return looks like, and which benefits it starts.",
+      "category": "Money how-to · Tax",
+      "listing": "tax-04",
+      "season": "spring",
+      "status": "idea",
+      "article": ""
+    },
+    {
+      "id": "i10",
+      "title": "Paying both halves: CPP when you work for yourself",
+      "angle": "Why first-year contractors are surprised by the CPP line, and how to budget for it through the year.",
+      "category": "Money how-to · Tax",
+      "listing": "tax-01",
+      "season": "spring",
+      "status": "idea",
+      "article": ""
+    },
+    {
+      "id": "i11",
+      "title": "The Saturday call: an IT technician on the bakery circuit",
+      "angle": "A day with the technician small shops phone when the card machine fails on a weekend.",
+      "category": "Profile · Independent pros",
+      "listing": "ind-04",
+      "season": "summer",
+      "status": "idea",
+      "article": ""
+    },
+    {
+      "id": "i12",
+      "title": "A December checklist for small employers",
+      "angle": "Payroll, T4s and Records of Employment: what to settle before the holidays.",
+      "category": "Money how-to · Business",
+      "listing": "biz-04",
+      "season": "fall",
+      "status": "idea",
+      "article": ""
+    }
+  ]
+}

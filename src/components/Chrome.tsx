@@ -102,6 +102,11 @@ export function Footer() {
             </Link>
           </li>
           <li>
+            <Link href="/list-free" className="hover:underline">
+              List your business free
+            </Link>
+          </li>
+          <li>
             <Link href="/get-verified" className="hover:underline">
               Get Verified
             </Link>

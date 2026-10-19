@@ -3,7 +3,7 @@
 import { z } from "zod";
 import { appendFile, mkdir } from "node:fs/promises";
 import path from "node:path";
-import { ads, listings } from "@/lib/guide";
+import { ads, categories, listings } from "@/lib/guide";
 import { saveContact, type ListKey } from "@/lib/contacts";
 
 const urlOk = z.url("Enter a full link starting with https://").max(300);
@@ -83,7 +83,7 @@ export async function submitInquiry(_p: FormState, fd: FormData): Promise<FormSt
     name: r.data.name,
     business: r.data.business,
     phone: r.data.phone,
-    lists: ["prospects"],
+    lists: r.data.product === "verified" ? ["prospects", "verified-lead"] : ["prospects"],
     source: src("advertise", fd),
     attributes: { INTEREST: r.data.product },
   });
@@ -103,7 +103,7 @@ export async function submitClaim(_p: FormState, fd: FormData): Promise<FormStat
       fieldErrors: z.flattenError(r.error).fieldErrors,
     };
   await store("listing-claim", r.data);
-  const lists: ListKey[] = ["claimed"];
+  const lists: ListKey[] = ["claimed", r.data.plan === "free" ? "free-lister" : "verified-lead"];
   if (r.data.plan !== "free") lists.push("prospects");
   await saveContact({
     email: r.data.email,
@@ -126,6 +126,8 @@ const eventSchema = z.object({
   email: z.email("Enter a valid email").max(200),
   phone: optional(z.string().trim().max(40)),
   plan: z.enum(["event-free", "event-featured"], { message: "Choose free or featured" }),
+  category: z.enum(["tax", "money", "business", "insurance", "community"]).optional().or(z.literal("")),
+  city: optional(z.string().trim().max(60)),
   memberListing: z.enum(listingIds).optional().or(z.literal("")),
   description: optional(z.string().trim().max(600)),
   link: urlOk.optional().or(z.literal("")),
@@ -148,9 +150,9 @@ export async function submitEvent(_p: FormState, fd: FormData): Promise<FormStat
     email: r.data.email,
     name: r.data.organizer,
     phone: r.data.phone,
-    lists: ["event-organizers"],
+    lists: ["event-organizers", "event-submitter"],
     source: src("event", fd),
-    attributes: { EVENT_PLAN: r.data.plan },
+    attributes: { EVENT_PLAN: r.data.plan, EVENT_CITY: r.data.city ?? "" },
   });
   return {
     status: "success",
@@ -158,7 +160,7 @@ export async function submitEvent(_p: FormState, fd: FormData): Promise<FormStat
       r.data.plan === "event-featured"
         ? member
           ? "Thanks! As a member your featured event is free. We'll review it and confirm by email."
-          : "Thanks! We'll review your event and send a $49 invoice for the featured upgrade."
+          : "Thanks! We'll review your event and confirm the $49 featured upgrade with you by email before anything is charged."
         : "Thanks! We'll review your free event listing and confirm by email.",
   };
 }
@@ -182,4 +184,44 @@ export async function submitSignup(_p: FormState, fd: FormData): Promise<FormSta
   await store("newsletter-signup", r.data);
   await saveContact({ email: r.data.email, name: r.data.name, lists: ["newsletter"], source: src("signup", fd) });
   return { status: "success", message: "Salamat! You're on the list for the monthly member email." };
+}
+
+const subIds = categories.map((c) => c.slug) as [string, ...string[]];
+const listFreeSchema = z.object({
+  ...contact,
+  sub: z.enum(subIds, { message: "Choose a sub-category" }),
+  city: z.string().trim().min(2, "Enter your city").max(60),
+  languages: optional(z.string().trim().max(120)),
+  wantsVerified: z.literal("on").optional(),
+});
+
+/** /list-free: a free, unverified listing (name + contact). Optional "tell me about Verified" adds the verified-lead tag. */
+export async function submitListFree(_p: FormState, fd: FormData): Promise<FormState> {
+  if (String(fd.get("website_url") ?? "")) return { status: "success", message: "Thanks!" };
+  const r = parse(listFreeSchema, fd);
+  if (!r.success)
+    return {
+      status: "error",
+      message: "Please fix the highlighted fields.",
+      fieldErrors: z.flattenError(r.error).fieldErrors,
+    };
+  await store("free-listing", r.data);
+  const lists: ListKey[] = ["free-lister"];
+  if (r.data.wantsVerified === "on") lists.push("verified-lead");
+  await saveContact({
+    email: r.data.email,
+    name: r.data.name,
+    business: r.data.business,
+    phone: r.data.phone,
+    lists,
+    source: src("list-free", fd),
+    attributes: { SUBCATEGORY: r.data.sub, CITY: r.data.city },
+  });
+  return {
+    status: "success",
+    message:
+      r.data.wantsVerified === "on"
+        ? "Thanks! We'll confirm your free listing by email, and send you the details on Verified."
+        : "Thanks! We'll confirm your free listing by email before it appears.",
+  };
 }

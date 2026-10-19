@@ -55,6 +55,17 @@ export function DirectorySearch({
       g.hidden = !g.querySelector("li[data-listing]:not([hidden])");
     });
     setShown(n);
+    // "Be the first Verified …" prompt when no active Verified business matches.
+    const cta = root.querySelector<HTMLElement>("[data-first-cta]");
+    if (cta) {
+      const active = root.querySelector('li[data-badge="active"]:not([hidden])');
+      cta.hidden = !!active;
+      const subName = filters.sub ? (subs?.find((x) => x.value === filters.sub)?.label ?? "") : (cta.dataset.sub ?? "");
+      const subEl = cta.querySelector<HTMLElement>("[data-first-sub]");
+      const cityEl = cta.querySelector<HTMLElement>("[data-first-city]");
+      if (subEl) subEl.textContent = subName ? `${subName} business` : "business";
+      if (cityEl) cityEl.textContent = filters.city ? `in ${filters.city}` : "in your area";
+    }
     const p = new URLSearchParams();
     if (filters.q) p.set("q", filters.q);
     if (filters.sub) p.set("sub", filters.sub);
@@ -62,7 +73,7 @@ export function DirectorySearch({
     if (filters.lang) p.set("lang", filters.lang);
     const qs = p.toString();
     window.history.replaceState(null, "", qs ? `?${qs}` : window.location.pathname);
-  }, [filters, target]);
+  }, [filters, target, subs]);
 
   const active = !!(filters.q || sub || city || lang);
   const sel = "field mt-1 py-2";

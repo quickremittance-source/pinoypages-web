@@ -5,7 +5,8 @@ import { BadgeStateChip, LogoTile, PartnerStars, SampleChip, VerifiedKabayan } f
 import { QrSection } from "@/components/QrSection";
 import { ViewBeacon } from "@/components/ViewBeacon";
 import { ZCardBridge } from "@/components/ZCardBridge";
-import { badgeState, brand, categories, isPaid, listings, mutualPartners, sections } from "@/lib/guide";
+import { badgeState, brand, categories, events, isPaid, listings, mutualPartners, sections } from "@/lib/guide";
+import { dayLabel } from "@/lib/cal";
 
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -131,6 +132,24 @@ export default async function Page({ params }: P) {
             <h2 id="about" className="text-xl font-bold text-ink">
               About
             </h2>
+            {l.story && (
+              <p className="mt-3 text-lg leading-relaxed" data-testid="owner-story">
+                {l.story}
+              </p>
+            )}
+            {l.quote && (
+              <figure className="mt-4 border-l-4 border-phred pl-4" data-testid="owner-quote">
+                <blockquote className="text-lg font-semibold text-ink">“{l.quote}”</blockquote>
+                <figcaption className="mt-1 text-sm text-muted">
+                  {l.zcard?.person}, {l.zcard?.role} · SAMPLE quote
+                </figcaption>
+              </figure>
+            )}
+            {l.why && (
+              <p className="mt-4 rounded-xl bg-aqua/70 p-3 text-sm" data-testid="why-choose">
+                <strong className="text-sea">Why clients choose us:</strong> {l.why}
+              </p>
+            )}
             {l.services && (
               <ul className="mt-3 flex flex-wrap gap-2" aria-label="Services">
                 {l.services.map((s) => (
@@ -140,7 +159,7 @@ export default async function Page({ params }: P) {
                 ))}
               </ul>
             )}
-            <dl className="mt-4 grid gap-3 sm:grid-cols-3">
+            <dl className="mt-5 grid gap-4 sm:grid-cols-3">
               <div>
                 <dt className="text-sm font-semibold text-muted">Phone</dt>
                 <dd className="font-semibold">{l.phone}</dd>
@@ -153,6 +172,18 @@ export default async function Page({ params }: P) {
                 <dt className="text-sm font-semibold text-muted">Spoken here</dt>
                 <dd className="font-semibold">{l.languages}</dd>
               </div>
+              {l.hours && (
+                <div className="sm:col-span-2">
+                  <dt className="text-sm font-semibold text-muted">Hours</dt>
+                  <dd className="font-semibold">{l.hours}</dd>
+                </div>
+              )}
+              {l.serviceArea && (
+                <div>
+                  <dt className="text-sm font-semibold text-muted">Service area</dt>
+                  <dd className="font-semibold">{l.serviceArea}</dd>
+                </div>
+              )}
             </dl>
             <div className="mt-5 grid grid-cols-3 gap-2" aria-label="Photos">
               {[1, 2, 3].map((n) => (
@@ -165,6 +196,27 @@ export default async function Page({ params }: P) {
               ))}
             </div>
           </section>
+          {events.some((e) => e.listing === l.id) && (
+            <section className="card p-6" aria-labelledby="hosted">
+              <h2 id="hosted" className="text-xl font-bold text-ink">
+                Events hosted
+              </h2>
+              <ul className="mt-3 space-y-2">
+                {events
+                  .filter((e) => e.listing === l.id)
+                  .map((e) => (
+                    <li key={e.id}>
+                      <Link href={`/calendar/${e.id}`} className="font-semibold text-turqdk underline">
+                        {e.name}
+                      </Link>{" "}
+                      <span className="text-sm text-muted">
+                        · {dayLabel(e.date)} · {e.city}
+                      </span>
+                    </li>
+                  ))}
+              </ul>
+            </section>
+          )}
           <QrSection l={l} />
         </div>
         <aside aria-label="ZCard" className="lg:sticky lg:top-24 lg:self-start">

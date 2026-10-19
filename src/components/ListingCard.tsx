@@ -11,7 +11,26 @@ const searchData = (l: Listing) => ({
   "data-langs": l.languages,
 });
 
-export function ListingCard({ l }: { l: Listing }) {
+export function ListingCard({ l, compact = false }: { l: Listing; compact?: boolean }) {
+  if (compact) {
+    // Sidebar mention (articles): logo, name, badge or state, area. Links to the listing.
+    return (
+      <li className="card flex items-center gap-3 p-3" data-listing-mention={l.id} data-badge={badgeState(l)}>
+        <LogoTile l={l} size="sm" />
+        <div className="min-w-0">
+          <Link href={`/listing/${l.id}`} className="font-bold text-ink hover:underline">
+            {l.name}
+          </Link>
+          <div className="mt-0.5 flex flex-wrap items-center gap-1.5 text-xs text-muted">
+            <VerifiedKabayan l={l} />
+            <BadgeStateChip l={l} />
+            <span>{l.area}</span>
+            {l.sample && <SampleChip />}
+          </div>
+        </div>
+      </li>
+    );
+  }
   if (l.tier === "free") {
     // Free = unverified: one text line, name + contact only. No badge, logo, QR, Save contact or ZCard.
     return (
@@ -27,9 +46,16 @@ export function ListingCard({ l }: { l: Listing }) {
           · {l.phone} · {l.area}
         </span>
         {l.sample && <SampleChip />}
-        <Link href={`/upgrade?listing=${l.id}`} className="ml-auto text-xs font-semibold text-turqdk underline">
-          Claim or get Verified
-        </Link>
+        <span className="ml-auto text-xs text-muted" data-testid="free-claim">
+          Is this your business?{" "}
+          <Link href={`/upgrade?listing=${l.id}`} className="font-semibold text-turqdk underline">
+            Claim it free
+          </Link>{" "}
+          ·{" "}
+          <Link href={`/get-verified?listing=${l.id}`} className="font-semibold text-turqdk underline">
+            Get Verified
+          </Link>
+        </span>
       </li>
     );
   }
