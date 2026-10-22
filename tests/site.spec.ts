@@ -11,6 +11,7 @@ import jsQR from "jsqr";
 import { PNG } from "pngjs";
 
 const routes = [...new Set(guide.pages.map((p) => p.route))].concat([
+  "/classic",
   "/directory",
   "/edition",
   "/magazine",
@@ -712,7 +713,7 @@ test("/go/<id> counts every scan and lands on the ZCard; /report/<id> shows the 
 test("home: value proposition, category tiles, featured Verified, Get Verified CTA, free tools teaser", async ({
   page,
 }) => {
-  await page.goto("/");
+  await page.goto("/classic");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "Be the kabayan they can trust — and see proof people found you",
   );
@@ -1013,7 +1014,7 @@ test("submit your event: zod validation, CASL consent, interest only, tagged eve
 });
 
 test("upcoming events show on the home page and on sub-category pages", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/classic");
   await expect(page.getByTestId("upcoming-events").locator("li")).toHaveCount(3);
   await page.goto("/directory/tax-accounting");
   const up = page.getByTestId("upcoming-events");
@@ -1028,7 +1029,7 @@ test("upcoming events show on the home page and on sub-category pages", async ({
 test("home band, free-card claim links, 'Be the first Verified' prompt and Why Verified with SAMPLE proof", async ({
   page,
 }) => {
-  await page.goto("/");
+  await page.goto("/classic");
   const band = page.getByTestId("list-band");
   await expect(band.getByRole("link", { name: "List free" })).toHaveAttribute("href", "/list-free");
   await expect(band.getByRole("link", { name: "Get Verified" })).toHaveAttribute("href", "/get-verified");
@@ -1102,4 +1103,55 @@ test("sticky Get Verified bar: mobile only, dismissible, never on the ZCard or s
   await expect(page.getByTestId("sticky-cta")).toHaveCount(0);
   await page.goto("/directory");
   await expect(page.getByTestId("sticky-cta")).toHaveCount(0);
+});
+
+// ---------- alt-design: alternate home ----------
+test("alt home: search + GTA area dropdown, real counts, featured tabs, community events, why, consent signup", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await expect(page.getByTestId("alt-home")).toBeVisible();
+  await expect(page.getByTestId("confidential-badge")).toHaveText(/confidential draft/i);
+  await expect(page.getByTestId("brand-line")).toHaveText(
+    "Pinoy Pages 2026–2027 · The Filipino Business Directory · GTA",
+  );
+  const opts = await page.locator("#alt-city option").allInnerTexts();
+  expect(opts).toEqual([
+    "All GTA",
+    "Toronto",
+    "Scarborough",
+    "North York",
+    "Etobicoke",
+    "Mississauga",
+    "Brampton",
+    "Markham",
+    "Vaughan",
+  ]);
+  for (const li of await page.getByTestId("alt-categories").locator("li").all()) {
+    const slug = (await li.locator("a").getAttribute("href"))!.split("/").pop();
+    expect(Number(await li.getAttribute("data-count"))).toBe(guide.listings.filter((l) => l.category === slug).length);
+  }
+  const areaTotal = (
+    await page
+      .getByTestId("alt-areas")
+      .locator("li")
+      .evaluateAll((els) => els.map((e) => Number(e.getAttribute("data-count"))))
+  ).reduce((a, b) => a + b, 0);
+  expect(areaTotal).toBe(guide.listings.length);
+  const feat = page.getByTestId("alt-featured").locator("li");
+  const all = await feat.count();
+  expect(all).toBeGreaterThan(0);
+  const tab = page.getByTestId("alt-area-tabs").getByRole("button").nth(1);
+  const area = await tab.innerText();
+  await tab.click();
+  for (const a of await feat.evaluateAll((els) => els.map((e) => e.getAttribute("data-area")))) expect(a).toBe(area);
+  expect(await page.getByTestId("alt-events").locator("li").count()).toBeGreaterThan(0);
+  await expect(page.getByTestId("alt-why").locator("li")).toHaveCount(3);
+  await expect(page.getByLabel("Monthly member email sign-up")).toBeVisible();
+  const text = await page.getByRole("main").innerText();
+  expect(text).not.toMatch(/we verify every|\d,\d{3}\+|since 20\d\d|subscribers|Open now/i);
+  expect(await page.locator("main img").count()).toBe(0);
+  await page.locator("#alt-city").selectOption("Mississauga");
+  await page.getByRole("search").getByRole("button", { name: "Search" }).click();
+  await expect(page).toHaveURL(/\/directory\?.*city=Mississauga/);
 });
