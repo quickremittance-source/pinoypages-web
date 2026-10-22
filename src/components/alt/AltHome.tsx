@@ -3,6 +3,7 @@ import { SignupForm } from "@/components/Forms";
 import { brand, sections } from "@/lib/guide";
 import { areaCounts, categoryCounts, communityEvents, featuredForAlt, GTA_AREAS, POPULAR } from "./data";
 import { FeaturedGrid } from "./FeaturedGrid";
+import { PublicNote } from "./PublicNote";
 
 const WHY = [
   {
@@ -109,13 +110,14 @@ export function AltHome() {
         <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-testid="alt-categories">
           {cats.map((c) => (
             <li key={c.slug} data-count={c.total}>
-              <Link href={`/directory/${c.slug}`} className="card group flex h-full flex-col p-5 hover:shadow-lg">
+              <Link href={c.href} className="card group flex h-full flex-col p-5 hover:shadow-lg">
                 <span className="text-4xl" aria-hidden="true">
                   {c.icon}
                 </span>
                 <strong className="mt-3 text-ink group-hover:text-sea">{c.name}</strong>
                 <span className="text-sm text-muted">
-                  {c.total} listings · {c.verified} Verified tier (SAMPLE)
+                  {c.total} {c.total === 1 ? "listing" : "listings"}
+                  {c.sample > 0 ? ` · ${c.sample} SAMPLE, ${c.verified} Verified tier` : " · free, unverified"}
                 </span>
               </Link>
             </li>
@@ -150,8 +152,12 @@ export function AltHome() {
           Where to find us
         </h2>
         <p className="mt-1 text-muted">
-          {total} SAMPLE listings across {areas.length} GTA areas.
+          {total} listings across {areas.length} GTA areas: SAMPLE Money &amp; Business listings plus free listings
+          compiled from public information.
         </p>
+        <div className="mt-3">
+          <PublicNote />
+        </div>
         <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" data-testid="alt-areas">
           {areas.map((a) => (
             <li key={a.area} data-area={a.area} data-count={a.n}>

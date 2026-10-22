@@ -1,0 +1,541 @@
+{
+  "note": "Free, unverified listings compiled from public information (Oct 2026). source = where the business was confirmed; never displayed.",
+  "categories": [
+    {
+      "slug": "restaurants",
+      "name": "Restaurants, bakeries & cafés",
+      "icon": "🍲",
+      "section": "community"
+    },
+    {
+      "slug": "groceries",
+      "name": "Groceries & markets",
+      "icon": "🛒",
+      "section": "community"
+    },
+    {
+      "slug": "catering",
+      "name": "Catering & events",
+      "icon": "🎉",
+      "section": "community"
+    },
+    {
+      "slug": "beauty",
+      "name": "Beauty & barbers",
+      "icon": "💇",
+      "section": "community"
+    },
+    {
+      "slug": "health",
+      "name": "Health & home care",
+      "icon": "🩺",
+      "section": "community"
+    },
+    {
+      "slug": "legal-realestate",
+      "name": "Legal & real estate",
+      "icon": "⚖️",
+      "section": "money-business"
+    },
+    {
+      "slug": "community-orgs",
+      "name": "Community centres & organizations",
+      "icon": "🏛️",
+      "section": "community"
+    }
+  ],
+  "listings": [
+    {
+      "id": "pub-sampaguita-village-family-restaurant",
+      "name": "Sampaguita Village Family Restaurant",
+      "category": "restaurants",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://totimes.ca/toronto-filipino-food/",
+      "address": "322 Wilson Ave"
+    },
+    {
+      "id": "pub-wilson-s-haus-of-lechon",
+      "name": "Wilson's Haus of Lechon",
+      "category": "restaurants",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.thegrindmag.ca/5-essential-food-stops-in-torontos-little-manila/",
+      "address": "365 Wilson Ave"
+    },
+    {
+      "id": "pub-bale-kapampangan",
+      "name": "Bale Kapampangan",
+      "category": "restaurants",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://seethesix.com/guides/filipino-food-toronto/",
+      "address": "3780 Bathurst St",
+      "phone": "416-398-9503"
+    },
+    {
+      "id": "pub-lovely-pao",
+      "name": "Lovely Pao",
+      "category": "restaurants",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://totimes.ca/toronto-filipino-food/",
+      "address": "756 Wilson Ave"
+    },
+    {
+      "id": "pub-tinuno",
+      "name": "Tinuno",
+      "category": "restaurants",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.thegrindmag.ca/5-essential-food-stops-in-torontos-little-manila/",
+      "address": "3520 Bathurst St"
+    },
+    {
+      "id": "pub-kiko-s",
+      "name": "Kiko's",
+      "category": "restaurants",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://seethesix.com/guides/filipino-food-toronto/",
+      "address": "3770 Bathurst St",
+      "phone": "416-256-9555"
+    },
+    {
+      "id": "pub-kabalen-restaurant",
+      "name": "Kabalen Restaurant",
+      "category": "restaurants",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://seethesix.com/guides/filipino-food-toronto/",
+      "address": "3778 Bathurst St",
+      "phone": "647-352-7222"
+    },
+    {
+      "id": "pub-pampangue-a",
+      "name": "Pampangueña",
+      "category": "restaurants",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.thegrindmag.ca/5-essential-food-stops-in-torontos-little-manila/",
+      "address": "3776 Bathurst St"
+    },
+    {
+      "id": "pub-daily-bread-bakery",
+      "name": "Daily Bread Bakery",
+      "category": "restaurants",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.thegrindmag.ca/5-essential-food-stops-in-torontos-little-manila/",
+      "address": "332 Wilson Ave"
+    },
+    {
+      "id": "pub-dean-ruby-s-cafe",
+      "name": "Dean & Ruby's Cafe",
+      "category": "restaurants",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.thegrindmag.ca/5-essential-food-stops-in-torontos-little-manila/",
+      "address": "361 Wilson Ave"
+    },
+    {
+      "id": "pub-apo-filipino-cuisine",
+      "name": "APO Filipino Cuisine",
+      "category": "restaurants",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://seethesix.com/guides/filipino-food-toronto/",
+      "address": "373 Wilson Ave",
+      "phone": "647-553-9787"
+    },
+    {
+      "id": "pub-himagas-toronto",
+      "name": "Himagas Toronto",
+      "category": "restaurants",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://seethesix.com/guides/filipino-food-toronto/",
+      "address": "369 Wilson Ave",
+      "phone": "416-994-7586"
+    },
+    {
+      "id": "pub-basi-restaurant",
+      "name": "Basi Restaurant",
+      "category": "restaurants",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://seethesix.com/guides/filipino-food-toronto/",
+      "address": "3795 Bathurst St",
+      "phone": "416-990-6606"
+    },
+    {
+      "id": "pub-mang-jose-filipino-cuisine",
+      "name": "Mang Jose Filipino Cuisine",
+      "category": "restaurants",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://totimes.ca/toronto-filipino-food/",
+      "address": "3543 Bathurst St"
+    },
+    {
+      "id": "pub-remely-s-filipino-restaurant",
+      "name": "Remely's Filipino Restaurant",
+      "category": "restaurants",
+      "area": "Scarborough",
+      "tier": "free",
+      "verified": false,
+      "source": "https://remelys.com/",
+      "address": "4830 Sheppard Ave E",
+      "phone": "416-609-9661",
+      "website": "https://remelys.com/"
+    },
+    {
+      "id": "pub-lakay-kusina",
+      "name": "Lakay Kusina",
+      "category": "restaurants",
+      "area": "Scarborough",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.overheretoronto.com/best-filipino-restaurants-in-toronto/",
+      "address": "80 Ellesmere Rd, Unit 4",
+      "phone": "416-510-2940",
+      "website": "https://lakaykusinaon.com"
+    },
+    {
+      "id": "pub-bella-s-lechon-scarborough",
+      "name": "Bella's Lechon (Scarborough)",
+      "category": "restaurants",
+      "area": "Scarborough",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.bellaslechon.ca/bellas-lechon-branches",
+      "address": "1145 Morningside Ave, Units 17–18",
+      "phone": "416-282-3288",
+      "website": "https://www.bellaslechon.ca/"
+    },
+    {
+      "id": "pub-bella-s-lechon-mississauga",
+      "name": "Bella's Lechon (Mississauga)",
+      "category": "restaurants",
+      "area": "Mississauga",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.bellaslechon.ca/bellas-lechon-branches",
+      "address": "848 Burnhamthorpe Rd W, Unit 2B",
+      "phone": "905-232-8888",
+      "website": "https://www.bellaslechon.ca/"
+    },
+    {
+      "id": "pub-bella-s-inasal",
+      "name": "Bella's Inasal",
+      "category": "restaurants",
+      "area": "Mississauga",
+      "tier": "free",
+      "verified": false,
+      "source": "http://www.bellasinasal.com/",
+      "address": "848 Burnhamthorpe Rd W, Unit 3B",
+      "phone": "289-521-7088",
+      "website": "http://www.bellasinasal.com/"
+    },
+    {
+      "id": "pub-berto-s-restaurant",
+      "name": "Berto's Restaurant",
+      "category": "restaurants",
+      "area": "Mississauga",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.bertoscuisine.com/",
+      "address": "1063 Dundas St W",
+      "phone": "905-232-0203",
+      "website": "https://www.bertoscuisine.com/"
+    },
+    {
+      "id": "pub-kuya-don-lomi-batangas",
+      "name": "Kuya Don Lomi Batangas",
+      "category": "restaurants",
+      "area": "Mississauga",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.kdlb.ca/",
+      "address": "1482 Dundas St E",
+      "phone": "905-896-4710",
+      "website": "https://www.kdlb.ca/"
+    },
+    {
+      "id": "pub-maharlikas-resto-bar",
+      "name": "Maharlikas Resto Bar",
+      "category": "restaurants",
+      "area": "Mississauga",
+      "tier": "free",
+      "verified": false,
+      "source": "http://www.maharlikas.ca/",
+      "address": "833 Westlock Rd, Unit 8",
+      "phone": "905-803-8188",
+      "website": "http://www.maharlikas.ca/"
+    },
+    {
+      "id": "pub-manila-bakery",
+      "name": "Manila Bakery",
+      "category": "restaurants",
+      "area": "Mississauga",
+      "tier": "free",
+      "verified": false,
+      "source": "https://manilabakery.com/",
+      "address": "40-C Dundas St E",
+      "phone": "905-276-0013",
+      "website": "https://manilabakery.com/"
+    },
+    {
+      "id": "pub-valerio-s-tropical-bake-shop",
+      "name": "Valerio's Tropical Bake Shop",
+      "category": "restaurants",
+      "area": "Mississauga",
+      "tier": "free",
+      "verified": false,
+      "source": "https://valeriostropicalbakeshop.com/",
+      "phone": "905-203-0532",
+      "website": "https://valeriostropicalbakeshop.com/"
+    },
+    {
+      "id": "pub-pampanga-cuisine",
+      "name": "Pampanga Cuisine",
+      "category": "restaurants",
+      "area": "Brampton",
+      "tier": "free",
+      "verified": false,
+      "source": "https://mabuhaycanada.org/pinoy-food-brampton-ontario/",
+      "address": "400 Queen St W",
+      "phone": "905-455-8655"
+    },
+    {
+      "id": "pub-elsa-lutong-bahay",
+      "name": "Elsa Lutong Bahay",
+      "category": "restaurants",
+      "area": "Brampton",
+      "tier": "free",
+      "verified": false,
+      "source": "https://mabuhaycanada.org/pinoy-food-brampton-ontario/",
+      "address": "65 Rutherford Rd S"
+    },
+    {
+      "id": "pub-bella-s-bakery",
+      "name": "Bella's Bakery",
+      "category": "restaurants",
+      "area": "Brampton",
+      "tier": "free",
+      "verified": false,
+      "source": "https://mabuhaycanada.org/pinoy-food-brampton-ontario/",
+      "address": "105 Kennedy Rd S"
+    },
+    {
+      "id": "pub-fan-d-flame-restaurant",
+      "name": "Fan \"D\" Flame Restaurant",
+      "category": "restaurants",
+      "area": "Brampton",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.restaurantji.com/on/brampton/fan-d-flame-restaurant-filipino-cuisine-/",
+      "address": "30 Gillingham Dr"
+    },
+    {
+      "id": "pub-b-s-sizzling-kitchen",
+      "name": "B's Sizzling Kitchen",
+      "category": "restaurants",
+      "area": "Etobicoke",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.bsizzlingkitchen.com/",
+      "address": "430 Horner Ave",
+      "website": "https://www.bsizzlingkitchen.com/"
+    },
+    {
+      "id": "pub-super-bakers",
+      "name": "Super Bakers",
+      "category": "restaurants",
+      "area": "Etobicoke",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.tastetoronto.com/guides/the-best-filipino-bakeries-in-toronto",
+      "address": "1122 The Queensway"
+    },
+    {
+      "id": "pub-eskenita-foods",
+      "name": "Eskenita Foods",
+      "category": "restaurants",
+      "area": "Vaughan",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.ubereats.com/ca/store/eskenita-foods/uGAT733eQS6ZvzRB_byOiA",
+      "address": "180 Steeles Ave W, Unit 18B"
+    },
+    {
+      "id": "pub-tropang-ilonggo",
+      "name": "Tropang Ilonggo",
+      "category": "restaurants",
+      "area": "Vaughan",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.tropangilonggoon.com/",
+      "address": "371 Bradwick Dr",
+      "website": "https://www.tropangilonggoon.com/"
+    },
+    {
+      "id": "pub-pinoy-waffles",
+      "name": "Pinoy Waffles",
+      "category": "restaurants",
+      "area": "Markham",
+      "tier": "free",
+      "verified": false,
+      "source": "https://exa.ai/library/place/0c5qr2y471b",
+      "address": "4300 Steeles Ave E"
+    },
+    {
+      "id": "pub-seafood-city-supermarket-mississauga",
+      "name": "Seafood City Supermarket (Mississauga)",
+      "category": "groceries",
+      "area": "Mississauga",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.blogto.com/grocery/seafood-city-scarborough/",
+      "address": "800 Boyer Blvd",
+      "phone": "289-334-3380",
+      "website": "http://www.seafoodcity.com/"
+    },
+    {
+      "id": "pub-seafood-city-supermarket-scarborough",
+      "name": "Seafood City Supermarket (Scarborough)",
+      "category": "groceries",
+      "area": "Scarborough",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.blogto.com/grocery/seafood-city-scarborough/",
+      "address": "20 Lebovic Ave, Unit 773",
+      "phone": "647-847-5382",
+      "website": "https://shopscarborough.seafoodcity.com/"
+    },
+    {
+      "id": "pub-carinderiameals",
+      "name": "CarinderiaMeals",
+      "category": "catering",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://carinderiameals.com/",
+      "website": "https://carinderiameals.com/"
+    },
+    {
+      "id": "pub-jonathan-pinoy-hair-salon",
+      "name": "Jonathan Pinoy Hair Salon",
+      "category": "beauty",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://jonathanpinoy.ca/About",
+      "website": "https://jonathanpinoy.ca/"
+    },
+    {
+      "id": "pub-gta-homecare-services",
+      "name": "GTA Homecare Services",
+      "category": "health",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.gtahomecareservices.com/",
+      "address": "2231 Jane St",
+      "phone": "416-910-0223",
+      "website": "https://www.gtahomecareservices.com/"
+    },
+    {
+      "id": "pub-jca-law-office",
+      "name": "JCA Law Office",
+      "category": "legal-realestate",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://jcalaw.ca/",
+      "address": "2323 Yonge St, Suite 204",
+      "phone": "1-855-522-5290",
+      "website": "https://jcalaw.ca/"
+    },
+    {
+      "id": "pub-bac-law-professional-corporation",
+      "name": "BAC Law Professional Corporation",
+      "category": "legal-realestate",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://directory.lawonline.ca/on/toronto/north-york/bac-law-professional-corporation",
+      "address": "365A Wilson Ave",
+      "website": "https://baclaw.ca/"
+    },
+    {
+      "id": "pub-jhonavel-matias-realtor",
+      "name": "Jhonavel Matias, Realtor",
+      "category": "legal-realestate",
+      "area": "Mississauga",
+      "tier": "free",
+      "verified": false,
+      "source": "https://jmatiasrealty.com/filipino-realtor/mississauga",
+      "phone": "905-872-3672",
+      "website": "https://jmatiasrealty.com/"
+    },
+    {
+      "id": "pub-victor-ilagan-realtor",
+      "name": "Victor Ilagan, Realtor",
+      "category": "legal-realestate",
+      "area": "Mississauga",
+      "tier": "free",
+      "verified": false,
+      "source": "https://vicilagan.com/",
+      "phone": "647-218-0956",
+      "website": "https://vicilagan.com/"
+    },
+    {
+      "id": "pub-filipino-centre-toronto",
+      "name": "Filipino Centre Toronto",
+      "category": "community-orgs",
+      "area": "Scarborough",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.filipinocentretoronto.com/",
+      "address": "4395 Sheppard Ave E",
+      "phone": "416-335-0485",
+      "website": "https://www.filipinocentretoronto.com/"
+    },
+    {
+      "id": "pub-silayan-filipino-community-centre",
+      "name": "Silayan Filipino Community Centre",
+      "category": "community-orgs",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.philcongen-toronto.com/links/links_assoc.php",
+      "address": "240 Wellesley St E",
+      "phone": "416-926-9505"
+    },
+    {
+      "id": "pub-filipino-canadian-community-house",
+      "name": "Filipino-Canadian Community House",
+      "category": "community-orgs",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://exa.ai/library/places?q=163037c7c3046445",
+      "address": "5 Replin Rd"
+    }
+  ]
+}

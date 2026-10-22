@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHead } from "@/components/Chrome";
+import { PublicListings } from "@/components/alt/PublicListings";
 import { ListingResults } from "@/components/ListingResults";
 import { CategoryTiles } from "@/components/CategoryTiles";
 import { brand, listings, sections } from "@/lib/guide";
@@ -49,6 +50,7 @@ export default function Page() {
           </h2>
           <ListingResults items={listings} />
         </section>
+        <PublicListings />
       </div>
     </>
   );

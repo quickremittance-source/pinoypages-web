@@ -6,6 +6,7 @@ import { createHmac } from "node:crypto";
 import { TEST_ENV } from "../playwright.config";
 import AxeBuilder from "@axe-core/playwright";
 import guide from "../content/guide.json";
+import pub from "../content/public-listings.json";
 import { badgeState, isVerified, listings as allListings, mutualPartners, type Listing } from "../src/lib/guide";
 import jsQR from "jsqr";
 import { PNG } from "pngjs";
@@ -1127,9 +1128,12 @@ test("alt home: search + GTA area dropdown, real counts, featured tabs, communit
     "Markham",
     "Vaughan",
   ]);
+  const pubData = pub.listings as { category: string }[];
   for (const li of await page.getByTestId("alt-categories").locator("li").all()) {
-    const slug = (await li.locator("a").getAttribute("href"))!.split("/").pop();
-    expect(Number(await li.getAttribute("data-count"))).toBe(guide.listings.filter((l) => l.category === slug).length);
+    const slug = (await li.locator("a").getAttribute("href"))!.split(/[/#]/).pop()!.replace(/^pub-/, "");
+    const n =
+      guide.listings.filter((l) => l.category === slug).length + pubData.filter((l) => l.category === slug).length;
+    expect(Number(await li.getAttribute("data-count"))).toBe(n);
   }
   const areaTotal = (
     await page
@@ -1137,7 +1141,8 @@ test("alt home: search + GTA area dropdown, real counts, featured tabs, communit
       .locator("li")
       .evaluateAll((els) => els.map((e) => Number(e.getAttribute("data-count"))))
   ).reduce((a, b) => a + b, 0);
-  expect(areaTotal).toBe(guide.listings.length);
+  expect(areaTotal).toBe(guide.listings.length + pubData.length);
+  await expect(page.getByTestId("public-note")).toContainText("compiled from public information and are not verified");
   const feat = page.getByTestId("alt-featured").locator("li");
   const all = await feat.count();
   expect(all).toBeGreaterThan(0);
@@ -1154,4 +1159,30 @@ test("alt home: search + GTA area dropdown, real counts, featured tabs, communit
   await page.locator("#alt-city").selectOption("Mississauga");
   await page.getByRole("search").getByRole("button", { name: "Search" }).click();
   await expect(page).toHaveURL(/\/directory\?.*city=Mississauga/);
+});
+
+test("public free listings: GTA only, free + unverified, sourced, name + contact only, no padala/remit", async ({
+  page,
+}) => {
+  const areas = ["Toronto", "Scarborough", "North York", "Etobicoke", "Mississauga", "Brampton", "Markham", "Vaughan"];
+  expect(pub.listings.length).toBeGreaterThanOrEqual(40);
+  for (const l of pub.listings as Record<string, unknown>[]) {
+    expect(areas).toContain(l.area);
+    expect(l.tier).toBe("free");
+    expect(l.verified).toBe(false);
+    expect(String(l.source)).toMatch(/^https?:\/\//);
+    expect(l.phone || l.website || l.address).toBeTruthy();
+    for (const k of Object.keys(l))
+      expect(["id", "name", "category", "area", "tier", "verified", "source", "address", "phone", "website"]).toContain(
+        k,
+      );
+  }
+  expect(JSON.stringify(pub)).not.toMatch(/remit|padala|money transfer/i);
+  await page.goto("/directory");
+  const sec = page.getByTestId("public-listings");
+  await expect(sec.getByTestId("public-note")).toContainText("Owners can claim, correct or remove a listing");
+  await expect(sec.getByTestId("public-note").getByRole("link", { name: "claim" })).toHaveAttribute("href", "/upgrade");
+  await expect(sec.locator("li[data-public]")).toHaveCount(pub.listings.length);
+  await expect(sec.locator("img, [data-badge], [data-testid=zcard-bridge]")).toHaveCount(0);
+  await expect(sec).not.toContainText(/Verified Kabayan|Save contact|exa\.ai|totimes/);
 });

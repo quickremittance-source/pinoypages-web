@@ -1,3 +1,4 @@
+import { publicCategories, publicListings } from "@/lib/public";
 import {
   categories,
   EVENT_CATEGORIES,
@@ -27,18 +28,32 @@ export const CATEGORY_ICONS: Record<string, string> = {
   independents: "💼",
 };
 
-export const categoryCounts = () =>
-  categories.map((c) => ({
-    ...c,
+/** Combined counts: SAMPLE Money & Business listings + free listings compiled from public information. */
+export const categoryCounts = () => [
+  ...categories.map((c) => ({
+    slug: c.slug,
+    name: c.name,
+    href: `/directory/${c.slug}`,
     icon: CATEGORY_ICONS[c.slug] ?? "📁",
     total: listings.filter((l) => l.category === c.slug).length,
+    sample: listings.filter((l) => l.category === c.slug).length,
     verified: listings.filter((l) => l.category === c.slug && isPaid(l)).length,
-  }));
+  })),
+  ...publicCategories.map((c) => ({
+    slug: c.slug,
+    name: c.name,
+    href: `/directory#pub-${c.slug}`,
+    icon: c.icon,
+    total: publicListings.filter((l) => l.category === c.slug).length,
+    sample: 0,
+    verified: 0,
+  })),
+];
 
 /** Listing counts per area, from the data (includes any GTA area that has a listing). */
 export const areaCounts = () => {
   const m = new Map<string, number>();
-  for (const l of listings) m.set(l.area, (m.get(l.area) ?? 0) + 1);
+  for (const l of [...listings, ...publicListings]) m.set(l.area, (m.get(l.area) ?? 0) + 1);
   return [...m.entries()].map(([area, n]) => ({ area, n })).sort((a, b) => b.n - a.n || a.area.localeCompare(b.area));
 };
 
