@@ -14,7 +14,7 @@ const SIZE_IDS = adSizes.map((s) => s.id) as string[];
 function SizeDiagram({ s }: { s: AdSize }) {
   const k = 12;
   const full = s.id === "full";
-  const x = full ? 0 : (s.box.x + 0.5) * k;
+  const x = full ? 0 : s.box.x * k;
   const y = full ? 0 : s.box.y * k;
   return (
     <svg

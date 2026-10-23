@@ -9,7 +9,7 @@ export type AdSize = {
   name: string;
   size: string;
   note: string;
-  /** Box on a 7.5 × 10 live area (inches) for the diagram; full page uses the 8.5 × 11 trim. */
+  /** Position on the 8.5 × 11 page (inches) for the diagram; full page uses the 8.5 × 11 trim. */
   box: { x: number; y: number; w: number; h: number };
   includes: string[];
 };
