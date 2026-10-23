@@ -3,6 +3,7 @@ import { liveTools } from "@/lib/registry";
 import { brand } from "@/lib/guide";
 
 const nav = [
+  { href: "/advertise", label: "Advertise" },
   { href: "/directory", label: "Directory" },
   { href: "/get-verified", label: "Get Verified" },
   { href: "/awards", label: "Awards" },

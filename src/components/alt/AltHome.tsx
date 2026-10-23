@@ -49,7 +49,7 @@ export function AltHome() {
             Put your business in front of the GTA&apos;s Filipino community
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-white/90">
-            {BOOKING_NOTE} Full page, half page, quarter page and business card ads in the printed directory, alongside
+            {BOOKING_NOTE} Full page, half page, quarter page and business card ads in the printed directory, alongside{" "}
             {total} Filipino businesses already listed across the Greater Toronto Area.
           </p>
           <div className="mt-6 flex flex-wrap gap-3" data-testid="hero-ad-cta">
