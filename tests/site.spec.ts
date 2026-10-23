@@ -53,11 +53,11 @@ test("every printed QR target (with UTM) resolves and canonical drops UTM", asyn
   }
 });
 
-test("all ad slots (11 + calendar sponsor) show on /advertise as the April 2027 preview; none on pilot pages", async ({
+test("all ad slots (11 + calendar sponsor) show on /advertise as the online preview; none on pilot pages", async ({
   page,
 }) => {
   await page.goto("/advertise");
-  await expect(page.getByRole("heading", { name: /April 2027 edition \(preview\)/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Online ad spaces \(preview\)/ })).toBeVisible();
   expect(await page.locator('aside[aria-label^="Ad space"], aside[aria-label^="Advertisement"]').count()).toBe(
     guide.ads.length,
   );
@@ -111,14 +111,14 @@ test("claim flow from a listing validates then succeeds", async ({ page }) => {
 test("ad inquiry form validates then succeeds", async ({ page }) => {
   await page.goto("/advertise?slot=slot-03");
   await expect(page.getByRole("heading", { name: /space slot-03/ })).toBeVisible();
-  await page.getByRole("button", { name: "Send inquiry" }).click();
+  await page.getByRole("button", { name: "Send ad enquiry" }).click();
   await expect(page.getByRole("alert").filter({ hasText: "Please fix" })).toContainText("Please fix");
   await page.getByLabel("Your name *").fill("Test Person");
   await page.getByLabel("Business name *").fill("Test Business");
   await page.getByLabel("Email *").fill("test@example.com");
-  await page.getByLabel(/interested in/).selectOption("ad-2027");
+  await page.getByLabel(/interested in/).selectOption("ad-half");
   await page.getByRole("checkbox").check();
-  await page.getByRole("button", { name: "Send inquiry" }).click();
+  await page.getByRole("button", { name: "Send ad enquiry" }).click();
   await expect(page.getByRole("status").first()).toContainText("We received your request");
 });
 
@@ -484,7 +484,7 @@ test("pilot menu = two tiers: Free / Verified $199 (everything included); no add
   expect(JSON.stringify(guide)).not.toMatch(/yearbook|guarantee(d)? (leads|results|calls)|results report|pinoypera/i);
   expect(guide.brand.siteUrl).toBe("https://pinoypages.ca");
   expect(guide.brand.badgeRule).toMatch(/one mutual vouch/);
-  expect(guide.brand.adsNote).toBe("Ads return in the April 2027 edition.");
+  expect(guide.brand.adsNote).toBe("Print ads are now booking for the 2026–2027 edition.");
   for (const path of ["/upgrade", "/advertise"]) {
     await page.goto(path);
     await expect(
@@ -1228,7 +1228,7 @@ test("alt home: search + GTA area dropdown, real counts, featured tabs, communit
   await expect(page.getByTestId("alt-home")).toBeVisible();
   await expect(page.getByTestId("confidential-badge")).toHaveText(/confidential draft/i);
   await expect(page.getByTestId("brand-line")).toHaveText(
-    "Pinoy Pages 2026–2027 · The Filipino Business Directory · GTA",
+    "Advertise in Pinoy Pages 2026–2027 · The Filipino Business Directory · GTA",
   );
   const opts = await page.locator("#alt-city option").allInnerTexts();
   expect(opts).toEqual([
@@ -1332,4 +1332,69 @@ test("directory search and filters cover the free public listings", async ({ pag
   await search.getByRole("searchbox").fill("wilson ave");
   expect(await visible.count()).toBeGreaterThan(5);
   await expect(page.getByTestId("search-count")).toContainText("shown");
+});
+
+test("/advertise shows four print sizes with dimensions, rates on request, specs and TBA deadlines", async ({
+  page,
+}) => {
+  await page.goto("/advertise");
+  await expect(page.getByRole("heading", { name: /Advertise in Pinoy Pages 2026–2027/ })).toBeVisible();
+  const sizes = page.getByTestId("ad-sizes").locator(":scope > li");
+  await expect(sizes).toHaveCount(4);
+  for (const [id, name, dim] of <[string, string, string][]>[
+    ["full", "Full page", "8.5″ × 11″"],
+    ["half", "Half page", "7.5″ × 4.875″"],
+    ["quarter", "Quarter page", "3.625″ × 4.875″"],
+    ["card", "Business card", "3.5″ × 2″"],
+  ]) {
+    const card = page.locator(`[data-size="${id}"]`);
+    await expect(card.getByRole("heading", { name })).toBeVisible();
+    await expect(card).toContainText(dim);
+    await expect(card.getByTestId("rate")).toHaveText("Rates on request");
+    await expect(page.getByTestId(`diagram-${id}`)).toBeVisible();
+  }
+  await expect(page.locator("main")).not.toContainText(/\$\d+ per (ad|page)|April 2027 edition \(preview\)/);
+  await expect(page.getByTestId("artwork-specs")).toContainText("300 dpi");
+  await expect(page.getByTestId("artwork-specs")).toContainText("CMYK");
+  await expect(page.getByTestId("artwork-specs")).toContainText("PDF/X");
+  await expect(page.getByTestId("artwork-specs")).toContainText("bleed");
+  await expect(page.getByTestId("deadlines")).toContainText("to be announced");
+  await expect(page.getByRole("link", { name: "info@pinoypages.ca" }).first()).toHaveAttribute(
+    "href",
+    /^mailto:info@pinoypages\.ca/,
+  );
+  await expect(page.locator('input[type="password"], input[autocomplete^="cc-"]')).toHaveCount(0);
+});
+
+test("ad enquiry: size preselected from link, consent required, all four sizes accepted", async ({ page }) => {
+  await page.goto("/advertise?size=quarter");
+  const sel = page.getByLabel(/interested in/);
+  await expect(sel).toHaveValue("ad-quarter");
+  for (const v of ["ad-full", "ad-half", "ad-quarter", "ad-card", "verified"])
+    await expect(sel.locator(`option[value="${v}"]`)).toHaveCount(1);
+  await page.getByRole("button", { name: "Send ad enquiry" }).click();
+  await expect(page.getByRole("alert").filter({ hasText: "Please fix" })).toBeVisible();
+  await expect(page.getByText("Please agree so we can contact you")).toBeVisible();
+  await page.getByLabel("Your name *").fill("Test Person");
+  await page.getByLabel("Business name *").fill("Test Business");
+  await page.getByLabel("Email *").fill("test@example.com");
+  await page.getByLabel("Phone").fill("416-555-0100");
+  await page.getByLabel(/interested in/).selectOption("ad-card");
+  await page.getByRole("checkbox").check();
+  await page.getByRole("button", { name: "Send ad enquiry" }).click();
+  await expect(page.getByRole("status").first()).toContainText("We received your request");
+});
+
+test("home leads with advertising; directory stays as proof", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByTestId("brand-line")).toContainText(
+    "Advertise in Pinoy Pages 2026–2027 · The Filipino Business Directory · GTA",
+  );
+  await expect(page.getByTestId("hero-ad-cta").getByRole("link", { name: "See ad sizes" })).toHaveAttribute(
+    "href",
+    "/advertise",
+  );
+  await expect(page.getByTestId("home-ad-sizes").locator("li")).toHaveCount(4);
+  await expect(page.getByRole("search", { name: "Find a business" })).toBeVisible();
+  await expect(page.locator("header").getByRole("link", { name: "Book an ad" })).toBeVisible();
 });

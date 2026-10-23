@@ -33,7 +33,7 @@ _Presyo ng Pilot Edition, **kada issue**. Lahat ng presyo ay CAD, dagdag ang app
 
 **Pagpapanatili ng badge.** Isang edition ang bisa ng badge; may magaang re-check sa renewal na nag-a-update ng “Verified [petsa]”. Panatilihin ang kahit isang mutual vouch (may 60 araw ka para palitan kung natanggal), at panatilihing updated ang phone at ZCard mo. Napo-pause ang badge kapag patay ang numero, sarado ang negosyo o may reklamo; natatanggal ito kapag hindi nag-renew.
 
-Babalik ang ads sa April 2027 edition.
+Bukas na ang booking ng mga print ad (buong pahina, kalahating pahina, sangkapat na pahina at business card) para sa edisyong 2026–2027.
 
 **Kasama nang libre ang website:** lalabas din sa website ng Pinoy Pages ang bawat listing nang walang dagdag na bayad.
 

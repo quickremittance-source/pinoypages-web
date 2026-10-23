@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SignupForm } from "@/components/Forms";
 import { brand, sections } from "@/lib/guide";
+import { adSizes, BOOKING_NOTE, RATES_NOTE } from "@/lib/adSizes";
 import { areaCounts, categoryCounts, communityEvents, featuredForAlt, GTA_AREAS, POPULAR } from "./data";
 import { FeaturedGrid } from "./FeaturedGrid";
 import { PublicNote } from "./PublicNote";
@@ -42,21 +43,33 @@ export function AltHome() {
             Confidential draft
           </p>
           <p className="mt-4 text-sm font-semibold tracking-wide text-white/85" data-testid="brand-line">
-            {brand.editionName} · {brand.tagline} · GTA
+            Advertise in {brand.editionName} · {brand.tagline} · GTA
           </p>
           <h1 className="mt-3 max-w-3xl text-4xl leading-[1.08] font-extrabold sm:text-6xl">
-            Find a Filipino-run business you can trust
+            Put your business in front of the GTA&apos;s Filipino community
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-white/90">
-            Restaurants, groceries, services and community groups across the Greater Toronto Area. Look for the Verified
-            Kabayan badge: earned by an in-person visit and a vouch from another verified business.
+            {BOOKING_NOTE} Full page, half page, quarter page and business card ads in the printed directory, alongside
+            {total} Filipino businesses already listed across the Greater Toronto Area.
           </p>
+          <div className="mt-6 flex flex-wrap gap-3" data-testid="hero-ad-cta">
+            <Link href="/advertise" className="rounded-full bg-white px-7 py-3 font-bold text-phred hover:bg-sand">
+              See ad sizes
+            </Link>
+            <Link
+              href="/advertise#enquire"
+              className="rounded-full border-2 border-white px-7 py-3 font-bold text-white hover:bg-white/10"
+            >
+              Book an ad
+            </Link>
+          </div>
+          <p className="mt-8 text-sm font-semibold text-white/85">Or search the directory</p>
           <form
             action="/directory"
             method="get"
             role="search"
             aria-label="Find a business"
-            className="mt-8 flex max-w-3xl flex-col gap-2 rounded-2xl bg-white p-2 shadow-2xl sm:flex-row sm:rounded-full"
+            className="mt-2 flex max-w-3xl flex-col gap-2 rounded-2xl bg-white p-2 shadow-2xl sm:flex-row sm:rounded-full"
           >
             <label htmlFor="alt-q" className="sr-only">
               Business name
@@ -99,6 +112,33 @@ export function AltHome() {
             ))}
           </div>
         </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pt-14" aria-labelledby="alt-ads" data-testid="home-ad-sizes">
+        <p className="kicker">Advertising</p>
+        <h2 id="alt-ads" className="mt-1 text-3xl font-extrabold text-ink">
+          Four ad sizes for the 2026–2027 edition
+        </h2>
+        <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {adSizes.map((a) => (
+            <li key={a.id}>
+              <Link
+                href={`/advertise?size=${a.id}#enquire`}
+                className="card group flex h-full flex-col p-5 hover:shadow-lg"
+              >
+                <strong className="text-xl text-ink group-hover:text-phred">{a.name}</strong>
+                <span className="mt-1 text-sm text-turqdk">{a.size.split(",")[0]}</span>
+                <span className="mt-auto pt-3 text-sm font-bold text-phred">{RATES_NOTE}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-4 text-sm text-muted">
+          Prefer a listing instead?{" "}
+          <Link href="/get-verified" className="font-semibold text-turqdk underline">
+            Verified listing, $199 per issue
+          </Link>
+        </p>
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-14" aria-labelledby="alt-cats">

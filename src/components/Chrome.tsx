@@ -4,6 +4,7 @@ import { brand } from "@/lib/guide";
 
 const nav = [
   { href: "/directory", label: "Directory" },
+  { href: "/get-verified", label: "Get Verified" },
   { href: "/awards", label: "Awards" },
   { href: liveTools[0]?.route ?? "/", label: "Free tools" },
   { href: "/tax-deadlines", label: "Deadlines" },
@@ -65,8 +66,8 @@ export function Header() {
             ))}
           </ul>
         </nav>
-        <Link href="/get-verified" className="btn shrink-0 px-3.5 py-2 text-sm">
-          Get Verified
+        <Link href="/advertise" className="btn shrink-0 px-3.5 py-2 text-sm">
+          Book an ad
         </Link>
       </div>
       <nav aria-label="Main (mobile)" className="border-t border-sand md:hidden">
@@ -137,7 +138,7 @@ export function Footer() {
               Terms
             </Link>
             <Link href="/advertise" className="underline">
-              Advertise (2027)
+              Advertise
             </Link>
           </p>
           <p className="text-xs text-muted">

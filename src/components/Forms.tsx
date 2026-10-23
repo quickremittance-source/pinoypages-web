@@ -82,7 +82,7 @@ function Status({ s }: { s: FormState }) {
   );
 }
 
-export function InquiryForm({ slot }: { slot?: string }) {
+export function InquiryForm({ slot, size }: { slot?: string; size?: string }) {
   const [s, action, pending] = useActionState(submitInquiry, init);
   const fe = s.status === "error" ? s.fieldErrors : undefined;
   return (
@@ -90,11 +90,14 @@ export function InquiryForm({ slot }: { slot?: string }) {
       <Status s={s} />
       <Common fe={fe} />
       <label className="block font-bold">
-        I&apos;m interested in *
-        <select name="product" className="field" defaultValue="">
+        I&apos;m interested in (ad size) *
+        <select name="product" className="field" defaultValue={size ? `ad-${size}` : ""}>
           <option value="">Choose…</option>
-          <option value="verified">Verified ($199, everything included)</option>
-          <option value="ad-2027">An ad in the April 2027 edition (register interest)</option>
+          <option value="ad-full">Full page ad</option>
+          <option value="ad-half">Half page ad</option>
+          <option value="ad-quarter">Quarter page ad</option>
+          <option value="ad-card">Business card ad</option>
+          <option value="verified">Verified listing ($199 per issue, everything included)</option>
         </select>
         {fe?.product && <span className="text-sm font-normal text-coral-dk">{fe.product[0]}</span>}
       </label>
@@ -104,7 +107,7 @@ export function InquiryForm({ slot }: { slot?: string }) {
         <textarea name="message" className="field" rows={3} />
       </label>
       <button className="btn" disabled={pending}>
-        {pending ? "Sending…" : "Send inquiry"}
+        {pending ? "Sending…" : "Send ad enquiry"}
       </button>
     </form>
   );

@@ -31,7 +31,7 @@ _Pilot Edition prices, **per issue**. All prices CAD, plus applicable HST._
 
 **Keeping your badge.** The badge is valid for one edition; a light re-check at renewal updates “Verified [date]”. Keep at least one mutual vouch (you have 60 days to replace one that's removed), and keep your phone and ZCard current. A dead phone, a closed business or a complaint pauses the badge; no renewal removes it.
 
-Ads return in the April 2027 edition.
+Print ads (full page, half page, quarter page and business card) are now booking for the 2026–2027 edition. Rates on request.
 
 **Website included free:** every listing also appears on the Pinoy Pages website at no extra cost.
 
