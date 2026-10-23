@@ -5,7 +5,9 @@ import { test, expect, type Page } from "@playwright/test";
 import { createHmac } from "node:crypto";
 import { TEST_ENV } from "../playwright.config";
 import AxeBuilder from "@axe-core/playwright";
-import guide from "../content/guide.json";
+import guideJson from "../content/guide.json";
+// Samples removed on alt-design: listings is empty in the JSON, so type it explicitly.
+const guide = { ...guideJson, listings: guideJson.listings as unknown as Listing[] };
 import pub from "../content/public-listings.json";
 import { badgeState, isVerified, listings as allListings, mutualPartners, type Listing } from "../src/lib/guide";
 import jsQR from "jsqr";
@@ -28,14 +30,9 @@ const routes = [...new Set(guide.pages.map((p) => p.route))].concat([
   "/upgrade",
   "/privacy",
   "/terms",
-  "/listing/tax-02",
-  "/listing/tax-01",
   "/directory/money-business",
   "/get-verified",
   "/awards",
-  "/card/tax-01",
-  "/card/ins-04",
-  "/report/tax-01",
 ]);
 
 for (const path of [...new Set(routes)]) {
@@ -92,6 +89,10 @@ test("CPP estimator caps at 2026 maximums", async ({ page }) => {
 });
 
 test("claim flow from a listing validates then succeeds", async ({ page }) => {
+  test.skip(
+    true,
+    "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
+  );
   await page.goto("/directory/tax-accounting");
   await page.getByRole("link", { name: "Claim it free" }).first().click();
   await expect(page).toHaveURL(/\/upgrade\?listing=/);
@@ -145,6 +146,10 @@ const free = guide.listings.filter((l) => l.tier === "free");
 test("paid tiers: branded QR decodes to their counted /go/ link; free listings have no QR files", async ({
   request,
 }) => {
+  test.skip(
+    true,
+    "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
+  );
   expect(paid.length).toBeGreaterThan(0);
   for (const l of paid) {
     const png = await request.get(`/qr/${l.id}/qr.png`);
@@ -167,6 +172,10 @@ test("paid tiers: branded QR decodes to their counted /go/ link; free listings h
 });
 
 test("/go/ counted link redirects paid listings with UTM", async ({ request }) => {
+  test.skip(
+    true,
+    "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
+  );
   const res = await request.get("/go/ind-01", { maxRedirects: 0 });
   expect(res.status()).toBe(307);
   expect(res.headers()["location"]).toMatch(
@@ -196,6 +205,10 @@ test("vCard downloads are valid for paid tiers", async ({ request }) => {
 });
 
 test("free listing page = name + contact only: no QR, no Save contact, no badge, no ZCard", async ({ page }) => {
+  test.skip(
+    true,
+    "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
+  );
   await page.goto("/listing/tax-02");
   await expect(page.getByText("905-555-0102")).toBeVisible();
   await expect(page.getByRole("img", { name: /QR code/ })).toHaveCount(0);
@@ -211,6 +224,10 @@ test("free listing page = name + contact only: no QR, no Save contact, no badge,
 test("paid = eligible, not verified: badge + date only after the visit; ZCard bridge on every paid page", async ({
   page,
 }) => {
+  test.skip(
+    true,
+    "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
+  );
   for (const l of paid) {
     await page.goto(`/listing/${l.id}`);
     const bridge = page.getByTestId("zcard-bridge");
@@ -277,6 +294,10 @@ test("categories: Money & Business is the live category; Travel, Padala & Remit 
 });
 
 test("directory: free entries are one line; featured shows tagline", async ({ page }) => {
+  test.skip(
+    true,
+    "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
+  );
   await page.goto("/directory/tax-accounting");
   await expect(page.locator('li[data-tier="free"]').first()).not.toContainText("Tagalog");
   const tax01 = page.locator('li[data-tier="verified"]').filter({ hasText: "Bituin Tax & Bookkeeping" });
@@ -286,6 +307,10 @@ test("directory: free entries are one line; featured shows tagline", async ({ pa
 });
 
 test("sold ad mirrors online with corner QR and tap-to-open button", async ({ page }) => {
+  test.skip(
+    true,
+    "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
+  );
   await page.goto("/magazine");
   const ad = page.getByRole("complementary", { name: /Advertisement: Bituin Tax & Bookkeeping/ });
   await expect(ad.getByRole("img", { name: /QR code for/ })).toBeVisible();
@@ -302,6 +327,10 @@ async function count(page: Page, id: string, event: string) {
 }
 
 test("analytics: QR scan, call, map, website and ad-tap clicks are counted per listing", async ({ page, request }) => {
+  test.skip(
+    true,
+    "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
+  );
   const before = {
     scan: await count(page, "ind-01", "scan"),
     call: await count(page, "tax-01", "call"),
@@ -330,6 +359,10 @@ test("analytics: listing page views are counted (free listings too); bots and ba
   page,
   request,
 }) => {
+  test.skip(
+    true,
+    "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
+  );
   for (const id of ["ins-01", "tax-03"]) {
     const before = await count(page, id, "view");
     const beacon = page.waitForResponse((r) => r.url().endsWith("/api/stat") && r.status() === 204);
@@ -352,6 +385,10 @@ test("analytics: listing page views are counted (free listings too); bots and ba
 });
 
 test("analytics access control: signed results links, paid vs free, admin key", async ({ page, request }) => {
+  test.skip(
+    true,
+    "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
+  );
   for (const url of ["/results/ind-01", "/results/ind-01?t=wrong", `/results/ind-01?t=${hmac("tax-01")}`])
     expect((await request.get(url)).status()).toBe(404);
   await page.goto(`/results/ind-01?t=${hmac("ind-01")}`);
@@ -375,6 +412,10 @@ test("Money & Business Calendar: CRA deadlines, free vs featured events, sponsor
   page,
   request,
 }) => {
+  test.skip(
+    true,
+    "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
+  );
   const price = Object.fromEntries(guide.eventMenu.map((o) => [o.id, [o.price, o.founding]]));
   expect(price).toEqual({ "event-free": [0, 0], "event-featured": [49, 49] });
   expect(guide.pages.find((p) => p.page === 11)).toMatchObject({ route: "/calendar", ad: "slot-cal" });
@@ -405,6 +446,10 @@ test("Money & Business Calendar: CRA deadlines, free vs featured events, sponsor
 });
 
 test("event submission validates then succeeds (member featured event is free)", async ({ page }) => {
+  test.skip(
+    true,
+    "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
+  );
   await page.goto("/calendar");
   await page.getByRole("button", { name: "Submit event" }).click();
   await expect(page.getByRole("alert").filter({ hasText: "Please fix" })).toBeVisible();
@@ -537,6 +582,10 @@ const L = (id: string) => allListings.find((l) => l.id === id)!;
 const at = (iso: string) => new Date(`${iso}T12:00:00Z`);
 
 test("badge logic: shows only within 12 months of the verification date and only when status is active", () => {
+  test.skip(
+    true,
+    "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
+  );
   const tax = L("tax-01"); // verified 2026-11-20 (matches print), founding vouch + mutual vouches with ins-01 and biz-01
   expect(badgeState(tax, at("2026-12-01"))).toBe("active");
   expect(badgeState(tax, at("2027-11-19"))).toBe("active");
@@ -552,6 +601,10 @@ test("badge logic: shows only within 12 months of the verification date and only
 });
 
 test("badge logic: one mutual vouch is required (founding vouch at the visit, or a 60-day grace after removal)", () => {
+  test.skip(
+    true,
+    "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
+  );
   const ins = L("ins-01"); // mutual with tax-01, no founding vouch
   expect(badgeState(ins, at("2026-12-01"))).toBe("active");
   // One-sided vouch does not count.
@@ -568,6 +621,10 @@ test("badge logic: one mutual vouch is required (founding vouch at the visit, or
 test("paused badge: listing keeps its Verified page, but no badge anywhere; directory marks it paused", async ({
   page,
 }) => {
+  test.skip(
+    true,
+    "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
+  );
   const p = guide.listings.find((l) => l.badge?.status === "paused")!;
   expect(p.tier).toBe("verified");
   await page.goto(`/listing/${p.id}`);
@@ -582,6 +639,10 @@ test("paused badge: listing keeps its Verified page, but no badge anywhere; dire
 });
 
 test("mutual partner stars show on active badges only", async ({ page }) => {
+  test.skip(
+    true,
+    "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
+  );
   await page.goto("/listing/tax-01");
   await expect(page.getByTestId("partner-stars")).toContainText("2 mutual partners");
   await page.goto("/listing/ins-03");
@@ -592,6 +653,10 @@ test("mutual partner stars show on active badges only", async ({ page }) => {
 const visible = (page: Page) => page.locator("#results li[data-listing]:visible");
 
 test("directory search filters by name, sub-category, city and language (and syncs the URL)", async ({ page }) => {
+  test.skip(
+    true,
+    "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
+  );
   await page.goto("/directory");
   const search = page.getByRole("search", { name: "Search the directory" });
   await expect(search.getByTestId("search-count")).toHaveText(
@@ -633,6 +698,10 @@ test("directory search filters by name, sub-category, city and language (and syn
 test("directory cards: Free = one text line; Verified = card with logo, badge + date, stars, Call/Book, .vcf, QR, states", async ({
   page,
 }) => {
+  test.skip(
+    true,
+    "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
+  );
   await page.goto("/directory/money-business");
   const free = page.locator('li[data-tier="free"]');
   await expect(free).toHaveCount(guide.listings.filter((l) => l.tier === "free").length);
@@ -685,6 +754,10 @@ test("/go/<id> counts every scan and lands on the ZCard; /report/<id> shows the 
   page,
   request,
 }) => {
+  test.skip(
+    true,
+    "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
+  );
   const id = "biz-03";
   await page.goto(`/report/${id}`);
   await expect(page.getByTestId("sample-banner")).toContainText("SAMPLE");
@@ -716,6 +789,10 @@ test("/go/<id> counts every scan and lands on the ZCard; /report/<id> shows the 
 test("home: value proposition, category tiles, featured Verified, Get Verified CTA, free tools teaser", async ({
   page,
 }) => {
+  test.skip(
+    true,
+    "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
+  );
   await page.goto("/classic");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "Be the kabayan they can trust — and see proof people found you",
@@ -770,6 +847,10 @@ test("awards preview: three awards + category awards, coming April 2027, nothing
 });
 
 test("sample data: ~12+ fictional SAMPLE businesses with 555 numbers across every sub-category", () => {
+  test.skip(
+    true,
+    "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
+  );
   expect(guide.listings.length).toBeGreaterThanOrEqual(12);
   for (const l of guide.listings) {
     expect(l.sample, l.id).toBe(true);
@@ -799,6 +880,10 @@ const stories = guide.articles.filter((a) => "sample" in a && a.sample) as {
 }[];
 
 test("sample listings: 20–25 across 4 sub-categories, mostly Verified, with every state represented", () => {
+  test.skip(
+    true,
+    "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
+  );
   expect(guide.listings.length).toBeGreaterThanOrEqual(20);
   expect(guide.listings.length).toBeLessThanOrEqual(25);
   const states = allListings.map((l) => badgeState(l));
@@ -820,6 +905,10 @@ test("sample listings: 20–25 across 4 sub-categories, mostly Verified, with ev
 test("rich listing page: owner story, SAMPLE quote, why line, hours and service area; free pages stay name + contact", async ({
   page,
 }) => {
+  test.skip(
+    true,
+    "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
+  );
   await page.goto("/listing/tax-01");
   await expect(page.getByTestId("owner-story")).toContainText("Sheppard Avenue");
   await expect(page.getByTestId("owner-quote")).toContainText("SAMPLE quote");
@@ -881,6 +970,10 @@ test("story ideas: unlisted pipeline of 12 with angle, category, sample business
   page,
   request,
 }) => {
+  test.skip(
+    true,
+    "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
+  );
   const ideas = ideasData.ideas;
   expect(ideas).toHaveLength(12);
   await page.goto("/magazine/ideas");
@@ -957,6 +1050,10 @@ test("event pages: .ics, address + map, host, host listing link only when Verifi
   page,
   request,
 }) => {
+  test.skip(
+    true,
+    "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
+  );
   for (const e of guide.events) expect((await request.get(`/calendar/${e.id}`)).status(), e.id).toBe(200);
   const ics = await request.get("/ics/ev-sample-featured.ics");
   expect(ics.headers()["content-type"]).toContain("text/calendar");
@@ -980,7 +1077,6 @@ test("event pages: .ics, address + map, host, host listing link only when Verifi
   );
   await expect(page.getByTestId("event-host").getByRole("link", { name: "Bituin Tax & Bookkeeping" })).toHaveAttribute(
     "href",
-    "/listing/tax-01",
   );
   await expect(page.getByRole("img", { name: /Event image/ })).toBeVisible();
   // Free basic event hosted by a Free (unverified) listing: no host link, no image, no Register.
@@ -1032,6 +1128,10 @@ test("upcoming events show on the home page and on sub-category pages", async ({
 test("home band, free-card claim links, 'Be the first Verified' prompt and Why Verified with SAMPLE proof", async ({
   page,
 }) => {
+  test.skip(
+    true,
+    "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
+  );
   await page.goto("/classic");
   const band = page.getByTestId("list-band");
   await expect(band.getByRole("link", { name: "List free" })).toHaveAttribute("href", "/list-free");
@@ -1108,6 +1208,18 @@ test("sticky Get Verified bar: mobile only, dismissible, never on the ZCard or s
   await expect(page.getByTestId("sticky-cta")).toHaveCount(0);
 });
 
+// ---------- alt-design: samples removed ----------
+test("alt-design: no fictional sample listings; old sample listing routes 404 cleanly", async ({ page }) => {
+  expect(guide.listings.length).toBe(0);
+  for (const p of ["/listing/tax-01", "/card/tax-01", "/report/tax-01"]) {
+    const res = await page.goto(p);
+    expect(res?.status()).toBe(404);
+  }
+  await page.goto("/directory");
+  const html = await page.content();
+  for (const n of ["Bituin", "Perlas Bookkeeping", "Araw CPA", "555-01"]) expect(html).not.toContain(n);
+});
+
 // ---------- alt-design: alternate home ----------
 test("alt home: search + GTA area dropdown, real counts, featured tabs, community events, why, consent signup", async ({
   page,
@@ -1145,13 +1257,12 @@ test("alt home: search + GTA area dropdown, real counts, featured tabs, communit
   ).reduce((a, b) => a + b, 0);
   expect(areaTotal).toBe(guide.listings.length + pubData.length);
   await expect(page.getByTestId("public-note")).toContainText("compiled from public information and are not verified");
-  const feat = page.getByTestId("alt-featured").locator("li");
-  const all = await feat.count();
-  expect(all).toBeGreaterThan(0);
-  const tab = page.getByTestId("alt-area-tabs").getByRole("button").nth(1);
-  const area = await tab.innerText();
-  await tab.click();
-  for (const a of await feat.evaluateAll((els) => els.map((e) => e.getAttribute("data-area")))) expect(a).toBe(area);
+  // Samples removed: no Verified listings yet, so the badge is explained with a labelled generic example.
+  await expect(page.getByTestId("alt-badge-example")).toContainText("Example");
+  await expect(page.getByTestId("alt-badge-example")).toContainText("Your business name");
+  const html = await page.content();
+  for (const n of ["Bituin", "Perlas Bookkeeping", "Hiraya", "Dagat Tax", "555-01", "example.com", "SAMPLE Money"])
+    expect(html).not.toContain(n);
   expect(await page.getByTestId("alt-events").locator("li").count()).toBeGreaterThan(0);
   await expect(page.getByTestId("alt-why").locator("li")).toHaveCount(3);
   await expect(page.getByLabel("Monthly member email sign-up")).toBeVisible();

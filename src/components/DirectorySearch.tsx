@@ -103,7 +103,7 @@ export function DirectorySearch({
           name="q"
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder="e.g. Bituin"
+          placeholder="e.g. bakery"
           autoComplete="off"
         />
       </label>

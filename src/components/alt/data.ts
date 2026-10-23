@@ -9,7 +9,7 @@ import {
   upcomingEvents,
 } from "@/lib/guide";
 
-/** Alt design (alt-design branch): derived, never invented. Every number here is counted from the SAMPLE data. */
+/** Alt design (alt-design branch): derived, never invented. Every number here is counted from the listing data (real free listings only). */
 export const GTA_AREAS = [
   "Toronto",
   "Scarborough",
@@ -30,15 +30,17 @@ export const CATEGORY_ICONS: Record<string, string> = {
 
 /** Combined counts: SAMPLE Money & Business listings + free listings compiled from public information. */
 export const categoryCounts = () => [
-  ...categories.map((c) => ({
-    slug: c.slug,
-    name: c.name,
-    href: `/directory/${c.slug}`,
-    icon: CATEGORY_ICONS[c.slug] ?? "📁",
-    total: listings.filter((l) => l.category === c.slug).length,
-    sample: listings.filter((l) => l.category === c.slug).length,
-    verified: listings.filter((l) => l.category === c.slug && isPaid(l)).length,
-  })),
+  ...categories
+    .filter((c) => listings.some((l) => l.category === c.slug))
+    .map((c) => ({
+      slug: c.slug,
+      name: c.name,
+      href: `/directory/${c.slug}`,
+      icon: CATEGORY_ICONS[c.slug] ?? "📁",
+      total: listings.filter((l) => l.category === c.slug).length,
+      sample: listings.filter((l) => l.category === c.slug).length,
+      verified: listings.filter((l) => l.category === c.slug && isPaid(l)).length,
+    })),
   ...publicCategories.map((c) => ({
     slug: c.slug,
     name: c.name,
@@ -81,10 +83,10 @@ export const communityEvents = (limit = 4) =>
 
 /** Popular searches = shortcuts into real directory filters (not a trend claim). */
 export const POPULAR = [
-  { label: "Tax returns", href: "/directory?sub=tax-accounting" },
-  { label: "Insurance & mortgage", href: "/directory?sub=insurance-financial" },
-  { label: "Bookkeeping", href: "/directory?sub=business-services" },
-  { label: "Freelancers", href: "/directory?sub=independents" },
-  { label: "Speaks Tagalog", href: "/directory?lang=Tagalog" },
+  { label: "Restaurants & bakeries", href: "/directory#pub-food" },
+  { label: "Groceries", href: "/directory#pub-groceries" },
+  { label: "Money & Business", href: "/directory#pub-money-business" },
+  { label: "Beauty", href: "/directory#pub-beauty" },
+  { label: "In Scarborough", href: "/directory?city=Scarborough" },
   { label: "In Mississauga", href: "/directory?city=Mississauga" },
 ];

@@ -9,7 +9,7 @@ const WHY = [
   {
     icon: "🔎",
     t: "For customers",
-    d: "Find Filipino-run tax, insurance and business pros near you. A Verified Kabayan badge means the business was visited in person and vouched for by another verified business. Free listings are unverified.",
+    d: "Find Filipino-run restaurants, shops and services near you. A Verified Kabayan badge means the business was visited in person and vouched for by another verified business. Free listings are unverified.",
   },
   {
     icon: "🏪",
@@ -30,6 +30,7 @@ export function AltHome() {
   const total = areas.reduce((s, a) => s + a.n, 0);
   const coming = sections.filter((s) => s.status === "coming");
   const evs = communityEvents(4);
+  const featured = featuredForAlt();
   return (
     <div data-testid="alt-home">
       <section className="relative overflow-hidden bg-gradient-to-br from-[#1b2328] via-turqdk to-phred text-white">
@@ -47,7 +48,7 @@ export function AltHome() {
             Find a Filipino-run business you can trust
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-white/90">
-            Tax, insurance, bookkeeping and independent pros across the Greater Toronto Area. Look for the Verified
+            Restaurants, groceries, services and community groups across the Greater Toronto Area. Look for the Verified
             Kabayan badge: earned by an in-person visit and a vouch from another verified business.
           </p>
           <form
@@ -140,10 +141,33 @@ export function AltHome() {
               See the whole directory
             </Link>
           </div>
-          <div className="mt-5">
-            <FeaturedGrid cards={featuredForAlt()} areas={GTA_AREAS} />
-          </div>
-          <p className="mt-4 text-xs text-muted">Businesses marked SAMPLE are fictional, for the prototype.</p>
+          {featured.length > 0 ? (
+            <div className="mt-5">
+              <FeaturedGrid cards={featured} areas={GTA_AREAS} />
+            </div>
+          ) : (
+            <div className="mt-5 grid gap-5 md:grid-cols-2 md:items-center" data-testid="alt-badge-example">
+              <div className="card relative p-6" aria-label="Example of a Verified Kabayan card">
+                <span className="absolute top-3 left-3 rounded-md bg-ink px-2 py-0.5 text-[11px] font-bold text-white">
+                  Example
+                </span>
+                <span className="absolute top-3 right-3 rounded-md bg-aqua px-2 py-0.5 text-[11px] font-bold text-turqdk">
+                  Verified Kabayan
+                </span>
+                <p className="mt-8 font-bold text-ink">Your business name</p>
+                <p className="text-sm text-muted">Category · GTA area</p>
+                <p className="mt-2 text-sm text-ink/80">Featured card, ZCard with Save contact, QR scan counts.</p>
+              </div>
+              <div>
+                <p className="text-ink">
+                  The first Verified Kabayan businesses will appear here after their in-person visit and vouch.
+                </p>
+                <Link className="btn mt-4 inline-block" href="/get-verified">
+                  Get Verified · $199
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -152,8 +176,7 @@ export function AltHome() {
           Where to find us
         </h2>
         <p className="mt-1 text-muted">
-          {total} listings across {areas.length} GTA areas: SAMPLE Money &amp; Business listings plus free listings
-          compiled from public information.
+          {total} listings across {areas.length} GTA areas, compiled from public information.
         </p>
         <div className="mt-3">
           <PublicNote />
