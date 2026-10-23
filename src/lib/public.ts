@@ -15,6 +15,8 @@ export type PublicListing = {
   website?: string;
   /** Only when the business publishes it. */
   email?: string;
+  /** Only when the business publishes a Messenger link. */
+  messenger?: string;
 };
 export type PublicCategory = { slug: string; name: string; icon: string; section: string };
 export const publicCategories = data.categories as PublicCategory[];

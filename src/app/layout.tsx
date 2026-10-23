@@ -4,6 +4,8 @@ import "./globals.css";
 import { Header, Footer } from "@/components/Chrome";
 import { StickyCta } from "@/components/StickyCta";
 import { brand, SITE_URL } from "@/lib/guide";
+import { ALLOW_INDEXING } from "@/lib/seo";
+import { Analytics } from "@/components/Analytics";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
@@ -11,7 +13,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: `${brand.name} ${brand.edition}`, template: `%s · ${brand.name}` },
   description: `${brand.tagline} · ${brand.region}`,
-  robots: { index: false, follow: false },
+  robots: ALLOW_INDEXING ? { index: true, follow: true } : { index: false, follow: false },
   alternates: { canonical: "/" },
 };
 export const viewport: Viewport = { themeColor: "#C8102E" };
@@ -24,6 +26,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <main id="main">{children}</main>
         <Footer />
         <StickyCta />
+        <Analytics />
       </body>
     </html>
   );

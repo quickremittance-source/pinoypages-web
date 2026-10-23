@@ -5,6 +5,7 @@ import { adSizes, BOOKING_NOTE, RATES_NOTE } from "@/lib/adSizes";
 import { areaCounts, categoryCounts, communityEvents, featuredForAlt, GTA_AREAS, POPULAR } from "./data";
 import { FeaturedGrid } from "./FeaturedGrid";
 import { PublicNote } from "./PublicNote";
+import { AdSlot } from "@/components/AdSlot";
 
 const WHY = [
   {
@@ -34,6 +35,7 @@ export function AltHome() {
   const featured = featuredForAlt();
   return (
     <div data-testid="alt-home">
+      <AdSlot placement="banner" />
       <section className="relative overflow-hidden bg-gradient-to-br from-[#1b2328] via-turqdk to-phred text-white">
         <div className="mx-auto max-w-6xl px-4 py-16 md:py-24">
           <p
@@ -322,6 +324,10 @@ export function AltHome() {
           <SignupForm />
         </div>
       </section>
+      <div className="mx-auto max-w-6xl space-y-3 px-4">
+        <AdSlot placement="homepage-feature" />
+        <AdSlot placement="seasonal-spotlight" />
+      </div>
     </div>
   );
 }

@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { abs, categories, events, isPaid, listings, sections } from "@/lib/guide";
 import { articles } from "@/lib/magazine";
 import { liveTools } from "@/lib/registry";
+import { publicListings } from "@/lib/public";
+import { bizPath, landings } from "@/lib/seo";
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
     "/",
@@ -26,6 +28,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     listings.map((l) => `/listing/${l.id}`),
     listings.filter(isPaid).map((l) => `/card/${l.id}`),
     events.map((e) => `/calendar/${e.id}`),
+    publicListings.map(bizPath),
+    landings.map((l) => `/${l.slug}`),
   );
   return paths.map((p) => ({ url: abs(p) }));
 }

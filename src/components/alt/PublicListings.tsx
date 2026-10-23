@@ -1,5 +1,7 @@
 import { publicCategories, publicIn } from "@/lib/public";
+import Link from "next/link";
 import { PublicNote } from "./PublicNote";
+import { bizPath } from "@/lib/seo";
 
 /** Free (unverified) listings from public information: name, category label, area and public contact only. */
 export function PublicListings() {
@@ -33,7 +35,9 @@ export function PublicListings() {
                   data-langs=""
                   className="px-4 py-2.5 text-sm"
                 >
-                  <strong className="text-ink">{l.name}</strong>
+                  <Link href={bizPath(l)} className="font-bold text-ink underline">
+                    {l.name}
+                  </Link>
                   <span className="text-muted">
                     {" "}
                     · {c.name} · {l.area}
