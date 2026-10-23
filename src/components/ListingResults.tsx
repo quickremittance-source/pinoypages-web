@@ -8,7 +8,10 @@ export function ListingResults({
   items,
   showSubFilter = true,
   subLabel = "",
+  extra,
 }: {
+  /** Extra filterable root (free public listings): its id plus its categories and areas for the selects. */
+  extra?: { target: string; subs: { value: string; label: string }[]; cities: string[] };
   items: Listing[];
   showSubFilter?: boolean;
   /** Sub-category name for the "Be the first Verified … in your area" prompt (sub-category pages). */
@@ -20,14 +23,21 @@ export function ListingResults({
   const free = sorted.filter((l) => l.tier === "free");
   const subs = categories
     .filter((c) => items.some((l) => l.category === c.slug))
-    .map((c) => ({ value: c.slug, label: c.name }));
-  const cities = [...new Set(items.map((l) => l.area))].sort();
+    .map((c) => ({ value: c.slug, label: c.name }))
+    .concat(extra?.subs ?? []);
+  const cities = [...new Set([...items.map((l) => l.area), ...(extra?.cities ?? [])])].sort();
   const langs = [...new Set(items.flatMap(langsOf))].sort((a, b) =>
     a === "English" ? -1 : b === "English" ? 1 : a.localeCompare(b),
   );
   return (
     <div className="space-y-6">
-      <DirectorySearch target="results" subs={showSubFilter ? subs : undefined} cities={cities} languages={langs} />
+      <DirectorySearch
+        target="results"
+        extraTarget={extra?.target}
+        subs={showSubFilter ? subs : undefined}
+        cities={cities}
+        languages={langs}
+      />
       <div id="results" className="space-y-8">
         <aside
           data-first-cta

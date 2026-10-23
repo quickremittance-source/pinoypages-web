@@ -13,6 +13,8 @@ export type PublicListing = {
   address?: string;
   phone?: string;
   website?: string;
+  /** Only when the business publishes it. */
+  email?: string;
 };
 export type PublicCategory = { slug: string; name: string; icon: string; section: string };
 export const publicCategories = data.categories as PublicCategory[];

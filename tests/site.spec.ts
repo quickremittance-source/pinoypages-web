@@ -594,7 +594,9 @@ const visible = (page: Page) => page.locator("#results li[data-listing]:visible"
 test("directory search filters by name, sub-category, city and language (and syncs the URL)", async ({ page }) => {
   await page.goto("/directory");
   const search = page.getByRole("search", { name: "Search the directory" });
-  await expect(search.getByTestId("search-count")).toHaveText(`${guide.listings.length} businesses shown`);
+  await expect(search.getByTestId("search-count")).toHaveText(
+    `${guide.listings.length + pub.listings.length} businesses shown`,
+  );
   await search.getByLabel("Business name").fill("bituin");
   await expect(visible(page)).toHaveCount(1);
   await expect(visible(page).first()).toHaveAttribute("data-listing", "tax-01");
@@ -1165,17 +1167,29 @@ test("public free listings: GTA only, free + unverified, sourced, name + contact
   page,
 }) => {
   const areas = ["Toronto", "Scarborough", "North York", "Etobicoke", "Mississauga", "Brampton", "Markham", "Vaughan"];
-  expect(pub.listings.length).toBeGreaterThanOrEqual(40);
+  expect(pub.listings.length).toBeGreaterThanOrEqual(140);
+  expect(new Set(pub.listings.map((l) => l.id)).size).toBe(pub.listings.length);
   for (const l of pub.listings as Record<string, unknown>[]) {
     expect(areas).toContain(l.area);
     expect(l.tier).toBe("free");
     expect(l.verified).toBe(false);
     expect(String(l.source)).toMatch(/^https?:\/\//);
-    expect(l.phone || l.website || l.address).toBeTruthy();
+    expect(l.phone || l.website || l.address || l.email).toBeTruthy();
+    expect((pub.categories as { slug: string }[]).map((c) => c.slug)).toContain(l.category);
     for (const k of Object.keys(l))
-      expect(["id", "name", "category", "area", "tier", "verified", "source", "address", "phone", "website"]).toContain(
-        k,
-      );
+      expect([
+        "id",
+        "name",
+        "category",
+        "area",
+        "tier",
+        "verified",
+        "source",
+        "address",
+        "phone",
+        "website",
+        "email",
+      ]).toContain(k);
   }
   expect(JSON.stringify(pub)).not.toMatch(/remit|padala|money transfer/i);
   await page.goto("/directory");
@@ -1185,4 +1199,26 @@ test("public free listings: GTA only, free + unverified, sourced, name + contact
   await expect(sec.locator("li[data-public]")).toHaveCount(pub.listings.length);
   await expect(sec.locator("img, [data-badge], [data-testid=zcard-bridge]")).toHaveCount(0);
   await expect(sec).not.toContainText(/Verified Kabayan|Save contact|exa\.ai|totimes/);
+});
+
+test("directory search and filters cover the free public listings", async ({ page }) => {
+  const ls = pub.listings as { name: string; category: string; area: string }[];
+  await page.goto("/directory");
+  const sec = page.getByTestId("public-listings");
+  const visible = sec.locator("li[data-public]:visible");
+  await expect(visible).toHaveCount(ls.length);
+  const search = page.getByRole("search");
+  await search.locator('select[name="city"]').selectOption("Mississauga");
+  await expect(visible).toHaveCount(ls.filter((l) => l.area === "Mississauga").length);
+  await search.locator('select[name="sub"]').selectOption("food");
+  await expect(visible).toHaveCount(ls.filter((l) => l.area === "Mississauga" && l.category === "food").length);
+  await expect(page).toHaveURL(/sub=food/);
+  await expect(sec.locator("#pub-community")).toBeHidden();
+  await search.getByRole("button", { name: "Clear" }).click();
+  await search.getByRole("searchbox").fill("harina");
+  await expect(visible).toHaveCount(1);
+  await expect(visible.first()).toContainText("Harina Bakeshoppe");
+  await search.getByRole("searchbox").fill("wilson ave");
+  expect(await visible.count()).toBeGreaterThan(5);
+  await expect(page.getByTestId("search-count")).toContainText("shown");
 });

@@ -2,44 +2,62 @@
   "note": "Free, unverified listings compiled from public information (Oct 2026). source = where the business was confirmed; never displayed.",
   "categories": [
     {
-      "slug": "restaurants",
-      "name": "Restaurants, bakeries & cafés",
+      "slug": "food",
+      "name": "Food & Dining",
       "icon": "🍲",
       "section": "community"
     },
     {
       "slug": "groceries",
-      "name": "Groceries & markets",
+      "name": "Groceries & Specialty Foods",
       "icon": "🛒",
       "section": "community"
     },
     {
-      "slug": "catering",
-      "name": "Catering & events",
-      "icon": "🎉",
-      "section": "community"
-    },
-    {
       "slug": "beauty",
-      "name": "Beauty & barbers",
+      "name": "Beauty & Wellness",
       "icon": "💇",
       "section": "community"
     },
     {
       "slug": "health",
-      "name": "Health & home care",
+      "name": "Health & Care",
       "icon": "🩺",
       "section": "community"
     },
     {
-      "slug": "legal-realestate",
-      "name": "Legal & real estate",
-      "icon": "⚖️",
+      "slug": "money-business",
+      "name": "Money & Business",
+      "icon": "💼",
       "section": "money-business"
     },
     {
-      "slug": "community-orgs",
-      "name": "Community centres & organizations",
+      "slug": "immigration",
+      "name": "Immigration & Settlement",
+      "icon": "🛂",
+      "section": "community"
+    },
+    {
+      "slug": "events",
+      "name": "Events & Celebrations",
+      "icon": "🎉",
+      "section": "community"
+    },
+    {
+      "slug": "home-trades",
+      "name": "Home & Trades",
+      "icon": "🔧",
+      "section": "community"
+    },
+    {
+      "slug": "education",
+      "name": "Education & Kids",
+      "icon": "🎓",
+      "section": "community"
+    },
+    {
+      "slug": "community",
+      "name": "Community & Faith",
       "icon": "🏛️",
       "section": "community"
     }
@@ -48,7 +66,7 @@
     {
       "id": "pub-sampaguita-village-family-restaurant",
       "name": "Sampaguita Village Family Restaurant",
-      "category": "restaurants",
+      "category": "food",
       "area": "North York",
       "tier": "free",
       "verified": false,
@@ -58,7 +76,7 @@
     {
       "id": "pub-wilson-s-haus-of-lechon",
       "name": "Wilson's Haus of Lechon",
-      "category": "restaurants",
+      "category": "food",
       "area": "North York",
       "tier": "free",
       "verified": false,
@@ -68,7 +86,7 @@
     {
       "id": "pub-bale-kapampangan",
       "name": "Bale Kapampangan",
-      "category": "restaurants",
+      "category": "food",
       "area": "North York",
       "tier": "free",
       "verified": false,
@@ -79,7 +97,7 @@
     {
       "id": "pub-lovely-pao",
       "name": "Lovely Pao",
-      "category": "restaurants",
+      "category": "food",
       "area": "North York",
       "tier": "free",
       "verified": false,
@@ -89,7 +107,7 @@
     {
       "id": "pub-tinuno",
       "name": "Tinuno",
-      "category": "restaurants",
+      "category": "food",
       "area": "North York",
       "tier": "free",
       "verified": false,
@@ -99,7 +117,7 @@
     {
       "id": "pub-kiko-s",
       "name": "Kiko's",
-      "category": "restaurants",
+      "category": "food",
       "area": "North York",
       "tier": "free",
       "verified": false,
@@ -110,7 +128,7 @@
     {
       "id": "pub-kabalen-restaurant",
       "name": "Kabalen Restaurant",
-      "category": "restaurants",
+      "category": "food",
       "area": "North York",
       "tier": "free",
       "verified": false,
@@ -121,7 +139,7 @@
     {
       "id": "pub-pampangue-a",
       "name": "Pampangueña",
-      "category": "restaurants",
+      "category": "food",
       "area": "North York",
       "tier": "free",
       "verified": false,
@@ -131,7 +149,7 @@
     {
       "id": "pub-daily-bread-bakery",
       "name": "Daily Bread Bakery",
-      "category": "restaurants",
+      "category": "food",
       "area": "North York",
       "tier": "free",
       "verified": false,
@@ -141,7 +159,7 @@
     {
       "id": "pub-dean-ruby-s-cafe",
       "name": "Dean & Ruby's Cafe",
-      "category": "restaurants",
+      "category": "food",
       "area": "North York",
       "tier": "free",
       "verified": false,
@@ -151,7 +169,7 @@
     {
       "id": "pub-apo-filipino-cuisine",
       "name": "APO Filipino Cuisine",
-      "category": "restaurants",
+      "category": "food",
       "area": "North York",
       "tier": "free",
       "verified": false,
@@ -162,7 +180,7 @@
     {
       "id": "pub-himagas-toronto",
       "name": "Himagas Toronto",
-      "category": "restaurants",
+      "category": "food",
       "area": "North York",
       "tier": "free",
       "verified": false,
@@ -173,7 +191,7 @@
     {
       "id": "pub-basi-restaurant",
       "name": "Basi Restaurant",
-      "category": "restaurants",
+      "category": "food",
       "area": "North York",
       "tier": "free",
       "verified": false,
@@ -184,7 +202,7 @@
     {
       "id": "pub-mang-jose-filipino-cuisine",
       "name": "Mang Jose Filipino Cuisine",
-      "category": "restaurants",
+      "category": "food",
       "area": "North York",
       "tier": "free",
       "verified": false,
@@ -194,19 +212,20 @@
     {
       "id": "pub-remely-s-filipino-restaurant",
       "name": "Remely's Filipino Restaurant",
-      "category": "restaurants",
+      "category": "food",
       "area": "Scarborough",
       "tier": "free",
       "verified": false,
       "source": "https://remelys.com/",
       "address": "4830 Sheppard Ave E",
       "phone": "416-609-9661",
-      "website": "https://remelys.com/"
+      "website": "https://remelys.com/",
+      "email": "info@remelys.com"
     },
     {
       "id": "pub-lakay-kusina",
       "name": "Lakay Kusina",
-      "category": "restaurants",
+      "category": "food",
       "area": "Scarborough",
       "tier": "free",
       "verified": false,
@@ -218,7 +237,7 @@
     {
       "id": "pub-bella-s-lechon-scarborough",
       "name": "Bella's Lechon (Scarborough)",
-      "category": "restaurants",
+      "category": "food",
       "area": "Scarborough",
       "tier": "free",
       "verified": false,
@@ -230,7 +249,7 @@
     {
       "id": "pub-bella-s-lechon-mississauga",
       "name": "Bella's Lechon (Mississauga)",
-      "category": "restaurants",
+      "category": "food",
       "area": "Mississauga",
       "tier": "free",
       "verified": false,
@@ -242,7 +261,7 @@
     {
       "id": "pub-bella-s-inasal",
       "name": "Bella's Inasal",
-      "category": "restaurants",
+      "category": "food",
       "area": "Mississauga",
       "tier": "free",
       "verified": false,
@@ -254,7 +273,7 @@
     {
       "id": "pub-berto-s-restaurant",
       "name": "Berto's Restaurant",
-      "category": "restaurants",
+      "category": "food",
       "area": "Mississauga",
       "tier": "free",
       "verified": false,
@@ -266,7 +285,7 @@
     {
       "id": "pub-kuya-don-lomi-batangas",
       "name": "Kuya Don Lomi Batangas",
-      "category": "restaurants",
+      "category": "food",
       "area": "Mississauga",
       "tier": "free",
       "verified": false,
@@ -278,7 +297,7 @@
     {
       "id": "pub-maharlikas-resto-bar",
       "name": "Maharlikas Resto Bar",
-      "category": "restaurants",
+      "category": "food",
       "area": "Mississauga",
       "tier": "free",
       "verified": false,
@@ -290,7 +309,7 @@
     {
       "id": "pub-manila-bakery",
       "name": "Manila Bakery",
-      "category": "restaurants",
+      "category": "food",
       "area": "Mississauga",
       "tier": "free",
       "verified": false,
@@ -302,7 +321,7 @@
     {
       "id": "pub-valerio-s-tropical-bake-shop",
       "name": "Valerio's Tropical Bake Shop",
-      "category": "restaurants",
+      "category": "food",
       "area": "Mississauga",
       "tier": "free",
       "verified": false,
@@ -313,28 +332,30 @@
     {
       "id": "pub-pampanga-cuisine",
       "name": "Pampanga Cuisine",
-      "category": "restaurants",
+      "category": "food",
       "area": "Brampton",
       "tier": "free",
       "verified": false,
       "source": "https://mabuhaycanada.org/pinoy-food-brampton-ontario/",
       "address": "400 Queen St W",
-      "phone": "905-455-8655"
+      "phone": "905-455-8655",
+      "website": "http://www.pampangacuisinebrampton.ca/"
     },
     {
       "id": "pub-elsa-lutong-bahay",
       "name": "Elsa Lutong Bahay",
-      "category": "restaurants",
+      "category": "food",
       "area": "Brampton",
       "tier": "free",
       "verified": false,
       "source": "https://mabuhaycanada.org/pinoy-food-brampton-ontario/",
-      "address": "65 Rutherford Rd S"
+      "address": "65 Rutherford Rd S",
+      "phone": "905-497-9175"
     },
     {
       "id": "pub-bella-s-bakery",
       "name": "Bella's Bakery",
-      "category": "restaurants",
+      "category": "food",
       "area": "Brampton",
       "tier": "free",
       "verified": false,
@@ -344,28 +365,31 @@
     {
       "id": "pub-fan-d-flame-restaurant",
       "name": "Fan \"D\" Flame Restaurant",
-      "category": "restaurants",
+      "category": "food",
       "area": "Brampton",
       "tier": "free",
       "verified": false,
       "source": "https://www.restaurantji.com/on/brampton/fan-d-flame-restaurant-filipino-cuisine-/",
-      "address": "30 Gillingham Dr"
+      "address": "30 Gillingham Dr",
+      "phone": "416-953-0700",
+      "website": "https://fandflame.com/"
     },
     {
       "id": "pub-b-s-sizzling-kitchen",
       "name": "B's Sizzling Kitchen",
-      "category": "restaurants",
+      "category": "food",
       "area": "Etobicoke",
       "tier": "free",
       "verified": false,
       "source": "https://www.bsizzlingkitchen.com/",
       "address": "430 Horner Ave",
-      "website": "https://www.bsizzlingkitchen.com/"
+      "website": "https://www.bsizzlingkitchen.com/",
+      "phone": "416-255-8889"
     },
     {
       "id": "pub-super-bakers",
       "name": "Super Bakers",
-      "category": "restaurants",
+      "category": "food",
       "area": "Etobicoke",
       "tier": "free",
       "verified": false,
@@ -375,7 +399,7 @@
     {
       "id": "pub-eskenita-foods",
       "name": "Eskenita Foods",
-      "category": "restaurants",
+      "category": "food",
       "area": "Vaughan",
       "tier": "free",
       "verified": false,
@@ -385,18 +409,19 @@
     {
       "id": "pub-tropang-ilonggo",
       "name": "Tropang Ilonggo",
-      "category": "restaurants",
+      "category": "food",
       "area": "Vaughan",
       "tier": "free",
       "verified": false,
       "source": "https://www.tropangilonggoon.com/",
       "address": "371 Bradwick Dr",
-      "website": "https://www.tropangilonggoon.com/"
+      "website": "https://www.tropangilonggoon.com/",
+      "phone": "905-669-9936"
     },
     {
       "id": "pub-pinoy-waffles",
       "name": "Pinoy Waffles",
-      "category": "restaurants",
+      "category": "food",
       "area": "Markham",
       "tier": "free",
       "verified": false,
@@ -430,7 +455,7 @@
     {
       "id": "pub-carinderiameals",
       "name": "CarinderiaMeals",
-      "category": "catering",
+      "category": "food",
       "area": "Toronto",
       "tier": "free",
       "verified": false,
@@ -445,7 +470,8 @@
       "tier": "free",
       "verified": false,
       "source": "https://jonathanpinoy.ca/About",
-      "website": "https://jonathanpinoy.ca/"
+      "website": "https://jonathanpinoy.ca/",
+      "phone": "437-431-0818"
     },
     {
       "id": "pub-gta-homecare-services",
@@ -462,7 +488,7 @@
     {
       "id": "pub-jca-law-office",
       "name": "JCA Law Office",
-      "category": "legal-realestate",
+      "category": "money-business",
       "area": "Toronto",
       "tier": "free",
       "verified": false,
@@ -474,7 +500,7 @@
     {
       "id": "pub-bac-law-professional-corporation",
       "name": "BAC Law Professional Corporation",
-      "category": "legal-realestate",
+      "category": "money-business",
       "area": "North York",
       "tier": "free",
       "verified": false,
@@ -485,7 +511,7 @@
     {
       "id": "pub-jhonavel-matias-realtor",
       "name": "Jhonavel Matias, Realtor",
-      "category": "legal-realestate",
+      "category": "money-business",
       "area": "Mississauga",
       "tier": "free",
       "verified": false,
@@ -496,7 +522,7 @@
     {
       "id": "pub-victor-ilagan-realtor",
       "name": "Victor Ilagan, Realtor",
-      "category": "legal-realestate",
+      "category": "money-business",
       "area": "Mississauga",
       "tier": "free",
       "verified": false,
@@ -507,35 +533,1118 @@
     {
       "id": "pub-filipino-centre-toronto",
       "name": "Filipino Centre Toronto",
-      "category": "community-orgs",
+      "category": "community",
       "area": "Scarborough",
       "tier": "free",
       "verified": false,
       "source": "https://www.filipinocentretoronto.com/",
       "address": "4395 Sheppard Ave E",
       "phone": "416-335-0485",
-      "website": "https://www.filipinocentretoronto.com/"
+      "website": "https://www.filipinocentretoronto.com/",
+      "email": "filipinocentreinfo@gmail.com"
     },
     {
       "id": "pub-silayan-filipino-community-centre",
       "name": "Silayan Filipino Community Centre",
-      "category": "community-orgs",
+      "category": "community",
       "area": "Toronto",
       "tier": "free",
       "verified": false,
       "source": "https://www.philcongen-toronto.com/links/links_assoc.php",
       "address": "240 Wellesley St E",
-      "phone": "416-926-9505"
+      "phone": "416-926-9505",
+      "email": "silayancommunitycentre@yahoo.ca"
     },
     {
       "id": "pub-filipino-canadian-community-house",
       "name": "Filipino-Canadian Community House",
-      "category": "community-orgs",
+      "category": "community",
       "area": "North York",
       "tier": "free",
       "verified": false,
       "source": "https://exa.ai/library/places?q=163037c7c3046445",
-      "address": "5 Replin Rd"
+      "address": "5 Replin Rd",
+      "email": "filcanadiancommunityhouse@gmail.com"
+    },
+    {
+      "id": "pub-j-j-kapuso-filipino-restaurant",
+      "name": "J & J Kapuso Filipino Restaurant",
+      "category": "food",
+      "area": "Scarborough",
+      "tier": "free",
+      "verified": false,
+      "source": "https://seethesix.com/guides/filipino-food-toronto/",
+      "address": "1217 Ellesmere Rd",
+      "phone": "416-288-9243"
+    },
+    {
+      "id": "pub-manyaman-foods-filipino-cuisine-kennedy",
+      "name": "Manyaman Foods Filipino Cuisine (Kennedy)",
+      "category": "food",
+      "area": "Scarborough",
+      "tier": "free",
+      "verified": false,
+      "source": "https://seethesix.com/guides/filipino-food-toronto/",
+      "address": "685 Kennedy Rd, Unit 1",
+      "phone": "437-880-8216"
+    },
+    {
+      "id": "pub-manyaman-foods-express-passmore",
+      "name": "Manyaman Foods Express (Passmore)",
+      "category": "food",
+      "area": "Scarborough",
+      "tier": "free",
+      "verified": false,
+      "source": "https://exa.ai/library/places?q=c2da524bd23fb41c",
+      "address": "328 Passmore Ave, Unit 47",
+      "phone": "416-412-6113"
+    },
+    {
+      "id": "pub-perlas-de-pilipinas",
+      "name": "Perlas de Pilipinas",
+      "category": "food",
+      "area": "Scarborough",
+      "tier": "free",
+      "verified": false,
+      "source": "https://seethesix.com/guides/filipino-food-toronto/",
+      "address": "2893 Lawrence Ave E",
+      "phone": "647-983-7207"
+    },
+    {
+      "id": "pub-jakylynnes-catering-and-take-out",
+      "name": "Jakylynne's Catering and Take-out",
+      "category": "food",
+      "area": "Scarborough",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.jakylynnes.com/",
+      "address": "4051 Sheppard Ave E",
+      "phone": "416-293-5121",
+      "website": "https://www.jakylynnes.com/"
+    },
+    {
+      "id": "pub-pinoy-halo-halo",
+      "name": "Pinoy Halo Halo",
+      "category": "food",
+      "area": "Scarborough",
+      "tier": "free",
+      "verified": false,
+      "source": "https://exa.ai/library/places?q=c2da524bd23fb41c",
+      "address": "1571 Sandhurst Cir",
+      "phone": "416-831-3339"
+    },
+    {
+      "id": "pub-bistro-manila",
+      "name": "Bistro Manila",
+      "category": "food",
+      "area": "Scarborough",
+      "tier": "free",
+      "verified": false,
+      "source": "https://filipinorestaurants.net/filipino-restaurant-scarborough/",
+      "address": "4455 Sheppard Ave E, Unit 8"
+    },
+    {
+      "id": "pub-tagpuan-victoria-park",
+      "name": "Tagpuan (Victoria Park)",
+      "category": "food",
+      "area": "Scarborough",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.yelp.ca/biz/tagpuan-toronto",
+      "address": "1740 Victoria Park Ave",
+      "phone": "416-615-0893"
+    },
+    {
+      "id": "pub-jeprimos-bakeshop",
+      "name": "Jeprimo's Bakeshop",
+      "category": "food",
+      "area": "Scarborough",
+      "tier": "free",
+      "verified": false,
+      "source": "https://jeprimos.com/contact-us",
+      "address": "153 Morningside Ave",
+      "website": "https://jeprimos.com/"
+    },
+    {
+      "id": "pub-king-lechon",
+      "name": "King Lechon",
+      "category": "food",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://seethesix.com/guides/filipino-food-toronto/",
+      "address": "2766 Keele St",
+      "phone": "942-996-2888"
+    },
+    {
+      "id": "pub-harina-bakeshoppe",
+      "name": "Harina Bakeshoppe",
+      "category": "food",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.harinabakeshoppe.com/",
+      "address": "314 Wilson Ave",
+      "website": "https://www.harinabakeshoppe.com/"
+    },
+    {
+      "id": "pub-alminz-kakanin",
+      "name": "Alminz Kakanin",
+      "category": "food",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://alminzkakanin.ca/",
+      "address": "6464 Yonge St, Unit 121A",
+      "website": "https://alminzkakanin.ca/"
+    },
+    {
+      "id": "pub-batibot",
+      "name": "Batibot",
+      "category": "food",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://seethesix.com/guides/filipino-food-toronto/",
+      "address": "1576 Queen St W",
+      "phone": "416-904-3063"
+    },
+    {
+      "id": "pub-bbs",
+      "name": "BB's",
+      "category": "food",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://seethesix.com/guides/filipino-food-toronto/",
+      "address": "5 Brock Ave",
+      "phone": "416-668-2023"
+    },
+    {
+      "id": "pub-casa-manila-danforth",
+      "name": "Casa Manila Danforth",
+      "category": "food",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://casamanila.ca/",
+      "address": "508 Danforth Ave",
+      "phone": "416-443-9654",
+      "website": "https://casamanila.ca/"
+    },
+    {
+      "id": "pub-kanto-by-tita-flips",
+      "name": "Kanto by Tita Flips",
+      "category": "food",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://titaflips.com/kanto/",
+      "address": "707 Dundas St W",
+      "phone": "888-616-8482",
+      "website": "https://titaflips.com/kanto/"
+    },
+    {
+      "id": "pub-makilala",
+      "name": "Makilala",
+      "category": "food",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://seethesix.com/guides/filipino-food-toronto/",
+      "address": "105 Church St",
+      "phone": "416-366-7444"
+    },
+    {
+      "id": "pub-handaan-filipino-cuisine",
+      "name": "Handaan Filipino Cuisine",
+      "category": "food",
+      "area": "Mississauga",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.restaurantji.com/on/mississauga/handaan-filipino-cuisine-/",
+      "address": "3008 Novar Rd",
+      "phone": "905-232-5532"
+    },
+    {
+      "id": "pub-chibugan-eh",
+      "name": "Chibugan Eh!",
+      "category": "food",
+      "area": "Mississauga",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.chibugan-eh.ca/",
+      "address": "888 Dundas St E, Unit F2",
+      "phone": "905-804-8008",
+      "website": "https://www.chibugan-eh.ca/"
+    },
+    {
+      "id": "pub-bao-mama-square-one",
+      "name": "Bao Mama (Square One)",
+      "category": "food",
+      "area": "Mississauga",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.insauga.com/bao-mama-now-open-in-mississauga-ontario/",
+      "address": "Square One Food District",
+      "website": "https://baomama.ca/"
+    },
+    {
+      "id": "pub-hang-outs-lolas-kusina",
+      "name": "Hang-Outs (Lola's Kusina)",
+      "category": "food",
+      "area": "Etobicoke",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.verytoronto.com/places/hang-outs",
+      "address": "96 Rexdale Blvd"
+    },
+    {
+      "id": "pub-dalisay-filipino-food",
+      "name": "Dalisay Filipino Food",
+      "category": "food",
+      "area": "Vaughan",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.restaurantji.com/on/thornhill/dalisay-filipino-food-/",
+      "address": "800 Steeles Ave W",
+      "phone": "905-597-8545"
+    },
+    {
+      "id": "pub-bulakenyos-filipino-cuisine",
+      "name": "Bulakenyos Filipino Cuisine",
+      "category": "food",
+      "area": "Markham",
+      "tier": "free",
+      "verified": false,
+      "source": "https://linkedin.com/company/bulakenyos",
+      "phone": "647-343-5620"
+    },
+    {
+      "id": "pub-angels-plate-catering",
+      "name": "Angel's Plate Catering",
+      "category": "food",
+      "area": "Etobicoke",
+      "tier": "free",
+      "verified": false,
+      "source": "https://kabayanbusiness.com/listing-category/events-party/",
+      "phone": "647-473-1428"
+    },
+    {
+      "id": "pub-pinoy-mini-stop",
+      "name": "Pinoy Mini Stop",
+      "category": "groceries",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.pinoyministop.com/contact-us",
+      "address": "794 Wilson Ave",
+      "phone": "647-705-9457",
+      "website": "https://www.pinoyministop.com/"
+    },
+    {
+      "id": "pub-salu-salo-filipino-food-groceries",
+      "name": "Salu Salo Filipino Food & Groceries",
+      "category": "groceries",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://salusalofilipinofoodgrocerieson.com/",
+      "address": "280 Wilson Ave",
+      "website": "https://salusalofilipinofoodgrocerieson.com/"
+    },
+    {
+      "id": "pub-dpy-mamas-food-market",
+      "name": "DPY Mama's Food Market",
+      "category": "groceries",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.loc8nearme.com/ontario/north-york/dpy-mama-s-food-market/9080434/",
+      "address": "322 Wilson Ave"
+    },
+    {
+      "id": "pub-fv-foods",
+      "name": "FV Foods",
+      "category": "groceries",
+      "area": "Scarborough",
+      "tier": "free",
+      "verified": false,
+      "source": "https://katinko.ca/where-to-buy/",
+      "address": "2085 Lawrence Ave E",
+      "phone": "416-751-7555"
+    },
+    {
+      "id": "pub-jace-pinoy-2",
+      "name": "Jace Pinoy 2",
+      "category": "groceries",
+      "area": "Scarborough",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.shopping-canada.com/shopping-malls-centers/ontario/scarborough/oriental-centre/jace-pinoy-2",
+      "address": "4438 Sheppard Ave E (Oriental Centre)"
+    },
+    {
+      "id": "pub-hairlove-studio",
+      "name": "HAIRLOVE Studio",
+      "category": "beauty",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://wisecanadian.ca/best-filipino-hair-salons-in-toronto/",
+      "address": "1000 Danforth Ave",
+      "phone": "416-519-8816",
+      "website": "https://www.hairlovestudioinc.com/",
+      "email": "info@hairlovestudioinc.com"
+    },
+    {
+      "id": "pub-house-of-hair-by-ronnie-dancel",
+      "name": "House of Hair by Ronnie Dancel",
+      "category": "beauty",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://wisecanadian.ca/best-filipino-hair-salons-in-toronto/",
+      "address": "3546 Bathurst St, Unit 101",
+      "phone": "416-925-8180"
+    },
+    {
+      "id": "pub-istilong-pinoy-hair-salon",
+      "name": "Istilong Pinoy Hair Salon",
+      "category": "beauty",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://wisecanadian.ca/best-filipino-hair-salons-in-toronto/",
+      "address": "286 Wilson Ave",
+      "phone": "437-833-1624",
+      "website": "https://iphairsalon.com/",
+      "email": "istilongpinoyhairsalon@gmail.com"
+    },
+    {
+      "id": "pub-nice-hair-salon",
+      "name": "Nice Hair Salon",
+      "category": "beauty",
+      "area": "Mississauga",
+      "tier": "free",
+      "verified": false,
+      "source": "https://wisecanadian.ca/best-filipino-hair-salons-in-toronto/",
+      "address": "3635 Cawthra Rd",
+      "phone": "437-241-5189",
+      "website": "https://nicehairsalon.ca/"
+    },
+    {
+      "id": "pub-raffles-hair-design-by-carl-guitering",
+      "name": "Raffles Hair Design by Carl Guitering",
+      "category": "beauty",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://kabayanbusiness.com/list-tags/filipino-barber/",
+      "address": "5997 Bathurst St",
+      "phone": "416-226-3205"
+    },
+    {
+      "id": "pub-ryzenxfade",
+      "name": "RyzenxFade",
+      "category": "beauty",
+      "area": "Scarborough",
+      "tier": "free",
+      "verified": false,
+      "source": "https://kabayanbusiness.com/list-tags/filipino-barber/",
+      "address": "1744 Victoria Park Ave",
+      "phone": "437-438-0335"
+    },
+    {
+      "id": "pub-lermas-beauty-salon",
+      "name": "Lerma's Beauty Salon",
+      "category": "beauty",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://kabayanbusiness.com/listing/lerma-beauty-salon/",
+      "address": "3689 Bathurst St",
+      "phone": "416-783-0624"
+    },
+    {
+      "id": "pub-igorot-healing-arts",
+      "name": "Igorot Healing Arts",
+      "category": "beauty",
+      "area": "Mississauga",
+      "tier": "free",
+      "verified": false,
+      "source": "https://igorothealingartsinc.clinicsense.com/",
+      "website": "https://igorothealingartsinc.clinicsense.com/"
+    },
+    {
+      "id": "pub-all-dolled-up-by-charisse",
+      "name": "All Dolled Up by Charisse",
+      "category": "beauty",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.filipinowedding.com/blogs/wedding-blog/filipino-canadian-wedding-vendors-to-support",
+      "website": "https://www.instagram.com/alldolledupbycharisse/"
+    },
+    {
+      "id": "pub-filipino-homecare",
+      "name": "Filipino Homecare",
+      "category": "health",
+      "area": "Mississauga",
+      "tier": "free",
+      "verified": false,
+      "source": "https://filipinohomecare.ca/contact-us",
+      "phone": "905-929-7322",
+      "website": "https://filipinohomecare.ca/",
+      "email": "info@filipinohomecare.ca"
+    },
+    {
+      "id": "pub-filcan-homecare-services",
+      "name": "FilCan Homecare Services",
+      "category": "health",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://filcanhomecare.ca/about-us/",
+      "website": "https://filcanhomecare.ca/"
+    },
+    {
+      "id": "pub-clanton-park-dental",
+      "name": "Clanton Park Dental",
+      "category": "health",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://clantonparkdental.com/",
+      "address": "310 Wilson Ave",
+      "phone": "437-475-6921",
+      "website": "https://clantonparkdental.com/"
+    },
+    {
+      "id": "pub-dr-william-rodriguez-the-smile-centre",
+      "name": "Dr. William Rodriguez, The Smile Centre",
+      "category": "health",
+      "area": "Mississauga",
+      "tier": "free",
+      "verified": false,
+      "source": "https://thesmilecentre.com/dr-william-rodriguez/",
+      "address": "350 Burnhamthorpe Rd W, Suite 125",
+      "phone": "905-277-3088",
+      "website": "https://thesmilecentre.com/"
+    },
+    {
+      "id": "pub-reyes-tax-accounting-wilson-ave",
+      "name": "Reyes Tax & Accounting (Wilson Ave)",
+      "category": "money-business",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://reyestaxinc.com/",
+      "address": "296 Wilson Ave",
+      "phone": "647-828-5683",
+      "website": "https://reyestaxinc.com/"
+    },
+    {
+      "id": "pub-reyes-tax-accounting-don-mills",
+      "name": "Reyes Tax & Accounting (Don Mills)",
+      "category": "money-business",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://kabayanbusiness.com/listing-category/tax-accounting/",
+      "address": "747 Don Mills Rd, Unit 27",
+      "phone": "647-878-8616",
+      "website": "https://reyestaxinc.com/"
+    },
+    {
+      "id": "pub-taxcall-canada",
+      "name": "TaxCall Canada",
+      "category": "money-business",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://kabayanbusiness.com/listing-category/tax-accounting/",
+      "address": "25 Sheppard Ave W, Suite 300",
+      "phone": "647-285-8134"
+    },
+    {
+      "id": "pub-garvida-law-office",
+      "name": "Garvida Law Office",
+      "category": "money-business",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.filipinolawoffice.com/contact",
+      "address": "3768 Bathurst St, Unit 306",
+      "website": "https://www.filipinolawoffice.com/"
+    },
+    {
+      "id": "pub-alex-macale-realtor",
+      "name": "Alex Macale, Realtor",
+      "category": "money-business",
+      "area": "Scarborough",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.filipinorealestateagenttoronto.com/",
+      "phone": "416-803-5021",
+      "website": "https://www.filipinorealestateagenttoronto.com/"
+    },
+    {
+      "id": "pub-virginia-cadiente-realtor",
+      "name": "Virginia Cadiente, Realtor",
+      "category": "money-business",
+      "area": "Brampton",
+      "tier": "free",
+      "verified": false,
+      "source": "https://soldbyvirginia.ca/filipino-realtor",
+      "phone": "647-989-2632",
+      "website": "https://soldbyvirginia.ca/"
+    },
+    {
+      "id": "pub-jesabel-de-venecia-realtor",
+      "name": "Jesabel de Venecia, Realtor",
+      "category": "money-business",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.realestateoftoronto.com/about/",
+      "website": "https://www.realestateoftoronto.com/"
+    },
+    {
+      "id": "pub-divina-villanueva-mortgage-agent",
+      "name": "Divina Villanueva, Mortgage Agent",
+      "category": "money-business",
+      "area": "Mississauga",
+      "tier": "free",
+      "verified": false,
+      "source": "https://mcdadi.com/agent/divina-villanueva",
+      "website": "https://mcdadi.com/agent/divina-villanueva"
+    },
+    {
+      "id": "pub-hercules-galang-mortgage-broker",
+      "name": "Hercules Galang, Mortgage Broker",
+      "category": "money-business",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://mortgagescout.ca/mortgage-agents/hercules-galang/",
+      "website": "https://mortgagescout.ca/mortgage-agents/hercules-galang/"
+    },
+    {
+      "id": "pub-philippine-chamber-of-commerce-toronto",
+      "name": "Philippine Chamber of Commerce Toronto",
+      "category": "money-business",
+      "area": "Vaughan",
+      "tier": "free",
+      "verified": false,
+      "source": "https://pcctoronto.com/contact",
+      "address": "7894 Dufferin St, Concord",
+      "phone": "905-781-6165",
+      "website": "https://pcctoronto.com/",
+      "email": "info@pcctoronto.com"
+    },
+    {
+      "id": "pub-kababayan-multicultural-centre-queen-st-w",
+      "name": "Kababayan Multicultural Centre (Queen St W)",
+      "category": "immigration",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.kababayan.org/",
+      "address": "1313 Queen St W",
+      "phone": "416-532-3888",
+      "website": "https://www.kababayan.org/",
+      "email": "info@kababayan.org"
+    },
+    {
+      "id": "pub-kababayan-multicultural-centre-finch-ave-w",
+      "name": "Kababayan Multicultural Centre (Finch Ave W)",
+      "category": "immigration",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.kababayan.org/",
+      "address": "540 Finch Ave W",
+      "phone": "416-633-5056",
+      "website": "https://www.kababayan.org/"
+    },
+    {
+      "id": "pub-dasmarinas-immigration-consultancy-services",
+      "name": "Dasmarinas Immigration Consultancy Services",
+      "category": "immigration",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://dasmarinas.ca/",
+      "website": "https://dasmarinas.ca/",
+      "email": "info@dasmarinas.ca"
+    },
+    {
+      "id": "pub-best-migration-canada",
+      "name": "Best Migration Canada",
+      "category": "immigration",
+      "area": "Scarborough",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.bestmigrationcanada.com/pages/contact-immigration-consultant-scarborough-toronto",
+      "address": "55 Town Centre Ct, Suite 700",
+      "phone": "416-290-5763",
+      "website": "https://www.bestmigrationcanada.com/"
+    },
+    {
+      "id": "pub-explore-beyond-borders-inc",
+      "name": "Explore Beyond Borders Inc.",
+      "category": "immigration",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://explorebeyondborders.ca/contact.html",
+      "address": "3768 Bathurst St",
+      "phone": "647-780-4069",
+      "website": "https://www.explorebeyondborders.ca/",
+      "email": "admin@explorebeyondborders.ca"
+    },
+    {
+      "id": "pub-four-seasons-immigration-services-leah-fe-ybanez-rcic",
+      "name": "Four Seasons Immigration Services (Leah Fe Ybanez, RCIC)",
+      "category": "immigration",
+      "area": "Mississauga",
+      "tier": "free",
+      "verified": false,
+      "source": "https://trustimmi.ca/immigration-consultant/leah-fe-ybanez-R534269/",
+      "website": "https://trustimmi.ca/immigration-consultant/leah-fe-ybanez-R534269/"
+    },
+    {
+      "id": "pub-northern-quest-canadian-immigration-services-earl-francis-dacara-rcic",
+      "name": "Northern Quest Canadian Immigration Services (Earl Francis Dacara, RCIC)",
+      "category": "immigration",
+      "area": "Mississauga",
+      "tier": "free",
+      "verified": false,
+      "source": "https://trustimmi.ca/immigration-consultant/earl-francis-dacara-R517564/",
+      "website": "https://trustimmi.ca/immigration-consultant/earl-francis-dacara-R517564/"
+    },
+    {
+      "id": "pub-infinite-access-immigration-services-alicia-corpuz-rcic",
+      "name": "Infinite Access Immigration Services (Alicia Corpuz, RCIC)",
+      "category": "immigration",
+      "area": "Mississauga",
+      "tier": "free",
+      "verified": false,
+      "source": "https://trustimmi.ca/immigration-consultant/alicia-corpuz-R509663/",
+      "website": "https://trustimmi.ca/immigration-consultant/alicia-corpuz-R509663/"
+    },
+    {
+      "id": "pub-creations-plus",
+      "name": "Creations Plus",
+      "category": "events",
+      "area": "Brampton",
+      "tier": "free",
+      "verified": false,
+      "source": "https://kabayanbusiness.com/listing-category/events-party/",
+      "phone": "905-598-9351"
+    },
+    {
+      "id": "pub-tummy-fillers-catering-balloon-decor",
+      "name": "Tummy Fillers Catering & Balloon Decor",
+      "category": "events",
+      "area": "Brampton",
+      "tier": "free",
+      "verified": false,
+      "source": "https://kabayanbusiness.com/listing-category/events-party/",
+      "phone": "647-838-2435"
+    },
+    {
+      "id": "pub-josh-malondras-events-planner",
+      "name": "Josh Malondras Events Planner",
+      "category": "events",
+      "area": "Markham",
+      "tier": "free",
+      "verified": false,
+      "source": "https://kabayanbusiness.com/listing-category/events-party/",
+      "phone": "647-534-1930"
+    },
+    {
+      "id": "pub-myr-souvenir-event-creation",
+      "name": "MYR Souvenir & Event Creation",
+      "category": "events",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://kabayanbusiness.com/listing-category/events-party/",
+      "phone": "416-300-9357"
+    },
+    {
+      "id": "pub-gig-a-mic-event-host",
+      "name": "gig-A-mic Event Host",
+      "category": "events",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://kabayanbusiness.com/listing-category/events-party/",
+      "phone": "647-998-1775"
+    },
+    {
+      "id": "pub-aj-batac-photography",
+      "name": "AJ Batac Photography",
+      "category": "events",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.filipinowedding.com/blogs/wedding-blog/filipino-canadian-wedding-vendors-to-support",
+      "website": "https://ajbatac.com/"
+    },
+    {
+      "id": "pub-amanda-soriano-photography",
+      "name": "Amanda Soriano Photography",
+      "category": "events",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.filipinowedding.com/blogs/wedding-blog/filipino-canadian-wedding-vendors-to-support",
+      "website": "https://amandasoriano.com/"
+    },
+    {
+      "id": "pub-ariana-del-mundo-photography",
+      "name": "Ariana del Mundo Photography",
+      "category": "events",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.filipinowedding.com/blogs/wedding-blog/filipino-canadian-wedding-vendors-to-support",
+      "website": "https://arianadelmundo.com/"
+    },
+    {
+      "id": "pub-kilig-events-design",
+      "name": "Kilig Events & Design",
+      "category": "events",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.weddingwire.ca/wedding-planning/kilig-events--e80042",
+      "website": "https://www.weddingwire.ca/wedding-planning/kilig-events--e80042"
+    },
+    {
+      "id": "pub-sinta-co-filipino-weddings",
+      "name": "Sinta & Co. Filipino Weddings",
+      "category": "events",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.filipinowedding.com/pages/about-us",
+      "website": "https://www.filipinowedding.com/"
+    },
+    {
+      "id": "pub-jillian-joy-handcrafted",
+      "name": "Jillian Joy Handcrafted",
+      "category": "events",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.filipinowedding.com/blogs/wedding-blog/filipino-canadian-wedding-vendors-to-support",
+      "website": "https://www.instagram.com/jillianjoyhc/"
+    },
+    {
+      "id": "pub-mangubat-entertainment",
+      "name": "Mangubat Entertainment",
+      "category": "events",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.filipinowedding.com/blogs/wedding-blog/filipino-canadian-wedding-vendors-to-support",
+      "website": "https://www.instagram.com/dj.fbm/"
+    },
+    {
+      "id": "pub-vanessa-hernandez-music",
+      "name": "Vanessa Hernandez Music",
+      "category": "events",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.filipinowedding.com/blogs/wedding-blog/filipino-canadian-wedding-vendors-to-support",
+      "website": "https://www.instagram.com/vanessahernandezmusic/"
+    },
+    {
+      "id": "pub-kabayan-movers",
+      "name": "Kabayan Movers",
+      "category": "home-trades",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://go.kabayanmovers.ca/",
+      "phone": "416-827-2889",
+      "website": "https://kabayanmovers.ca/"
+    },
+    {
+      "id": "pub-manila-auto-glass-and-repairs",
+      "name": "Manila Auto Glass and Repairs",
+      "category": "home-trades",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://kabayanbusiness.com/listing-category/car-repair-service/",
+      "address": "3810 Bathurst St",
+      "phone": "416-826-2885"
+    },
+    {
+      "id": "pub-auto-pinoy-mobile-service",
+      "name": "Auto Pinoy Mobile Service",
+      "category": "home-trades",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://kabayanbusiness.com/listing-category/car-repair-service/",
+      "phone": "437-297-5084"
+    },
+    {
+      "id": "pub-auto-repair-by-jon-jake",
+      "name": "Auto Repair by Jon Jake",
+      "category": "home-trades",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://kabayanbusiness.com/listing-category/car-repair-service/",
+      "phone": "647-550-4687"
+    },
+    {
+      "id": "pub-filipino-construction-professionals-of-ontario-filconpro",
+      "name": "Filipino Construction Professionals of Ontario (FilConPro)",
+      "category": "home-trades",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.philcongen-toronto.com/links/links_assoc.php",
+      "website": "http://www.filconpro.com",
+      "email": "filconpro@yahoo.ca"
+    },
+    {
+      "id": "pub-dance-life-socials",
+      "name": "Dance Life Socials",
+      "category": "education",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://kabayanbusiness.com/listing-category/school-private-lessons/",
+      "address": "3768 Bathurst St, Units 216 & 218",
+      "phone": "647-527-8580"
+    },
+    {
+      "id": "pub-dongs-dreamers-academy",
+      "name": "Dong's Dreamers Academy",
+      "category": "education",
+      "area": "Scarborough",
+      "tier": "free",
+      "verified": false,
+      "source": "https://kabayanbusiness.com/listing-category/school-private-lessons/",
+      "address": "1320 Ellesmere Rd",
+      "phone": "647-632-7823"
+    },
+    {
+      "id": "pub-folklorico-filipino-canada",
+      "name": "Folklorico Filipino Canada",
+      "category": "education",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://folkloricofilipinocanada.com/join-us",
+      "website": "https://folkloricofilipinocanada.com/"
+    },
+    {
+      "id": "pub-culture-philippines-of-ontario",
+      "name": "Culture Philippines of Ontario",
+      "category": "education",
+      "area": "Mississauga",
+      "tier": "free",
+      "verified": false,
+      "source": "https://culturephilippinesofontario.com/",
+      "website": "https://culturephilippinesofontario.com/"
+    },
+    {
+      "id": "pub-fiesta-filipina-dance-troupe-of-canada",
+      "name": "Fiesta Filipina Dance Troupe of Canada",
+      "category": "education",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.philcongen-toronto.com/links/links_assoc.php",
+      "website": "http://www.fiestafilipina.ca/"
+    },
+    {
+      "id": "pub-philippine-teachers-association-of-canada",
+      "name": "Philippine Teachers Association of Canada",
+      "category": "education",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.philcongen-toronto.com/links/links_assoc.php",
+      "website": "http://www.philippineteachers.ca"
+    },
+    {
+      "id": "pub-our-lady-of-the-assumption-parish-filipino-catholic-mission",
+      "name": "Our Lady of the Assumption Parish (Filipino Catholic Mission)",
+      "category": "community",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://olassumptionto.archtoronto.org/siteassets/bulletins/2026_09_13.pdf",
+      "address": "2565 Bathurst St",
+      "phone": "416-787-4547",
+      "website": "https://olassumptionto.archtoronto.org/",
+      "email": "OLAssumptionTO@archtoronto.org"
+    },
+    {
+      "id": "pub-kalayaan-cultural-community-centre",
+      "name": "Kalayaan Cultural Community Centre",
+      "category": "community",
+      "area": "Mississauga",
+      "tier": "free",
+      "verified": false,
+      "source": "https://kalayaancentre.ca/contact-us/",
+      "address": "5225 Orbitor Dr, Suite 3",
+      "phone": "905-602-0923",
+      "website": "https://kalayaancentre.ca/",
+      "email": "info@kalayaancentre.ca"
+    },
+    {
+      "id": "pub-federation-of-filipino-canadians-of-brampton",
+      "name": "Federation of Filipino Canadians of Brampton",
+      "category": "community",
+      "area": "Brampton",
+      "tier": "free",
+      "verified": false,
+      "source": "https://peel.cioc.ca/record/CWL1287",
+      "address": "50 Kennedy Rd S, Suite 11",
+      "phone": "905-216-0993"
+    },
+    {
+      "id": "pub-markham-federation-of-filipino-canadians",
+      "name": "Markham Federation of Filipino Canadians",
+      "category": "community",
+      "area": "Markham",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.mffc.ca/about",
+      "address": "1151 Denison St, Units 7–9",
+      "phone": "905-305-1320",
+      "website": "https://www.mffc.ca/"
+    },
+    {
+      "id": "pub-filipino-canadian-association-of-vaughan",
+      "name": "Filipino Canadian Association of Vaughan",
+      "category": "community",
+      "area": "Vaughan",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.philcongen-toronto.com/links/links_assoc.php",
+      "website": "http://www.fcav.ca/",
+      "email": "fcav@rogers.com"
+    },
+    {
+      "id": "pub-philippine-independence-day-council",
+      "name": "Philippine Independence Day Council",
+      "category": "community",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.pidccanada.com/",
+      "website": "https://www.pidccanada.com/"
+    },
+    {
+      "id": "pub-north-york-pinoy-athletic-association",
+      "name": "North York Pinoy Athletic Association",
+      "category": "community",
+      "area": "North York",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.philcongen-toronto.com/links/links_assoc.php",
+      "website": "http://www.nypaa.ca/",
+      "email": "info@nypaa.ca"
+    },
+    {
+      "id": "pub-philippine-press-club-ontario",
+      "name": "Philippine Press Club–Ontario",
+      "category": "community",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.philcongen-toronto.com/links/links_assoc.php",
+      "website": "http://www.ppco.ca",
+      "email": "info@ppco.ca"
+    },
+    {
+      "id": "pub-knights-of-rizal-canada-region",
+      "name": "Knights of Rizal Canada Region",
+      "category": "community",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.philcongen-toronto.com/links/links_assoc.php",
+      "website": "https://www.korcanada.com",
+      "email": "knightsofrizal@gmail.com"
+    },
+    {
+      "id": "pub-philippine-heritage-band",
+      "name": "Philippine Heritage Band",
+      "category": "community",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.philcongen-toronto.com/links/links_assoc.php",
+      "website": "http://www.phband.com",
+      "email": "info@phband.com"
+    },
+    {
+      "id": "pub-integrated-filipino-canadian-nurses-association",
+      "name": "Integrated Filipino Canadian Nurses Association",
+      "category": "community",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.philcongen-toronto.com/links/links_assoc.php",
+      "email": "ifcna.cares@gmail.com"
+    },
+    {
+      "id": "pub-association-of-filipino-canadian-accountants",
+      "name": "Association of Filipino-Canadian Accountants",
+      "category": "community",
+      "area": "Toronto",
+      "tier": "free",
+      "verified": false,
+      "source": "https://www.philcongen-toronto.com/links/links_assoc.php",
+      "email": "Afcatoronto.contactus@gmail.com"
+    },
+    {
+      "id": "pub-first-filipino-baptist-church-scarborough",
+      "name": "First Filipino Baptist Church Scarborough",
+      "category": "community",
+      "area": "Scarborough",
+      "tier": "free",
+      "verified": false,
+      "source": "https://ffbcscarborough.ca/",
+      "address": "2220 Midland Ave",
+      "website": "https://ffbcscarborough.ca/"
+    },
+    {
+      "id": "pub-mississauga-family-baptist-church",
+      "name": "Mississauga Family Baptist Church",
+      "category": "community",
+      "area": "Mississauga",
+      "tier": "free",
+      "verified": false,
+      "source": "https://canic.ws/mississaugafamilybaptistchurch",
+      "address": "16 Falconer Dr",
+      "phone": "905-542-7524"
+    },
+    {
+      "id": "pub-day-by-day-christian-ministries-mississauga",
+      "name": "Day by Day Christian Ministries Mississauga",
+      "category": "community",
+      "area": "Mississauga",
+      "tier": "free",
+      "verified": false,
+      "source": "https://daybydaychristian.com/",
+      "address": "Westdale Mall",
+      "website": "https://daybydaychristian.com/"
     }
   ]
 }

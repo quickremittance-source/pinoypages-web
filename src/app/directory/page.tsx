@@ -5,6 +5,7 @@ import { PublicListings } from "@/components/alt/PublicListings";
 import { ListingResults } from "@/components/ListingResults";
 import { CategoryTiles } from "@/components/CategoryTiles";
 import { brand, listings, sections } from "@/lib/guide";
+import { publicCategories, publicListings } from "@/lib/public";
 
 export const metadata: Metadata = { title: "Directory", alternates: { canonical: "/directory" } };
 
@@ -48,7 +49,16 @@ export default function Page() {
           <h2 id="all" className="sr-only">
             All listings
           </h2>
-          <ListingResults items={listings} />
+          <ListingResults
+            items={listings}
+            extra={{
+              target: "public-results",
+              subs: publicCategories
+                .filter((c) => publicListings.some((l) => l.category === c.slug))
+                .map((c) => ({ value: c.slug, label: c.name })),
+              cities: [...new Set(publicListings.map((l) => l.area))],
+            }}
+          />
         </section>
         <PublicListings />
       </div>

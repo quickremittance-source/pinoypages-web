@@ -14,8 +14,11 @@ export function DirectorySearch({
   subs,
   cities,
   languages,
+  extraTarget,
 }: {
   target: string;
+  /** Optional second root (e.g. the free public listings) filtered by the same controls. */
+  extraTarget?: string;
   subs?: Opt[];
   cities: string[];
   languages: string[];
@@ -40,7 +43,12 @@ export function DirectorySearch({
     const root = document.getElementById(target);
     if (!root) return;
     let n = 0;
-    root.querySelectorAll<HTMLElement>("li[data-listing]").forEach((li) => {
+    const extra = extraTarget ? document.getElementById(extraTarget) : null;
+    const lis = [
+      ...root.querySelectorAll<HTMLElement>("li[data-listing]"),
+      ...(extra ? extra.querySelectorAll<HTMLElement>("li[data-listing]") : []),
+    ];
+    lis.forEach((li) => {
       const d = li.dataset;
       const ok =
         (!filters.q || (d.name ?? "").includes(filters.q)) &&
@@ -51,7 +59,10 @@ export function DirectorySearch({
       if (ok) n++;
     });
     // Hide group headings whose lists are now empty.
-    root.querySelectorAll<HTMLElement>("[data-group]").forEach((g) => {
+    [
+      ...root.querySelectorAll<HTMLElement>("[data-group]"),
+      ...(extra?.querySelectorAll<HTMLElement>("[data-group]") ?? []),
+    ].forEach((g) => {
       g.hidden = !g.querySelector("li[data-listing]:not([hidden])");
     });
     setShown(n);
@@ -73,7 +84,7 @@ export function DirectorySearch({
     if (filters.lang) p.set("lang", filters.lang);
     const qs = p.toString();
     window.history.replaceState(null, "", qs ? `?${qs}` : window.location.pathname);
-  }, [filters, target, subs]);
+  }, [filters, target, extraTarget, subs]);
 
   const active = !!(filters.q || sub || city || lang);
   const sel = "field mt-1 py-2";
