@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { resolveQr } from "@/lib/qrcodes";
-import { catName } from "@/lib/seo";
+import { listingEventParams } from "@/lib/seo";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "";
 const esc = (s: string) => JSON.stringify(s).replace(/</g, "\\u003c");
@@ -15,13 +15,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ code: st
   if (!r) return new NextResponse("Unknown QR code", { status: 404, headers: { "X-Robots-Tag": "noindex" } });
   const dest = new URL(r.target, req.url).toString();
   if (!GA_ID) return NextResponse.redirect(dest, 302);
-  const ev = {
-    business_id: r.listing.id,
-    business_name: r.listing.name,
-    category: catName(r.listing.category),
-    placement: r.medium,
-    campaign: "founding",
-  };
+  const ev = { ...listingEventParams(r.listing), placement: r.medium, campaign: "founding" };
   const html = `<!doctype html><html lang="en-CA"><head><meta charset="utf-8"><meta name="robots" content="noindex">
 <meta http-equiv="refresh" content="2;url=${dest.replace(/"/g, "&quot;")}"><title>Opening listing…</title>
 <script async src="https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(GA_ID)}"></script>

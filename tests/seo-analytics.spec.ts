@@ -34,6 +34,9 @@ test("listing events fire with business_id, business_name, category", async ({ p
   const evs = await page.evaluate(() => (window as unknown as { __ppEvents: Record<string, string>[] }).__ppEvents);
   const view = evs.find((e) => e.name === "listing_view")!;
   expect(view.business_id).toBe(withPhone.id);
+  expect(view.listing_id).toBe(withPhone.listing_id);
+  expect(view.verified).toBe("false");
+  expect(view.listing_tier).toBe("free");
   const call = evs.find((e) => e.name === "click_call")!;
   expect(call.business_name).toBe(withPhone.name);
   expect(call.category).toBeTruthy();
@@ -69,7 +72,9 @@ test("ad config holds no ads; slots render nothing; date window filtering works"
   await expect(page.locator("[data-ad]")).toHaveCount(0);
   const ex: AdDef = {
     ad_id: "x",
+    advertiser_id: "adv",
     business_id: "b",
+    slot_position: 1,
     placement: "banner",
     campaign: "c",
     start_date: "2026-11-01",
@@ -77,6 +82,14 @@ test("ad config holds no ads; slots render nothing; date window filtering works"
     headline: "h",
     href: "/",
   };
+  const four = [4, 2, 3, 1].map((n) => ({ ...ex, ad_id: `q${n}`, slot_position: n }));
+  expect(activeAds("banner", { now: new Date("2026-11-15") }, four).map((a) => a.slot_position)).toEqual([1, 2, 3, 4]);
   expect(activeAds("banner", { now: new Date("2026-11-15") }, [ex])).toHaveLength(1);
   expect(activeAds("banner", { now: new Date("2026-12-01") }, [ex])).toHaveLength(0);
+});
+
+test("every public listing has a unique, stable listing_id", () => {
+  const ids = pub.listings.map((l) => l.listing_id);
+  expect(ids.every((x) => typeof x === "string" && x.length > 0)).toBe(true);
+  expect(new Set(ids).size).toBe(ids.length);
 });

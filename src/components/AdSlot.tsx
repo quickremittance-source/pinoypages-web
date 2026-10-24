@@ -6,7 +6,9 @@ import { setAdCtx, track } from "@/lib/gtag";
 
 const params = (a: AdDef) => ({
   ad_id: a.ad_id,
+  advertiser_id: a.advertiser_id,
   business_id: a.business_id,
+  slot_position: a.slot_position,
   placement: a.placement,
   campaign: a.campaign,
   start_date: a.start_date,
@@ -39,7 +41,14 @@ export function AdView({ ad }: { ad: AdDef }) {
     return () => io.disconnect();
   }, [ad]);
   return (
-    <aside ref={ref} data-ad={ad.ad_id} data-placement={ad.placement} className="card p-5" aria-label="Sponsored">
+    <aside
+      ref={ref}
+      data-ad={ad.ad_id}
+      data-placement={ad.placement}
+      data-slot-position={ad.slot_position}
+      className="card p-5"
+      aria-label="Sponsored"
+    >
       <p className="kicker">Sponsored</p>
       <Link
         href={withCtx(ad)}

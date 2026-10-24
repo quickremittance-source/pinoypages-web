@@ -6,7 +6,17 @@ import { ListingTracker } from "@/components/ListingTracker";
 import { AdSlot } from "@/components/AdSlot";
 import { abs } from "@/lib/guide";
 import { publicListings } from "@/lib/public";
-import { bizDescription, bizPath, bizTitle, byBizSlug, catName, landings, localBusinessLd, slugOf } from "@/lib/seo";
+import {
+  bizDescription,
+  bizPath,
+  bizTitle,
+  byBizSlug,
+  catName,
+  landings,
+  listingEventParams,
+  localBusinessLd,
+  slugOf,
+} from "@/lib/seo";
 
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -32,7 +42,7 @@ export default async function Page({ params }: P) {
   const dirQ = l.address ? encodeURIComponent(`${l.name}, ${l.address}, ${l.area}, ON`) : "";
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
-      <ListingTracker id={l.id} name={l.name} category={cat} />
+      <ListingTracker base={listingEventParams(l)} />
       <JsonLd data={localBusinessLd(l, abs(bizPath(l)))} />
       <nav aria-label="Breadcrumb" className="text-sm">
         <Link href="/directory" className="text-turqdk underline">

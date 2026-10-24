@@ -6,6 +6,14 @@ export const ALLOW_INDEXING = process.env.ALLOW_INDEXING === "true";
 export const slugOf = (l: PublicListing) => l.id.replace(/^pub-/, "");
 export const bizPath = (l: PublicListing) => `/business/${slugOf(l)}`;
 export const byBizSlug = (slug: string) => publicListings.find((l) => slugOf(l) === slug);
+export const listingEventParams = (l: PublicListing) => ({
+  listing_id: l.listing_id,
+  business_id: l.id,
+  business_name: l.name,
+  category: catName(l.category),
+  verified: String(l.verified),
+  listing_tier: l.listing_tier ?? "free",
+});
 export const catName = (slug: string) => publicCategories.find((c) => c.slug === slug)?.name ?? slug;
 
 /** "<Name> – <Category>, <Neighbourhood>, Toronto" (no "Toronto, Toronto" for downtown). */

@@ -1289,6 +1289,7 @@ test("public free listings: GTA only, free + unverified, sourced, name + contact
     expect((pub.categories as { slug: string }[]).map((c) => c.slug)).toContain(l.category);
     for (const k of Object.keys(l))
       expect([
+        "listing_id",
         "id",
         "name",
         "category",

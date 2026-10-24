@@ -1,12 +1,17 @@
 import data from "../../content/public-listings.json";
 
 /** Free, unverified listings compiled from public information. Name + contact only (Free tier rules). */
+export type ListingTier = "free" | "business_card" | "premium";
 export type PublicListing = {
+  /** Stable analytics id. Never changes, even if the listing is renamed or its URL slug changes. */
+  listing_id: string;
   id: string;
   name: string;
   category: string;
   area: string;
   tier: "free";
+  /** Analytics tier; current public listings are all free (line listing). */
+  listing_tier?: ListingTier;
   verified: false;
   /** Where the listing was confirmed. Kept in the data file, never displayed. */
   source: string;
