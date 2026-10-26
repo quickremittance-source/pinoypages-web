@@ -50,12 +50,20 @@ export function Header() {
       </a>
       <div className="pinstripe" aria-hidden="true" />
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-2.5">
-        <Link href="/" aria-label={`${brand.name} home`} className="shrink-0">
-          <Logo />
-          <span className="sr-only">
-            {brand.tagline} · {brand.region} · {brand.categoryLabel}
+        <div className="flex shrink-0 items-center">
+          <Link href="/" aria-label={`${brand.name} home`} className="shrink-0">
+            <Logo />
+            <span className="sr-only">
+              {brand.tagline} · {brand.region} · {brand.categoryLabel}
+            </span>
+          </Link>
+          <span
+            data-testid="alpha-badge"
+            className="ml-2 inline-block rounded bg-turqdk px-1.5 py-0.5 align-middle text-[10px] font-bold tracking-wider text-white uppercase"
+          >
+            Alpha
           </span>
-        </Link>
+        </div>
         <nav aria-label="Main" className="hidden md:block">
           <ul className="flex items-center gap-1 text-sm font-semibold text-ink">
             {nav.map((n) => (
@@ -152,6 +160,9 @@ export function Footer() {
       <div className="bg-phred py-2 text-center text-xs font-bold tracking-[0.2em] text-white uppercase">
         {brand.name} · {brand.pilotLabel}
       </div>
+      <p data-testid="alpha-footer" className="py-2 text-center text-xs text-muted">
+        Pinoy Pages Alpha — release 2026.11-alpha
+      </p>
     </footer>
   );
 }
