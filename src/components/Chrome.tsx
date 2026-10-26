@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { liveTools } from "@/lib/registry";
 import { brand } from "@/lib/guide";
@@ -13,29 +14,17 @@ const nav = [
   { href: "/magazine", label: "Magazine" },
 ];
 
-/** Brand mark: "Pinoy Pages" wordmark (never the domain) with a small pinstriped tile. */
+/** Brand mark: the official Pinoy Pages logo (pin + book + wordmark), horizontal layout. */
 export function Logo({ small = false }: { small?: boolean }) {
   return (
-    <span className="inline-flex items-center gap-2">
-      <svg
-        aria-hidden="true"
-        viewBox="0 0 32 32"
-        className={small ? "h-6 w-6" : "h-8 w-8"}
-        role="presentation"
-        focusable="false"
-      >
-        <rect width="32" height="32" rx="7" fill="#C8102E" />
-        <rect x="0" y="24" width="32" height="2" fill="#fff" />
-        <rect x="0" y="27" width="32" height="5" fill="#0E7C86" />
-        <path
-          d="M10 21V8h6.2c3 0 5 1.9 5 4.6s-2 4.6-5 4.6H13.4V21z M13.4 14.4h2.6c1.2 0 1.9-.7 1.9-1.8s-.7-1.8-1.9-1.8h-2.6z"
-          fill="#fff"
-        />
-      </svg>
-      <span className={`font-extrabold tracking-tight ${small ? "text-base" : "text-xl"}`}>
-        <span className="text-phred">Pinoy</span> <span className="text-turqdk">Pages</span>
-      </span>
-    </span>
+    <Image
+      src="/brand/pinoypages-logo-horizontal.png"
+      alt="Pinoy Pages"
+      width={1190}
+      height={300}
+      priority={!small}
+      className={small ? "h-7 w-auto" : "h-9 w-auto sm:h-10"}
+    />
   );
 }
 
