@@ -14,9 +14,9 @@ const nunito = Nunito_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: `${brand.name} ${brand.edition}`, template: `%s · ${brand.name}` },
+  title: { default: `${brand.name} Beta`, template: `%s · ${brand.name} Beta` },
   description: brand.tagline,
-  robots: { index: false, follow: false },
+  robots: { index: false, follow: false, nocache: true, googleBot: { index: false, follow: false } },
   alternates: { canonical: "/" },
 };
 export const viewport: Viewport = { themeColor: "#0B5E7A" };
@@ -25,6 +25,17 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en-CA" className={`${fredoka.variable} ${nunito.variable}`}>
       <body>
+        <div
+          role="note"
+          data-testid="beta-banner"
+          className="bg-amber-400 px-4 py-2 text-center text-sm font-bold text-black"
+        >
+          Beta — Pinoy Pages legacy design, kept for reference. The current site is{" "}
+          <a href="https://pinoypages.ca" className="underline">
+            pinoypages.ca
+          </a>
+          .
+        </div>
         <Header />
         <main id="main">{children}</main>
         <Footer />
