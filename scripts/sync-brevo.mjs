@@ -56,6 +56,20 @@ async function ensureAttributes() {
     }
     created.push(n);
   }
+  // LISTING_STATUS: category attribute. 1 = "Prospect listed", 2 = "Verified listed", blank = not on the site.
+  if (!have.has("LISTING_STATUS")) {
+    if (!DRY) {
+      const r = await api("POST", "/contacts/attributes/category/LISTING_STATUS", {
+        type: "category",
+        enumeration: [
+          { value: 1, label: "Prospect listed" },
+          { value: 2, label: "Verified listed" },
+        ],
+      });
+      if (!r.ok) throw new Error(`attr LISTING_STATUS: ${JSON.stringify(r.data)}`);
+    }
+    created.push("LISTING_STATUS");
+  }
   return created;
 }
 
@@ -95,6 +109,7 @@ for (const l of data.listings) {
     AREA: l.area || "",
     TIER: l.tier === "verified" ? "Verified" : "Free",
     VERIFIED: !!l.verified,
+    LISTING_STATUS: l.verified ? 2 : 1, // 2 = "Verified listed", 1 = "Prospect listed"
     LISTING_SOURCE: l.source || "",
     LISTING_SLUG: l.id,
     WEBSITE: l.website || "",
