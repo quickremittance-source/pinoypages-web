@@ -6,6 +6,7 @@ import { brand } from "@/lib/guide";
 const nav = [
   { href: "/advertise", label: "Advertise" },
   { href: "/directory", label: "Directory" },
+  { href: "/food", label: "Food" },
   { href: "/get-verified", label: "Get Verified" },
   { href: "/awards", label: "Awards" },
   { href: liveTools[0]?.route ?? "/", label: "Free tools" },
@@ -98,6 +99,11 @@ export function Footer() {
           <li>
             <Link href="/directory" className="hover:underline">
               Directory
+            </Link>
+          </li>
+          <li>
+            <Link href="/food" className="hover:underline">
+              Food Finder
             </Link>
           </li>
           <li>

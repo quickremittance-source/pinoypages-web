@@ -5,6 +5,8 @@ import { appendFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import { ads, categories, listings } from "@/lib/guide";
 import { saveContact, type ListKey } from "@/lib/contacts";
+import { appendSubmission } from "@/lib/storage";
+import { DISH_TAGS, foodListings } from "@/lib/food";
 
 const urlOk = z.url("Enter a full link starting with https://").max(300);
 
@@ -225,5 +227,74 @@ export async function submitListFree(_p: FormState, fd: FormData): Promise<FormS
       r.data.wantsVerified === "on"
         ? "Thanks! We'll confirm your free listing by email, and send you the details on Verified."
         : "Thanks! We'll confirm your free listing by email before it appears.",
+  };
+}
+
+const foodListingIds = () => {
+  const ids = foodListings().map((l) => l.listing_id);
+  return ids as [string, ...string[]];
+};
+
+const foodUpdateSchema = z.object({
+  listing_id: z.string().trim().min(1, "Choose a listing"),
+  name: z.string().trim().min(2, "Enter your name").max(120),
+  email: z.email("Enter a valid email").max(200),
+  phone: optional(z.string().trim().max(40)),
+  menuUrl: urlOk.optional().or(z.literal("")),
+  featuredDishes: optional(z.string().trim().max(2000)),
+  consent: z.literal("on", { message: "Please agree so we can contact you" }),
+});
+
+/**
+ * Owner suggestions for dish tags / menu URL / featured dishes.
+ * Stored as kind "food-update" with status pending. Never auto-published —
+ * an editor copies approved fields into content/food-meta.json.
+ */
+export async function submitFoodUpdate(_p: FormState, fd: FormData): Promise<FormState> {
+  if (String(fd.get("website_url") ?? "")) return { status: "success", message: "Thanks!" };
+  const raw = Object.fromEntries(fd);
+  const dishTags = fd
+    .getAll("dishTags")
+    .map(String)
+    .filter((t) => (DISH_TAGS as readonly string[]).includes(t));
+  const r = foodUpdateSchema.safeParse(raw);
+  if (!r.success)
+    return {
+      status: "error",
+      message: "Please fix the highlighted fields.",
+      fieldErrors: z.flattenError(r.error).fieldErrors,
+    };
+  const allowed = new Set(foodListingIds());
+  if (!allowed.has(r.data.listing_id)) {
+    return {
+      status: "error",
+      message: "Please fix the highlighted fields.",
+      fieldErrors: { listing_id: ["Choose a listing from the Food Finder"] },
+    };
+  }
+  const featured = (r.data.featuredDishes ?? "")
+    .split(/\n|,/)
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .slice(0, 20)
+    .map((name) => ({ name }));
+  await appendSubmission("food-update", {
+    ...r.data,
+    dishTags,
+    featuredDishes: featured,
+    status: "pending",
+  });
+  await saveContact({
+    email: r.data.email,
+    name: r.data.name,
+    phone: r.data.phone,
+    lists: ["claimed"],
+    source: src("food-update", fd),
+    attributes: { LISTING: r.data.listing_id },
+  });
+  return {
+    status: "success",
+    message:
+      "Salamat! We received your update. Nothing is published until we review it — usually within 2 business days.",
   };
 }

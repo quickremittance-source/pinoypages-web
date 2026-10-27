@@ -1,0 +1,5 @@
+{
+  "note": "Owner-curated food metadata (dish tags, menu URL, hours, featured dishes). Empty until an editor approves a Suggest an update submission. Never invent dish tags from listing names.",
+  "schemaVersion": 1,
+  "listings": {}
+}
