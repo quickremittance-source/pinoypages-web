@@ -1,6 +1,6 @@
 ---
 piece: 6
-slug: /guides/benefits-families-miss
+slug: /magazine/benefits-families-miss
 lang: en
 status: DRAFT — CONFIDENTIAL — not for publication
 seo_title: "Benefits Filipino Families in Ontario Often Miss"
@@ -12,7 +12,7 @@ last_checked: 2026-10-27
 
 _From Pinoy Pages 2026–2027_
 
-Many of the biggest payments Canadian families get **aren't applied for separately. They come from filing your tax return.** If you (or your spouse) skip a year because "wala naman akong income" or "maliit lang," you could be leaving money on the table. Here are four to know.
+Many of the biggest payments Canadian families get **aren't applied for separately every year.** Newcomers register with the CRA first (**RC151** or **RC66**); after that, ongoing payments usually continue when you **file your tax return**. If you (or your spouse) skip a year because "wala naman akong income" or "maliit lang," you could be leaving money on the table. Here are four to know.
 
 > **Name change:** In **July 2026**, the **GST/HST credit was renamed the Canada Groceries and Essentials Benefit (CGEB)**. The CRA says eligibility and calculation stay the same, and there's a **25% increase** to the amount that runs for five years (2026 to 2031).
 
@@ -36,7 +36,7 @@ A **tax-free quarterly payment** for low- and modest-income individuals and fami
   - **$679** if you're single
   - **$890** if you're married or common-law
   - **$234** for each child under 19
-- Typically paid on the **5th** of **July, October, January and April** (or the last business day before the 5th if that day is a weekend or holiday). If the quarterly amount is under **$50**, the CRA may pay the whole year in July.
+- Typically paid on the **5th** of **July, October, January and April** (or the last business day before the 5th if that day is a weekend or holiday). If the quarterly amount is under **$50**, the CRA will pay the whole year in July (RC4210).
 - You generally **do not apply every year** after the first time: **file a tax return**, and the CRA checks if you qualify. File even with little or no income; filing late can disrupt quarterly payments until the return is assessed.
 - **For July 2027 to June 2028:** ⚠️ _PLACEHOLDER. Not yet published._
 
@@ -55,7 +55,7 @@ Combines three Ontario credits. **You apply by filing your return and completing
 
 A **refundable tax credit** for people who are **working and earning a low income**. You claim it on your tax return.
 
-- Up to **$1,665** if single, up to **$2,869** for families, plus up to **$860** more if you're approved for the disability tax credit (CRA benefits infographic, updated July 2026). ⚠️ _Editor: confirm on the CRA "How much you can get" page that these are the 2026 tax-year amounts. That page still showed 2025 amounts on Oct 17, 2026._
+- Up to **$1,665** if single, up to **$2,869** for families, plus up to **$860** more if you're approved for the disability tax credit (CRA benefit and credit payments infographic, updated July 1, 2026).
 - You may be able to get **up to 50%** of your CWB in advance (the Advanced CWB) in **July, October and January**.
 
 ## Why filing matters (even with no income)
@@ -63,7 +63,7 @@ A **refundable tax credit** for people who are **working and earning a low incom
 - Benefits are **recalculated every July** based on **last year's** tax return.
 - **Both spouses or partners must file** for family benefits to be calculated.
 - **File by April 30** so July payments arrive on time. Filing late can **delay** them.
-- **Newcomers** can apply before their first return. See our [newcomer checklist](/guides/newcomer-first-tax-return).
+- **Newcomers** can apply before their first return. See our [newcomer checklist](/magazine/newcomer-first-tax-return).
 
 ## Make sure you're not missing out
 

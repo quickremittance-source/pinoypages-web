@@ -1,6 +1,6 @@
 ---
 piece: 5
-slug: /guides/newcomer-first-tax-return
+slug: /magazine/newcomer-first-tax-return
 lang: en
 status: DRAFT — CONFIDENTIAL — not for publication
 seo_title: "Newcomer's First Canadian Tax Return: Checklist"
@@ -39,7 +39,7 @@ Welcome to Canada! Whether you came as a permanent resident, on a work or study 
 
 - [ ] **Online** with NETFILE-certified software. Some options are free, and first-time filers with a SIN (or a TTN starting with 01 or 03) can usually file online.
 - [ ] **Or on paper**, using the T1 package for the province where you lived on December 31
-- [ ] **Or with a tax preparer.** See [How to choose a tax preparer](/guides/choose-tax-preparer).
+- [ ] **Or with a tax preparer.** See [How to choose a tax preparer](/magazine/choose-tax-preparer).
 - [ ] **Or at a free tax clinic** (Community Volunteer Income Tax Program) if you have a **modest income and a simple tax situation**
 - [ ] **Your spouse or common-law partner files too**, every year, even with little or no income
 - [ ] **Sign up for direct deposit** to get refunds and benefits faster

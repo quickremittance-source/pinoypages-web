@@ -1,6 +1,6 @@
 ---
 piece: 5
-slug: /tl/guides/newcomer-first-tax-return
+slug: /magazine/newcomer-first-tax-return/tl
 lang: tl
 status: DRAFT — CONFIDENTIAL — not for publication — ⚠️ NEEDS NATIVE-SPEAKER REVIEW
 seo_title: "Unang Tax Return sa Canada: Checklist ng Newcomer"
@@ -24,7 +24,7 @@ Welcome sa Canada! Dumating ka man bilang permanent resident, may work o study p
   - Walang anak: **RC151** (online web form) para sa **Canada Groceries and Essentials Benefit** (dating GST/HST credit). Isang application lang kada household.
   - May anak na wala pang 19: kung eligible sa Canada Child Benefit, mag-apply gamit ang **RC66** (at **RC66SCH** kapag kailangan — halimbawa kung ikaw o ang asawa mo ay naging resident sa huling dalawang taon, naging citizen sa huling 12 buwan, o permanent resident / protected person / temporary resident sa mga sitwasyong nililista ng CRA). Sakop din ng RC66 ang CGEB eligibility. Isama ang **proof of birth** ng bawat anak kung hindi pa nabayaran ng CRA ang benefits para sa kanila.
   - Para sa maraming bagong silang, ang provincial o territorial **Automated Benefits Application** sa birth registration ang puwedeng magsimula ng CCB — **huwag** nang mag-re-apply sa RC66 kung ginamit mo na iyon.
-  - Tingnan din ang [Benefits na madalas makaligtaan](/magazine/benefits-families-miss) para sa mga halaga at timing ng CGEB at CCB.
+  - Tingnan din ang [Benefits na madalas makaligtaan](/magazine/benefits-families-miss/tl) para sa mga halaga at timing ng CGEB at CCB.
 - [ ] **Ihanda ang kita mo bago ka dumating.** Puwedeng hingin ng CRA ang **world income mo at ng asawa mo hanggang dalawang taon bago kayo dumating** (Statement of Income). I-convert sa Canadian dollars gamit ang Bank of Canada exchange rate sa araw na natanggap mo ang kita. I-report **kahit zero**. Walang Canadian tax sa kitang kinita mo bago ka naging resident.
 - [ ] **Salin:** ang mga dokumentong hindi English o French ay kailangan ng katanggap-tanggap na translation.
 
@@ -41,7 +41,7 @@ Welcome sa Canada! Dumating ka man bilang permanent resident, may work o study p
 
 - [ ] **Online** gamit ang NETFILE-certified software. May mga libre, at karaniwang puwedeng mag-file online ang first-time filer na may SIN (o TTN na nagsisimula sa 01 o 03).
 - [ ] **O sa papel**, gamit ang T1 package ng probinsiyang tinitirhan mo noong December 31
-- [ ] **O sa tax preparer.** Basahin ang [Paano pumili ng tax preparer](/tl/guides/choose-tax-preparer).
+- [ ] **O sa tax preparer.** Basahin ang [Paano pumili ng tax preparer](/magazine/choose-tax-preparer/tl).
 - [ ] **O sa libreng tax clinic** (Community Volunteer Income Tax Program) kung **katamtaman ang kita mo at simple ang tax situation mo**
 - [ ] **Mag-file din ang asawa o common-law partner mo**, taon-taon, kahit maliit o walang kita
 - [ ] **Mag-sign up sa direct deposit** para mas mabilis ang refund at benefits

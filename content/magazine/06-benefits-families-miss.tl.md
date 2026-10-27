@@ -1,6 +1,6 @@
 ---
 piece: 6
-slug: /tl/guides/benefits-families-miss
+slug: /magazine/benefits-families-miss/tl
 lang: tl
 status: DRAFT — CONFIDENTIAL — not for publication — ⚠️ NEEDS NATIVE-SPEAKER REVIEW
 seo_title: "Mga Benefit na Nakakaligtaan ng Pamilyang Pinoy"
@@ -14,7 +14,7 @@ last_checked: 2026-10-27
 
 _Mula sa Pinoy Pages 2026–2027_
 
-Marami sa pinakamalalaking bayad na natatanggap ng mga pamilya sa Canada ay **hindi hiwalay na ina-applyan. Nanggagaling ang mga ito sa pag-file ng tax return.** Kapag hindi ka (o ang asawa mo) nag-file ng isang taon dahil "wala naman akong income" o "maliit lang," baka may perang naiiwan sa mesa. Heto ang apat na dapat mong malaman.
+Marami sa pinakamalalaking bayad na natatanggap ng mga pamilya sa Canada ay **hindi hiwalay na ina-applyan taon-taon.** Magre-register muna ang mga newcomer sa CRA (**RC151** o **RC66**); pagkatapos, karaniwang nagpapatuloy ang mga bayad kapag **nagfa-file ka ng tax return**. Kapag hindi ka (o ang asawa mo) nag-file ng isang taon dahil "wala naman akong income" o "maliit lang," baka may perang naiiwan sa mesa. Heto ang apat na dapat mong malaman.
 
 > **Bagong pangalan:** Noong **July 2026**, ang **GST/HST credit ay pinalitan ng pangalan bilang Canada Groceries and Essentials Benefit (CGEB)**. Sabi ng CRA, pareho pa rin ang eligibility at kuwenta, at may **25% na dagdag** sa halaga na tatagal nang limang taon (2026 hanggang 2031).
 
@@ -28,7 +28,7 @@ Marami sa pinakamalalaking bayad na natatanggap ng mga pamilya sa Canada ay **hi
 - Buong halaga kapag ang **adjusted family net income ay mas mababa sa $38,237**. Lampas diyan, unti-unti itong bumababa.
 - Hanggang **$3,480** pa kada taon sa bawat anak na eligible sa **disability tax credit** (Child Disability Benefit).
 - **Para sa July 2027 hanggang June 2028** (base sa 2026 return mo): ⚠️ _PLACEHOLDER. Hindi pa naka-publish ng CRA (ina-adjust tuwing July)._
-- **Paano mag-apply:** CRA My Account (“Apply for child benefits”), sa mail gamit ang **Form RC66**, o — para sa maraming bagong silang — ang provincial/territorial **Automated Benefits Application** kapag nire-register ang kapanganakan (huwag nang mag-re-apply sa RC66 kung ginamit mo na iyon). Puwedeng kailanganin din ng newcomer ang **RC66SCH**. Detalye: [newcomer checklist](/magazine/newcomer-first-tax-return).
+- **Paano mag-apply:** CRA My Account (“Apply for child benefits”), sa mail gamit ang **Form RC66**, o — para sa maraming bagong silang — ang provincial/territorial **Automated Benefits Application** kapag nire-register ang kapanganakan (huwag nang mag-re-apply sa RC66 kung ginamit mo na iyon). Puwedeng kailanganin din ng newcomer ang **RC66SCH**. Detalye: [newcomer checklist](/magazine/newcomer-first-tax-return/tl).
 
 ## 2. Canada Groceries and Essentials Benefit (dating GST/HST credit)
 
@@ -38,7 +38,7 @@ Marami sa pinakamalalaking bayad na natatanggap ng mga pamilya sa Canada ay **hi
   - **$679** kung single
   - **$890** kung kasal o common-law
   - **$234** sa bawat anak na wala pang 19
-- Karaniwang ibinibigay tuwing **ika-5** ng **July, October, January at April** (o last business day bago ang ika-5 kung weekend o holiday). Kung mas mababa sa **$50** ang quarterly amount, puwedeng ibigay ng CRA ang buong taon sa July.
+- Karaniwang ibinibigay tuwing **ika-5** ng **July, October, January at April** (o last business day bago ang ika-5 kung weekend o holiday). Kung mas mababa sa **$50** ang quarterly amount, ibibigay ng CRA ang buong taon sa July (RC4210).
 - Pagkatapos ng unang beses, karaniwang **hindi ka na mag-a-apply taon-taon**: **mag-file ng tax return**, at i-che-check ng CRA kung qualified ka. Mag-file kahit maliit o walang kita; ang late filing ay puwedeng maistorbo ang quarterly payments hanggang ma-assess ang return.
 - **Para sa July 2027 hanggang June 2028:** ⚠️ _PLACEHOLDER. Hindi pa naka-publish._
 
@@ -57,7 +57,7 @@ Pinagsama-samang tatlong Ontario credit. **Ina-applyan ito sa pag-file ng return
 
 **Refundable tax credit** para sa mga **nagtatrabaho pero mababa ang kita**. Kine-claim ito sa tax return.
 
-- Hanggang **$1,665** kung single, hanggang **$2,869** para sa pamilya, at hanggang **$860** pa kung approved ka sa disability tax credit (CRA benefits infographic, na-update July 2026). ⚠️ _Editor: kumpirmahin sa CRA "How much you can get" page na ito ang 2026 tax-year amounts. 2025 amounts pa ang nakalagay doon noong Oct 17, 2026._
+- Hanggang **$1,665** kung single, hanggang **$2,869** para sa pamilya, at hanggang **$860** pa kung approved ka sa disability tax credit (CRA benefit and credit payments infographic, na-update July 1, 2026).
 - Puwede mong makuha nang maaga ang **hanggang 50%** ng CWB mo (Advanced CWB) tuwing **July, October at January**.
 
 ## Bakit mahalaga ang pag-file (kahit walang income)
@@ -65,7 +65,7 @@ Pinagsama-samang tatlong Ontario credit. **Ina-applyan ito sa pag-file ng return
 - **Kinukuwenta ulit tuwing July** ang mga benefit base sa tax return mo **noong nakaraang taon**.
 - **Kailangang mag-file ang mag-asawa o mag-partner** para makuwenta ang family benefits.
 - **Mag-file bago mag-April 30** para on time ang mga bayad sa July. Kapag late ang pag-file, puwedeng ma-**delay** ang mga ito.
-- Ang mga **newcomer** ay puwedeng mag-apply bago pa ang unang return nila. Tingnan ang [newcomer checklist](/tl/guides/newcomer-first-tax-return).
+- Ang mga **newcomer** ay puwedeng mag-apply bago pa ang unang return nila. Tingnan ang [newcomer checklist](/magazine/newcomer-first-tax-return/tl).
 
 ## Siguraduhing wala kang nakakaligtaan
 
