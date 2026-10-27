@@ -4,6 +4,7 @@ import { articles } from "@/lib/magazine";
 import { liveTools } from "@/lib/registry";
 import { publicListings } from "@/lib/public";
 import { bizPath, landings } from "@/lib/seo";
+import { destinations, travelPath } from "@/lib/travel";
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
     "/",
@@ -19,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/list-free",
     "/privacy",
     "/terms",
+    "/travel",
   ].concat(
     liveTools.map((t) => t.route),
     sections.filter((s) => s.status === "live").map((s) => `/directory/${s.slug}`),
@@ -30,6 +32,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     events.map((e) => `/calendar/${e.id}`),
     publicListings.map(bizPath),
     landings.map((l) => `/${l.slug}`),
+    destinations.map(travelPath),
   );
   return paths.map((p) => ({ url: abs(p) }));
 }

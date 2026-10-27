@@ -6,6 +6,7 @@ import { areaCounts, categoryCounts, communityEvents, featuredForAlt, GTA_AREAS,
 import { FeaturedGrid } from "./FeaturedGrid";
 import { PublicNote } from "./PublicNote";
 import { AdSlot } from "@/components/AdSlot";
+import { TravelStrip } from "@/components/travel/TravelStrip";
 
 const WHY = [
   {
@@ -285,6 +286,9 @@ export function AltHome() {
         </section>
       )}
 
+      <div className="mx-auto max-w-6xl px-4 pt-14">
+        <TravelStrip slugs={["toronto-islands", "niagara-falls", "manila"]} placement="home-travel" plain />
+      </div>
       <section className="mx-auto max-w-6xl px-4 py-14" aria-labelledby="alt-why">
         <h2 id="alt-why" className="text-3xl font-extrabold text-ink">
           Why Pinoy Pages

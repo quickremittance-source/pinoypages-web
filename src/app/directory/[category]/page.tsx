@@ -1,3 +1,4 @@
+import { TravelStrip } from "@/components/travel/TravelStrip";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -37,6 +38,7 @@ export default async function Page({ params }: P) {
         <div className="mx-auto max-w-6xl space-y-8 px-4 py-8">
           <CategoryTiles section={section} />
           <ListingResults items={items} />
+          <TravelStrip slugs={["niagara-falls", "toronto-islands", "manila"]} placement="category-travel" />
         </div>
       </>
     );
@@ -73,6 +75,9 @@ export default async function Page({ params }: P) {
         <ListingResults items={listingsIn(sub.slug)} showSubFilter={false} subLabel={sub.name} />
         <div className="mt-12">
           <UpcomingEvents title={`Upcoming events · ${sub.name}`} sub={sub.slug} />
+        </div>
+        <div className="mt-12">
+          <TravelStrip slugs={["niagara-falls", "toronto-islands", "manila"]} placement="category-travel" />
         </div>
       </div>
     </>

@@ -1,0 +1,714 @@
+{
+  "note": "Travel guides for /travel. Factual copy only: no prices, schedules or invented facts. reviewNeeded lists time-sensitive points to re-check before release.",
+  "destinations": [
+    {
+      "slug": "cn-tower-waterfront",
+      "hub": "gta",
+      "name": "CN Tower and the Waterfront",
+      "region": "Downtown Toronto",
+      "kind": "TouristAttraction",
+      "geo": [43.6426, -79.3871],
+      "summary": "Toronto's landmark tower and the lakefront promenade below it.",
+      "guide": [
+        "The CN Tower rises 553.3 metres above the city and was the world's tallest free-standing structure from its completion in 1976 until 2007. The main observation level has a glass floor section, and on a clear day the view stretches across Lake Ontario.",
+        "At the foot of the tower are Ripley's Aquarium of Canada and the Rogers Centre, home of the Blue Jays. A short walk south takes you to Queens Quay and Harbourfront Centre, where the waterfront promenade runs for several kilometres past marinas, parks and public art. The ferry docks for the Toronto Islands are at the eastern end, near the foot of Bay Street.",
+        "This is the easiest outing to plan for visiting family: everything is close together, mostly level and reachable without a car. Spend the morning up the tower, have lunch by the lake and finish with a walk along the boardwalk at sunset."
+      ],
+      "bestSeason": "Late spring to early autumn for the waterfront. The tower is open year-round; clear, dry days give the longest views.",
+      "gettingThere": "Take TTC Line 1 or a GO train to Union Station, then follow the covered SkyWalk towards the tower. Downtown parking is limited, so transit is usually simpler.",
+      "tip": "For lolo and lola, the observation levels are reached by elevator and the Queens Quay promenade is flat with plenty of benches.",
+      "related": [
+        {
+          "category": "food",
+          "label": "Filipino restaurants in Toronto",
+          "area": "Toronto"
+        }
+      ],
+      "reviewNeeded": [
+        "Opening hours and ticketing for the tower and aquarium change seasonally; link to official sites rather than stating them."
+      ]
+    },
+    {
+      "slug": "toronto-islands",
+      "hub": "gta",
+      "name": "Toronto Islands",
+      "region": "Toronto Harbour",
+      "kind": "TouristAttraction",
+      "geo": [43.6205, -79.3784],
+      "summary": "A car-free chain of islands with beaches, bike paths and the best skyline view in the city.",
+      "guide": [
+        "The Toronto Islands are a group of small islands just south of downtown, linked by bridges and paths. Private cars are not allowed, so the islands are quiet compared with the city across the harbour.",
+        "Centre Island has gardens, picnic areas and Centreville, a small amusement park aimed at young children. Ward's Island has a residential community of cottages and a sandy beach. Hanlan's Point, on the western side, has one of the longest beaches on the islands and a historic lighthouse nearby at Gibraltar Point.",
+        "Most visitors walk or cycle between the three main ferry docks. The ride over takes only a few minutes, and the view of the skyline from the boat and from the island shore is one of the most photographed in Toronto. Bring food and a blanket: the islands work best as a long, unhurried picnic day."
+      ],
+      "bestSeason": "June to September, when the beaches and Centreville are open and the ferries run most often.",
+      "gettingThere": "City of Toronto ferries leave from the Jack Layton Ferry Terminal at the foot of Bay Street, a short walk from Union Station. Private water taxis also cross from the waterfront.",
+      "tip": "Big family picnic? The islands have picnic areas that groups can reserve through the City of Toronto, which helps for a salu-salo with a large crowd.",
+      "related": [
+        {
+          "category": "food",
+          "label": "Filipino food to bring for the picnic",
+          "area": "Toronto"
+        },
+        {
+          "category": "groceries",
+          "label": "Filipino grocery stores"
+        }
+      ],
+      "reviewNeeded": ["Ferry service levels and picnic-permit rules are set by the City of Toronto and can change."]
+    },
+    {
+      "slug": "distillery-district",
+      "hub": "gta",
+      "name": "Distillery District",
+      "region": "Downtown Toronto",
+      "kind": "TouristAttraction",
+      "geo": [43.6503, -79.3596],
+      "summary": "Victorian industrial buildings turned into a pedestrian village of shops, galleries and cafés.",
+      "guide": [
+        "The Distillery District grew around the Gooderham and Worts distillery, which was founded in the 1830s and became one of the largest distilleries in the world by the late nineteenth century. Its brick buildings are among the best-preserved collection of Victorian industrial architecture in North America and were designated a National Historic Site of Canada.",
+        "Today the cobblestone lanes are closed to cars and lined with independent shops, galleries, restaurants and theatres. Large sculptures and the old brick facades make it a favourite backdrop for engagement and family photos.",
+        "In the weeks before Christmas the district hosts a well-known winter market with lights and seasonal stalls. Outside the holidays it is calmer, which suits a slow afternoon walk followed by coffee."
+      ],
+      "bestSeason": "Any time of year. Late November and December bring the winter market and the biggest crowds; spring and autumn are quieter.",
+      "gettingThere": "From downtown, take the 504 King streetcar east or walk from St. Lawrence Market. Parking is available in paid lots nearby.",
+      "tip": "It is a popular spot for debut, prenup and family photo shoots; some professional shoots need a permit from the district, so ask your photographer to check.",
+      "related": [
+        {
+          "category": "food",
+          "label": "Filipino restaurants in Toronto",
+          "area": "Toronto"
+        }
+      ],
+      "reviewNeeded": [
+        "Winter market dates and any entry fees change every year.",
+        "Photo permit policy should be confirmed with the Distillery District."
+      ]
+    },
+    {
+      "slug": "kensington-market",
+      "hub": "gta",
+      "name": "Kensington Market",
+      "region": "Downtown Toronto",
+      "kind": "TouristAttraction",
+      "geo": [43.6547, -79.4005],
+      "summary": "A compact, colourful neighbourhood of food shops, vintage stores and street art.",
+      "guide": [
+        "Kensington Market is a small neighbourhood west of Spadina Avenue, bordered roughly by College Street and Dundas Street. Generations of immigrant communities have lived and traded here, and the mix shows in its bakeries, cheese shops, spice stores and food counters from many parts of the world.",
+        "The streets are narrow and full of painted houses, murals and vintage clothing shops. Kensington Market was designated a National Historic Site of Canada in 2006 for its role as an immigrant market neighbourhood.",
+        "On some summer Sundays the main streets close to cars for Pedestrian Sundays, with buskers and street vendors. Chinatown sits right next door along Spadina, so it is easy to combine the two in one afternoon of eating and browsing."
+      ],
+      "bestSeason": "Late spring to early autumn, when shops spill out onto the sidewalks.",
+      "gettingThere": "Take the 510 Spadina or 506 College streetcar. Street parking is scarce, so transit or cycling is easier.",
+      "tip": "Bring a reusable bag and some cash: many small vendors are used to quick sales, and you will likely pick up snacks to share at home.",
+      "related": [
+        {
+          "category": "food",
+          "label": "Filipino restaurants in Toronto",
+          "area": "Toronto"
+        }
+      ],
+      "reviewNeeded": ["Pedestrian Sundays dates are set each season by the organisers."]
+    },
+    {
+      "slug": "casa-loma",
+      "hub": "gta",
+      "name": "Casa Loma",
+      "region": "Midtown Toronto",
+      "kind": "TouristAttraction",
+      "geo": [43.678, -79.4094],
+      "summary": "A Gothic Revival mansion on the hill above midtown, with towers, gardens and a tunnel.",
+      "guide": [
+        "Casa Loma was built between 1911 and 1914 for the financier Sir Henry Pellatt, who lost the house in the 1920s after financial setbacks. Designed by architect E. J. Lennox, the mansion has towers, secret passages, an oak-panelled great hall and a long underground tunnel that leads to the stables.",
+        "Visitors can explore the main floors, climb the towers for views over the city and walk the estate gardens, which are at their best in late spring and summer. The house is also a regular filming location and has appeared in many films and television series.",
+        "Casa Loma sits at the top of the Baldwin Steps, a long outdoor staircase from Spadina Road. Next door is Spadina Museum, a historic house that makes a quieter second stop."
+      ],
+      "bestSeason": "Late spring through summer for the gardens; the house is open most of the year.",
+      "gettingThere": "Take TTC Line 1 to Dupont station and walk up the Baldwin Steps, or drive to the on-site parking lot.",
+      "tip": "The Baldwin Steps are steep. For older family members, drive or take a taxi to the front door instead of climbing from Dupont.",
+      "related": [
+        {
+          "category": "food",
+          "label": "Filipino restaurants in Toronto",
+          "area": "Toronto"
+        }
+      ],
+      "reviewNeeded": ["Opening hours and seasonal events at Casa Loma change; link to the official site."]
+    },
+    {
+      "slug": "scarborough-bluffs",
+      "hub": "gta",
+      "name": "Scarborough Bluffs",
+      "region": "Scarborough",
+      "kind": "TouristAttraction",
+      "geo": [43.7056, -79.2318],
+      "summary": "White cliffs above Lake Ontario, with beaches and parks along their base.",
+      "guide": [
+        "The Scarborough Bluffs are an escarpment of pale clay and sand cliffs that run for about 15 kilometres along the Lake Ontario shore in east Toronto. In places they rise around 90 metres above the water.",
+        "Bluffer's Park, at the foot of Brimley Road, has a beach, a marina and picnic areas with a direct view of the cliffs. Further east, Cathedral Bluffs Park and Guild Park and Gardens offer views from the top, and the gardens at Guild Park display architectural fragments saved from demolished Toronto buildings.",
+        "The cliffs are still eroding. Stay on marked trails and well back from the edges; the City of Toronto has closed some clifftop areas for safety."
+      ],
+      "bestSeason": "Summer for the beach at Bluffer's Park; autumn for clear views and fewer people.",
+      "gettingThere": "Drive east to Brimley Road South and follow it down to Bluffer's Park. By transit, take a TTC bus along Kingston Road and walk down.",
+      "tip": "Scarborough has many Filipino stores and restaurants, so it is easy to pick up food before heading down to the lake.",
+      "related": [
+        {
+          "category": "food",
+          "label": "Filipino restaurants in Scarborough",
+          "area": "Scarborough"
+        },
+        {
+          "category": "groceries",
+          "label": "Filipino grocery stores in Scarborough",
+          "area": "Scarborough"
+        }
+      ],
+      "reviewNeeded": ["Clifftop and trail closures change with erosion; check City of Toronto notices."]
+    },
+    {
+      "slug": "high-park-cherry-blossoms",
+      "hub": "gta",
+      "name": "High Park Cherry Blossoms",
+      "region": "West Toronto",
+      "kind": "TouristAttraction",
+      "geo": [43.6465, -79.4637],
+      "summary": "Toronto's best-known sakura, in the city's largest public park.",
+      "guide": [
+        "High Park is Toronto's largest public park, covering about 160 hectares of woodland, gardens, trails and ponds in the city's west end. Its most famous spring sight is the stand of Japanese cherry trees, the first of which were a gift from Japan in 1959.",
+        "When the trees bloom, the groves near Grenadier Pond and along the main roads through the park turn pink and white, and crowds arrive from across the region. Peak bloom only lasts a few days and depends on the weather, so many people follow the bloom updates posted each spring before going.",
+        "Outside sakura season the park is worth a visit for its trails, the free High Park Zoo with bison and capybaras, children's playgrounds and Grenadier Pond."
+      ],
+      "bestSeason": "Late April to mid-May for cherry blossoms, depending on the year. The park is open year-round.",
+      "gettingThere": "Take TTC Line 2 to High Park station and walk south into the park. During peak bloom the city often closes park roads to cars, so transit is the better choice.",
+      "tip": "Go early on a weekday morning for photos with the family; weekend afternoons at peak bloom are extremely crowded.",
+      "related": [
+        {
+          "category": "food",
+          "label": "Filipino restaurants in Toronto",
+          "area": "Toronto"
+        }
+      ],
+      "reviewNeeded": [
+        "Peak bloom timing varies each year.",
+        "Road closures during bloom are announced yearly by the City of Toronto."
+      ]
+    },
+    {
+      "slug": "royal-ontario-museum",
+      "hub": "gta",
+      "name": "Royal Ontario Museum (ROM)",
+      "region": "Downtown Toronto",
+      "kind": "TouristAttraction",
+      "geo": [43.6677, -79.3948],
+      "summary": "Canada's largest museum of world culture and natural history.",
+      "guide": [
+        "The Royal Ontario Museum opened in 1914 and is one of the largest museums in North America, with collections that cover natural history, world cultures and art. Its most recognisable feature is the Michael Lee-Chin Crystal, the angular glass-and-aluminium entrance designed by Daniel Libeskind and opened in 2007.",
+        "Inside, the dinosaur galleries, the bat cave, the mineral and gem collection and the large galleries on ancient Egypt, China and Canada's First Peoples are favourites with families. The museum also runs rotating special exhibitions.",
+        "The ROM sits at Bloor Street and Queen's Park, next to the University of Toronto and Yorkville, so it pairs easily with a walk through the campus or along Bloor."
+      ],
+      "bestSeason": "Year-round. A good choice for winter, rainy days and the hottest days of summer.",
+      "gettingThere": "Take TTC Line 1 to Museum station, which is right outside, or Line 2 to St. George or Bay.",
+      "tip": "Children love the dinosaur galleries. Plan a full half-day and check the museum website for any free or reduced-admission programs.",
+      "related": [
+        {
+          "category": "food",
+          "label": "Filipino restaurants in Toronto",
+          "area": "Toronto"
+        }
+      ],
+      "reviewNeeded": ["Admission programs and hours change; link to the ROM's official site."]
+    },
+    {
+      "slug": "niagara-falls",
+      "hub": "gta",
+      "name": "Niagara Falls",
+      "region": "Niagara Region",
+      "kind": "TouristAttraction",
+      "geo": [43.0799, -79.0747],
+      "summary": "The Horseshoe Falls, boat tours into the mist and a lively tourist strip.",
+      "guide": [
+        "Niagara Falls is made up of three waterfalls on the Niagara River at the Canada–United States border. The largest, the Horseshoe Falls, is mostly on the Canadian side, and the view from Table Rock along the Niagara Parkway is one of the best anywhere.",
+        "Boat tours sail into the mist at the base of the falls, and Journey Behind the Falls takes visitors through tunnels to viewing platforms behind the water. In the evening the falls are lit up in colour, and fireworks are held on some nights in season.",
+        "Clifton Hill, just up from the river, is the busy tourist strip of attractions, arcades and restaurants. For a quieter day, follow the Niagara Parkway north along the gorge towards the Floral Showhouse, the Whirlpool and Niagara Glen."
+      ],
+      "bestSeason": "May to October for boat tours and parkway gardens. Winter has fewer crowds and dramatic ice formations.",
+      "gettingThere": "Drive about 130 kilometres via the QEW. GO Transit also serves Niagara Falls by train and bus.",
+      "tip": "Crossing to the U.S. side requires valid travel documents. Philippine passport holders need a U.S. visa; check before you plan the American side.",
+      "related": [
+        {
+          "category": "food",
+          "label": "Filipino food for the road"
+        },
+        {
+          "category": "immigration",
+          "label": "Immigration and travel document help"
+        }
+      ],
+      "reviewNeeded": [
+        "Boat tour, fireworks and GO service seasons change yearly.",
+        "Border entry requirements for the U.S. side can change."
+      ]
+    },
+    {
+      "slug": "niagara-on-the-lake",
+      "hub": "gta",
+      "name": "Niagara-on-the-Lake",
+      "region": "Niagara Region",
+      "kind": "Place",
+      "geo": [43.255, -79.0714],
+      "summary": "A historic town of flower-lined streets, wineries and summer theatre.",
+      "guide": [
+        "Niagara-on-the-Lake is a small town where the Niagara River meets Lake Ontario, about 20 minutes north of the falls. It served as the first capital of Upper Canada, and Fort George, a reconstructed military post from the War of 1812, sits at the edge of the old town.",
+        "Queen Street, the main street, is lined with restored nineteenth-century buildings, flower beds, shops and the clock tower cenotaph. The town is home to the Shaw Festival, a theatre festival that runs through much of the year.",
+        "The surrounding countryside is one of Canada's main wine regions, with dozens of wineries along the Niagara Parkway and nearby roads, and orchards and fruit stands in summer."
+      ],
+      "bestSeason": "Late spring through autumn. Summer brings the flowers and theatre; autumn brings the grape harvest.",
+      "gettingThere": "Drive about 130 kilometres via the QEW, exiting towards Niagara-on-the-Lake. It combines easily with a day at the falls.",
+      "tip": "Fruit stands along the country roads sell local peaches, cherries and other produce in season, which make good pasalubong for family back in the GTA.",
+      "related": [
+        {
+          "category": "food",
+          "label": "Filipino restaurants for the drive home"
+        }
+      ],
+      "reviewNeeded": ["Shaw Festival season dates change yearly."]
+    },
+    {
+      "slug": "muskoka",
+      "hub": "gta",
+      "name": "Muskoka",
+      "region": "Muskoka District",
+      "kind": "Place",
+      "geo": [45.0379, -79.3086],
+      "summary": "Ontario's lake country: cottages, docks, steamships and the Muskoka chair.",
+      "guide": [
+        "Muskoka is a region of hundreds of lakes north of Toronto, best known for summer cottages and the wooden Muskoka chair. Lake Muskoka, Lake Rosseau and Lake Joseph are the largest, and the towns of Gravenhurst, Bracebridge, Port Carling and Huntsville serve as the main stops.",
+        "Gravenhurst is home to the historic steamship RMS Segwun, which has carried passengers on Lake Muskoka since the late nineteenth century. Port Carling has locks connecting Lake Muskoka and Lake Rosseau. Waterfalls such as High Falls in Bracebridge are easy stops from the highway.",
+        "Arrowhead Provincial Park near Huntsville has hiking trails, a beach and, in winter, a skating trail through the forest. In autumn, the region is one of the most popular places in Ontario to see fall colours."
+      ],
+      "bestSeason": "July and August for lakes and cottages; late September to early October for fall colours.",
+      "gettingThere": "Drive north on Highway 400 and Highway 11; Gravenhurst is roughly two hours from Toronto without traffic. Friday and Sunday summer traffic can be heavy.",
+      "tip": "Renting a cottage with several families is a popular way to share costs. Book early for summer long weekends.",
+      "related": [
+        {
+          "category": "groceries",
+          "label": "Filipino grocery stores to stock the cottage"
+        }
+      ],
+      "reviewNeeded": ["Segwun sailing seasons and park winter programs change yearly."]
+    },
+    {
+      "slug": "blue-mountain",
+      "hub": "gta",
+      "name": "Blue Mountain",
+      "region": "Collingwood area",
+      "kind": "TouristAttraction",
+      "geo": [44.5013, -80.316],
+      "summary": "Ontario's biggest ski resort, with a pedestrian village and summer activities.",
+      "guide": [
+        "Blue Mountain Resort sits on the Niagara Escarpment near Collingwood, overlooking Georgian Bay. It is the largest ski resort in Ontario, with runs for beginners and experienced skiers and snowboarders.",
+        "At the base is the Village at Blue, a pedestrian village of shops, restaurants and lodging. In summer the resort offers activities such as scenic gondola rides, a mountain coaster and hiking and biking trails along the escarpment.",
+        "Nearby, Collingwood has a historic main street and waterfront, and Scandinave Spa Blue Mountain is popular for outdoor baths. Wasaga Beach, one of the longest freshwater beaches in the world, is about half an hour east."
+      ],
+      "bestSeason": "January to March for skiing; summer and early autumn for hiking, the village and Georgian Bay.",
+      "gettingThere": "Drive about two to two and a half hours north-west via Highway 400 and Highway 26. Winter conditions can slow the drive.",
+      "tip": "First time on snow? Book a beginner lesson. It is a good introduction for family members who grew up in the Philippines and have never skied.",
+      "related": [
+        {
+          "category": "groceries",
+          "label": "Filipino grocery stores for road-trip snacks"
+        }
+      ],
+      "reviewNeeded": ["Ski season dates, lift access and summer activities change yearly."]
+    },
+    {
+      "slug": "algonquin",
+      "hub": "gta",
+      "name": "Algonquin Provincial Park",
+      "region": "Central Ontario",
+      "kind": "TouristAttraction",
+      "geo": [45.5543, -78.5987],
+      "summary": "Canada's oldest provincial park: lakes, canoe routes, moose and autumn colours.",
+      "guide": [
+        "Algonquin Provincial Park was established in 1893, making it the oldest provincial park in Canada. It covers more than 7,600 square kilometres of forest, lakes and rivers between Georgian Bay and the Ottawa River.",
+        "Highway 60 runs through the southern part of the park, and the Highway 60 corridor has campgrounds, picnic areas, short hiking trails and lookouts. The Algonquin Visitor Centre has exhibits on the park's wildlife and history, and the Algonquin Art Centre features nature art.",
+        "Moose are often seen along Highway 60 in spring, and the park is famous for its autumn colours, especially the red maples in late September and early October. Experienced paddlers use its canoe routes for multi-day trips into the interior."
+      ],
+      "bestSeason": "Late September to early October for fall colours; June to August for camping and paddling.",
+      "gettingThere": "Drive north via Highway 400, Highway 11 and Highway 60 through Huntsville. The West Gate is roughly three hours from Toronto.",
+      "tip": "A day-use permit is required for each vehicle. If you spot a moose, stay in the car and pull well off the road.",
+      "related": [
+        {
+          "category": "groceries",
+          "label": "Filipino grocery stores to pack the cooler"
+        }
+      ],
+      "reviewNeeded": ["Permit and reservation rules are set by Ontario Parks and can change."]
+    },
+    {
+      "slug": "sandbanks",
+      "hub": "gta",
+      "name": "Sandbanks Provincial Park",
+      "region": "Prince Edward County",
+      "kind": "TouristAttraction",
+      "geo": [43.9122, -77.2584],
+      "summary": "Long sandy beaches and dunes on Lake Ontario in Prince Edward County.",
+      "guide": [
+        "Sandbanks Provincial Park in Prince Edward County is known for the largest freshwater baymouth bar and dune system in the world. Its beaches, including Outlet Beach, Sandbanks Beach and Dunes Beach, have shallow water and fine sand.",
+        "The dunes themselves are fragile, so the park asks visitors to stay on marked trails and boardwalks. Beyond the beach, the park has campgrounds, short nature trails and quiet stretches of shoreline where the water stays shallow for a long way out, which makes it popular with families with small children.",
+        "Prince Edward County is also a growing wine and food region, with wineries, cideries and small towns such as Picton and Wellington to explore on the way in or out."
+      ],
+      "bestSeason": "July and August for swimming; June and September for quieter beach days.",
+      "gettingThere": "Drive east about three hours via Highway 401 and County Road 49 or 33 through Picton.",
+      "tip": "Summer weekends often sell out. Ontario Parks uses day-use reservations for Sandbanks in peak season, so book ahead before driving three hours.",
+      "related": [
+        {
+          "category": "groceries",
+          "label": "Filipino grocery stores for beach-day food"
+        }
+      ],
+      "reviewNeeded": ["Day-use reservation rules for Sandbanks are set yearly by Ontario Parks."]
+    },
+    {
+      "slug": "elora-gorge",
+      "hub": "gta",
+      "name": "Elora Gorge",
+      "region": "Wellington County",
+      "kind": "TouristAttraction",
+      "geo": [43.6745, -80.4436],
+      "summary": "Limestone cliffs above the Grand River, with tubing and trails beside a historic village.",
+      "guide": [
+        "The Elora Gorge is a limestone canyon cut by the Grand River beside the village of Elora, northwest of Guelph. Its cliffs rise about 22 metres above the river, and the Elora Gorge Conservation Area has trails along the rim, lookouts and picnic areas.",
+        "In summer, tubing down the gentle stretch of river through the gorge is a popular activity. The conservation area also has a large swimming quarry nearby, the Elora Quarry, with a sandy beach.",
+        "The village of Elora itself has a historic mill, stone buildings, independent shops and cafés overlooking the river, so it is easy to fill a day."
+      ],
+      "bestSeason": "June to September for tubing and swimming; autumn for colours and walking.",
+      "gettingThere": "Drive about 90 minutes west via Highway 401 and Highway 6 through Guelph.",
+      "tip": "Elora Gorge and the Elora Quarry often use advance reservations in summer. Reserve before you load the car for a group day trip.",
+      "related": [
+        {
+          "category": "groceries",
+          "label": "Filipino grocery stores for picnic food"
+        }
+      ],
+      "reviewNeeded": ["Reservation and tubing rules are set by the Grand River Conservation Authority and can change."]
+    },
+    {
+      "slug": "little-manila",
+      "hub": "gta",
+      "name": "Little Manila (Bathurst and Wilson)",
+      "region": "North York",
+      "kind": "Place",
+      "geo": [43.7346, -79.4382],
+      "summary": "The heart of Filipino Toronto: bakeries, restaurants, remittance offices and community.",
+      "guide": [
+        "The area around Bathurst Street and Wilson Avenue in North York has been the centre of Filipino life in Toronto for decades. In 2022 the City of Toronto approved commemorative signs recognising the stretch of Bathurst Street near Wilson as Little Manila.",
+        "Along the strip you will find Filipino restaurants and turo-turo counters, bakeries for pandesal and ensaymada, groceries with Philippine brands, remittance and cargo offices and community services. Many newcomers find their first job, church community or barkada here.",
+        "It is the best place to bring visiting relatives who miss home cooking, and a natural stop before a trip to the Philippines to pick up pasalubong and supplies for a balikbayan box."
+      ],
+      "bestSeason": "Year-round. Weekends are busiest; summer brings community events.",
+      "gettingThere": "Take TTC Line 1 to Wilson station and the Wilson bus east, or the 7 Bathurst bus north from Bathurst station. Street parking is limited on busy days.",
+      "tip": "Go hungry and bring a cooler bag. Many bakeries sell out of popular breads later in the day.",
+      "related": [
+        {
+          "category": "food",
+          "label": "Filipino restaurants in North York",
+          "area": "North York"
+        },
+        {
+          "category": "groceries",
+          "label": "Filipino grocery stores in North York",
+          "area": "North York"
+        },
+        {
+          "category": "immigration",
+          "label": "Community and settlement services",
+          "area": "North York"
+        }
+      ],
+      "reviewNeeded": [
+        "Confirm the Little Manila commemorative designation wording with the City of Toronto before release."
+      ]
+    },
+    {
+      "slug": "manila",
+      "hub": "abroad",
+      "name": "Manila",
+      "region": "Philippines",
+      "kind": "Place",
+      "geo": [14.5906, 120.975],
+      "titleSeo": "Toronto to Manila Travel Guide",
+      "summary": "The capital: Intramuros, Binondo, Manila Bay sunsets and the gateway to every province.",
+      "guide": [
+        "For most Filipino Canadians, a trip home starts in Metro Manila. Ninoy Aquino International Airport (NAIA) is the country's main international gateway, and from there domestic flights and buses reach every region.",
+        "The old walled city of Intramuros holds Spanish-era landmarks including Manila Cathedral, San Agustin Church, a UNESCO World Heritage Site, and Fort Santiago, where José Rizal was held before his execution in 1896. Rizal Park, Binondo, the world's oldest Chinatown, and the National Museum complex are all close by.",
+        "Sunsets over Manila Bay are a classic sight along Roxas Boulevard. Makati and Bonifacio Global City (BGC) are the modern business districts, with malls, restaurants and parks.",
+        "Traffic in Metro Manila is heavy, so plan days by area rather than crossing the city repeatedly."
+      ],
+      "bestSeason": "December to May is the dry season. June to November is the wet season, when typhoons are most likely.",
+      "gettingThere": "Flights from Toronto Pearson reach Manila nonstop or with one connection, commonly through Vancouver, a U.S. hub or an Asian hub. Routes change, so check current airline schedules.",
+      "tip": "Former Filipino citizens who reacquired citizenship under the Dual Citizenship Act (RA 9225) can enter as Filipinos. Balikbayan privileges give visa-free stays to former Filipinos and their families travelling with them. Complete the eTravel registration before you fly.",
+      "related": [
+        {
+          "category": "groceries",
+          "label": "Pasalubong and balikbayan box shopping"
+        },
+        {
+          "category": "immigration",
+          "label": "Immigration and settlement help"
+        }
+      ],
+      "reviewNeeded": [
+        "Nonstop and connecting routes from Toronto change; never list airlines or schedules without checking.",
+        "eTravel and balikbayan entry rules can change; link to official Philippine government sources."
+      ]
+    },
+    {
+      "slug": "cebu",
+      "hub": "abroad",
+      "name": "Cebu",
+      "region": "Philippines",
+      "kind": "Place",
+      "geo": [10.2934, 123.9021],
+      "summary": "The Queen City of the South: history, lechon and island-hopping.",
+      "guide": [
+        "Cebu is one of the oldest cities in the Philippines and the centre of the Central Visayas. Magellan's Cross, planted in 1521 when Ferdinand Magellan's expedition arrived, is housed in a small chapel beside the Basilica Minore del Santo Niño, home of the country's oldest Catholic relic. Fort San Pedro and the Heritage of Cebu Monument are short walks away.",
+        "Every January, the Sinulog festival fills the city with street dancing in honour of the Santo Niño. Cebu is also known nationally for its lechon.",
+        "Mactan-Cebu International Airport is a major gateway, and from Cebu it is easy to reach beaches and dive sites on Mactan, Moalboal, Malapascua and Bantayan, or to take ferries to Bohol and other islands."
+      ],
+      "bestSeason": "December to May for dry weather. Sinulog is held in January.",
+      "gettingThere": "Fly from Toronto with a connection, usually via Manila or an Asian hub, into Mactan-Cebu International Airport. Some carriers offer through-tickets.",
+      "tip": "If you plan to go for Sinulog, book flights and hotels early: the city fills up with visitors from across the country and abroad.",
+      "related": [
+        {
+          "category": "groceries",
+          "label": "Pasalubong and balikbayan box shopping"
+        },
+        {
+          "category": "immigration",
+          "label": "Immigration and settlement help"
+        }
+      ],
+      "reviewNeeded": ["International routes into Cebu change; check current airline schedules."]
+    },
+    {
+      "slug": "boracay",
+      "hub": "abroad",
+      "name": "Boracay",
+      "region": "Philippines",
+      "kind": "TouristAttraction",
+      "geo": [11.9674, 121.9248],
+      "summary": "White Beach, sunset sails and some of the finest sand in Asia.",
+      "guide": [
+        "Boracay is a small island off the northwest tip of Panay in Aklan province. Its four-kilometre White Beach, divided into Stations 1, 2 and 3, is famous for powder-fine sand and calm water for much of the year.",
+        "In 2018 the government closed the island for six months for an environmental rehabilitation, and stricter rules on development, beach use and visitor numbers followed. Smoking and drinking on the beach are restricted, and visitors need a confirmed booking with an accredited hotel.",
+        "Paraw sailboats at sunset, island-hopping to Puka Beach and Crystal Cove, and diving are popular. The quieter east side, including Bulabog Beach, is known for kitesurfing during the northeast monsoon."
+      ],
+      "bestSeason": "November to May, when the northeast monsoon and dry season bring calmer water on White Beach.",
+      "gettingThere": "Fly from Manila or Cebu to Caticlan (Godofredo P. Ramos Airport) or Kalibo, then take a short boat ride across to the island.",
+      "tip": "Keep a copy of your hotel confirmation handy. It is checked before you board the boat to the island.",
+      "related": [
+        {
+          "category": "groceries",
+          "label": "Pasalubong and balikbayan box shopping"
+        }
+      ],
+      "reviewNeeded": ["Boracay entry and accreditation rules are set by the Philippine government and change."]
+    },
+    {
+      "slug": "palawan",
+      "hub": "abroad",
+      "name": "Palawan",
+      "region": "Philippines",
+      "kind": "Place",
+      "geo": [11.1956, 119.403],
+      "summary": "El Nido's limestone lagoons, Coron's wrecks and an underground river.",
+      "guide": [
+        "Palawan is the long, narrow island province in the western Philippines, often ranked among the most beautiful islands in the world. El Nido, in the north, is known for limestone cliffs, hidden lagoons and island-hopping tours through Bacuit Bay.",
+        "Coron, in the Calamian Islands, has clear lakes such as Kayangan and Barracuda Lake, and some of the best wreck diving in Asia among Japanese ships sunk in 1944.",
+        "Near Puerto Princesa, the provincial capital, the Puerto Princesa Subterranean River National Park is a UNESCO World Heritage Site where boats travel into a navigable underground river. Visits are limited and require a permit."
+      ],
+      "bestSeason": "November to May for calm seas and island-hopping.",
+      "gettingThere": "Fly from Manila or Cebu to Puerto Princesa, El Nido or Busuanga (for Coron). Travel between El Nido and Coron is by ferry.",
+      "tip": "Book the Underground River permit through your hotel or an accredited tour operator before you arrive. Daily visitor numbers are capped.",
+      "related": [
+        {
+          "category": "groceries",
+          "label": "Pasalubong and balikbayan box shopping"
+        }
+      ],
+      "reviewNeeded": ["Permit and environmental fee rules change; link to official sources."]
+    },
+    {
+      "slug": "bohol",
+      "hub": "abroad",
+      "name": "Bohol",
+      "region": "Philippines",
+      "kind": "Place",
+      "geo": [9.85, 124.1435],
+      "summary": "The Chocolate Hills, tarsiers, old stone churches and Panglao beaches.",
+      "guide": [
+        "Bohol, in the Central Visayas, is best known for the Chocolate Hills, more than a thousand grass-covered limestone mounds that turn brown in the dry season. A viewing deck in Carmen looks out over the hills.",
+        "The island is also home to the Philippine tarsier, one of the world's smallest primates. Sanctuaries such as the one run by the Philippine Tarsier Foundation in Corella protect the animals and keep visitors quiet and at a distance.",
+        "Bohol's Spanish-era stone churches, including Baclayon, are among the oldest in the country; several were damaged in the 2013 earthquake and have been restored. Panglao Island, linked by bridge, has white-sand beaches, diving and Bohol–Panglao International Airport. A Loboc River cruise is a popular afternoon trip."
+      ],
+      "bestSeason": "December to May for dry weather; the hills are browner later in the dry season.",
+      "gettingThere": "Fly via Manila or Cebu to Bohol–Panglao International Airport, or take a fast ferry from Cebu City to Tagbilaran.",
+      "tip": "At tarsier sanctuaries, keep voices low and never use flash. Tarsiers are nocturnal and easily stressed.",
+      "related": [
+        {
+          "category": "groceries",
+          "label": "Pasalubong and balikbayan box shopping"
+        }
+      ],
+      "reviewNeeded": ["Ferry routes and airport connections change."]
+    },
+    {
+      "slug": "florida",
+      "hub": "abroad",
+      "name": "Florida",
+      "region": "United States",
+      "kind": "Place",
+      "geo": [25.7907, -80.13],
+      "summary": "Winter sun, theme parks in Orlando and the beaches of Miami.",
+      "guide": [
+        "Florida is one of the most popular winter escapes for Ontario families. Orlando is home to Walt Disney World, Universal Orlando and many other attractions, making it a common choice for trips with children.",
+        "Miami and Miami Beach offer Art Deco architecture, the beaches of South Beach and strong Cuban and Latin American food culture. The Florida Keys run south from the mainland on the Overseas Highway to Key West.",
+        "On the Gulf Coast, Tampa, Clearwater and Fort Myers have quieter beaches. The Kennedy Space Center on the Atlantic coast and Everglades National Park are popular day trips."
+      ],
+      "bestSeason": "November to April for warm, drier weather. June to November is hurricane season.",
+      "gettingThere": "Direct flights connect Toronto Pearson with Orlando, Fort Lauderdale, Miami, Tampa and other Florida airports. Many families also drive, which takes about two days.",
+      "tip": "Philippine passport holders need a valid U.S. visa. Canadian citizens and permanent residents should check the documents required for their status before booking.",
+      "related": [
+        {
+          "category": "immigration",
+          "label": "Immigration and travel document help"
+        }
+      ],
+      "reviewNeeded": ["U.S. entry and visa rules can change.", "Direct routes from Toronto change by season."]
+    },
+    {
+      "slug": "las-vegas",
+      "hub": "abroad",
+      "name": "Las Vegas",
+      "region": "United States",
+      "kind": "Place",
+      "geo": [36.1147, -115.1728],
+      "summary": "The Strip, big shows and road trips to the canyons of the Southwest.",
+      "guide": [
+        "Las Vegas, in the Nevada desert, is known for the Las Vegas Strip, a long boulevard of large resort hotels, casinos and entertainment venues. Even visitors who do not gamble come for the shows, concerts, restaurants and nightly attractions such as the Bellagio fountains.",
+        "Downtown Las Vegas, around Fremont Street, has the city's older casinos and a covered pedestrian mall with a light canopy.",
+        "Las Vegas is also a base for the national parks of the Southwest. Red Rock Canyon is about half an hour away, Hoover Dam under an hour, and the Grand Canyon's West and South Rims and Zion National Park are popular longer day trips or overnight trips."
+      ],
+      "bestSeason": "March to May and October to November. Summer is extremely hot.",
+      "gettingThere": "Direct flights connect Toronto Pearson with Harry Reid International Airport in Las Vegas.",
+      "tip": "Philippine passport holders need a valid U.S. visa. Desert heat is serious: carry water on any day trip out of the city.",
+      "related": [
+        {
+          "category": "immigration",
+          "label": "Immigration and travel document help"
+        }
+      ],
+      "reviewNeeded": ["U.S. entry and visa rules can change.", "Direct routes from Toronto change by season."]
+    },
+    {
+      "slug": "new-york",
+      "hub": "abroad",
+      "name": "New York City",
+      "region": "United States",
+      "kind": "Place",
+      "geo": [40.758, -73.9855],
+      "summary": "Manhattan landmarks, Broadway, museums and a short trip from Toronto.",
+      "guide": [
+        "New York City is one of the closest major international destinations from Toronto. In Manhattan, Times Square, Central Park, the Empire State Building, Rockefeller Center and the Statue of Liberty (reached by ferry) are the classic first-trip sights.",
+        "Broadway theatres, the Metropolitan Museum of Art, the Museum of Modern Art and the American Museum of Natural History can fill several days. The 9/11 Memorial & Museum is in Lower Manhattan.",
+        "Beyond Manhattan, the Brooklyn Bridge walk, the Brooklyn waterfront and the food of Queens are worth the subway ride. Woodside, Queens, is known for its Filipino community and restaurants, often called Little Manila of New York."
+      ],
+      "bestSeason": "April to June and September to early December. December brings holiday decorations and crowds.",
+      "gettingThere": "Fly from Toronto Pearson or Billy Bishop to New York area airports, drive about eight to nine hours, or take a train or bus.",
+      "tip": "Philippine passport holders need a valid U.S. visa. U.S. preclearance at Toronto Pearson means you clear U.S. border checks before you fly.",
+      "related": [
+        {
+          "category": "immigration",
+          "label": "Immigration and travel document help"
+        }
+      ],
+      "reviewNeeded": ["U.S. entry and visa rules can change.", "Billy Bishop routes to New York area airports change."]
+    },
+    {
+      "slug": "vancouver-banff",
+      "hub": "abroad",
+      "name": "Vancouver and Banff",
+      "region": "British Columbia and Alberta",
+      "kind": "Place",
+      "geo": [51.3217, -116.186],
+      "summary": "Ocean city and Rocky Mountain lakes, without leaving Canada.",
+      "guide": [
+        "Vancouver sits between the Pacific Ocean and the Coast Mountains. Stanley Park's seawall, Granville Island's public market, Gastown and the Capilano and Lynn Canyon suspension bridges are favourite stops. Vancouver also has one of the largest Filipino communities in Canada.",
+        "Banff National Park, in the Alberta Rockies, is Canada's oldest national park, established in 1885. Lake Louise and Moraine Lake are famous for their turquoise, glacier-fed water, and the Banff Gondola and the Icefields Parkway towards Jasper are among the most scenic experiences in the country.",
+        "Many travellers combine the two: fly into one city, drive or take a scenic train across the mountains, and fly home from the other."
+      ],
+      "bestSeason": "June to September for mountain lakes and hiking; December to March for skiing in Banff.",
+      "gettingThere": "Fly from Toronto to Vancouver or Calgary. Banff is about 90 minutes' drive west of Calgary International Airport.",
+      "tip": "No passport needed for this one if you are flying within Canada, which makes it an easy trip for family members waiting on travel documents. Bring government-issued photo ID.",
+      "related": [
+        {
+          "category": "food",
+          "label": "Filipino restaurants before you fly"
+        }
+      ],
+      "reviewNeeded": ["Parks Canada access rules for Moraine Lake and park passes change."]
+    },
+    {
+      "slug": "hawaii",
+      "hub": "abroad",
+      "name": "Hawaii",
+      "region": "United States",
+      "kind": "Place",
+      "geo": [21.2766, -157.8278],
+      "summary": "Waikiki, volcanoes and a large, long-established Filipino community.",
+      "guide": [
+        "Hawaii is a chain of volcanic islands in the central Pacific. Oahu, home to Honolulu, Waikiki Beach and Diamond Head, is the most visited. Pearl Harbor National Memorial is also on Oahu.",
+        "Maui is known for the Road to Hana and the summit of Haleakalā. The Island of Hawaiʻi, or the Big Island, has Hawaiʻi Volcanoes National Park, where Kīlauea is one of the most active volcanoes in the world. Kauai, the Garden Isle, has the Nā Pali Coast and Waimea Canyon.",
+        "Filipinos are one of the largest ethnic groups in Hawaii, with roots going back to sakada plantation workers recruited from 1906 onward. Filipino food, festivals and Ilocano and Tagalog speakers are part of everyday island life."
+      ],
+      "bestSeason": "Year-round. April to May and September to October are usually less crowded.",
+      "gettingThere": "Fly from Toronto with one connection, usually through Vancouver or a U.S. West Coast hub, to Honolulu or another island airport.",
+      "tip": "Philippine passport holders need a valid U.S. visa. Look up the local Filipino community centres and festivals; Honolulu's Filipino Community Center in Waipahu is one of the largest in the U.S.",
+      "related": [
+        {
+          "category": "immigration",
+          "label": "Immigration and travel document help"
+        }
+      ],
+      "reviewNeeded": ["U.S. entry and visa rules can change.", "Routes from Toronto change by season."]
+    },
+    {
+      "slug": "mexico-cuba",
+      "hub": "abroad",
+      "name": "Mexico and Cuba",
+      "region": "Caribbean and Mexico",
+      "kind": "Place",
+      "geo": [23.144, -82.359],
+      "summary": "All-inclusive beaches, Mayan ruins and Havana's old town.",
+      "guide": [
+        "Mexico and Cuba are among the most popular winter sun destinations from Ontario. In Mexico, Cancún and the Riviera Maya on the Yucatán Peninsula offer Caribbean beaches, cenotes and the Mayan sites of Chichén Itzá and Tulum. On the Pacific side, Puerto Vallarta and Los Cabos are long-time favourites.",
+        "In Cuba, beach resorts at Varadero, Cayo Coco and Holguín are popular all-inclusive choices. Old Havana, a UNESCO World Heritage Site, is known for its colonial plazas, classic American cars and the Malecón seawall promenade.",
+        "Both countries are well served by package holidays from Toronto, so many first-time travellers start here."
+      ],
+      "bestSeason": "December to April. June to November is hurricane season in the Caribbean.",
+      "gettingThere": "Direct flights connect Toronto Pearson with Cancún, Puerto Vallarta, Los Cabos, Varadero, Havana and other resort airports, especially in winter.",
+      "tip": "Entry rules depend on your passport. Mexico has accepted Canadian permanent residence for visa-free entry, and Cuba requires a tourist card. Check the rules for your own passport before you book a package.",
+      "related": [
+        {
+          "category": "immigration",
+          "label": "Immigration and travel document help"
+        }
+      ],
+      "reviewNeeded": [
+        "Mexico and Cuba entry rules for Philippine passport holders change; verify with official sources.",
+        "Seasonal direct routes change yearly."
+      ]
+    }
+  ]
+}

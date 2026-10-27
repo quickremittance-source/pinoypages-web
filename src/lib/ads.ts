@@ -22,6 +22,8 @@ export const PLACEMENTS = [
   "premium-top-spot",
   "seasonal-spotlight",
   "banner",
+  /** One Featured travel slot per /travel destination page; slot id = travel-<slug>-featured-1, ad.category = destination slug. */
+  "travel-featured",
 ] as const;
 export type Placement = (typeof PLACEMENTS)[number];
 

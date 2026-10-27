@@ -11,6 +11,7 @@ const nav = [
   { href: liveTools[0]?.route ?? "/", label: "Free tools" },
   { href: "/tax-deadlines", label: "Deadlines" },
   { href: "/calendar", label: "Calendar" },
+  { href: "/travel", label: "Travel" },
   { href: "/magazine", label: "Magazine" },
 ];
 
