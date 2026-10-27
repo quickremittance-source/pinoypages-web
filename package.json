@@ -4,14 +4,17 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "npm run images:check",
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --max-warnings=0",
     "typecheck": "tsc --noEmit",
-    "check": "npm run format:check && npm run lint && npm run typecheck && npm run build && npm run test",
+    "check": "npm run images:check && npm run format:check && npm run lint && npm run typecheck && npm run build && npm run test",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "playwright test",
+    "images:optimize": "node scripts/optimize-images.mjs public && node scripts/optimize-images.mjs src/app",
+    "images:check": "node scripts/optimize-images.mjs --check public && node scripts/optimize-images.mjs --check src/app",
     "print:plan": "node scripts/print-plan.mjs",
     "new-edition": "node scripts/new-edition.mjs"
   },

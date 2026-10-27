@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { liveTools } from "@/lib/registry";
 import { brand } from "@/lib/guide";
+import { img, unoptimizedRemote } from "@/lib/img";
 
 const nav = [
   { href: "/advertise", label: "Advertise" },
@@ -18,7 +19,8 @@ const nav = [
 export function Logo({ small = false }: { small?: boolean }) {
   return (
     <Image
-      src="/brand/pinoypages-logo-horizontal.png"
+      src={img("/brand/pinoypages-logo-horizontal.webp")}
+      unoptimized={unoptimizedRemote}
       alt="Pinoy Pages"
       width={1190}
       height={300}

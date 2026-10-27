@@ -3,11 +3,13 @@ import type { NextConfig } from "next";
 const isDev = process.env.NODE_ENV !== "production";
 const ga = !!process.env.NEXT_PUBLIC_GA_ID;
 const allowIndexing = process.env.ALLOW_INDEXING === "true";
+const imageBase = process.env.NEXT_PUBLIC_IMAGE_BASE;
+const imageOrigin = imageBase ? new URL(imageBase).origin : "";
 const csp = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}${ga ? " https://www.googletagmanager.com" : ""}`,
   "style-src 'self' 'unsafe-inline'",
-  `img-src 'self' data:${ga ? " https://*.google-analytics.com https://*.googletagmanager.com" : ""}`,
+  `img-src 'self' data:${imageOrigin ? ` ${imageOrigin}` : ""}${ga ? " https://*.google-analytics.com https://*.googletagmanager.com" : ""}`,
   "font-src 'self'",
   `connect-src 'self'${ga ? " https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com" : ""}`,
   "frame-ancestors 'none'",
@@ -19,6 +21,13 @@ const csp = [
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  images: {
+    formats: ["image/avif", "image/webp"],
+    remotePatterns: [
+      { protocol: "https", hostname: "*.r2.dev" },
+      ...(imageBase ? [{ protocol: "https" as const, hostname: new URL(imageBase).hostname }] : []),
+    ],
+  },
   async redirects() {
     return [
       { source: "/tools/hst", destination: "/tools/hst-checker", permanent: true },
