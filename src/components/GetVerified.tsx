@@ -216,7 +216,7 @@ export function GetVerified({ l }: { l?: Pick<Listing, "id" | "name"> }) {
         </div>
         <ClaimForm listing={l?.id} listingName={l?.name} />
       </section>
-      {l && <QrSection l={l} />}
+      {l && listingById(l.id) && <QrSection l={listingById(l.id)!} />}
     </div>
   );
 }
