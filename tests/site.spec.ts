@@ -507,7 +507,7 @@ test("pilot menu = two tiers: Free / Verified $99 one-time (everything included)
       0,
     );
     await expect(page.getByText(/pay-per-lead|per lead/i)).toHaveCount(0);
-    await expect(page.getByText(/Prices per issue, in CAD, plus applicable HST/)).toBeVisible();
+    await expect(page.getByText(/Verified is a one-time fee, in CAD, plus applicable HST/)).toBeVisible();
   }
   await page.goto("/upgrade");
   await expect(page.getByText(guide.brand.pitch)).toBeVisible();
