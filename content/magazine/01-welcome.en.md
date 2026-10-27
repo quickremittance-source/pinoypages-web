@@ -4,7 +4,7 @@ slug: /about/welcome
 lang: en
 status: DRAFT — CONFIDENTIAL — not for publication
 seo_title: "Pinoy Pages 2026–2027: Filipino Money & Business, GTA"
-meta_description: "Pinoy Pages is an annual GTA directory of Filipino-Canadian tax, accounting, insurance and mortgage pros, with free HST, CPP and deadline tools."
+meta_description: "Pinoy Pages is an annual GTA directory of Filipino-Canadian tax, accounting, insurance and mortgage pros, with free CPP and deadline tools."
 last_checked: 2026-10-17
 ---
 
@@ -22,7 +22,6 @@ Mabuhay! **Pinoy Pages 2026–2027** is the annual directory of Filipino-Canadia
 
 - **A directory** of Filipino-Canadian money and business services (tax, accounting, insurance, banking/mortgage, independent pros and small businesses). Every listing shows the business name and contact details, so you can reach them yourself.
 - **Free tools:**
-  - **HST registration checker**: answer a few questions to see whether you might be past the $30,000 small supplier limit → [HST checker](https://pinoypages.ca/tools/hst-checker) _[URL TBC]_
   - **Self-employed CPP estimator**: a rough idea of your CPP contributions on self-employment income → [CPP estimator](https://pinoypages.ca/tools/cpp-estimator) _[URL TBC]_
   - **Tax deadlines page**: the key dates for 2027 tax season in one place → [Tax deadlines](https://pinoypages.ca/tax-deadlines) _[URL TBC]_
 - **Plain-language guides** to Canadian tax and benefits, in English and Tagalog

@@ -15,7 +15,7 @@ Nine years later, [Perlas Bookkeeping & Payroll](/listing/biz-01) occupies a sha
 
 Her pricing is fixed and monthly, a decision she made after watching small-business owners avoid calling their accountants for fear of being billed by the quarter-hour. "If you're afraid to ask me a question, I'm useless to you," she says. Clients text her on Thursday evenings, when the office stays open until eight, and she answers.
 
-The work itself is unglamorous and exacting. Bank reconciliations. Payroll remittances. Quarterly HST returns, filed before the deadline rather than on it. For newer clients who are unsure whether they need to register for HST at all, she begins with the [HST checker](/tools/hst-checker) and a frank conversation about where their revenue is heading.
+The work itself is unglamorous and exacting. Bank reconciliations. Payroll remittances. Quarterly HST returns, filed before the deadline rather than on it. For newer clients who are unsure whether they need to register for HST at all, she begins with a frank conversation about where their revenue is heading.
 
 Her more evangelical moments concern record-keeping. She has a standing offer for any new client who arrives with a shoebox: she will sort it, and then she will teach them never to need one again. Most people, she says, need about three months to acquire the habit of photographing a receipt the moment it is printed.
 

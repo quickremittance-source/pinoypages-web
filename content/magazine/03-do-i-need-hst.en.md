@@ -23,8 +23,6 @@ Most businesses **must register for GST/HST once they are no longer a "small sup
 
 If you stay at **$30,000 or less** over four consecutive calendar quarters, you're a small supplier. You **don't have to register**, but you can choose to.
 
-> 👉 **Try it:** our free [HST registration checker](https://pinoypages.ca/tools/hst-checker) _[URL TBC]_ walks you through your quarter-by-quarter sales. It gives you a general indication only, not a ruling.
-
 ## What counts toward the $30,000
 
 - Your **total revenue before expenses** from taxable sales. That's **gross**, not profit.

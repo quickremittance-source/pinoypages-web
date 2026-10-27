@@ -40,7 +40,7 @@ In 2027 you'll file your tax return for the **2026 tax year** (January 1 to Dece
 - **Monthly or quarterly filers:** file and pay **one month after** the end of each reporting period.
 - **Annual filers:** usually file and pay **three months after** your fiscal year-end. But if you're **self-employed with a December 31 year-end**, your GST/HST **payment is due April 30, 2027** and your **filing deadline is June 15, 2027**.
 
-Not sure if you need to register? Read our guide [Do I need to register for HST?](/guides/do-i-need-hst) or try the [HST checker](https://pinoypages.ca/tools/hst-checker) _[URL TBC]_.
+Not sure if you need to register? Read our guide [Do I need to register for HST?](/guides/do-i-need-hst).
 
 ## Weekend and holiday rule
 

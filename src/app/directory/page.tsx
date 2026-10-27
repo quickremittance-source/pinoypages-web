@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CATEGORY_TOOLS } from "@/components/CategoryTools";
 import { PageHead } from "@/components/Chrome";
 import { PublicListings } from "@/components/alt/PublicListings";
 import { CategoryTiles } from "@/components/CategoryTiles";
@@ -52,6 +53,14 @@ export default async function Page({
             ) : (
               <p className="mt-3 rounded-xl border-2 border-dashed border-ink/20 bg-white p-4 text-muted">
                 Its own section in the {s.edition} edition. Not open for listings yet.
+                {CATEGORY_TOOLS[s.slug] && (
+                  <>
+                    {" "}
+                    <Link href={`/directory/${s.slug}`} className="font-semibold text-turqdk underline">
+                      Use the free tools now
+                    </Link>
+                  </>
+                )}
               </p>
             )}
           </section>

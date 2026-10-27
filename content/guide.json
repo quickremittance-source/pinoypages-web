@@ -116,9 +116,8 @@
       "page": 5,
       "section": "magazine",
       "part": "magazine",
-      "title": "Do I need to register for HST? The $30,000 small supplier rule, explained + HST checker",
-      "route": "/magazine/do-i-need-hst",
-      "toolQr": "/tools/hst-checker"
+      "title": "Do I need to register for HST? The $30,000 small supplier rule, explained",
+      "route": "/magazine/do-i-need-hst"
     },
     {
       "page": 6,
@@ -417,13 +416,6 @@
     "Prices are in CAD, plus applicable HST. Draft terms, to be reviewed by a lawyer before launch."
   ],
   "tools": [
-    {
-      "id": "hst",
-      "title": "HST registration checker",
-      "route": "/tools/hst-checker",
-      "enabled": true,
-      "phase": "v1"
-    },
     {
       "id": "cpp",
       "title": "Self-employed CPP estimator",
@@ -976,9 +968,7 @@
       "kind": "profile",
       "season": "spring",
       "listings": [],
-      "tools": [
-        "/tools/cpp-estimator"
-      ],
+      "tools": ["/tools/cpp-estimator"],
       "dek": "Meet the Verified Kabayan: Maria Santos of Bituin Tax & Bookkeeping, Scarborough.",
       "tl": false,
       "sample": true,
@@ -992,9 +982,7 @@
       "kind": "profile",
       "season": "fall",
       "listings": [],
-      "tools": [
-        "/tools/hst-checker"
-      ],
+      "tools": [],
       "dek": "Meet the Verified Kabayan: Grace Villanueva of Perlas Bookkeeping & Payroll, Markham.",
       "tl": false,
       "sample": true,
@@ -1022,9 +1010,7 @@
       "kind": "how-to",
       "season": "spring",
       "listings": [],
-      "tools": [
-        "/tax-deadlines"
-      ],
+      "tools": ["/tax-deadlines"],
       "dek": "How the First Home Savings Account works alongside an RRSP for first-time buyers in the GTA.",
       "tl": false,
       "sample": true,
@@ -1063,32 +1049,17 @@
     {
       "id": "spring",
       "name": "Spring (tax season, Jan–May)",
-      "months": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ]
+      "months": [1, 2, 3, 4, 5]
     },
     {
       "id": "summer",
       "name": "Summer (Jun–Aug)",
-      "months": [
-        6,
-        7,
-        8
-      ]
+      "months": [6, 7, 8]
     },
     {
       "id": "fall",
       "name": "Fall (Sep–Dec)",
-      "months": [
-        9,
-        10,
-        11,
-        12
-      ]
+      "months": [9, 10, 11, 12]
     }
   ],
   "contacts": {
@@ -1115,12 +1086,7 @@
       "name": "Money & Business",
       "status": "live",
       "edition": "2026–2027",
-      "subcategories": [
-        "tax-accounting",
-        "insurance-financial",
-        "business-services",
-        "independents"
-      ]
+      "subcategories": ["tax-accounting", "insurance-financial", "business-services", "independents"]
     },
     {
       "slug": "travel-padala-remit",

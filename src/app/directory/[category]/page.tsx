@@ -5,30 +5,50 @@ import { PageHead } from "@/components/Chrome";
 import { CategoryTiles } from "@/components/CategoryTiles";
 import { ListingResults } from "@/components/ListingResults";
 import { UpcomingEvents } from "@/components/UpcomingEvents";
+import { CATEGORY_TOOLS, CategoryTools } from "@/components/CategoryTools";
 import { categories, listings, listingsIn, sections } from "@/lib/guide";
 
 export const dynamicParams = false;
+export const revalidate = 3600;
 /** One route for both levels: a live section (/directory/money-business) or a sub-category (/directory/tax-accounting). */
 export function generateStaticParams() {
-  return [...sections.filter((s) => s.status === "live").map((s) => s.slug), ...categories.map((c) => c.slug)].map(
-    (category) => ({ category }),
-  );
+  const toolOnly = sections.filter((s) => s.status === "coming" && CATEGORY_TOOLS[s.slug]).map((s) => s.slug);
+  return [
+    ...sections.filter((s) => s.status === "live").map((s) => s.slug),
+    ...toolOnly,
+    ...categories.map((c) => c.slug),
+  ].map((category) => ({ category }));
 }
 type P = { params: Promise<{ category: string }> };
 const find = (slug: string) => {
   const section = sections.find((s) => s.slug === slug && s.status === "live");
   const sub = categories.find((x) => x.slug === slug);
-  return { section, sub };
+  const coming = sections.find((s) => s.slug === slug && s.status === "coming" && CATEGORY_TOOLS[s.slug]);
+  return { section, sub, coming };
 };
 export async function generateMetadata({ params }: P): Promise<Metadata> {
   const { category } = await params;
-  const { section, sub } = find(category);
-  return { title: section?.name ?? sub?.name, alternates: { canonical: `/directory/${category}` } };
+  const { section, sub, coming } = find(category);
+  return { title: section?.name ?? sub?.name ?? coming?.name, alternates: { canonical: `/directory/${category}` } };
 }
 
 export default async function Page({ params }: P) {
   const { category } = await params;
-  const { section, sub } = find(category);
+  const { section, sub, coming } = find(category);
+  if (coming) {
+    return (
+      <>
+        <PageHead
+          kicker={`Directory · Category · ${coming.note ?? "Coming next edition"}`}
+          title={coming.name}
+          intro={`Listings for this category open in the ${coming.edition} edition. The free tools below work now.`}
+        />
+        <div className="mx-auto max-w-6xl space-y-8 px-4 py-8">
+          <CategoryTools slug={coming.slug} />
+        </div>
+      </>
+    );
+  }
   if (section) {
     const items = listings.filter((l) => section.subcategories.includes(l.category));
     return (
@@ -37,6 +57,7 @@ export default async function Page({ params }: P) {
         <div className="mx-auto max-w-6xl space-y-8 px-4 py-8">
           <CategoryTiles section={section} />
           <ListingResults items={items} />
+          <CategoryTools slug={section.slug} />
         </div>
       </>
     );
@@ -71,6 +92,9 @@ export default async function Page({ params }: P) {
           Businesses marked SAMPLE are fictional, shown until real listings are verified.
         </p>
         <ListingResults items={listingsIn(sub.slug)} showSubFilter={false} subLabel={sub.name} />
+        <div className="mt-12">
+          <CategoryTools slug={sub.slug} />
+        </div>
         <div className="mt-12">
           <UpcomingEvents title={`Upcoming events · ${sub.name}`} sub={sub.slug} />
         </div>

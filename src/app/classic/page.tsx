@@ -21,7 +21,15 @@ const TOOLS = [
   ...liveTools.map((t) => ({
     href: t.route,
     t: t.title,
-    d: t.id === "hst" ? "Do you need to register for HST?" : "What will CPP cost you this year?",
+    d:
+      (
+        {
+          cpp: "What will CPP cost you this year?",
+          "peso-converter": "Convert Canadian dollars to pesos at today's reference rate.",
+          "remittance-compare": "Compare fees and rates for sending money home.",
+          "balikbayan-box": "Find balikbayan box carriers and ask for a quote.",
+        } as Record<string, string>
+      )[t.id] ?? "",
   })),
   { href: "/tax-deadlines", t: "2027 tax deadlines", d: "The CRA dates that matter for your 2026 return." },
   { href: "/calendar", t: "Money & Business Calendar", d: "Deadlines and community events, Spring to Fall." },

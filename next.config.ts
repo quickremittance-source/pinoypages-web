@@ -21,7 +21,8 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   async redirects() {
     return [
-      { source: "/tools/hst", destination: "/tools/hst-checker", permanent: true },
+      { source: "/tools/hst", destination: "/magazine/do-i-need-hst", permanent: true },
+      { source: "/tools/hst-checker", destination: "/magazine/do-i-need-hst", permanent: true },
       { source: "/tools/cpp", destination: "/tools/cpp-estimator", permanent: true },
       { source: "/deadlines", destination: "/tax-deadlines", permanent: true },
     ];

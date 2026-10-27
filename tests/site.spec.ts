@@ -67,18 +67,6 @@ test("all ad slots (11 + calendar sponsor) show on /advertise as the online prev
   }
 });
 
-test("HST checker verdicts", async ({ page }) => {
-  await page.goto("/tools/hst-checker");
-  const q = page.getByLabel(/Quarter \d sales/);
-  for (let i = 0; i < 4; i++) await q.nth(i).fill("5000");
-  await expect(page.getByRole("status")).toContainText("small supplier");
-  await q.nth(0).fill("12000");
-  await q.nth(1).fill("12000");
-  await expect(page.getByRole("status")).toContainText("must register by the end of the month");
-  await q.nth(2).fill("31000");
-  await expect(page.getByRole("status")).toContainText("One quarter is over $30,000");
-});
-
 test("CPP estimator caps at 2026 maximums", async ({ page }) => {
   await page.goto("/tools/cpp-estimator");
   const input = page.getByLabel(/net self-employment income/);
@@ -289,7 +277,7 @@ test("categories: Money & Business is the live category; Travel, Padala & Remit 
   await expect(page.getByRole("heading", { name: /Category: Money & Business/ })).toBeVisible();
   const coming = page.locator('[data-section="travel-padala-remit"]');
   await expect(coming).toContainText("Coming next edition");
-  await expect(coming.getByRole("link")).toHaveCount(0);
+  await expect(coming.getByRole("link")).toHaveAttribute("href", "/directory/travel-padala-remit");
   expect((await page.goto("/directory/remittance"))?.status()).toBe(404);
 });
 
@@ -550,14 +538,16 @@ test("edition = magazine up front + directory at back; 20 pages, 11 ad slots + c
     Math.min(...guide.pages.filter((p) => p.part === "directory").map((p) => p.page)),
   );
   expect((await request.get("/destinations")).status()).toBe(404);
-  expect((await request.get("/tools/hst", { maxRedirects: 0 })).headers().location).toContain("/tools/hst-checker");
+  expect((await request.get("/tools/hst", { maxRedirects: 0 })).headers().location).toContain(
+    "/magazine/do-i-need-hst",
+  );
   await page.goto("/edition");
   await expect(page.getByRole("heading", { name: "Magazine" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Directory" })).toBeVisible();
   await page.goto("/magazine/do-i-need-hst");
   await expect(page.getByText("Print page 5")).toBeVisible();
   await expect(page.getByRole("link", { name: "Basahin sa Tagalog" })).toBeVisible();
-  await expect(page.getByRole("link", { name: "Open the free tool" })).toHaveAttribute("href", "/tools/hst-checker");
+  await expect(page.getByRole("link", { name: "Open the free tool" })).toHaveCount(0);
   await page.goto("/calendar");
   for (const s of ["spring", "summer", "fall"])
     await expect(page.locator(`[data-season="${s}"]`).first()).toBeVisible();
@@ -811,7 +801,7 @@ test("home: value proposition, category tiles, featured Verified, Get Verified C
       .getByRole("link", { name: /Get Verified/ })
       .first(),
   ).toHaveAttribute("href", "/get-verified");
-  for (const href of ["/tools/hst-checker", "/tools/cpp-estimator", "/tax-deadlines", "/calendar"])
+  for (const href of ["/tools/cpp-estimator", "/tax-deadlines", "/calendar"])
     await expect(page.locator(`main a[href="${href}"]`).first()).toBeVisible();
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
 });
