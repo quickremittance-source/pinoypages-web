@@ -1230,7 +1230,7 @@ test("alt home: search + GTA area dropdown, real counts, featured tabs, communit
   await expect(page.getByTestId("brand-line")).toHaveText(
     "Advertise in Pinoy Pages 2026–2027 · The Filipino Business Directory · GTA",
   );
-  const opts = await page.locator("#alt-city option").allInnerTexts();
+  const opts = await page.locator("#alt-area option").allInnerTexts();
   expect(opts).toEqual([
     "All GTA",
     "Toronto",
@@ -1244,7 +1244,10 @@ test("alt home: search + GTA area dropdown, real counts, featured tabs, communit
   ]);
   const pubData = pub.listings as { category: string }[];
   for (const li of await page.getByTestId("alt-categories").locator("li").all()) {
-    const slug = (await li.locator("a").getAttribute("href"))!.split(/[/#]/).pop()!.replace(/^pub-/, "");
+    const href = (await li.locator("a").getAttribute("href"))!;
+    const slug = href.includes("category=")
+      ? new URL(href, "https://pinoypages.ca").searchParams.get("category")!
+      : href.split(/[/#]/).pop()!.replace(/^pub-/, "");
     const n =
       guide.listings.filter((l) => l.category === slug).length + pubData.filter((l) => l.category === slug).length;
     expect(Number(await li.getAttribute("data-count"))).toBe(n);
@@ -1269,9 +1272,9 @@ test("alt home: search + GTA area dropdown, real counts, featured tabs, communit
   const text = await page.getByRole("main").innerText();
   expect(text).not.toMatch(/we verify every|\d,\d{3}\+|since 20\d\d|subscribers|Open now/i);
   expect(await page.locator("main img").count()).toBe(0);
-  await page.locator("#alt-city").selectOption("Mississauga");
+  await page.locator("#alt-area").selectOption("Mississauga");
   await page.getByRole("search").getByRole("button", { name: "Search" }).click();
-  await expect(page).toHaveURL(/\/directory\?.*city=Mississauga/);
+  await expect(page).toHaveURL(/\/directory\?.*area=Mississauga/);
 });
 
 test("public free listings: GTA only, free + unverified, sourced, name + contact only, no padala/remit", async ({
@@ -1308,31 +1311,88 @@ test("public free listings: GTA only, free + unverified, sourced, name + contact
   const sec = page.getByTestId("public-listings");
   await expect(sec.getByTestId("public-note")).toContainText("Owners can claim, correct or remove a listing");
   await expect(sec.getByTestId("public-note").getByRole("link", { name: "claim" })).toHaveAttribute("href", "/upgrade");
-  await expect(sec.locator("li[data-public]")).toHaveCount(pub.listings.length);
+  const pageSize = 48;
+  const expectedFirst = Math.min(pageSize, pub.listings.length);
+  await expect(sec.locator("li[data-public]")).toHaveCount(expectedFirst);
+  await expect(page.getByTestId("directory-range")).toHaveText(`Showing 1–${expectedFirst} of ${pub.listings.length}`);
   await expect(sec.locator("img, [data-badge], [data-testid=zcard-bridge]")).toHaveCount(0);
   await expect(sec).not.toContainText(/Verified Kabayan|Save contact|exa\.ai|totimes/);
+  // listing_id stays on each row for analytics
+  await expect(sec.locator("li[data-public]").first()).toHaveAttribute("data-listing-id", /.+/);
 });
 
 test("directory search and filters cover the free public listings", async ({ page }) => {
   const ls = pub.listings as { name: string; category: string; area: string }[];
+  const miss = ls.filter((l) => l.area === "Mississauga");
+  const missFood = miss.filter((l) => l.category === "food");
   await page.goto("/directory");
-  const sec = page.getByTestId("public-listings");
-  const visible = sec.locator("li[data-public]:visible");
-  await expect(visible).toHaveCount(ls.length);
-  const search = page.getByRole("search");
-  await search.locator('select[name="city"]').selectOption("Mississauga");
-  await expect(visible).toHaveCount(ls.filter((l) => l.area === "Mississauga").length);
-  await search.locator('select[name="sub"]').selectOption("food");
-  await expect(visible).toHaveCount(ls.filter((l) => l.area === "Mississauga" && l.category === "food").length);
-  await expect(page).toHaveURL(/sub=food/);
-  await expect(sec.locator("#pub-community")).toBeHidden();
-  await search.getByRole("button", { name: "Clear" }).click();
-  await search.getByRole("searchbox").fill("harina");
-  await expect(visible).toHaveCount(1);
-  await expect(visible.first()).toContainText("Harina Bakeshoppe");
-  await search.getByRole("searchbox").fill("wilson ave");
-  expect(await visible.count()).toBeGreaterThan(5);
-  await expect(page.getByTestId("search-count")).toContainText("shown");
+  const search = page.getByRole("search", { name: "Search the directory" });
+  await expect(page.getByTestId("search-count")).toHaveText(`${ls.length} businesses found`);
+  await search.locator('select[name="area"]').selectOption("Mississauga");
+  await search.getByRole("button", { name: "Search" }).click();
+  await expect(page).toHaveURL(/area=Mississauga/);
+  await expect(page.getByTestId("search-count")).toHaveText(
+    `${miss.length} business${miss.length === 1 ? "" : "es"} found`,
+  );
+  await expect(page.getByTestId("public-listings").locator("li[data-public]")).toHaveCount(miss.length);
+  await search.locator('select[name="category"]').selectOption("food");
+  await search.getByRole("button", { name: "Search" }).click();
+  await expect(page).toHaveURL(/category=food/);
+  await expect(page).toHaveURL(/area=Mississauga/);
+  await expect(page.getByTestId("public-listings").locator("li[data-public]")).toHaveCount(missFood.length);
+  await search.getByRole("link", { name: "Clear" }).click();
+  await expect(page).toHaveURL(/\/directory\/?$/);
+  await expect(page.getByTestId("search-count")).toHaveText(`${ls.length} businesses found`);
+  await page.goto("/directory?q=harina");
+  await expect(page).toHaveURL(/q=harina/);
+  await expect(page).not.toHaveURL(/area=/);
+  await expect(page).not.toHaveURL(/category=/);
+  await expect(page.getByTestId("public-listings").locator("li[data-public]")).toHaveCount(1);
+  await expect(page.getByTestId("public-listings").locator("li[data-public]").first()).toContainText(
+    "Harina Bakeshoppe",
+  );
+  await page.goto("/directory?q=wilson%20ave");
+  expect(await page.getByTestId("public-listings").locator("li[data-public]").count()).toBeGreaterThan(5);
+  await expect(page.getByTestId("search-count")).toContainText("found");
+  await page.goto("/directory?q=zzz-nothing-here");
+  await expect(page.getByTestId("directory-empty")).toBeVisible();
+  await expect(page.getByTestId("search-count")).toContainText("No businesses match");
+});
+
+test("directory pagination: page size, page 2 link, filter combos keep page in URL", async ({ page }) => {
+  const total = pub.listings.length;
+  const pageSize = 48;
+  const totalPages = Math.ceil(total / pageSize);
+  expect(totalPages).toBeGreaterThan(1);
+  await page.goto("/directory");
+  await expect(page.getByTestId("public-listings").locator("li[data-public]")).toHaveCount(pageSize);
+  await expect(page.getByTestId("directory-range")).toHaveText(`Showing 1–${pageSize} of ${total}`);
+  const nav = page.getByTestId("directory-pagination");
+  await expect(nav).toBeVisible();
+  await expect(nav.getByRole("link", { name: "Next page, page 2" })).toHaveAttribute("href", "/directory?page=2");
+  await expect(nav.getByRole("link", { name: "Go to page 2" })).toHaveAttribute("href", "/directory?page=2");
+  await nav.getByRole("link", { name: "Go to page 2" }).click();
+  await expect(page).toHaveURL(/\/directory\?page=2/);
+  const remaining = total - pageSize;
+  await expect(page.getByTestId("public-listings").locator("li[data-public]")).toHaveCount(
+    Math.min(pageSize, remaining),
+  );
+  await expect(page.getByTestId("directory-range")).toHaveText(
+    `Showing ${pageSize + 1}–${pageSize + Math.min(pageSize, remaining)} of ${total}`,
+  );
+  // Filter combo: category + area, shareable URL, no pagination when under page size
+  await page.goto("/directory?category=food&area=Mississauga");
+  const missFood = (pub.listings as { category: string; area: string }[]).filter(
+    (l) => l.category === "food" && l.area === "Mississauga",
+  );
+  await expect(page.getByTestId("public-listings").locator("li[data-public]")).toHaveCount(missFood.length);
+  await expect(page.getByTestId("directory-pagination")).toHaveCount(0);
+  // Legacy city/sub aliases still work
+  await page.goto("/directory?city=Scarborough&sub=food");
+  const scarFood = (pub.listings as { category: string; area: string }[]).filter(
+    (l) => l.category === "food" && l.area === "Scarborough",
+  );
+  await expect(page.getByTestId("public-listings").locator("li[data-public]")).toHaveCount(scarFood.length);
 });
 
 test("/advertise shows four print sizes with dimensions, rates on request, specs and TBA deadlines", async ({

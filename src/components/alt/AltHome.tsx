@@ -83,12 +83,12 @@ export function AltHome() {
               placeholder="Search a business name"
               className="min-w-0 flex-1 rounded-full px-5 py-3 text-ink outline-none"
             />
-            <label htmlFor="alt-city" className="sr-only">
+            <label htmlFor="alt-area" className="sr-only">
               Area
             </label>
             <select
-              id="alt-city"
-              name="city"
+              id="alt-area"
+              name="area"
               className="rounded-full border border-ink/15 px-4 py-3 text-ink"
               defaultValue=""
             >
@@ -226,7 +226,7 @@ export function AltHome() {
         <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" data-testid="alt-areas">
           {areas.map((a) => (
             <li key={a.area} data-area={a.area} data-count={a.n}>
-              <Link href={`/directory?city=${encodeURIComponent(a.area)}`} className="card block p-4 hover:shadow-md">
+              <Link href={`/directory?area=${encodeURIComponent(a.area)}`} className="card block p-4 hover:shadow-md">
                 <span className="flex items-baseline justify-between">
                   <strong className="text-ink">📍 {a.area}</strong>
                   <span className="text-sm font-bold text-turqdk">

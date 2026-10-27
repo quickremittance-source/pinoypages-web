@@ -44,7 +44,7 @@ export const categoryCounts = () => [
   ...publicCategories.map((c) => ({
     slug: c.slug,
     name: c.name,
-    href: `/directory#pub-${c.slug}`,
+    href: `/directory?category=${c.slug}`,
     icon: c.icon,
     total: publicListings.filter((l) => l.category === c.slug).length,
     sample: 0,
@@ -83,10 +83,10 @@ export const communityEvents = (limit = 4) =>
 
 /** Popular searches = shortcuts into real directory filters (not a trend claim). */
 export const POPULAR = [
-  { label: "Restaurants & bakeries", href: "/directory#pub-food" },
-  { label: "Groceries", href: "/directory#pub-groceries" },
-  { label: "Money & Business", href: "/directory#pub-money-business" },
-  { label: "Beauty", href: "/directory#pub-beauty" },
-  { label: "In Scarborough", href: "/directory?city=Scarborough" },
-  { label: "In Mississauga", href: "/directory?city=Mississauga" },
+  { label: "Restaurants & bakeries", href: "/directory?category=food" },
+  { label: "Groceries", href: "/directory?category=groceries" },
+  { label: "Money & Business", href: "/directory?category=money-business" },
+  { label: "Beauty", href: "/directory?category=beauty" },
+  { label: "In Scarborough", href: "/directory?area=Scarborough" },
+  { label: "In Mississauga", href: "/directory?area=Mississauga" },
 ];

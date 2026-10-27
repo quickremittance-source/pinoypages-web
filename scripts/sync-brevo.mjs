@@ -2,6 +2,7 @@
 // Sync website listings into Brevo as contacts in "Pinoy Pages — Website Listings".
 // Idempotent: contacts are keyed by EXT_ID = listing id. Sends nothing; never touches other lists.
 // CASL: listings are publicly sourced, no consent -> CONSENT_STATUS="none - publicly sourced", OPT_IN=false.
+// LISTING_STATUS: 1 = "Prospect listed", 2 = "Verified listed" (blank = neither).
 // Usage: BREVO_API_KEY=... node scripts/sync-brevo.mjs [--dry-run]
 // Only real listings (content/public-listings.json). The sample listings in content/guide.json are fictional and are never synced.
 import { readFileSync } from "node:fs";
@@ -15,15 +16,54 @@ if (!KEY && !DRY) {
 const LIST_NAME = "Pinoy Pages — Website Listings";
 const CONSENT = "none - publicly sourced";
 const API = "https://api.brevo.com/v3";
+const CONTACT_PAGE = 100;
+const WRITE_CONCURRENCY = 5;
+const MAX_RETRIES = 6;
+
+async function sleep(ms) {
+  await new Promise((r) => setTimeout(r, ms));
+}
 
 async function api(method, path, body) {
-  const r = await fetch(API + path, {
-    method,
-    headers: { "api-key": KEY, "content-type": "application/json", accept: "application/json" },
-    body: body ? JSON.stringify(body) : undefined,
-  });
-  const t = await r.text();
-  return { ok: r.ok, status: r.status, data: t ? JSON.parse(t) : null };
+  let attempt = 0;
+  for (;;) {
+    const r = await fetch(API + path, {
+      method,
+      headers: { "api-key": KEY, "content-type": "application/json", accept: "application/json" },
+      body: body ? JSON.stringify(body) : undefined,
+    });
+    const t = await r.text();
+    let data = null;
+    if (t) {
+      try {
+        data = JSON.parse(t);
+      } catch {
+        data = { raw: t };
+      }
+    }
+    if (r.status === 429 && attempt < MAX_RETRIES) {
+      const ra = Number(r.headers.get("retry-after"));
+      const wait = Number.isFinite(ra) && ra > 0 ? ra * 1000 : Math.min(30_000, 500 * 2 ** attempt);
+      attempt++;
+      await sleep(wait);
+      continue;
+    }
+    return { ok: r.ok, status: r.status, data };
+  }
+}
+
+async function mapPool(items, concurrency, fn) {
+  const out = new Array(items.length);
+  let i = 0;
+  async function worker() {
+    for (;;) {
+      const idx = i++;
+      if (idx >= items.length) return;
+      out[idx] = await fn(items[idx], idx);
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(concurrency, items.length) || 1 }, () => worker()));
+  return out;
 }
 
 const data = JSON.parse(readFileSync(new URL("../content/public-listings.json", import.meta.url)));
@@ -41,7 +81,20 @@ const ATTRS = ["CATEGORY", "AREA", "TIER", "LISTING_SOURCE", "LISTING_SLUG", "WE
 const BOOL_ATTRS = ["VERIFIED"];
 
 async function ensureAttributes() {
-  const { data: d } = await api("GET", "/contacts/attributes");
+  let d = null;
+  for (let i = 0; i < 3; i++) {
+    const r = await api("GET", "/contacts/attributes");
+    if (r.ok && r.data?.attributes) {
+      d = r.data;
+      break;
+    }
+    await sleep(500 * 2 ** i);
+  }
+  // If Brevo's attributes endpoint is down, do not attempt mass-create (attrs already exist in practice).
+  if (!d?.attributes) {
+    console.error("warn: could not list contact attributes; skipping ensureAttributes");
+    return [];
+  }
   const have = new Set(d.attributes.map((a) => a.name));
   const created = [];
   for (const [n, type] of [
@@ -56,18 +109,55 @@ async function ensureAttributes() {
     }
     created.push(n);
   }
+  // LISTING_STATUS: category attribute. 1 = "Prospect listed", 2 = "Verified listed", blank = not on the site.
+  if (!have.has("LISTING_STATUS")) {
+    if (!DRY) {
+      const r = await api("POST", "/contacts/attributes/category/LISTING_STATUS", {
+        type: "category",
+        enumeration: [
+          { value: 1, label: "Prospect listed" },
+          { value: 2, label: "Verified listed" },
+        ],
+      });
+      if (!r.ok) throw new Error(`attr LISTING_STATUS: ${JSON.stringify(r.data)}`);
+    }
+    created.push("LISTING_STATUS");
+  }
   return created;
 }
 
 async function ensureList() {
-  const { data: d } = await api("GET", "/contacts/lists?limit=50");
-  const found = d.lists.find((l) => l.name === LIST_NAME);
-  if (found) return found.id;
-  if (DRY) return "(new)";
-  const folderId = d.lists[0]?.folderId ?? 1;
-  const r = await api("POST", "/contacts/lists", { name: LIST_NAME, folderId });
-  if (!r.ok) throw new Error(JSON.stringify(r.data));
-  return r.data.id;
+  let offset = 0;
+  for (;;) {
+    const { data: d, ok } = await api("GET", `/contacts/lists?limit=50&offset=${offset}`);
+    if (!ok) throw new Error(`lists: ${JSON.stringify(d)}`);
+    const lists = d?.lists || [];
+    const found = lists.find((l) => l.name === LIST_NAME);
+    if (found) return found.id;
+    if (lists.length < 50) {
+      if (DRY) return "(new)";
+      const folderId = lists[0]?.folderId ?? 1;
+      const r = await api("POST", "/contacts/lists", { name: LIST_NAME, folderId });
+      if (!r.ok) throw new Error(JSON.stringify(r.data));
+      return r.data.id;
+    }
+    offset += 50;
+  }
+}
+
+/** Paginate until exhausted so catalogues above 1,000 contacts stay complete. */
+async function fetchAllContacts() {
+  const all = [];
+  let offset = 0;
+  for (;;) {
+    const r = await api("GET", `/contacts?limit=${CONTACT_PAGE}&offset=${offset}`);
+    if (!r.ok) throw new Error(`contacts page offset=${offset}: ${JSON.stringify(r.data)}`);
+    const batch = r.data?.contacts || [];
+    all.push(...batch);
+    if (batch.length < CONTACT_PAGE) break;
+    offset += CONTACT_PAGE;
+  }
+  return all;
 }
 
 const norm = (s) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
@@ -77,10 +167,8 @@ const attrsCreated = DRY && !KEY ? [] : await ensureAttributes();
 const listId = DRY && !KEY ? "(new)" : await ensureList();
 
 let existing = [];
-if (KEY) {
-  const r = await api("GET", "/contacts?limit=1000");
-  existing = r.data?.contacts || [];
-}
+if (KEY) existing = await fetchAllContacts();
+
 const byName = new Map(
   existing
     .filter((c) => c.attributes?.BUSINESS_NAME && c.email && !c.attributes?.LISTING_SLUG)
@@ -88,6 +176,7 @@ const byName = new Map(
 );
 const usedSms = new Map();
 
+const jobs = [];
 for (const l of data.listings) {
   const attributes = {
     BUSINESS_NAME: l.name,
@@ -95,6 +184,7 @@ for (const l of data.listings) {
     AREA: l.area || "",
     TIER: l.tier === "verified" ? "Verified" : "Free",
     VERIFIED: !!l.verified,
+    LISTING_STATUS: l.verified ? 2 : 1, // 2 = "Verified listed", 1 = "Prospect listed"
     LISTING_SOURCE: l.source || "",
     LISTING_SLUG: l.id,
     WEBSITE: l.website || "",
@@ -105,16 +195,8 @@ for (const l of data.listings) {
   };
   const match = byName.get(norm(l.name));
   if (match) {
-    // Existing contact: only add attributes, leave list memberships and consent fields alone.
     out.matchedExisting.push(`${l.name} -> ${match.email}`);
-    if (!DRY) {
-      const safe = { ...attributes };
-      delete safe.CONSENT_STATUS;
-      delete safe.OPT_IN;
-      delete safe.EXT_ID;
-      const r = await api("PUT", `/contacts/${encodeURIComponent(match.email)}`, { attributes: safe });
-      if (!r.ok) out.errors.push(`${l.name}: ${JSON.stringify(r.data)}`);
-    }
+    jobs.push({ kind: "match", l, match, attributes });
     continue;
   }
   const email = l.email || null;
@@ -131,24 +213,52 @@ for (const l of data.listings) {
     usedSms.set(sms, l.name);
     attributes.SMS = sms;
   }
-  if (DRY) {
-    out.created.push(`${l.name} [${email || sms}]`);
-    continue;
+  jobs.push({ kind: "upsert", l, email, attributes });
+}
+
+if (DRY) {
+  for (const job of jobs) {
+    if (job.kind === "match") continue;
+    out.created.push(`${job.l.name} [${job.email || job.attributes.SMS}]`);
   }
-  const prev = await api("GET", `/contacts/${encodeURIComponent(l.id)}?identifierType=ext_id`);
-  if (prev.ok) {
-    const r = await api("PUT", `/contacts/${encodeURIComponent(l.id)}?identifierType=ext_id`, {
-      attributes,
-      listIds: [listId],
-    });
-    if (r.ok) out.updated.push(l.name);
-    else out.errors.push(`${l.name}: ${JSON.stringify(r.data)}`);
-  } else {
-    const body = { attributes, listIds: [listId], updateEnabled: true, ext_id: l.id };
-    if (email) body.email = email;
-    const r = await api("POST", "/contacts", body);
-    if (r.ok) out.created.push(l.name);
-    else out.errors.push(`${l.name}: ${JSON.stringify(r.data)}`);
+} else {
+  await mapPool(jobs, WRITE_CONCURRENCY, async (job) => {
+    if (job.kind === "match") {
+      const safe = { ...job.attributes };
+      delete safe.CONSENT_STATUS;
+      delete safe.OPT_IN;
+      delete safe.EXT_ID;
+      const r = await api("PUT", `/contacts/${encodeURIComponent(job.match.email)}`, { attributes: safe });
+      if (!r.ok) out.errors.push(`${job.l.name}: ${JSON.stringify(r.data)}`);
+      return;
+    }
+    const prev = await api("GET", `/contacts/${encodeURIComponent(job.l.id)}?identifierType=ext_id`);
+    if (prev.ok) {
+      const r = await api("PUT", `/contacts/${encodeURIComponent(job.l.id)}?identifierType=ext_id`, {
+        attributes: job.attributes,
+        listIds: [listId],
+      });
+      if (r.ok) out.updated.push(job.l.name);
+      else out.errors.push(`${job.l.name}: ${JSON.stringify(r.data)}`);
+    } else {
+      const body = { attributes: job.attributes, listIds: [listId], updateEnabled: true, ext_id: job.l.id };
+      if (job.email) body.email = job.email;
+      const r = await api("POST", "/contacts", body);
+      if (r.ok) out.created.push(job.l.name);
+      else out.errors.push(`${job.l.name}: ${JSON.stringify(r.data)}`);
+    }
+  });
+}
+
+const listingStatusCounts = { prospect: 0, verified: 0, blank: 0 };
+if (KEY) {
+  // Re-read after writes (or for dry-run confirmation of current state).
+  const contacts = DRY ? existing : await fetchAllContacts();
+  for (const c of contacts) {
+    const v = c.attributes?.LISTING_STATUS;
+    if (v === 1 || v === "1" || v === "Prospect listed") listingStatusCounts.prospect++;
+    else if (v === 2 || v === "2" || v === "Verified listed") listingStatusCounts.verified++;
+    else listingStatusCounts.blank++;
   }
 }
 
@@ -158,6 +268,8 @@ console.log(
       dryRun: DRY,
       listId,
       attrsCreated,
+      contactsFetched: existing.length,
+      listingStatusCounts,
       counts: Object.fromEntries(Object.entries(out).map(([k, v]) => [k, v.length])),
       ...out,
     },
