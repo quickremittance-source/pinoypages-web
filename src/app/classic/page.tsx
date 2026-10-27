@@ -115,7 +115,7 @@ export default function Home() {
             </form>
             <div className="mt-4 flex flex-wrap gap-3">
               <Link className="btn" href="/get-verified">
-                Get Verified · $199
+                Get Verified · $99
               </Link>
               <Link className="btn btn-ghost" href="/directory">
                 Browse the directory
@@ -187,10 +187,10 @@ export default function Home() {
           </div>
           <div className="card flex flex-col border-2 border-phred p-6">
             <p className="kicker">Verified · {brand.pilotLabel}</p>
-            <h3 className="mt-1 text-2xl font-extrabold text-ink">Get Verified · $199</h3>
+            <h3 className="mt-1 text-2xl font-extrabold text-ink">Get Verified · $99</h3>
             <p className="mt-2 text-muted">
               A featured card, the badge once you pass the visit and a mutual vouch, your ZCard and QR, and a monthly
-              scan report. One price per issue, everything included.
+              scan report. One one-time price, everything included.
             </p>
             <Link href="/get-verified" className="btn mt-4 self-start">
               Get Verified
@@ -213,7 +213,7 @@ export default function Home() {
                 Earned, never bought
               </h2>
               <p className="mt-2 text-muted">
-                $199 per issue, everything included. Payment makes you eligible; the badge is earned.
+                $99 one-time + HST, everything included. Payment makes you eligible; the badge is earned.
               </p>
               <Link href="/get-verified" className="btn mt-5">
                 Get Verified

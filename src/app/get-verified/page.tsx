@@ -13,7 +13,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ l
       <PageHead
         kicker={`For kabayan businesses · ${brand.pilotLabel}`}
         title="Be the kabayan they can trust"
-        intro="Get Verified for $199 per issue, everything included: the Verified Kabayan badge (earned, never bought), your ZCard, a QR for everything you print, and a monthly scan report that shows people found you."
+        intro="Get Verified for $99 one-time + HST, everything included: the Verified Kabayan badge (earned, never bought), your ZCard, a QR for everything you print, and a monthly scan report that shows people found you."
       />
       <GetVerified l={l} />
     </>

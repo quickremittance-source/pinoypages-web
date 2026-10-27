@@ -16,7 +16,7 @@ const WHY = [
   {
     icon: "🏪",
     t: "For businesses",
-    d: "List free with your name and contact, or get Verified for $199 per issue: a featured card, a ZCard with Save contact, a QR that counts every scan, and a monthly scan report.",
+    d: "List free with your name and contact, or get Verified for $99, one-time (+ HST): a featured card, a ZCard with Save contact, a QR that counts every scan, and a monthly scan report.",
   },
   {
     icon: "🤝",
@@ -138,7 +138,7 @@ export function AltHome() {
         <p className="mt-4 text-sm text-muted">
           Prefer a listing instead?{" "}
           <Link href="/get-verified" className="font-semibold text-turqdk underline">
-            Verified listing, $199 per issue
+            Verified listing, $99 one-time + HST
           </Link>
         </p>
       </section>
@@ -205,7 +205,7 @@ export function AltHome() {
                   The first Verified Kabayan businesses will appear here after their in-person visit and vouch.
                 </p>
                 <Link className="btn mt-4 inline-block" href="/get-verified">
-                  Get Verified · $199
+                  Get Verified · $99
                 </Link>
               </div>
             </div>
@@ -305,7 +305,7 @@ export function AltHome() {
             List free
           </Link>
           <Link className="btn" href="/get-verified">
-            Get Verified · $199
+            Get Verified · $99
           </Link>
         </div>
       </section>

@@ -4,7 +4,7 @@ slug: /advertise
 lang: en
 status: DRAFT — CONFIDENTIAL — not for publication
 seo_title: "Get Your Business in Pinoy Pages 2026–2027 (Free)"
-meta_description: "Filipino-Canadian tax, accounting, insurance, mortgage or small business in the GTA? Get listed free, or get Verified for $199 with everything included."
+meta_description: "Filipino-Canadian tax, accounting, insurance, mortgage or small business in the GTA? Get listed free, or get Verified for $99, one-time, with everything included."
 last_checked: 2026-10-17
 ---
 
@@ -20,12 +20,12 @@ Every qualifying business can be listed **free**: **business name and contact de
 
 ## Want more? Get Verified
 
-_Pilot Edition prices, **per issue**. All prices CAD, plus applicable HST._
+_Pilot Edition prices. Verified is a **one-time** fee._ All prices CAD, plus applicable HST._
 
 | Option       | Price | What you get                                                                                                                                                                                                        |
 | ------------ | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Free**     | $0    | Business name + contact details only. Unverified: no badge, no QR, no Save contact button, no ZCard                                                                                                                 |
-| **Verified** | $199  | Everything included: eligible for the **Verified Kabayan** badge, a **dynamic QR** to your web page, your **ZCard** with **Save contact**, a **featured spot**, a **QR counter card** and a **monthly scan report** |
+| **Verified** | $99   | Everything included: eligible for the **Verified Kabayan** badge, a **dynamic QR** to your web page, your **ZCard** with **Save contact**, a **featured spot**, a **QR counter card** and a **monthly scan report** |
 
 **Payment never buys the badge.** Verified listings are only _eligible_. The Verified Kabayan badge is earned by four checks: a ~15-minute visit (kabayan-owned or run, really trading, your ZCard completed) plus **one mutual vouch** from a verified business. In the pilot, founding members are vouched for at the visit.
 

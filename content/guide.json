@@ -11,7 +11,7 @@
     "reportNote": "Scan counts reported monthly for every Verified listing. No results are guaranteed.",
     "printNote": "The printed edition is a short-run proof copy: one copy for each Verified listing, plus sales copies. It is not sold or handed out to the public.",
     "editionLabel": "2026–2027 Pilot Edition",
-    "annualNote": "Pilot Edition (magazine + directory). Prices are per issue. The website is updated year-round.",
+    "annualNote": "Pilot Edition (magazine + directory). Verified is a one-time fee. The website is updated year-round.",
     "category": "Money & Business",
     "eventNote": "Official deadlines come from Canada Revenue Agency pages. 2027 dates follow CRA's published rules; confirm each on canada.ca when CRA posts its 2027 list.",
     "editionName": "Pinoy Pages 2026–2027",
@@ -59,8 +59,8 @@
     {
       "id": "verified",
       "name": "Verified",
-      "price": 199,
-      "unit": "per issue (Pilot Edition)",
+      "price": 99,
+      "unit": "one-time",
       "recommended": true,
       "tagline": "One tier, everything included. Badge-eligible.",
       "print": "Featured listing with logo and the ✓ Verified Kabayan badge once earned",
@@ -241,20 +241,10 @@
     {
       "id": "slot-01",
       "size": "full",
-      "status": "sold",
+      "status": "open",
       "advertiser": "",
-      "headline": "SAMPLE AD — Tax season made easy",
-      "body": "Personal and self-employed returns in English and Tagalog. This is a sample ad to show how a sold full page appears online.",
-      "url": "",
-      "listing": ""
-    },
-    {
-      "id": "slot-02",
-      "size": "half",
-      "status": "sold",
-      "advertiser": "",
-      "headline": "SAMPLE AD — Your books, done monthly",
-      "body": "Bookkeeping, payroll and HST filing for small businesses. This is a sample half-page ad.",
+      "headline": "",
+      "body": "",
       "url": "",
       "listing": ""
     },
@@ -384,22 +374,9 @@
   ],
   "listings": [],
   "sponsors": [],
-  "renewal": {
-    "memberDiscountPct": 20,
-    "label": "Member renewal discount",
-    "onTimeRule": "Renew on time = paid by the next edition's early-bird date (Dec 18 each year).",
-    "outreachMonth": "November",
-    "nextOnTimeDeadline": "2027-12-18",
-    "foundingLockNote": "Pilot price locked: advertisers who renew on time keep their pilot tier price for the next edition.",
-    "memberNote": "Member renewal discount: existing paid members who renew by Dec 18 get a flat 20% off their locked price (e.g. Verified $199 becomes $159). Not public; renewal letter and terms only.",
-    "public": false,
-    "stacking": false,
-    "validFor": "One renewal year (the next edition only); reviewed each edition.",
-    "pitchPairing": "Every renewal offer is sent with the member's year-end scan and click summary."
-  },
   "terms": [
     "Pilot Edition: Pinoy Pages 2026–2027 (Category: Money & Business, Greater Toronto Area). The printed proof copy is released spring (April 16, 2027); the website is updated year-round.",
-    "Prices are per issue: Free, or Verified $199 with everything included. No add-ons, bundles or founding discounts in the pilot. Print ads are now booking for the 2026–2027 edition; rates on request.",
+    "Listings are Free, or Verified at $99, one-time (CAD, plus applicable HST), with everything included. No add-ons, bundles or founding discounts in the pilot. Print ads are now booking for the 2026–2027 edition; rates on request.",
     "Verified Kabayan badge: payment never buys the badge. Verified listings are only eligible; the badge is earned by four checks: a ~15-minute verification visit (kabayan-owned or run, really trading, ZCard completed) plus one mutual vouch from a verified business, confirmed by both. In the pilot, founding members are vouched for at the visit. We may withhold the badge if a check fails; the Verified listing continues without it.",
     "Free listings are unverified: name and contact only, with no badge, no QR code, no Save contact button, no ZCard, and they can't give or receive vouches.",
     "Keeping your badge — validity: the badge is valid for one edition (12 months from the verification date). A light re-check at renewal updates the “Verified [date]”.",
@@ -408,9 +385,6 @@
     "Keeping your badge — renewal: if you don't renew, the badge is removed and the listing drops to a Free listing.",
     "Keeping your badge — complaints: a complaint pauses the badge pending review. Paused badges are not shown.",
     "QR codes always resolve through pinoypages.ca. Our pages never ask for a login, a payment or personal information.",
-    "Pilot price lock: advertisers who renew on time (paid by December 18 each year) keep their pilot tier price for the next edition.",
-    "Member renewal discount: existing paid members who renew by the on-time date (December 18) get a flat 20% off their locked price for the next edition (e.g. Verified $199 becomes $159). Existing members only; not available to new sign-ups; does not stack or compound; valid for one renewal year and reviewed each edition.",
-    "Late renewal: renewals after the on-time date are charged the current regular price and lose the price lock and member discount.",
     "Website mirror: your online presence mirrors your print presence and is included free in every tier.",
     "No guarantee of results: we report scan counts monthly (Verified). We do not promise any number of leads, calls, sales or visitors.",
     "Printed edition: a short-run proof copy for advertisers (one copy per paid advertiser) and a sales brochure for prospects. It is not sold or handed out to the public. If it does not print, print ad fees are refunded.",
@@ -955,7 +929,9 @@
       "kind": "profile",
       "season": "spring",
       "listings": [],
-      "tools": ["/tools/cpp-estimator"],
+      "tools": [
+        "/tools/cpp-estimator"
+      ],
       "dek": "Meet the Verified Kabayan: Maria Santos of Bituin Tax & Bookkeeping, Scarborough.",
       "tl": false,
       "sample": true,
@@ -969,7 +945,9 @@
       "kind": "profile",
       "season": "fall",
       "listings": [],
-      "tools": ["/tools/hst-checker"],
+      "tools": [
+        "/tools/hst-checker"
+      ],
       "dek": "Meet the Verified Kabayan: Grace Villanueva of Perlas Bookkeeping & Payroll, Markham.",
       "tl": false,
       "sample": true,
@@ -997,7 +975,9 @@
       "kind": "how-to",
       "season": "spring",
       "listings": [],
-      "tools": ["/tax-deadlines"],
+      "tools": [
+        "/tax-deadlines"
+      ],
       "dek": "How the First Home Savings Account works alongside an RRSP for first-time buyers in the GTA.",
       "tl": false,
       "sample": true,
@@ -1036,17 +1016,32 @@
     {
       "id": "spring",
       "name": "Spring (tax season, Jan–May)",
-      "months": [1, 2, 3, 4, 5]
+      "months": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
     },
     {
       "id": "summer",
       "name": "Summer (Jun–Aug)",
-      "months": [6, 7, 8]
+      "months": [
+        6,
+        7,
+        8
+      ]
     },
     {
       "id": "fall",
       "name": "Fall (Sep–Dec)",
-      "months": [9, 10, 11, 12]
+      "months": [
+        9,
+        10,
+        11,
+        12
+      ]
     }
   ],
   "contacts": {
@@ -1073,7 +1068,12 @@
       "name": "Money & Business",
       "status": "live",
       "edition": "2026–2027",
-      "subcategories": ["tax-accounting", "insurance-financial", "business-services", "independents"]
+      "subcategories": [
+        "tax-accounting",
+        "insurance-financial",
+        "business-services",
+        "independents"
+      ]
     },
     {
       "slug": "travel-padala-remit",

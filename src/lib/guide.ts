@@ -50,10 +50,7 @@ export const dates = data.dates;
 export type MenuItem = (typeof data.adMenu)[number] & { recommended?: boolean };
 export const tierName = (t: Tier) => data.adMenu.find((o) => o.id === t)?.name ?? t;
 export const adMenu = data.adMenu as MenuItem[];
-export const renewal = data.renewal;
 export const terms = data.terms;
-/** Member renewal price = locked pilot price minus the member renewal discount (draft terms only; never public). */
-export const renewalPrice = (price: number) => Math.round(price * (1 - renewal.memberDiscountPct / 100));
 export const pages = data.pages as GuidePage[];
 export const ads = data.ads as Ad[];
 export const categories = data.categories;
@@ -69,7 +66,7 @@ export type Section = {
 export const sections = data.sections as Section[];
 export const listings = data.listings as Listing[];
 const rank: Record<Tier, number> = { verified: 1, free: 0 };
-/** Two tiers. Verified ($199, everything included) gets the counted /go/ link, QR, ZCard, Save contact,
+/** Two tiers. Verified ($99 one-time, everything included) gets the counted /go/ link, QR, ZCard, Save contact,
  * featured spot, Call / Book, photos and a counter card. Free = unverified, name + contact only. */
 export const isPaid = (l?: Pick<Listing, "tier">) => !!l && l.tier === "verified";
 /** Kept for call sites: in the two-tier pilot every Verified listing is featured. */

@@ -50,7 +50,7 @@ export function ListingResults({
             Be the first Verified <span data-first-sub>{subLabel ? `${subLabel} business` : "business"}</span>{" "}
             <span data-first-city>in your area</span>.
             <span className="block text-sm font-normal text-muted">
-              Listing is free. Verified is $199 per issue and the badge is earned at a short visit.
+              Listing is free. Verified is $99, one-time (+ HST), and the badge is earned at a short visit.
             </span>
           </p>
           <span className="flex flex-wrap gap-2">
