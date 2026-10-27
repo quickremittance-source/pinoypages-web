@@ -1,5 +1,135 @@
 {
-  "note": "Owner-curated food metadata (dish tags, menu URL, hours, featured dishes). Empty until an editor approves a Suggest an update submission. Never invent dish tags from listing names.",
+  "note": "Owner-curated food metadata (dish tags, menu URL, hours, featured dishes). Empty until an editor approves a Suggest an update submission. Dish tags are set only from the business website or menu (see food-tag-sources.json) or an approved owner update. Never invent dish tags from listing names.",
   "schemaVersion": 1,
-  "listings": {}
+  "listings": {
+    "pub-alminz-kakanin": {
+      "dishTags": [
+        "kakanin",
+        "pandesal",
+        "ube"
+      ]
+    },
+    "pub-b-s-sizzling-kitchen": {
+      "dishTags": [
+        "catering",
+        "kare-kare",
+        "lechon"
+      ]
+    },
+    "pub-bao-mama-square-one": {
+      "dishTags": [
+        "adobo",
+        "catering",
+        "halo-halo",
+        "sinigang"
+      ]
+    },
+    "pub-bella-s-lechon-mississauga": {
+      "dishTags": [
+        "inasal",
+        "lechon",
+        "silog"
+      ]
+    },
+    "pub-bella-s-lechon-scarborough": {
+      "dishTags": [
+        "inasal",
+        "lechon",
+        "silog"
+      ]
+    },
+    "pub-carinderiameals": {
+      "dishTags": [
+        "catering"
+      ]
+    },
+    "pub-casa-manila-danforth": {
+      "dishTags": [
+        "adobo",
+        "bbq skewers",
+        "catering",
+        "halo-halo",
+        "inasal",
+        "kakanin",
+        "kare-kare",
+        "lechon",
+        "lumpia",
+        "pancit",
+        "pandesal",
+        "silog",
+        "sinigang",
+        "sisig",
+        "ube"
+      ]
+    },
+    "pub-chibugan-eh": {
+      "dishTags": [
+        "adobo",
+        "kare-kare",
+        "lechon",
+        "longganisa",
+        "silog",
+        "sisig",
+        "tocino"
+      ]
+    },
+    "pub-fan-d-flame-restaurant": {
+      "dishTags": [
+        "adobo",
+        "catering",
+        "halo-halo",
+        "kakanin",
+        "lechon",
+        "lomi",
+        "pancit",
+        "silog",
+        "sinigang",
+        "sisig",
+        "ube"
+      ]
+    },
+    "pub-harina-bakeshoppe": {
+      "dishTags": [
+        "ensaymada",
+        "pandesal",
+        "ube"
+      ]
+    },
+    "pub-jakylynnes-catering-and-take-out": {
+      "dishTags": [
+        "adobo",
+        "bbq skewers",
+        "catering",
+        "kakanin",
+        "kare-kare",
+        "lechon",
+        "lumpia",
+        "pancit",
+        "sinigang",
+        "sisig"
+      ]
+    },
+    "pub-kanto-by-tita-flips": {
+      "dishTags": [
+        "catering"
+      ]
+    },
+    "pub-kuya-don-lomi-batangas": {
+      "dishTags": [
+        "lomi"
+      ]
+    },
+    "pub-salu-salo-filipino-food-groceries": {
+      "dishTags": [
+        "pancit"
+      ]
+    },
+    "pub-valerio-s-tropical-bake-shop": {
+      "dishTags": [
+        "kakanin",
+        "pandesal",
+        "ube"
+      ]
+    }
+  }
 }

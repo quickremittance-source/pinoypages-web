@@ -103,7 +103,7 @@ export function Footer() {
           </li>
           <li>
             <Link href="/food" className="hover:underline">
-              Food Finder
+              Foodie Finder
             </Link>
           </li>
           <li>

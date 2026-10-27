@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import foodMeta from "../content/food-meta.json";
+import foodTagSources from "../content/food-tag-sources.json";
 import {
   DISH_TAGS,
   classifyFoodType,
@@ -36,15 +37,21 @@ function fixture(overrides: Partial<FoodListing> = {}): FoodListing {
   };
 }
 
-test("food-meta ships empty (no invented dish tags or menus)", () => {
-  expect(foodMeta.listings).toEqual({});
+test("every dish tag in food-meta has a recorded source URL", () => {
+  const sources = foodTagSources.listings as Record<string, { tags: Record<string, { url: string }> }>;
+  for (const [id, m] of Object.entries(foodMeta.listings as Record<string, { dishTags?: string[] }>)) {
+    for (const t of m.dishTags ?? []) {
+      expect((DISH_TAGS as readonly string[]).includes(t)).toBe(true);
+      expect(sources[id]?.tags[t]?.url, `${id}:${t}`).toMatch(/^https?:\/\//);
+    }
+  }
 });
 
 test("classifies food and groceries; reports food-adjacent outside those categories", () => {
   const all = foodListings();
   expect(all.length).toBeGreaterThan(0);
   expect(all.every((l) => l.category === "food" || l.category === "groceries")).toBe(true);
-  expect(all.every((l) => l.dishTags.length === 0)).toBe(true);
+  expect(all.some((l) => l.dishTags.length > 0)).toBe(true);
   expect(all.every((l) => !l.verified)).toBe(true);
 
   const byType = Object.fromEntries(
@@ -106,15 +113,17 @@ test("open-now requires known hours; menu stale after 90 days", () => {
   expect(isMenuStale("2026-01-01T00:00:00Z", new Date("2026-10-26T00:00:00Z"))).toBe(true);
 });
 
-test("/food renders real listings, bilingual copy, empty dish tags, and passes axe", async ({ page }) => {
+test("/food renders real listings, bilingual copy, sourced dish tags, and passes axe", async ({ page }) => {
   const res = await page.goto("/food");
   expect(res?.status()).toBe(200);
-  await expect(page.getByRole("heading", { level: 1 })).toContainText(/Filipino Food Finder/i);
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(/Filipino Foodie Finder/i);
   await expect(page.getByTestId("food-list")).toBeVisible();
   await expect(page.getByTestId("food-count")).toContainText(/\d+ places?/);
   await expect(page.getByTestId("food-suggest-form")).toBeVisible();
-  // No dish tags published yet
-  expect(await page.getByTestId("dish-tag").count()).toBe(0);
+  expect(await page.getByTestId("dish-tag").count()).toBeGreaterThan(0);
+  await page.goto("/food?dish=lechon");
+  await expect(page.getByTestId("food-count")).toContainText(/\d+ places?/);
+  expect(await page.getByTestId("dish-tag").filter({ hasText: /^lechon$/i }).count()).toBeGreaterThan(0);
   // Open-now hidden when no listing has hours
   await expect(page.getByLabel(/Open now/i)).toHaveCount(0);
   const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();

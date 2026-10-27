@@ -15,7 +15,7 @@ import {
 } from "@/lib/food";
 
 export const metadata: Metadata = {
-  title: "Food Finder · Hanapin ang Pagkain",
+  title: "Foodie Finder · Hanapin ang Pagkain",
   description: FOOD_COPY.intro.en,
   alternates: { canonical: "/food" },
   robots: { index: false, follow: false },

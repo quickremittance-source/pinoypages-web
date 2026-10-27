@@ -1,0 +1,357 @@
+{
+  "note": "Source evidence for dish tags in food-meta.json. Not displayed on the site. Each tag was matched on the business's own website on 2026-10-27 and reviewed by hand; listings without a website or without matching text are left untagged.",
+  "checkedAt": "2026-10-27",
+  "listings": {
+    "pub-alminz-kakanin": {
+      "name": "Alminz Kakanin",
+      "tags": {
+        "kakanin": {
+          "url": "https://alminzkakanin.ca/",
+          "evidence": "Alminz Kakanin | Your number one Filipino Bakery in Toronto, ON."
+        },
+        "pandesal": {
+          "url": "https://alminzkakanin.ca/",
+          "evidence": "We sell Kutchinta, Pichi Pichi, Puto, Pandesal, Spanish Bread, Pan De Coco and many more"
+        },
+        "ube": {
+          "url": "https://alminzkakanin.ca/",
+          "evidence": "Pichi Pichi, Sapin Sapin, Maja Blanca, Biko, and Ube Halaya Check out our menu"
+        }
+      }
+    },
+    "pub-b-s-sizzling-kitchen": {
+      "name": "B's Sizzling Kitchen",
+      "tags": {
+        "catering": {
+          "url": "https://www.bsizzlingkitchen.com/",
+          "evidence": "arty Tray Menu Cebu Lechon Catering & Events Lechon Station"
+        },
+        "kare-kare": {
+          "url": "https://www.bsizzlingkitchen.com/",
+          "evidence": "Kare-Kare"
+        },
+        "lechon": {
+          "url": "https://www.bsizzlingkitchen.com/",
+          "evidence": "Best Filipino Restaurant Toronto | Cebu Lechon, Kamayan & Filipino Food | B’s Sizzling Kitchen"
+        }
+      }
+    },
+    "pub-bao-mama-square-one": {
+      "name": "Bao Mama (Square One)",
+      "tags": {
+        "adobo": {
+          "url": "https://baomama.ca/",
+          "evidence": "\"O.G.C\" Original Crispy Chicken \"Adobo Chick\" Chicken Adobo \"Triple B\" Braised Beef"
+        },
+        "catering": {
+          "url": "https://baomama.ca/",
+          "evidence": "Menu Locations Catering Jobs Order Now \"O"
+        },
+        "halo-halo": {
+          "url": "https://baomama.ca/menu/",
+          "evidence": "Honey Calamansi Slushie 6.95 Premium Halo-Halo Slushie 11.95 Premium Sago Desserts Mang"
+        },
+        "sinigang": {
+          "url": "https://baomama.ca/menu/",
+          "evidence": "19.95 Sides Plain Fries 4.95 Sinigang Fries 5.45 Sweet Yam Fries 5.95"
+        }
+      }
+    },
+    "pub-bella-s-lechon-mississauga": {
+      "name": "Bella's Lechon (Mississauga)",
+      "tags": {
+        "inasal": {
+          "url": "https://www.bellaslechon.ca/",
+          "evidence": "Bella's Lechon and Inasal Restaurant | Filipino restaurant Mississauga and"
+        },
+        "lechon": {
+          "url": "https://www.bellaslechon.ca/",
+          "evidence": "Bella's Lechon and Inasal Restaurant | Filipino restaurant Missi"
+        },
+        "silog": {
+          "url": "https://www.bellaslechon.ca/",
+          "evidence": "Enjoy Our Hearty and Delicious Pinoy Silog Meals Anytime, Perfect for Breakfast, Lunch, or D"
+        }
+      }
+    },
+    "pub-bella-s-lechon-scarborough": {
+      "name": "Bella's Lechon (Scarborough)",
+      "tags": {
+        "inasal": {
+          "url": "https://www.bellaslechon.ca/",
+          "evidence": "Bella's Lechon and Inasal Restaurant | Filipino restaurant Mississauga and"
+        },
+        "lechon": {
+          "url": "https://www.bellaslechon.ca/",
+          "evidence": "Bella's Lechon and Inasal Restaurant | Filipino restaurant Missi"
+        },
+        "silog": {
+          "url": "https://www.bellaslechon.ca/",
+          "evidence": "Enjoy Our Hearty and Delicious Pinoy Silog Meals Anytime, Perfect for Breakfast, Lunch, or D"
+        }
+      }
+    },
+    "pub-carinderiameals": {
+      "name": "CarinderiaMeals",
+      "tags": {
+        "catering": {
+          "url": "https://carinderiameals.com/",
+          "evidence": "d. As the restaurant grew, it expanded to include catering trays for special occasions, creating unforgettab"
+        }
+      }
+    },
+    "pub-casa-manila-danforth": {
+      "name": "Casa Manila Danforth",
+      "tags": {
+        "adobo": {
+          "url": "https://casamanila.ca/",
+          "evidence": "day lunch Single plates, 11:40 — 4 PM Chicken adobo, lechon kawali, kare-kare, daing bangus — served"
+        },
+        "bbq skewers": {
+          "url": "https://casamanila.ca/menu",
+          "evidence": "76 items Party trays Appetizers & Sides BBQ Skewers (per piece) from $5.00 Marinated, grilled, an"
+        },
+        "catering": {
+          "url": "https://casamanila.ca/",
+          "evidence": "Menu Kamayan Trays Reserve Private events Catering Journal About Reviews Press Giving ba"
+        },
+        "halo-halo": {
+          "url": "https://casamanila.ca/",
+          "evidence": "and anniversaries, with a complimentary Ultimate Halo-Halo for celebrants (some conditions apply). Re-disco"
+        },
+        "inasal": {
+          "url": "https://casamanila.ca/menu",
+          "evidence": "0.00 · Garlic Rice $1.95 WLS SOLO. Chicken Inasal $14.95 Steamed White Rice $0.00 · Garlic Rice"
+        },
+        "kakanin": {
+          "url": "https://casamanila.ca/menu",
+          "evidence": "0 Slice $9.00 · Tray $58.00 Vegan Pinipig Biko | Sticky Coconut Rice Cake topped with Coconut La"
+        },
+        "kare-kare": {
+          "url": "https://casamanila.ca/",
+          "evidence": "es, 11:40 — 4 PM Chicken adobo, lechon kawali, kare-kare, daing bangus — served with rice, vegetables, and"
+        },
+        "lechon": {
+          "url": "https://casamanila.ca/",
+          "evidence": "ch Single plates, 11:40 — 4 PM Chicken adobo, lechon kawali, kare-kare, daing bangus — served with ric"
+        },
+        "lumpia": {
+          "url": "https://casamanila.ca/",
+          "evidence": "neration pulling up a seat for Kamayan, sisig and lumpia by the plate. Come dine with us. Reserve a ta"
+        },
+        "pancit": {
+          "url": "https://casamanila.ca/menu",
+          "evidence": "isay $79.95 Bistek Tagalog 7-Up Garlic Shrimps Pancit Bihon or Canton Steamed or Garlic Rice Lig"
+        },
+        "pandesal": {
+          "url": "https://casamanila.ca/menu",
+          "evidence": "ried Garlic White Rice (2-3 Person) $8.95 Pandesal from $5.95 4 pcs $5.95 · 8 pcs $9.95 Qui"
+        },
+        "silog": {
+          "url": "https://casamanila.ca/menu",
+          "evidence": "↗ All Day Breakfast (Online Menu) Bangsilog $19.95 Half boneless bangus (milkfish), marina"
+        },
+        "sinigang": {
+          "url": "https://casamanila.ca/menu",
+          "evidence": "kernels. A favourite. Beef Tamarind Soup | Sinigang na Baka $22.95 Your choice of our best-selling"
+        },
+        "sisig": {
+          "url": "https://casamanila.ca/",
+          "evidence": "h a new generation pulling up a seat for Kamayan, sisig and lumpia by the plate. Come dine with us. R"
+        },
+        "ube": {
+          "url": "https://casamanila.ca/menu",
+          "evidence": "m $8.00 Bottle $8.00 · Bucket of 4 $30.00 Ube Pinacolada Mocktail $0.10 Desserts (Onlin"
+        }
+      }
+    },
+    "pub-chibugan-eh": {
+      "name": "Chibugan Eh!",
+      "tags": {
+        "adobo": {
+          "url": "https://www.chibugan-eh.ca/",
+          "evidence": "avorful Journey! Indulge in authentic dishes like adobo, bopis, and kare-kare, crafted with love and trad"
+        },
+        "kare-kare": {
+          "url": "https://www.chibugan-eh.ca/",
+          "evidence": "ndulge in authentic dishes like adobo, bopis, and kare-kare, crafted with love and tradition. \"Experience the"
+        },
+        "lechon": {
+          "url": "https://www.chibugan-eh.ca/menus",
+          "evidence": "per. Mild Lechon Kawali \"Liempo\" Tender yet crispy and juicy dee"
+        },
+        "longganisa": {
+          "url": "https://www.chibugan-eh.ca/menus",
+          "evidence": "silog is a breakfast that consists of sweet pork (longanisa), savory eggs, and garlic rice! Without even layi"
+        },
+        "silog": {
+          "url": "https://www.chibugan-eh.ca/menus",
+          "evidence": "u ALL-Day Breakfast TAPSILOG Sliced Beef fry with egg & garlic fried rice. A"
+        },
+        "sisig": {
+          "url": "https://www.chibugan-eh.ca/menus",
+          "evidence": "r corn, laurel leaves, etc. Sisig or Dinakdakan Chopped roasted pork meat marinat"
+        },
+        "tocino": {
+          "url": "https://www.chibugan-eh.ca/menus",
+          "evidence": "m the different components of the meal which are: Tocino (cured pork), Sinangag (Filipino garlic fried ric"
+        }
+      }
+    },
+    "pub-fan-d-flame-restaurant": {
+      "name": "Fan \"D\" Flame Restaurant",
+      "tags": {
+        "adobo": {
+          "url": "https://fandflame.com/brampton-fan-d-flame-restaurant-food-menu",
+          "evidence": "7.99 Crispy Pata XL $25.99 Pork Adobo $12.99 Sizzling Sisig $18.99 Add Egg"
+        },
+        "catering": {
+          "url": "https://fandflame.com/",
+          "evidence": "Catering"
+        },
+        "halo-halo": {
+          "url": "https://fandflame.com/brampton-fan-d-flame-restaurant-food-menu",
+          "evidence": "lour coated with sesame seeds & coconut. Halo Halo Deluxe $13.99 Shaved ice with milk, variety of"
+        },
+        "kakanin": {
+          "url": "https://fandflame.com/brampton-fan-d-flame-restaurant-food-menu",
+          "evidence": "coated on caramelized sugar & sesame seeds Palitaw $10.99/12pcs Glutinous flour coated with sesam"
+        },
+        "lechon": {
+          "url": "https://fandflame.com/brampton-fan-d-flame-restaurant-food-menu",
+          "evidence": "lly $15.99 Option: Veg, salad or rice Lechon Kawali $16.99 Option: Veg, salad or rice"
+        },
+        "lomi": {
+          "url": "https://fandflame.com/brampton-fan-d-flame-restaurant-food-menu",
+          "evidence": "s, roasted garlic and spring onions Chicken Lomi $13.99 Shanghai noodles, chicken, eggs, veggie"
+        },
+        "pancit": {
+          "url": "https://fandflame.com/brampton-fan-d-flame-restaurant-food-menu",
+          "evidence": "Fan 'D' Flame Platters Upgrade options: Salad, Bihon or Fried Rice +$4.99 Dinner for Two $35."
+        },
+        "silog": {
+          "url": "https://fandflame.com/brampton-fan-d-flame-restaurant-food-menu",
+          "evidence": "cken, egg, veggie Fries $5.99 Silog Breakfast Ala Pinas Choice of Plain Rice or Gar"
+        },
+        "sinigang": {
+          "url": "https://fandflame.com/brampton-fan-d-flame-restaurant-food-menu",
+          "evidence": "eggies Chicken Tinola $18.99 Pork Sinigang $14.99 Tamarind soup Seafood Lomi $14."
+        },
+        "sisig": {
+          "url": "https://fandflame.com/brampton-fan-d-flame-restaurant-food-menu",
+          "evidence": "5.99 Pork Adobo $12.99 Sizzling Sisig $18.99 Add Egg +$1.99 Pork Sisig $1"
+        },
+        "ube": {
+          "url": "https://fandflame.com/brampton-fan-d-flame-restaurant-food-menu",
+          "evidence": "th milk, variety of sweetened fruits, topped with Ube ice cream, pinipig and leche flan Halo Halo"
+        }
+      }
+    },
+    "pub-harina-bakeshoppe": {
+      "name": "Harina Bakeshoppe",
+      "tags": {
+        "ensaymada": {
+          "url": "https://www.harinabakeshoppe.com/pages/filipino-baked-food-toronto",
+          "evidence": "e sweetness of Ube Bars or the savory goodness of Ensaymada Cheese, there's something to satisfy every cravin"
+        },
+        "pandesal": {
+          "url": "https://www.harinabakeshoppe.com/",
+          "evidence": "– we guarantee you won't be disappointed! Yes pandesal lovers, there's only one perfect pandesal for me"
+        },
+        "ube": {
+          "url": "https://www.harinabakeshoppe.com/",
+          "evidence": "Monay Ube Bars Hopia Pirat"
+        }
+      }
+    },
+    "pub-jakylynnes-catering-and-take-out": {
+      "name": "Jakylynne's Catering and Take-out",
+      "tags": {
+        "adobo": {
+          "url": "https://www.jakylynnes.com/menu-1",
+          "evidence": "EF 75 110 250 Chicken ADOBO 45 65 120 200"
+        },
+        "bbq skewers": {
+          "url": "https://www.jakylynnes.com/menu-1",
+          "evidence": "ANGHAI 27.50 (50PCS) 55 (100PCS) CHICKEN BBQ 4 Pork MECHADO 45 65"
+        },
+        "catering": {
+          "url": "https://www.jakylynnes.com/menu-1",
+          "evidence": "Catering Menu"
+        },
+        "kakanin": {
+          "url": "https://www.jakylynnes.com/menu-1",
+          "evidence": "25 30 55 65 Desserts BIKO 35 CA"
+        },
+        "kare-kare": {
+          "url": "https://www.jakylynnes.com/menu-1",
+          "evidence": "CALDERETA 55 80 140 250 KARE-KARE 55 80 140 250 MECHADO"
+        },
+        "lechon": {
+          "url": "https://www.jakylynnes.com/menu-1",
+          "evidence": "DINUGUAN 45 65 120 200 LECHON PAKSIW 45 65 120 200 MEA"
+        },
+        "lumpia": {
+          "url": "https://www.jakylynnes.com/menu-1",
+          "evidence": "S 50 75 150 225 CHICKEN SHANGHAI 27.50 (50PCS) 55 (100PCS) CHICKE"
+        },
+        "pancit": {
+          "url": "https://www.jakylynnes.com/menu-1",
+          "evidence": "NG TALONG 4* VEGETABLE SPRING ROLLS 1 Noodles PANCIT BIHON 30 40 75 125"
+        },
+        "sinigang": {
+          "url": "https://www.jakylynnes.com/menu-1",
+          "evidence": "Tuesday Dinuguan Pancit Bihon Pork Sinigang Beef Karekare Chicken Afritada Pinakbet Ginat"
+        },
+        "sisig": {
+          "url": "https://www.jakylynnes.com/menu-1",
+          "evidence": "00 IGADO 45 65 120 200 SISIG 55 80 140 250 PORK SH"
+        }
+      }
+    },
+    "pub-kanto-by-tita-flips": {
+      "name": "Kanto by Tita Flips",
+      "tags": {
+        "catering": {
+          "url": "https://titaflips.com/kanto/",
+          "evidence": "Follow Mercado Products & CATERING PICK-UP 126 Sinnott Road, Unit 23 Scarborough,"
+        }
+      }
+    },
+    "pub-kuya-don-lomi-batangas": {
+      "name": "Kuya Don Lomi Batangas",
+      "tags": {
+        "lomi": {
+          "url": "https://www.kdlb.ca/",
+          "evidence": "Kuya Don Lomi Batangas"
+        }
+      }
+    },
+    "pub-salu-salo-filipino-food-groceries": {
+      "name": "Salu Salo Filipino Food & Groceries",
+      "tags": {
+        "pancit": {
+          "url": "https://salusalofilipinofoodgrocerieson.com/salu-salo-filipino-food--groceries/",
+          "evidence": "Pancit $12.79 Stir-fri"
+        }
+      }
+    },
+    "pub-valerio-s-tropical-bake-shop": {
+      "name": "Valerio's Tropical Bake Shop",
+      "tags": {
+        "kakanin": {
+          "url": "https://valeriostropicalbakeshop.com/",
+          "evidence": "known dinner rolls, Pan de Sal, to our delectable kakanin desserts."
+        },
+        "pandesal": {
+          "url": "https://valeriostropicalbakeshop.com/",
+          "evidence": "What is hot Pan De Sal? Filipino Pan De Sa"
+        },
+        "ube": {
+          "url": "https://valeriostropicalbakeshop.com/",
+          "evidence": "ns of Pan De Sal such as whole wheat, cheese, and ube."
+        }
+      }
+    }
+  }
+}

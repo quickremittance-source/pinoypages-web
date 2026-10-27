@@ -269,7 +269,7 @@ export async function submitFoodUpdate(_p: FormState, fd: FormData): Promise<For
     return {
       status: "error",
       message: "Please fix the highlighted fields.",
-      fieldErrors: { listing_id: ["Choose a listing from the Food Finder"] },
+      fieldErrors: { listing_id: ["Choose a listing from the Foodie Finder"] },
     };
   }
   const featured = (r.data.featuredDishes ?? "")

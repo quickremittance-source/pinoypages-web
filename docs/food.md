@@ -1,4 +1,4 @@
-# Filipino Food Finder (`/food`)
+# Filipino Foodie Finder (`/food`)
 
 Preview-only feature. Lists restaurants, bakeries, groceries and caterers from
 `content/public-listings.json` — never scraped or invented.

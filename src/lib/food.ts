@@ -2,7 +2,7 @@ import metaFile from "../../content/food-meta.json";
 import { publicListings, type ListingTier, type PublicListing } from "@/lib/public";
 import { bizPath } from "@/lib/seo";
 
-/** Controlled dish tags. Empty on every listing until an owner chooses them — never guessed from names. */
+/** Controlled dish tags. Set only from the business's own website/menu (evidence in content/food-tag-sources.json) or an approved owner update — never guessed from names. */
 export const DISH_TAGS = [
   "lechon",
   "sisig",
@@ -20,6 +20,11 @@ export const DISH_TAGS = [
   "longganisa",
   "tocino",
   "ube",
+  "silog",
+  "inasal",
+  "lomi",
+  "bbq skewers",
+  "catering",
 ] as const;
 export type DishTag = (typeof DISH_TAGS)[number];
 
@@ -33,10 +38,10 @@ export type FoodType = keyof typeof FOOD_TYPES;
 
 /** English with proper Tagalog alongside (not Taglish). */
 export const FOOD_COPY = {
-  kicker: { en: "Food Finder", tl: "Hanapin ang Pagkain" },
-  title: { en: "Filipino Food Finder", tl: "Hanapin ang Pagkaing Filipino" },
+  kicker: { en: "Foodie Finder", tl: "Hanapin ang Pagkain" },
+  title: { en: "Filipino Foodie Finder", tl: "Hanapin ang Pagkaing Filipino" },
   intro: {
-    en: "Restaurants, bakeries, groceries and caterers from the Pinoy Pages directory. Dish tags and menus appear only after the owner claims the listing and we approve the update.",
+    en: "Restaurants, bakeries, groceries and caterers from the Pinoy Pages directory. Dish tags come from each business's own website or menu. Owners can claim a listing to add or correct them.",
     tl: "Mga restawran, panaderya, tindahan at caterer mula sa direktoryo ng Pinoy Pages. Ang mga putahe at menu ay lilitaw lamang pagkatapos ang may-ari ay mag-claim at maaprubahan ang update.",
   },
   city: { en: "City / Area", tl: "Lungsod / Lugar" },
@@ -116,7 +121,7 @@ export function classifyFoodType(l: PublicListing): FoodType | null {
 
 /**
  * Listings that look food-related by name but sit outside food/groceries categories,
- * so they cannot be typed for the Food Finder without inventing a category change.
+ * so they cannot be typed for the Foodie Finder without inventing a category change.
  */
 export function unclassifiedFoodAdjacent(): { listing_id: string; name: string; category: string }[] {
   return publicListings
@@ -154,7 +159,7 @@ function effectiveTier(l: PublicListing): ListingTier {
   return l.listing_tier ?? (l.tier as ListingTier) ?? "free";
 }
 
-/** All directory listings that qualify for the Food Finder (real data only). */
+/** All directory listings that qualify for the Foodie Finder (real data only). */
 export function foodListings(): FoodListing[] {
   const out: FoodListing[] = [];
   for (const l of publicListings) {
