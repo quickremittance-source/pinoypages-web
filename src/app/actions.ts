@@ -5,6 +5,7 @@ import { ads, categories, listings } from "@/lib/guide";
 import { saveContact, type ListKey } from "@/lib/contacts";
 import { appendSubmission } from "@/lib/storage";
 import { EVENT_CITIES } from "@/lib/events";
+import { JOB_CITIES, listingOptions } from "@/lib/jobs";
 
 const urlOk = z.url("Enter a full link starting with https://").max(300);
 
@@ -275,5 +276,62 @@ export async function submitCommunityEvent(_p: FormState, fd: FormData): Promise
     status: "success",
     message:
       "Salamat! We received your event. Nothing is published until we review it — we will email you when it is approved or if we need more details.",
+  };
+}
+
+const jobListingIds = listingOptions().map((l) => l.listing_id) as [string, ...string[]];
+
+const jobSchema = z.object({
+  listingId: z.enum(jobListingIds, { message: "Choose your Pinoy Pages listing" }),
+  title: z.string().trim().min(3, "Enter the job title").max(160),
+  city: z.enum(JOB_CITIES, { message: "Choose a city" }),
+  description: z.string().trim().min(20, "Add a short description").max(4000),
+  applyUrl: urlOk.optional().or(z.literal("")),
+  applyEmail: z.email("Enter a valid email").max(200).optional().or(z.literal("")),
+  contactName: z.string().trim().min(2, "Enter a contact name").max(120),
+  contactEmail: z.email("Enter a valid email").max(200),
+  consent: z.literal("on", { message: "Please agree so we can contact you" }),
+});
+
+/**
+ * Job board submissions. Stored as kind "job-submission" with status pending.
+ * Never auto-published — an editor must approve into content/jobs.json.
+ */
+export async function submitJob(_p: FormState, fd: FormData): Promise<FormState> {
+  if (String(fd.get("website_url") ?? "")) return { status: "success", message: "Thanks!" };
+  const r = parse(jobSchema, fd);
+  if (!r.success)
+    return {
+      status: "error",
+      message: "Please fix the highlighted fields.",
+      fieldErrors: z.flattenError(r.error).fieldErrors,
+    };
+  if (!r.data.applyUrl && !r.data.applyEmail) {
+    return {
+      status: "error",
+      message: "Please fix the highlighted fields.",
+      fieldErrors: { applyEmail: ["Add an application email or link"] },
+    };
+  }
+  const listing = listingOptions().find((l) => l.listing_id === r.data.listingId);
+  await store("job-submission", {
+    ...r.data,
+    businessName: listing?.name ?? "",
+    category: listing?.category ?? "",
+    status: "pending",
+    postedAt: new Date().toISOString(),
+  });
+  await saveContact({
+    email: r.data.contactEmail,
+    name: r.data.contactName,
+    business: listing?.name,
+    lists: ["job-poster"],
+    source: src("job-submission", fd),
+    attributes: { JOB_CITY: r.data.city, LISTING_ID: r.data.listingId },
+  });
+  return {
+    status: "success",
+    message:
+      "Salamat! We received your job posting. Nothing is published until we review it — we will email you when it is approved or if we need more details.",
   };
 }

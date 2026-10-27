@@ -451,6 +451,13 @@
       "route": "/tools/invoice",
       "enabled": false,
       "phase": "v2"
+    },
+    {
+      "id": "job-board",
+      "title": "Job board",
+      "route": "/jobs",
+      "enabled": true,
+      "phase": "v1.1"
     }
   ],
   "eventMenu": [
@@ -1064,7 +1071,8 @@
       "newsletter": null,
       "free-lister": null,
       "verified-lead": null,
-      "event-submitter": null
+      "event-submitter": null,
+      "job-poster": null
     }
   },
   "sections": [

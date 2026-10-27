@@ -12,6 +12,7 @@ const nav = [
   { href: "/tax-deadlines", label: "Deadlines" },
   { href: "/calendar", label: "Calendar" },
   { href: "/events", label: "Events" },
+  { href: "/jobs", label: "Jobs" },
   { href: "/magazine", label: "Magazine" },
 ];
 
