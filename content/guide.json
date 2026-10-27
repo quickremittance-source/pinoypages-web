@@ -451,6 +451,13 @@
       "route": "/tools/invoice",
       "enabled": false,
       "phase": "v2"
+    },
+    {
+      "id": "remittance-compare",
+      "title": "Remittance comparison (CAD to PHP)",
+      "route": "/tools/remittance-compare",
+      "enabled": true,
+      "phase": "v1.1"
     }
   ],
   "eventMenu": [
