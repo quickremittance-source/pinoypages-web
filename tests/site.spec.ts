@@ -1139,7 +1139,10 @@ test("home band, free-card claim links, 'Be the first Verified' prompt and Why V
   await page.goto("/directory/tax-accounting");
   const claim = page.locator('li[data-listing="tax-02"]').getByTestId("free-claim");
   await expect(claim).toContainText("Is this your business?");
-  await expect(claim.getByRole("link", { name: "Claim it free" })).toHaveAttribute("href", "/get-verified?listing=tax-02#claimh");
+  await expect(claim.getByRole("link", { name: "Claim it free" })).toHaveAttribute(
+    "href",
+    "/get-verified?listing=tax-02#claimh",
+  );
   await expect(claim.getByRole("link", { name: "Get Verified" })).toHaveAttribute(
     "href",
     "/get-verified?listing=tax-02",
