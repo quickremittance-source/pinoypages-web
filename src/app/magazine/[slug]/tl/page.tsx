@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArticleView } from "@/components/ArticleView";
-import { articleBySlug, articles } from "@/lib/magazine";
+import { articleBySlug, listedArticles } from "@/lib/magazine";
 
 export const dynamicParams = false;
 export function generateStaticParams() {
-  return articles.filter((a) => a.tl).map((a) => ({ slug: a.slug }));
+  return listedArticles.filter((a) => a.tl).map((a) => ({ slug: a.slug }));
 }
 type P = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: P): Promise<Metadata> {

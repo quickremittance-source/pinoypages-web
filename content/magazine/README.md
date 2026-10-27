@@ -14,8 +14,27 @@ Brand: **Pinoy Pages 2026–2027** (working name). Sources checked October 17, 2
 | 6   | Benefits families miss                  | 06-benefits-families-miss.en.md    | 06-benefits-families-miss.tl.md    |
 | 7   | Choosing a tax preparer                 | 07-choose-tax-preparer.en.md       | 07-choose-tax-preparer.tl.md       |
 | 8   | Get listed / upgrade                    | 08-get-listed.en.md                | 08-get-listed.tl.md                |
+| 9   | First 30 days in Canada                 | 09-first-30-days.en.md             | 09-first-30-days.tl.md             |
+| 10  | First tax return & benefits (MERGED → 05–06; file kept for sources) | 10-first-tax-return-benefits.en.md | 10-first-tax-return-benefits.tl.md |
+| 11  | Building credit in Canada               | 11-building-credit.en.md           | 11-building-credit.tl.md           |
+| 12  | Caregiver to PR                         | 12-caregiver-to-pr.en.md           | 12-caregiver-to-pr.tl.md           |
+| 13  | Sending money home                      | 13-sending-money-home.en.md        | 13-sending-money-home.tl.md        |
+| 14  | Balikbayan box shipping                 | 14-balikbayan-box.en.md            | 14-balikbayan-box.tl.md            |
+| 15  | Simbang Gabi in Canada                  | 15-simbang-gabi.en.md              | 15-simbang-gabi.tl.md              |
+| 16  | Overseas voting (OAV)                   | 16-overseas-voting.en.md           | 16-overseas-voting.tl.md           |
+| 17  | Filipino Heritage Month                 | 17-filipino-heritage-month.en.md   | 17-filipino-heritage-month.tl.md   |
+| 18  | Business of the Week template           | 18-business-of-the-week-template.en.md | 18-business-of-the-week-template.tl.md |
+| –   | Sources index (newcomer series)         | SOURCES-newcomer-series.md         |                                    |
 | –   | 6 Facebook group posts (EN + TL)        | social.md                          |                                    |
 | –   | Monthly member email template (EN + TL) | email.md                           |                                    |
+
+
+## Newcomer / community series (pieces 9–18)
+
+- Added as **`draft: true`** in `guide.json`. Production listings and the sitemap omit drafts; Vercel Preview / local `development` / `ALLOW_DRAFTS=true` may show them.
+- Every **TL** file is marked **⚠️ NEEDS NATIVE-SPEAKER REVIEW** in frontmatter and opens with a visible draft note (plus an on-page draft banner when rendered).
+- **Piece 10** overlapped 05–06 (newcomer return + benefits / CGEB). Unique deltas (CGEB pay-day on the 5th, under-$50 annual lump sum, RC66SCH situations, Automated Benefits Application, fresher source URLs) were merged into 05–06; piece 10 files are kept for provenance and are **not** registered in `guide.json`.
+- Primary sources: `SOURCES-newcomer-series.md` (and Sources sections in each piece).
 
 ## Must-fix before publishing
 

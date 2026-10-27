@@ -991,6 +991,46 @@ test("story ideas: unlisted pipeline of 12 with angle, category, sample business
   expect(await (await request.get("/sitemap.xml")).text()).not.toContain("/magazine/ideas");
 });
 
+test("magazine drafts: newcomer series is draft-only; piece 10 merged into 05–06", async ({ page, request }) => {
+  const drafts = guide.articles.filter((a: { draft?: boolean }) => a.draft);
+  expect(drafts.map((a: { slug: string }) => a.slug).sort()).toEqual(
+    [
+      "balikbayan-box-shipping",
+      "building-credit-canada",
+      "business-of-the-week-template",
+      "caregiver-to-pr",
+      "filipino-heritage-month",
+      "first-30-days-canada",
+      "overseas-voting-oav",
+      "sending-money-home",
+      "simbang-gabi-canada",
+    ].sort(),
+  );
+  // Piece 10 was merged into 05–06 — not a separate listed article.
+  expect(
+    guide.articles.some(
+      (a: { file?: string; slug: string }) =>
+        a.file === "10-first-tax-return-benefits" || a.slug === "first-tax-return-benefits",
+    ),
+  ).toBe(false);
+  expect(readFileSync(path.join("content", "magazine", "10-first-tax-return-benefits.en.md"), "utf8")).toMatch(
+    /MERGED into pieces 05–06/,
+  );
+  expect(readFileSync(path.join("content", "magazine", "10-first-tax-return-benefits.tl.md"), "utf8")).toMatch(
+    /NEEDS NATIVE-SPEAKER REVIEW/,
+  );
+
+  // Production-style serve (playwright webServer): drafts stay off the listing and sitemap.
+  await page.goto("/magazine");
+  await expect(page.locator('a[href="/magazine/first-30-days-canada"]')).toHaveCount(0);
+  const sitemap = await (await request.get("/sitemap.xml")).text();
+  for (const a of drafts) {
+    expect(sitemap, a.slug).not.toContain(`/magazine/${a.slug}`);
+  }
+  // Draft routes are not statically generated on production builds.
+  expect((await page.goto("/magazine/first-30-days-canada"))?.status()).toBe(404);
+});
+
 // ---------- Event calendar ----------
 const community = guide.events.filter((e) => e.kind === "community");
 

@@ -1030,6 +1030,78 @@
       "tl": false,
       "sample": true,
       "author": "Pinoy Pages Editorial (SAMPLE)"
+    },
+    {
+      "n": 15,
+      "slug": "first-30-days-canada",
+      "file": "09-first-30-days",
+      "title": "First 30 days in Canada: SIN, health card, bank account, phone",
+      "tl": true,
+      "draft": true
+    },
+    {
+      "n": 16,
+      "slug": "building-credit-canada",
+      "file": "11-building-credit",
+      "title": "Building credit in Canada",
+      "tl": true,
+      "draft": true
+    },
+    {
+      "n": 17,
+      "slug": "caregiver-to-pr",
+      "file": "12-caregiver-to-pr",
+      "title": "Caregiver to permanent residence: what IRCC shows right now",
+      "tl": true,
+      "draft": true
+    },
+    {
+      "n": 18,
+      "slug": "sending-money-home",
+      "file": "13-sending-money-home",
+      "title": "Sending money home: what to compare",
+      "tl": true,
+      "draft": true
+    },
+    {
+      "n": 19,
+      "slug": "balikbayan-box-shipping",
+      "file": "14-balikbayan-box",
+      "title": "Balikbayan box shipping guide: rules, limits, and Christmas timing",
+      "tl": true,
+      "draft": true
+    },
+    {
+      "n": 20,
+      "slug": "simbang-gabi-canada",
+      "file": "15-simbang-gabi",
+      "title": "Simbang Gabi in Canada: an explainer",
+      "tl": true,
+      "draft": true
+    },
+    {
+      "n": 21,
+      "slug": "overseas-voting-oav",
+      "file": "16-overseas-voting",
+      "title": "Overseas voting (OAV) for Filipinos in Canada",
+      "tl": true,
+      "draft": true
+    },
+    {
+      "n": 22,
+      "slug": "filipino-heritage-month",
+      "file": "17-filipino-heritage-month",
+      "title": "Filipino Heritage Month in Canada (June)",
+      "tl": true,
+      "draft": true
+    },
+    {
+      "n": 23,
+      "slug": "business-of-the-week-template",
+      "file": "18-business-of-the-week-template",
+      "title": "Business of the Week — editorial template",
+      "tl": true,
+      "draft": true
     }
   ],
   "seasons": [

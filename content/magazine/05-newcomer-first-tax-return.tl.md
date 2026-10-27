@@ -5,7 +5,7 @@ lang: tl
 status: DRAFT — CONFIDENTIAL — not for publication — ⚠️ NEEDS NATIVE-SPEAKER REVIEW
 seo_title: "Unang Tax Return sa Canada: Checklist ng Newcomer"
 meta_description: "Bago ka sa Canada? Checklist para sa unang tax return mo: SIN, date of entry, world income, RC151 at RC66, slips at mga deadline."
-last_checked: 2026-10-17
+last_checked: 2026-10-27
 ---
 
 > ⚠️ **DRAFT NA SALIN SA TAGALOG.** Kailangang i-review ng native speaker bago i-publish.
@@ -21,8 +21,10 @@ Welcome sa Canada! Dumating ka man bilang permanent resident, may work o study p
 - [ ] **Kumuha ng Social Insurance Number (SIN)** sa Service Canada. Kung hindi ka mabigyan ng Service Canada, puwedeng bigyan ka ng CRA ng **temporary tax number (TTN)**. Ingatan ang SIN mo.
 - [ ] **Alamin ang date of entry mo** sa Canada. Para sa karamihan ng newcomer, nagiging resident ka for tax purposes sa unang araw na tumira ka dito, pero depende ito sa **residential ties** mo (bahay, asawa o partner, dependants sa Canada). Hindi sigurado? May **Form NR74** ang CRA para makatulong malaman ang residency status mo.
 - [ ] **Mag-apply agad ng benefits. Hindi mo kailangang hintayin ang unang return mo:**
-  - Walang anak: **RC151** (online web form) para sa **Canada Groceries and Essentials Benefit** (dating GST/HST credit)
-  - May anak na wala pang 19: kung eligible sa Canada Child Benefit, mag-apply gamit ang **RC66** (at **RC66SCH**). Kasama na dito ang Groceries and Essentials Benefit. Isama ang **proof of birth** ng bawat anak.
+  - Walang anak: **RC151** (online web form) para sa **Canada Groceries and Essentials Benefit** (dating GST/HST credit). Isang application lang kada household.
+  - May anak na wala pang 19: kung eligible sa Canada Child Benefit, mag-apply gamit ang **RC66** (at **RC66SCH** kapag kailangan — halimbawa kung ikaw o ang asawa mo ay naging resident sa huling dalawang taon, naging citizen sa huling 12 buwan, o permanent resident / protected person / temporary resident sa mga sitwasyong nililista ng CRA). Sakop din ng RC66 ang CGEB eligibility. Isama ang **proof of birth** ng bawat anak kung hindi pa nabayaran ng CRA ang benefits para sa kanila.
+  - Para sa maraming bagong silang, ang provincial o territorial **Automated Benefits Application** sa birth registration ang puwedeng magsimula ng CCB — **huwag** nang mag-re-apply sa RC66 kung ginamit mo na iyon.
+  - Tingnan din ang [Benefits na madalas makaligtaan](/magazine/benefits-families-miss) para sa mga halaga at timing ng CGEB at CCB.
 - [ ] **Ihanda ang kita mo bago ka dumating.** Puwedeng hingin ng CRA ang **world income mo at ng asawa mo hanggang dalawang taon bago kayo dumating** (Statement of Income). I-convert sa Canadian dollars gamit ang Bank of Canada exchange rate sa araw na natanggap mo ang kita. I-report **kahit zero**. Walang Canadian tax sa kitang kinita mo bago ka naging resident.
 - [ ] **Salin:** ang mga dokumentong hindi English o French ay kailangan ng katanggap-tanggap na translation.
 
@@ -61,7 +63,7 @@ Kung nagtrabaho ka sa Pilipinas o sa ibang bansa bago lumipat dito, itago ang em
 
 ---
 
-_Pangkalahatang impormasyon lamang ito, hindi tax, legal, immigration o financial advice. Tingnan ang canada.ca o kumonsulta sa qualified na propesyonal. Huling na-check: October 17, 2026._
+_Pangkalahatang impormasyon lamang ito, hindi tax, legal, immigration o financial advice. Tingnan ang canada.ca o kumonsulta sa qualified na propesyonal. Huling na-check: October 27, 2026 (America/Toronto)._
 
 **Sources**
 
@@ -73,3 +75,6 @@ _Pangkalahatang impormasyon lamang ito, hindi tax, legal, immigration o financia
 - CRA, Free tax clinics: https://www.canada.ca/en/revenue-agency/services/tax/individuals/community-volunteer-income-tax-program/need-a-hand-complete-your-tax-return.html
 - CRA, 2027 deadlines (self-employed): https://www.canada.ca/en/services/taxes/resources-for-small-and-medium-businesses/2026-tax-deadlines-canadian-businesses-self-employed-individuals.html
 - Government of Canada, Philippines: pensions and benefits: https://www.canada.ca/en/services/benefits/publicpensions/cpp/cpp-international/philippines.html
+- CRA, Form RC66: https://www.canada.ca/en/revenue-agency/services/forms-publications/forms/rc66.html
+- CRA, CGEB payment dates: https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-groceries-essentials-benefit/payment-dates.html
+- CRA, GST/HST credit no longer available: https://www.canada.ca/en/revenue-agency/services/child-family-benefits/gst-hst-credit.html

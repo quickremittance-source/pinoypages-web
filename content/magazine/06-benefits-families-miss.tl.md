@@ -5,7 +5,7 @@ lang: tl
 status: DRAFT — CONFIDENTIAL — not for publication — ⚠️ NEEDS NATIVE-SPEAKER REVIEW
 seo_title: "Mga Benefit na Nakakaligtaan ng Pamilyang Pinoy"
 meta_description: "Canada Child Benefit, Groceries and Essentials Benefit (dating GST/HST credit), Ontario Trillium Benefit at Canada Workers Benefit: opisyal na halaga."
-last_checked: 2026-10-17
+last_checked: 2026-10-27
 ---
 
 > ⚠️ **DRAFT NA SALIN SA TAGALOG.** Kailangang i-review ng native speaker bago i-publish.
@@ -28,16 +28,18 @@ Marami sa pinakamalalaking bayad na natatanggap ng mga pamilya sa Canada ay **hi
 - Buong halaga kapag ang **adjusted family net income ay mas mababa sa $38,237**. Lampas diyan, unti-unti itong bumababa.
 - Hanggang **$3,480** pa kada taon sa bawat anak na eligible sa **disability tax credit** (Child Disability Benefit).
 - **Para sa July 2027 hanggang June 2028** (base sa 2026 return mo): ⚠️ _PLACEHOLDER. Hindi pa naka-publish ng CRA (ina-adjust tuwing July)._
+- **Paano mag-apply:** CRA My Account (“Apply for child benefits”), sa mail gamit ang **Form RC66**, o — para sa maraming bagong silang — ang provincial/territorial **Automated Benefits Application** kapag nire-register ang kapanganakan (huwag nang mag-re-apply sa RC66 kung ginamit mo na iyon). Puwedeng kailanganin din ng newcomer ang **RC66SCH**. Detalye: [newcomer checklist](/magazine/newcomer-first-tax-return).
 
 ## 2. Canada Groceries and Essentials Benefit (dating GST/HST credit)
 
-**Tax-free na bayad kada tatlong buwan** para sa mga indibidwal at pamilyang mababa o katamtaman ang kita.
+**Tax-free na bayad kada tatlong buwan** para sa mga indibidwal at pamilyang mababa o katamtaman ang kita, pantulong sa groceries at pang-araw-araw na essentials. Puwedeng kasama ang related provincial o territorial amounts.
 
 - **July 2026 hanggang June 2027**, hanggang:
   - **$679** kung single
   - **$890** kung kasal o common-law
   - **$234** sa bawat anak na wala pang 19
-- Ibinibigay tuwing **July, October, January at April**.
+- Karaniwang ibinibigay tuwing **ika-5** ng **July, October, January at April** (o last business day bago ang ika-5 kung weekend o holiday). Kung mas mababa sa **$50** ang quarterly amount, puwedeng ibigay ng CRA ang buong taon sa July.
+- Pagkatapos ng unang beses, karaniwang **hindi ka na mag-a-apply taon-taon**: **mag-file ng tax return**, at i-che-check ng CRA kung qualified ka. Mag-file kahit maliit o walang kita; ang late filing ay puwedeng maistorbo ang quarterly payments hanggang ma-assess ang return.
 - **Para sa July 2027 hanggang June 2028:** ⚠️ _PLACEHOLDER. Hindi pa naka-publish._
 
 ## 3. Ontario Trillium Benefit (OTB)
@@ -76,7 +78,7 @@ Pinagsama-samang tatlong Ontario credit. **Ina-applyan ito sa pag-file ng return
 
 ---
 
-_Pangkalahatang impormasyon lamang ito, hindi tax, legal o financial advice. Depende ang halaga sa kita, pamilya at tirahan mo. Tingnan ang canada.ca o ontario.ca, o kumonsulta sa qualified na propesyonal. Huling na-check: October 17, 2026._
+_Pangkalahatang impormasyon lamang ito, hindi tax, legal o financial advice. Depende ang halaga sa kita, pamilya at tirahan mo. Tingnan ang canada.ca o ontario.ca, o kumonsulta sa qualified na propesyonal. Huling na-check: October 27, 2026 (America/Toronto)._
 
 **Sources**
 
@@ -87,3 +89,7 @@ _Pangkalahatang impormasyon lamang ito, hindi tax, legal o financial advice. Dep
 - CRA, Benefit and credit payments infographic (updated 2026-07-01): https://www.canada.ca/en/services/taxes/income-tax/personal-income-tax/help-others/outreach/outreach-materials-print-share/nfgrphc-chld-rltd-bnfts.html
 - CRA, CWB how much you can get: https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/deductions-credits-expenses/line-45300-canada-workers-benefit-cwb/how-much-you-can-get.html
 - CRA, Newcomers to Canada and the CRA: https://www.canada.ca/en/revenue-agency/services/tax/international-non-residents/individuals-leaving-entering-canada-non-residents/newcomers-canada-immigrants.html
+- CRA, CGEB payment dates: https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-groceries-essentials-benefit/payment-dates.html
+- CRA, GST/HST credit no longer available: https://www.canada.ca/en/revenue-agency/services/child-family-benefits/gst-hst-credit.html
+- CRA, How to apply — CCB: https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-child-benefit/how-apply.html
+- CRA, Form RC66: https://www.canada.ca/en/revenue-agency/services/forms-publications/forms/rc66.html

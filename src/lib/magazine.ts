@@ -11,6 +11,8 @@ export type Article = {
   file: string;
   title: string;
   tl: boolean;
+  /** When true, hidden from production listings and sitemap; shown on preview/dev (or ALLOW_DRAFTS=true). */
+  draft?: boolean;
   /** SAMPLE stories (pilot prototype): byline, kind, season, linked sample listings and tools. */
   sample?: boolean;
   kind?: "profile" | "how-to" | "community";
@@ -21,14 +23,24 @@ export type Article = {
   author?: string;
 };
 export const articles = data.articles as Article[];
-export const sampleStories = articles.filter((a) => a.sample);
-export const editionArticles = articles.filter((a) => !a.sample);
+
+/** Preview / local / explicit override may surface draft articles; production builds hide them. */
+export const showDraftArticles =
+  process.env.ALLOW_DRAFTS === "true" || process.env.VERCEL_ENV === "preview" || process.env.NODE_ENV === "development";
+
+export function isListedArticle(a: Article) {
+  return !a.draft || showDraftArticles;
+}
+
+export const listedArticles = articles.filter(isListedArticle);
+export const sampleStories = listedArticles.filter((a) => a.sample);
+export const editionArticles = listedArticles.filter((a) => !a.sample);
 export const KIND_LABEL = {
   profile: "Meet the Verified Kabayan",
   "how-to": "Money how-to",
   community: "Community",
 } as const;
-export const articleBySlug = (slug: string) => articles.find((a) => a.slug === slug);
+export const articleBySlug = (slug: string) => listedArticles.find((a) => a.slug === slug);
 
 export function readArticle(a: Article, lang: "en" | "tl" = "en") {
   const raw = readFileSync(path.join(process.cwd(), "content", "magazine", `${a.file}.${lang}.md`), "utf8");

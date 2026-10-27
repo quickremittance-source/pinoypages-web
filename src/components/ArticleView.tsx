@@ -59,6 +59,25 @@ export function ArticleView({ a, lang }: { a: Article; lang: "en" | "tl" }) {
               </>
             )}
           </p>
+          {a.draft && (
+            <div
+              className="mb-4 rounded-md border border-amber-300 bg-amber-50 p-3 text-sm text-ink"
+              data-testid="draft-banner"
+              role="status"
+            >
+              {lang === "tl" ? (
+                <>
+                  <strong>DRAFT — CONFIDENTIAL.</strong> Hindi pa ito para sa publication. Ang salin sa Tagalog ay{" "}
+                  <strong>kailangan pang i-review ng native speaker</strong> bago i-publish.
+                </>
+              ) : (
+                <>
+                  <strong>DRAFT — CONFIDENTIAL.</strong> Not for publication.
+                  {a.tl ? " The Tagalog version still needs native-speaker review." : null}
+                </>
+              )}
+            </div>
+          )}
           <article
             className={`prose-article card p-6 sm:p-8 ${a.sample ? "dropcap" : ""}`}
             lang={lang}

@@ -5,7 +5,7 @@ lang: en
 status: DRAFT — CONFIDENTIAL — not for publication
 seo_title: "Newcomer's First Canadian Tax Return: Checklist"
 meta_description: "New to Canada? Use this checklist for your first tax return: SIN, date of entry, world income, benefit forms RC151 and RC66, slips and deadlines."
-last_checked: 2026-10-17
+last_checked: 2026-10-27
 ---
 
 # Newcomer's first Canadian tax return: a checklist
@@ -19,8 +19,10 @@ Welcome to Canada! Whether you came as a permanent resident, on a work or study 
 - [ ] **Get your Social Insurance Number (SIN)** from Service Canada. If Service Canada can't issue you one, the CRA may give you a **temporary tax number (TTN)**. Keep your SIN private.
 - [ ] **Know your date of entry** into Canada. For most newcomers, you become a resident for tax purposes on the first day you live here, but it depends on your **residential ties** (home, spouse or partner, dependants in Canada). Unsure? The CRA has **Form NR74** to help determine your residency status.
 - [ ] **Apply for benefits early. You don't have to wait for your first return:**
-  - No children: **RC151** (online web form) for the **Canada Groceries and Essentials Benefit** (formerly the GST/HST credit)
-  - With children under 19: if eligible for the Canada Child Benefit, apply with **RC66** (plus **RC66SCH**). This also covers the Groceries and Essentials Benefit. Include **proof of birth** for each child.
+  - No children: **RC151** (online web form) for the **Canada Groceries and Essentials Benefit** (formerly the GST/HST credit). One application per household.
+  - With children under 19: if eligible for the Canada Child Benefit, apply with **RC66** (plus **RC66SCH** when required — for example if you or your spouse became a resident in the last two years, became a citizen in the last 12 months, or are a permanent resident / protected person / temporary resident in the situations the CRA lists). RC66 also covers CGEB eligibility. Include **proof of birth** for each child when the CRA has never paid benefits for them.
+  - For many newborns, the provincial or territorial **Automated Benefits Application** at birth registration can start CCB — do **not** also re-apply with RC66 if you used that service.
+  - See also [Benefits Filipino families often miss](/magazine/benefits-families-miss) for CGEB and CCB amounts and payment timing.
 - [ ] **Have your pre-arrival income ready.** The CRA may ask for **world income for you and your spouse for up to two years before you arrived** (a Statement of Income). Convert amounts to Canadian dollars using the Bank of Canada exchange rate on the date you received the income. Report it **even if it was zero**. You don't pay Canadian tax on income earned before you became a resident.
 - [ ] **Translations:** documents not in English or French need an acceptable translation.
 
@@ -59,7 +61,7 @@ If you worked in the Philippines or abroad before coming, keep your employment a
 
 ---
 
-_General information only, not tax, legal, immigration or financial advice. Check canada.ca or talk to a qualified professional about your situation. Last checked October 17, 2026._
+_General information only, not tax, legal, immigration or financial advice. Check canada.ca or talk to a qualified professional about your situation. Last checked October 27, 2026 (America/Toronto)._
 
 **Sources**
 
@@ -71,3 +73,6 @@ _General information only, not tax, legal, immigration or financial advice. Chec
 - CRA, Free tax clinics: https://www.canada.ca/en/revenue-agency/services/tax/individuals/community-volunteer-income-tax-program/need-a-hand-complete-your-tax-return.html
 - CRA, 2027 deadlines (self-employed): https://www.canada.ca/en/services/taxes/resources-for-small-and-medium-businesses/2026-tax-deadlines-canadian-businesses-self-employed-individuals.html
 - Government of Canada, Philippines: pensions and benefits: https://www.canada.ca/en/services/benefits/publicpensions/cpp/cpp-international/philippines.html
+- CRA, Form RC66: https://www.canada.ca/en/revenue-agency/services/forms-publications/forms/rc66.html
+- CRA, CGEB payment dates: https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-groceries-essentials-benefit/payment-dates.html
+- CRA, GST/HST credit no longer available: https://www.canada.ca/en/revenue-agency/services/child-family-benefits/gst-hst-credit.html
