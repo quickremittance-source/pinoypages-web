@@ -360,14 +360,14 @@
       ],
       "bestSeason": "July and August for swimming; June and September for quieter beach days.",
       "gettingThere": "Drive east about three hours via Highway 401 and County Road 49 or 33 through Picton.",
-      "tip": "Summer weekends often sell out. Ontario Parks uses day-use reservations for Sandbanks in peak season, so book ahead before driving three hours.",
+      "tip": "Summer weekends often fill up. Ontario Parks sells advance daily vehicle permits for Sandbanks, so reserve one before driving three hours.",
       "related": [
         {
           "category": "groceries",
           "label": "Filipino grocery stores for beach-day food"
         }
       ],
-      "reviewNeeded": ["Day-use reservation rules for Sandbanks are set yearly by Ontario Parks."]
+      "reviewNeeded": ["Checked 2026-10-27 per ontarioparks.ca/dayuse."]
     },
     {
       "slug": "elora-gorge",
@@ -384,14 +384,16 @@
       ],
       "bestSeason": "June to September for tubing and swimming; autumn for colours and walking.",
       "gettingThere": "Drive about 90 minutes west via Highway 401 and Highway 6 through Guelph.",
-      "tip": "Elora Gorge and the Elora Quarry often use advance reservations in summer. Reserve before you load the car for a group day trip.",
+      "tip": "The Elora Quarry requires advance online tickets in summer. Check the Grand River Conservation Authority website for Elora Gorge entry and tubing rules before you load the car for a group day trip.",
       "related": [
         {
           "category": "groceries",
           "label": "Filipino grocery stores for picnic food"
         }
       ],
-      "reviewNeeded": ["Reservation and tubing rules are set by the Grand River Conservation Authority and can change."]
+      "reviewNeeded": [
+        "Checked 2026-10-27 per grandriver.ca: Quarry tickets required in advance; Gorge entry rules may differ."
+      ]
     },
     {
       "slug": "little-manila",
@@ -402,7 +404,7 @@
       "geo": [43.7346, -79.4382],
       "summary": "The heart of Filipino Toronto: bakeries, restaurants, remittance offices and community.",
       "guide": [
-        "The area around Bathurst Street and Wilson Avenue in North York has been the centre of Filipino life in Toronto for decades. In 2022 the City of Toronto approved commemorative signs recognising the stretch of Bathurst Street near Wilson as Little Manila.",
+        "The area around Bathurst Street and Wilson Avenue in North York has been the centre of Filipino life in Toronto for decades. \"Little Manila\" is a community name rather than an official City of Toronto designation; in 2016 part of the Bathurst-Wilson Parkette was dedicated as Mabuhay Garden in recognition of the Filipino community.",
         "Along the strip you will find Filipino restaurants and turo-turo counters, bakeries for pandesal and ensaymada, groceries with Philippine brands, remittance and cargo offices and community services. Many newcomers find their first job, church community or barkada here.",
         "It is the best place to bring visiting relatives who miss home cooking, and a natural stop before a trip to the Philippines to pick up pasalubong and supplies for a balikbayan box."
       ],
@@ -427,7 +429,7 @@
         }
       ],
       "reviewNeeded": [
-        "Confirm the Little Manila commemorative designation wording with the City of Toronto before release."
+        "Checked 2026-10-27: no official City of Toronto 'Little Manila' designation found; community name only. Mabuhay Garden (2016) per The Canadian Encyclopedia."
       ]
     },
     {
@@ -446,8 +448,8 @@
         "Traffic in Metro Manila is heavy, so plan days by area rather than crossing the city repeatedly."
       ],
       "bestSeason": "December to May is the dry season. June to November is the wet season, when typhoons are most likely.",
-      "gettingThere": "Flights from Toronto Pearson reach Manila nonstop or with one connection, commonly through Vancouver, a U.S. hub or an Asian hub. Routes change, so check current airline schedules.",
-      "tip": "Former Filipino citizens who reacquired citizenship under the Dual Citizenship Act (RA 9225) can enter as Filipinos. Balikbayan privileges give visa-free stays to former Filipinos and their families travelling with them. Complete the eTravel registration before you fly.",
+      "gettingThere": "Philippine Airlines flies nonstop between Toronto Pearson and Manila several times a week. Other itineraries connect through Vancouver, a U.S. hub or an Asian hub. Schedules change, so check current airline timetables.",
+      "tip": "Former Filipino citizens who reacquired citizenship under the Dual Citizenship Act (RA 9225) can enter as Filipinos. Under the Balikbayan Program, former Filipinos naturalized in an eligible country, including Canada, can be admitted visa-free for an initial one-year stay; a foreign spouse and children qualify only when travelling with them and if their own nationality is eligible. Register on the free eTravel system (etravel.gov.ph) within 72 hours before arrival, and again before departure if you are a Filipino passenger.",
       "related": [
         {
           "category": "groceries",
@@ -459,8 +461,7 @@
         }
       ],
       "reviewNeeded": [
-        "Nonstop and connecting routes from Toronto change; never list airlines or schedules without checking.",
-        "eTravel and balikbayan entry rules can change; link to official Philippine government sources."
+        "Checked 2026-10-27: PAL YYZ-MNL nonstop (PAL W26 timetable); eTravel per etravel.gov.ph FAQ; Balikbayan per Bureau of Immigration FAQ."
       ]
     },
     {
@@ -601,7 +602,7 @@
         "Las Vegas is also a base for the national parks of the Southwest. Red Rock Canyon is about half an hour away, Hoover Dam under an hour, and the Grand Canyon's West and South Rims and Zion National Park are popular longer day trips or overnight trips."
       ],
       "bestSeason": "March to May and October to November. Summer is extremely hot.",
-      "gettingThere": "Direct flights connect Toronto Pearson with Harry Reid International Airport in Las Vegas.",
+      "gettingThere": "Nonstop flights connect Toronto Pearson with Harry Reid International Airport in Las Vegas; schedules vary by season.",
       "tip": "Philippine passport holders need a valid U.S. visa. Desert heat is serious: carry water on any day trip out of the city.",
       "related": [
         {
@@ -697,8 +698,8 @@
         "Both countries are well served by package holidays from Toronto, so many first-time travellers start here."
       ],
       "bestSeason": "December to April. June to November is hurricane season in the Caribbean.",
-      "gettingThere": "Direct flights connect Toronto Pearson with Cancún, Puerto Vallarta, Los Cabos, Varadero, Havana and other resort airports, especially in winter.",
-      "tip": "Entry rules depend on your passport. Mexico has accepted Canadian permanent residence for visa-free entry, and Cuba requires a tourist card. Check the rules for your own passport before you book a package.",
+      "gettingThere": "Direct flights, many of them seasonal, connect Toronto Pearson with major resort airports in Mexico and Cuba, especially in winter. Check current schedules with airlines and tour operators.",
+      "tip": "Entry rules depend on your passport. Canadian citizens and permanent residents of Canada do not need a visa for Mexico; Philippine passport holders without Canadian permanent residence generally need a Mexican visa unless they hold a valid visa from Canada, the U.S., the U.K., Japan or a Schengen country. Cuba requires a tourist card (usually included in packages on direct flights from Canada), proof of travel medical insurance and the online D'Viajeros form before arrival. Check the rules for your own passport before you book.",
       "related": [
         {
           "category": "immigration",
@@ -706,8 +707,8 @@
         }
       ],
       "reviewNeeded": [
-        "Mexico and Cuba entry rules for Philippine passport holders change; verify with official sources.",
-        "Seasonal direct routes change yearly."
+        "Checked 2026-10-27: Mexico per Consulate General of Mexico in Toronto; Cuba per travel.gc.ca and Embassy of Cuba in Canada. Cuba rules for Philippine passport holders without Canadian PR not confirmed: contact the Cuban consulate.",
+        "Specific seasonal direct routes not individually confirmed."
       ]
     }
   ]
