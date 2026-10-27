@@ -50,3 +50,6 @@ next-env.d.ts
 data/
 print/print-data.json
 /qr-out/
+
+.env.preview*
+.env*.local

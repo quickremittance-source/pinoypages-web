@@ -1,10 +1,10 @@
 "use server";
 
 import { z } from "zod";
-import { appendFile, mkdir } from "node:fs/promises";
-import path from "node:path";
 import { ads, categories, listings } from "@/lib/guide";
 import { saveContact, type ListKey } from "@/lib/contacts";
+import { appendSubmission } from "@/lib/storage";
+import { EVENT_CITIES } from "@/lib/events";
 
 const urlOk = z.url("Enter a full link starting with https://").max(300);
 
@@ -42,20 +42,12 @@ const claimSchema = z.object({
 });
 
 /**
- * No emails are sent. Submissions are logged and, outside Vercel, appended to a local JSONL file (data/ is git-ignored).
- * On Vercel the filesystem is read-only, so they appear in the function logs only until a real store is chosen.
+ * No emails are sent. Submissions go through the storage interface (Postgres when DATABASE_URL
+ * is set; otherwise local JSONL). On Vercel without DATABASE_URL they appear in function logs only —
+ * production storage is not persistent yet (known gap). See migrations/001_storage.sql.
  */
 async function store(kind: string, data: Record<string, unknown>) {
-  const record = { kind, ...data, submittedAt: new Date().toISOString() };
-  console.info(`[${kind}]`, JSON.stringify(record));
-  if (process.env.VERCEL) return;
-  try {
-    const dir = path.join(process.cwd(), "data");
-    await mkdir(dir, { recursive: true });
-    await appendFile(path.join(dir, "submissions.jsonl"), JSON.stringify(record) + "\n");
-  } catch (err) {
-    console.error("[store] could not write file", err);
-  }
+  await appendSubmission(kind, data);
 }
 
 /** Source tag for the contacts adapter: form name + utm_source passed through a hidden field. */
@@ -225,5 +217,63 @@ export async function submitListFree(_p: FormState, fd: FormData): Promise<FormS
       r.data.wantsVerified === "on"
         ? "Thanks! We'll confirm your free listing by email, and send you the details on Verified."
         : "Thanks! We'll confirm your free listing by email before it appears.",
+  };
+}
+
+const communityEventSchema = z.object({
+  title: z.string().trim().min(3, "Enter the event title").max(160),
+  start: z.string().trim().min(1, "Choose a start date and time"),
+  end: z.string().trim().min(1, "Choose an end date and time"),
+  city: z.enum(EVENT_CITIES, { message: "Choose a city" }),
+  category: z.enum(["fiesta", "church", "community", "business", "cultural"], {
+    message: "Choose a category",
+  }),
+  venue: z.string().trim().min(2, "Enter the venue").max(160),
+  address: optional(z.string().trim().max(200)),
+  organizer: z.string().trim().min(2, "Enter the organizer").max(120),
+  email: z.email("Enter a valid email").max(200),
+  phone: optional(z.string().trim().max(40)),
+  ticketUrl: urlOk.optional().or(z.literal("")),
+  description: optional(z.string().trim().max(2000)),
+  consent: z.literal("on", { message: "Please agree so we can contact you" }),
+});
+
+/**
+ * Filipino Events Calendar submissions. Stored as kind "community-event" with status pending.
+ * Never auto-published — an editor must copy approved rows into content/events.json.
+ */
+export async function submitCommunityEvent(_p: FormState, fd: FormData): Promise<FormState> {
+  if (String(fd.get("website_url") ?? "")) return { status: "success", message: "Thanks!" };
+  const r = parse(communityEventSchema, fd);
+  if (!r.success)
+    return {
+      status: "error",
+      message: "Please fix the highlighted fields.",
+      fieldErrors: z.flattenError(r.error).fieldErrors,
+    };
+  if (r.data.end < r.data.start) {
+    return {
+      status: "error",
+      message: "Please fix the highlighted fields.",
+      fieldErrors: { end: ["End must be after the start"] },
+    };
+  }
+  await store("community-event", {
+    ...r.data,
+    status: "pending",
+    timezone: "America/Toronto",
+  });
+  await saveContact({
+    email: r.data.email,
+    name: r.data.organizer,
+    phone: r.data.phone,
+    lists: ["event-organizers", "event-submitter"],
+    source: src("community-event", fd),
+    attributes: { EVENT_CITY: r.data.city, EVENT_CATEGORY: r.data.category },
+  });
+  return {
+    status: "success",
+    message:
+      "Salamat! We received your event. Nothing is published until we review it — we will email you when it is approved or if we need more details.",
   };
 }

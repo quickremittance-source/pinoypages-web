@@ -11,6 +11,7 @@ const nav = [
   { href: liveTools[0]?.route ?? "/", label: "Free tools" },
   { href: "/tax-deadlines", label: "Deadlines" },
   { href: "/calendar", label: "Calendar" },
+  { href: "/events", label: "Events" },
   { href: "/magazine", label: "Magazine" },
 ];
 
@@ -118,6 +119,11 @@ export function Footer() {
           <li>
             <Link href="/edition" className="hover:underline">
               Pilot Edition
+            </Link>
+          </li>
+          <li>
+            <Link href="/events" className="hover:underline">
+              Events · Mga Kaganapan
             </Link>
           </li>
         </ul>

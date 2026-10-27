@@ -8,8 +8,9 @@ import type { EventName, ListingStats } from "./events";
  *  - "json"    local JSON file (default when not on Vercel): data/analytics.json
  *  - "memory"  in-process only (lost on restart)
  *  - "upstash" Upstash Redis REST (needs UPSTASH_REDIS_REST_URL + UPSTASH_REDIS_REST_TOKEN) — not provisioned
- *  - "neon"    Postgres via Neon — interface only, not provisioned (see NeonStore below)
+ *  - "neon"    Postgres via @neondatabase/serverless (also selected automatically when DATABASE_URL is set)
  * On Vercel with nothing configured we fall back to "memory" + console logs (the filesystem is read-only).
+ * Shared schema: migrations/001_storage.sql. No database is provisioned by this repo.
  */
 export interface AnalyticsStore {
   increment(listingId: string, event: EventName, month: string, by?: number): Promise<void>;
@@ -112,29 +113,49 @@ export class UpstashStore implements AnalyticsStore {
 }
 
 /**
- * Neon / Postgres adapter — interface ready, not provisioned. Suggested schema:
- *   create table listing_stats (listing_id text, month char(7), event text, n int not null default 0,
- *                               primary key (listing_id, month, event));
- *   increment: insert ... on conflict (listing_id, month, event) do update set n = listing_stats.n + excluded.n
+ * Postgres analytics via @neondatabase/serverless when DATABASE_URL is set.
+ * Schema: migrations/001_storage.sql (listing_stats).
  */
 export class NeonStore implements AnalyticsStore {
-  private fail(): never {
-    throw new Error("NeonStore is not configured: add @neondatabase/serverless and DATABASE_URL first.");
+  async increment(id: string, e: EventName, month: string, by = 1) {
+    const { sql } = await import("@/lib/storage/db");
+    await sql()`
+      INSERT INTO listing_stats (listing_id, month, event, n)
+      VALUES (${id}, ${month}, ${e}, ${by})
+      ON CONFLICT (listing_id, month, event)
+      DO UPDATE SET n = listing_stats.n + EXCLUDED.n
+    `;
   }
-  async increment(): Promise<void> {
-    this.fail();
+  async get(id: string) {
+    const { sql } = await import("@/lib/storage/db");
+    const rows = (await sql()`
+      SELECT month, event, n FROM listing_stats WHERE listing_id = ${id}
+    `) as { month: string; event: string; n: number }[];
+    const out: ListingStats = {};
+    for (const r of rows) (out[r.month] ??= {})[r.event as EventName] = Number(r.n);
+    return out;
   }
-  async get(): Promise<ListingStats> {
-    this.fail();
-  }
-  async all(): Promise<Record<string, ListingStats>> {
-    this.fail();
+  async all() {
+    const { sql } = await import("@/lib/storage/db");
+    const rows = (await sql()`
+      SELECT listing_id, month, event, n FROM listing_stats
+    `) as { listing_id: string; month: string; event: string; n: number }[];
+    const out: Record<string, ListingStats> = {};
+    for (const r of rows) {
+      ((out[r.listing_id] ??= {})[r.month] ??= {})[r.event as EventName] = Number(r.n);
+    }
+    return out;
   }
 }
 
 const g = globalThis as unknown as { __ppStore?: AnalyticsStore };
 export function store(): AnalyticsStore {
   if (g.__ppStore) return g.__ppStore;
+  // DATABASE_URL wins: shared Postgres for counters (and submissions elsewhere).
+  if (process.env.DATABASE_URL?.trim()) {
+    g.__ppStore = new NeonStore();
+    return g.__ppStore;
+  }
   const kind = process.env.ANALYTICS_STORE ?? (process.env.VERCEL ? "memory" : "json");
   g.__ppStore =
     kind === "upstash"

@@ -7,6 +7,9 @@ export const TEST_ENV = {
   ADMIN_KEY: "test-admin-key",
   ANALYTICS_STORE: "json",
   ANALYTICS_FILE: "data/analytics.test.json",
+  // Keep form/contacts on local JSONL during tests (never treat the box as Vercel/Neon).
+  VERCEL: "",
+  DATABASE_URL: "",
 };
 
 export default defineConfig({
