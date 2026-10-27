@@ -451,6 +451,13 @@
       "route": "/tools/invoice",
       "enabled": false,
       "phase": "v2"
+    },
+    {
+      "id": "peso-converter",
+      "title": "Peso converter (CAD / PHP)",
+      "route": "/tools/peso-converter",
+      "enabled": true,
+      "phase": "v1.1"
     }
   ],
   "eventMenu": [
