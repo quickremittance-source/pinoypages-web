@@ -1139,7 +1139,7 @@ test("home band, free-card claim links, 'Be the first Verified' prompt and Why V
   await page.goto("/directory/tax-accounting");
   const claim = page.locator('li[data-listing="tax-02"]').getByTestId("free-claim");
   await expect(claim).toContainText("Is this your business?");
-  await expect(claim.getByRole("link", { name: "Claim it free" })).toHaveAttribute("href", "/upgrade?listing=tax-02");
+  await expect(claim.getByRole("link", { name: "Claim it free" })).toHaveAttribute("href", "/get-verified?listing=tax-02#claimh");
   await expect(claim.getByRole("link", { name: "Get Verified" })).toHaveAttribute(
     "href",
     "/get-verified?listing=tax-02",
@@ -1458,4 +1458,10 @@ test("home leads with advertising; directory stays as proof", async ({ page }) =
   await expect(page.getByTestId("home-ad-sizes").locator("li")).toHaveCount(4);
   await expect(page.getByRole("search", { name: "Find a business" })).toBeVisible();
   await expect(page.locator("header").getByRole("link", { name: "Book an ad" })).toBeVisible();
+});
+
+test("public listing claim flow: get-verified names the listing and shows $99 one-time", async ({ page }) => {
+  await page.goto("/get-verified?listing=pub-tummy-fillers-catering-balloon-decor#claimh");
+  await expect(page.getByText("Claiming:")).toContainText("Tummy Fillers Catering & Balloon Decor");
+  await expect(page.getByTestId("plan-verified")).toContainText("$99");
 });

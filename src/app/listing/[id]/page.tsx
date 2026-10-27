@@ -91,7 +91,7 @@ export default async function Page({ params }: P) {
               Claim this listing to correct details, or get Verified ($99 one-time + HST, everything included).{" "}
               {brand.badgeRule}
             </p>
-            <Link className="btn mt-4" href={`/upgrade?listing=${l.id}`}>
+            <Link className="btn mt-4" href={`/get-verified?listing=${l.id}#claimh`}>
               Claim / upgrade this listing
             </Link>
           </section>

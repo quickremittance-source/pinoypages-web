@@ -73,7 +73,7 @@ function Tick({ ok }: { ok: boolean }) {
 }
 
 /** Get Verified: comparison, the four badge checks, keeping-your-badge rules, plan table and the claim form. */
-export function GetVerified({ l }: { l?: Listing }) {
+export function GetVerified({ l }: { l?: Pick<Listing, "id" | "name"> }) {
   return (
     <div className="mx-auto max-w-6xl space-y-12 px-4 py-8">
       <section aria-labelledby="compare">
