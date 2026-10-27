@@ -1,6 +1,6 @@
 ---
 piece: 2
-slug: /tl/guides/2027-tax-deadlines
+slug: /magazine/tax-deadlines-2027/tl
 lang: tl
 status: DRAFT — CONFIDENTIAL — not for publication — ⚠️ NEEDS NATIVE-SPEAKER REVIEW
 seo_title: "Mga Tax Deadline sa Canada sa 2027 (2026 Tax Year)"
@@ -42,7 +42,7 @@ Sa 2027, ifa-file mo ang tax return mo para sa **2026 tax year** (January 1 hang
 - **Monthly o quarterly filer:** mag-file at magbayad **isang buwan pagkatapos** ng bawat reporting period.
 - **Annual filer:** karaniwang **tatlong buwan pagkatapos** ng fiscal year-end mo. Pero kung **self-employed ka na December 31 ang year-end**, ang GST/HST **payment ay due sa April 30, 2027** at ang **filing ay sa June 15, 2027**.
 
-Hindi sigurado kung kailangan mong mag-register? Basahin ang [Kailangan ko bang mag-register sa HST?](/tl/guides/do-i-need-hst) o subukan ang [HST checker](https://pinoypages.ca/tools/hst-checker) _[URL TBC]_.
+Hindi sigurado kung kailangan mong mag-register? Basahin ang [Kailangan ko bang mag-register sa HST?](/magazine/do-i-need-hst/tl) o subukan ang [HST checker](https://pinoypages.ca/tools/hst-checker) _[URL TBC]_.
 
 ## Rule kapag weekend o holiday
 
@@ -50,7 +50,7 @@ Kapag ang due date ng CRA ay pumatak sa Sabado, Linggo o public holiday na kinik
 
 ## Bakit kailangang mag-file on time kahit wala kang utang
 
-Ang mga benefit gaya ng **Canada Child Benefit** at **Canada Groceries and Essentials Benefit (dating GST/HST credit)** ay kinukuwenta mula sa tax return mo. Kailangang mag-file **ikaw at ang asawa o partner mo** taon-taon, kahit maliit o walang kita. Kapag late ang pag-file, puwedeng ma-delay ang mga bayad sa iyo. Basahin ang [Mga benefit na madalas makaligtaan ng pamilyang Pilipino](/tl/guides/benefits-families-miss).
+Ang mga benefit gaya ng **Canada Child Benefit** at **Canada Groceries and Essentials Benefit (dating GST/HST credit)** ay kinukuwenta mula sa tax return mo. Kailangang mag-file **ikaw at ang asawa o partner mo** taon-taon, kahit maliit o walang kita. Kapag late ang pag-file, puwedeng ma-delay ang mga bayad sa iyo. Basahin ang [Mga benefit na madalas makaligtaan ng pamilyang Pilipino](/magazine/benefits-families-miss/tl).
 
 ## Mabilis na checklist
 

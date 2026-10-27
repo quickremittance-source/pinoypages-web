@@ -1,6 +1,6 @@
 ---
 piece: 10
-slug: /tl/guides/first-tax-return-benefits
+slug: /magazine/first-tax-return-benefits/tl
 lang: tl
 status: DRAFT — CONFIDENTIAL — MERGED into pieces 05–06 — not listed separately — ⚠️ NEEDS NATIVE-SPEAKER REVIEW
 seo_title: "Unang Tax Return, CGEB at CCB (na-merge)"

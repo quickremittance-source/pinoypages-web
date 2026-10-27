@@ -1,6 +1,6 @@
 ---
 piece: 14
-slug: /tl/guides/balikbayan-box-shipping
+slug: /magazine/balikbayan-box-shipping/tl
 lang: tl
 status: DRAFT — CONFIDENTIAL — not for publication — ⚠️ NEEDS NATIVE-SPEAKER REVIEW
 seo_title: "Gabay sa Balikbayan Box: Duty Rules at Bawal Ipadala"

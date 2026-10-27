@@ -1,6 +1,6 @@
 ---
 piece: 9
-slug: /guides/first-30-days-canada
+slug: /magazine/first-30-days-canada
 lang: en
 status: DRAFT — CONFIDENTIAL — not for publication
 seo_title: "First 30 Days in Canada: SIN, Health Card, Bank, Phone"

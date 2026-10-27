@@ -1,6 +1,6 @@
 ---
 piece: 3
-slug: /guides/do-i-need-hst
+slug: /magazine/do-i-need-hst
 lang: en
 status: DRAFT — CONFIDENTIAL — not for publication
 seo_title: "Do I Need to Register for HST? The $30,000 Rule"
@@ -74,7 +74,7 @@ Some small suppliers choose to register so they can claim **input tax credits** 
 ## Once you're registered
 
 - Hold the HST you collect **in trust**. It's not your money to spend.
-- File and pay on your schedule (see our [2027 tax deadlines](/guides/2027-tax-deadlines)).
+- File and pay on your schedule (see our [2027 tax deadlines](/magazine/tax-deadlines-2027)).
 - Keep your records, usually for **six years**.
 
 ---

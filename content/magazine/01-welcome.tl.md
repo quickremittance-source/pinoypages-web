@@ -1,6 +1,6 @@
 ---
 piece: 1
-slug: /tl/about/welcome
+slug: /magazine/welcome/tl
 lang: tl
 status: DRAFT — CONFIDENTIAL — not for publication — ⚠️ NEEDS NATIVE-SPEAKER REVIEW
 seo_title: "Pinoy Pages 2026–2027: Money & Business sa GTA"
@@ -32,7 +32,7 @@ Mabuhay! Ang **Pinoy Pages 2026–2027** ay ang taunang direktoryo ng mga Filipi
 ## Paano kami nagtatrabaho
 
 - **Libre ang listing.** Puwedeng ma-lista nang libre ang kahit anong qualified na negosyo (pangalan at contact). Puwede ring mag-upgrade nang may bayad, at laging may label ang mga paid listing.
-- **Hindi kami nagre-recommend o nagre-rate ng negosyo.** Hindi endorsement ang pagkaka-lista. Mag-check ka muna bago kumuha ng kahit sino (makakatulong ang gabay namin sa [pagpili ng tax preparer](/tl/guides/choose-tax-preparer)).
+- **Hindi kami nagre-recommend o nagre-rate ng negosyo.** Hindi endorsement ang pagkaka-lista. Mag-check ka muna bago kumuha ng kahit sino (makakatulong ang gabay namin sa [pagpili ng tax preparer](/magazine/choose-tax-preparer/tl)).
 - **Isang edition kada taon** (ito ang Pinoy Pages 2026–2027), at buong taon naming ina-update ang website.
 
 Salamat at nandito ka! Kung may tanong ka na gusto mong sagutin namin, sabihan mo kami. Doon namin binabase kung ano ang susunod naming isusulat.

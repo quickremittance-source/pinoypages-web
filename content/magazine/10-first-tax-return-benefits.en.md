@@ -1,6 +1,6 @@
 ---
 piece: 10
-slug: /guides/first-tax-return-benefits
+slug: /magazine/first-tax-return-benefits
 lang: en
 status: DRAFT — CONFIDENTIAL — MERGED into pieces 05–06 — not listed separately
 seo_title: "First Canadian Tax Return, CGEB and Canada Child Benefit (merged)"

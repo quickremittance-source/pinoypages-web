@@ -1,6 +1,6 @@
 ---
 piece: 4
-slug: /guides/cpp-self-employed
+slug: /magazine/cpp-self-employed
 lang: en
 status: DRAFT — CONFIDENTIAL — not for publication
 seo_title: "CPP for Self-Employed in Canada (2026): Rates & Estimator"

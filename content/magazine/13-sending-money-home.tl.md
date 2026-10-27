@@ -1,6 +1,6 @@
 ---
 piece: 13
-slug: /tl/guides/sending-money-home
+slug: /magazine/sending-money-home/tl
 lang: tl
 status: DRAFT — CONFIDENTIAL — not for publication — ⚠️ NEEDS NATIVE-SPEAKER REVIEW
 seo_title: "Pagpapadala ng Pera sa Pinas: Fees, FX Margin at Bilis"

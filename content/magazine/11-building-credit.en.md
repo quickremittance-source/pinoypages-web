@@ -1,6 +1,6 @@
 ---
 piece: 11
-slug: /guides/building-credit-canada
+slug: /magazine/building-credit-canada
 lang: en
 status: DRAFT — CONFIDENTIAL — not for publication
 seo_title: "Building Credit in Canada: FCAC Basics for Newcomers"

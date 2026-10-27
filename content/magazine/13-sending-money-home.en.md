@@ -1,6 +1,6 @@
 ---
 piece: 13
-slug: /guides/sending-money-home
+slug: /magazine/sending-money-home
 lang: en
 status: DRAFT — CONFIDENTIAL — not for publication
 seo_title: "Sending Money Home: Fees, FX Margin and Speed to Compare"

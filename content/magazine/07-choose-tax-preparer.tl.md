@@ -1,6 +1,6 @@
 ---
 piece: 7
-slug: /tl/guides/choose-tax-preparer
+slug: /magazine/choose-tax-preparer/tl
 lang: tl
 status: DRAFT — CONFIDENTIAL — not for publication — ⚠️ NEEDS NATIVE-SPEAKER REVIEW
 seo_title: "Paano Pumili ng Tax Preparer: Red Flags at Tanong"

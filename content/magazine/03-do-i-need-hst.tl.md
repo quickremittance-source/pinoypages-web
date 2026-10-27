@@ -1,6 +1,6 @@
 ---
 piece: 3
-slug: /tl/guides/do-i-need-hst
+slug: /magazine/do-i-need-hst/tl
 lang: tl
 status: DRAFT — CONFIDENTIAL — not for publication — ⚠️ NEEDS NATIVE-SPEAKER REVIEW
 seo_title: "Kailangan Ko Bang Mag-register sa HST? $30,000 Rule"
@@ -76,7 +76,7 @@ May mga small supplier na nagre-register para ma-claim ang **input tax credits**
 ## Kapag naka-register ka na
 
 - Ang HST na kinokolekta mo ay **hawak mo lang "in trust."** Hindi mo ito pera na puwedeng gastusin.
-- Mag-file at magbayad ayon sa schedule mo (tingnan ang [2027 tax deadlines](/tl/guides/2027-tax-deadlines)).
+- Mag-file at magbayad ayon sa schedule mo (tingnan ang [2027 tax deadlines](/magazine/tax-deadlines-2027/tl)).
 - Itago ang records, karaniwan nang **anim na taon**.
 
 ---

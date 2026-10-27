@@ -1,6 +1,6 @@
 ---
 piece: 7
-slug: /guides/choose-tax-preparer
+slug: /magazine/choose-tax-preparer
 lang: en
 status: DRAFT — CONFIDENTIAL — not for publication
 seo_title: "How to Choose a Tax Preparer: Red Flags & Questions"

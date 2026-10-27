@@ -1,6 +1,6 @@
 ---
 piece: 17
-slug: /tl/guides/filipino-heritage-month
+slug: /magazine/filipino-heritage-month/tl
 lang: tl
 status: DRAFT — CONFIDENTIAL — not for publication — ⚠️ NEEDS NATIVE-SPEAKER REVIEW
 seo_title: "Filipino Heritage Month sa Canada (Hunyo)"

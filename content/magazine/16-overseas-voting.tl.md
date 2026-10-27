@@ -1,6 +1,6 @@
 ---
 piece: 16
-slug: /tl/guides/overseas-voting-oav
+slug: /magazine/overseas-voting-oav/tl
 lang: tl
 status: DRAFT — CONFIDENTIAL — not for publication — ⚠️ NEEDS NATIVE-SPEAKER REVIEW
 seo_title: "Overseas Voting (OAV) para sa mga Pilipino sa Canada"

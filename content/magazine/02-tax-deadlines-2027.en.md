@@ -1,6 +1,6 @@
 ---
 piece: 2
-slug: /guides/2027-tax-deadlines
+slug: /magazine/tax-deadlines-2027
 lang: en
 status: DRAFT — CONFIDENTIAL — not for publication
 seo_title: "2027 Tax Deadlines in Canada: Individuals & Self-Employed"
@@ -40,7 +40,7 @@ In 2027 you'll file your tax return for the **2026 tax year** (January 1 to Dece
 - **Monthly or quarterly filers:** file and pay **one month after** the end of each reporting period.
 - **Annual filers:** usually file and pay **three months after** your fiscal year-end. But if you're **self-employed with a December 31 year-end**, your GST/HST **payment is due April 30, 2027** and your **filing deadline is June 15, 2027**.
 
-Not sure if you need to register? Read our guide [Do I need to register for HST?](/guides/do-i-need-hst) or try the [HST checker](https://pinoypages.ca/tools/hst-checker) _[URL TBC]_.
+Not sure if you need to register? Read our guide [Do I need to register for HST?](/magazine/do-i-need-hst) or try the [HST checker](https://pinoypages.ca/tools/hst-checker) _[URL TBC]_.
 
 ## Weekend and holiday rule
 
@@ -48,7 +48,7 @@ When a CRA due date falls on a Saturday, Sunday or a public holiday the CRA reco
 
 ## Why filing on time matters even if you don't owe anything
 
-Benefits like the **Canada Child Benefit** and the **Canada Groceries and Essentials Benefit (formerly the GST/HST credit)** are calculated from your tax return. Both you **and** your spouse or partner need to file every year, even with little or no income. Filing late can delay your payments. See [Benefits Filipino families often miss](/guides/benefits-families-miss).
+Benefits like the **Canada Child Benefit** and the **Canada Groceries and Essentials Benefit (formerly the GST/HST credit)** are calculated from your tax return. Both you **and** your spouse or partner need to file every year, even with little or no income. Filing late can delay your payments. See [Benefits Filipino families often miss](/magazine/benefits-families-miss).
 
 ## Quick checklist
 

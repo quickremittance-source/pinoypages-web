@@ -1,6 +1,6 @@
 ---
 piece: 12
-slug: /tl/guides/caregiver-to-pr
+slug: /magazine/caregiver-to-pr/tl
 lang: tl
 status: DRAFT — CONFIDENTIAL — not for publication — ⚠️ NEEDS NATIVE-SPEAKER REVIEW
 seo_title: "Caregiver tungo sa PR: Kasalukuyang Status sa IRCC"

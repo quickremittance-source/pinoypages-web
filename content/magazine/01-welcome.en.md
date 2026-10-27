@@ -1,6 +1,6 @@
 ---
 piece: 1
-slug: /about/welcome
+slug: /magazine/welcome
 lang: en
 status: DRAFT — CONFIDENTIAL — not for publication
 seo_title: "Pinoy Pages 2026–2027: Filipino Money & Business, GTA"
@@ -30,7 +30,7 @@ Mabuhay! **Pinoy Pages 2026–2027** is the annual directory of Filipino-Canadia
 ## How we work
 
 - **Listings are free.** Any qualifying business can get a basic listing (name and contact) at no cost. Businesses can also pay to upgrade, and paid listings are always labelled.
-- **We don't recommend or rate businesses.** Being listed is not an endorsement. Do your own checks before you hire anyone (our guide on [choosing a tax preparer](/guides/choose-tax-preparer) can help).
+- **We don't recommend or rate businesses.** Being listed is not an endorsement. Do your own checks before you hire anyone (our guide on [choosing a tax preparer](/magazine/choose-tax-preparer) can help).
 - **We publish one edition a year** (this one is Pinoy Pages 2026–2027), and the website is updated all year.
 
 Salamat for being here. If you have a question you'd like us to cover, tell us. That's how we decide what to write next.

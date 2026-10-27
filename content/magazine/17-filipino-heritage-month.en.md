@@ -1,6 +1,6 @@
 ---
 piece: 17
-slug: /guides/filipino-heritage-month
+slug: /magazine/filipino-heritage-month
 lang: en
 status: DRAFT — CONFIDENTIAL — not for publication
 seo_title: "Filipino Heritage Month in Canada (June)"

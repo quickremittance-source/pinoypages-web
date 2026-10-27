@@ -1,6 +1,6 @@
 ---
 piece: 4
-slug: /tl/guides/cpp-self-employed
+slug: /magazine/cpp-self-employed/tl
 lang: tl
 status: DRAFT — CONFIDENTIAL — not for publication — ⚠️ NEEDS NATIVE-SPEAKER REVIEW
 seo_title: "CPP para sa Self-Employed (2026): Rates at Estimator"

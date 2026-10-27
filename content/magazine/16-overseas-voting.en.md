@@ -1,6 +1,6 @@
 ---
 piece: 16
-slug: /guides/overseas-voting-oav
+slug: /magazine/overseas-voting-oav
 lang: en
 status: DRAFT — CONFIDENTIAL — not for publication
 seo_title: "Overseas Voting (OAV) for Filipinos in Canada"

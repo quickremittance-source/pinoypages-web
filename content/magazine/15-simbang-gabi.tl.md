@@ -1,6 +1,6 @@
 ---
 piece: 15
-slug: /tl/guides/simbang-gabi-canada
+slug: /magazine/simbang-gabi-canada/tl
 lang: tl
 status: DRAFT — CONFIDENTIAL — not for publication — ⚠️ NEEDS NATIVE-SPEAKER REVIEW
 seo_title: "Simbang Gabi sa Canada: Ano ang Ibig Sabihin ng Novena"

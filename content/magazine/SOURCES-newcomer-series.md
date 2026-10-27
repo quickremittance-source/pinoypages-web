@@ -10,16 +10,16 @@ Drafts for Jose / Coder review. Match existing `content/magazine` frontmatter in
 
 | # | Title (EN) | Slug | EN file | TL file |
 | --- | --- | --- | --- | --- |
-| 9 | First 30 days in Canada: SIN, health card, bank, phone | `/guides/first-30-days-canada` | `en/09-first-30-days.en.md` | `tl/09-first-30-days.tl.md` |
-| 10 | First Canadian tax return and benefits (CGEB & CCB) | `/guides/first-tax-return-benefits` | `en/10-first-tax-return-benefits.en.md` | `tl/10-first-tax-return-benefits.tl.md` |
-| 11 | Building credit in Canada | `/guides/building-credit-canada` | `en/11-building-credit.en.md` | `tl/11-building-credit.tl.md` |
-| 12 | Caregiver to permanent residence (current IRCC) | `/guides/caregiver-to-pr` | `en/12-caregiver-to-pr.en.md` | `tl/12-caregiver-to-pr.tl.md` |
-| 13 | Sending money home: what to compare | `/guides/sending-money-home` | `en/13-sending-money-home.en.md` | `tl/13-sending-money-home.tl.md` |
-| 14 | Balikbayan box shipping guide | `/guides/balikbayan-box-shipping` | `en/14-balikbayan-box.en.md` | `tl/14-balikbayan-box.tl.md` |
-| 15 | Simbang Gabi in Canada explainer | `/guides/simbang-gabi-canada` | `en/15-simbang-gabi.en.md` | `tl/15-simbang-gabi.tl.md` |
-| 16 | Overseas voting (OAV) for Filipinos in Canada | `/guides/overseas-voting-oav` | `en/16-overseas-voting.en.md` | `tl/16-overseas-voting.tl.md` |
-| 17 | Filipino Heritage Month in Canada (June) | `/guides/filipino-heritage-month` | `en/17-filipino-heritage-month.en.md` | `tl/17-filipino-heritage-month.tl.md` |
-| 18 | Business of the Week template (fields only) | `/guides/business-of-the-week-template` | `en/18-business-of-the-week-template.en.md` | `tl/18-business-of-the-week-template.tl.md` |
+| 9 | First 30 days in Canada: SIN, health card, bank, phone | `/magazine/first-30-days-canada` | `en/09-first-30-days.en.md` | `tl/09-first-30-days.tl.md` |
+| 10 | First Canadian tax return and benefits (CGEB & CCB) | `/magazine/newcomer-first-tax-return` | `en/10-first-tax-return-benefits.en.md` | `tl/10-first-tax-return-benefits.tl.md` |
+| 11 | Building credit in Canada | `/magazine/building-credit-canada` | `en/11-building-credit.en.md` | `tl/11-building-credit.tl.md` |
+| 12 | Caregiver to permanent residence (current IRCC) | `/magazine/caregiver-to-pr` | `en/12-caregiver-to-pr.en.md` | `tl/12-caregiver-to-pr.tl.md` |
+| 13 | Sending money home: what to compare | `/magazine/sending-money-home` | `en/13-sending-money-home.en.md` | `tl/13-sending-money-home.tl.md` |
+| 14 | Balikbayan box shipping guide | `/magazine/balikbayan-box-shipping` | `en/14-balikbayan-box.en.md` | `tl/14-balikbayan-box.tl.md` |
+| 15 | Simbang Gabi in Canada explainer | `/magazine/simbang-gabi-canada` | `en/15-simbang-gabi.en.md` | `tl/15-simbang-gabi.tl.md` |
+| 16 | Overseas voting (OAV) for Filipinos in Canada | `/magazine/overseas-voting-oav` | `en/16-overseas-voting.en.md` | `tl/16-overseas-voting.tl.md` |
+| 17 | Filipino Heritage Month in Canada (June) | `/magazine/filipino-heritage-month` | `en/17-filipino-heritage-month.en.md` | `tl/17-filipino-heritage-month.tl.md` |
+| 18 | Business of the Week template (fields only) | `/magazine/business-of-the-week-template` | `en/18-business-of-the-week-template.en.md` | `tl/18-business-of-the-week-template.tl.md` |
 
 ## Primary sources by piece
 

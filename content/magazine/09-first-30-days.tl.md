@@ -1,6 +1,6 @@
 ---
 piece: 9
-slug: /tl/guides/first-30-days-canada
+slug: /magazine/first-30-days-canada/tl
 lang: tl
 status: DRAFT — CONFIDENTIAL — not for publication — ⚠️ NEEDS NATIVE-SPEAKER REVIEW
 seo_title: "Unang 30 Araw sa Canada: SIN, Health Card, Bank, Phone"

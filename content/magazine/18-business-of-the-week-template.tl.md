@@ -1,6 +1,6 @@
 ---
 piece: 18
-slug: /tl/guides/business-of-the-week-template
+slug: /magazine/business-of-the-week-template/tl
 lang: tl
 status: DRAFT — CONFIDENTIAL — not for publication — TEMPLATE ONLY — ⚠️ NEEDS NATIVE-SPEAKER REVIEW
 seo_title: "Business of the Week: Editorial Template (Mga Field Lamang)"

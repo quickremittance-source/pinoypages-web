@@ -1,6 +1,6 @@
 ---
 piece: 15
-slug: /guides/simbang-gabi-canada
+slug: /magazine/simbang-gabi-canada
 lang: en
 status: DRAFT — CONFIDENTIAL — not for publication
 seo_title: "Simbang Gabi in Canada: What the Novena Means"

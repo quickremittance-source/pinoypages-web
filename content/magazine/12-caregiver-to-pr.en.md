@@ -1,6 +1,6 @@
 ---
 piece: 12
-slug: /guides/caregiver-to-pr
+slug: /magazine/caregiver-to-pr
 lang: en
 status: DRAFT — CONFIDENTIAL — not for publication
 seo_title: "Caregiver to Permanent Residence: Current IRCC Status"

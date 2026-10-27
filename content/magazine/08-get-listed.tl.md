@@ -1,6 +1,6 @@
 ---
 piece: 8
-slug: /tl/advertise
+slug: /magazine/get-listed/tl
 lang: tl
 status: DRAFT — CONFIDENTIAL — not for publication — ⚠️ NEEDS NATIVE-SPEAKER REVIEW
 seo_title: "Ilista ang Negosyo Mo sa Pinoy Pages 2026–2027"

@@ -1,6 +1,6 @@
 ---
 piece: 11
-slug: /tl/guides/building-credit-canada
+slug: /magazine/building-credit-canada/tl
 lang: tl
 status: DRAFT — CONFIDENTIAL — not for publication — ⚠️ NEEDS NATIVE-SPEAKER REVIEW
 seo_title: "Pagbuo ng Credit sa Canada: Mga Batayan mula sa FCAC"

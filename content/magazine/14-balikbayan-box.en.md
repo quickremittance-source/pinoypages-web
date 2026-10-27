@@ -1,6 +1,6 @@
 ---
 piece: 14
-slug: /guides/balikbayan-box-shipping
+slug: /magazine/balikbayan-box-shipping
 lang: en
 status: DRAFT — CONFIDENTIAL — not for publication
 seo_title: "Balikbayan Box Guide: Duty Rules and What You Cannot Ship"

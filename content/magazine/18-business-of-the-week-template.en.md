@@ -1,6 +1,6 @@
 ---
 piece: 18
-slug: /guides/business-of-the-week-template
+slug: /magazine/business-of-the-week-template
 lang: en
 status: DRAFT — CONFIDENTIAL — not for publication — TEMPLATE ONLY
 seo_title: "Business of the Week: Editorial Template (Fields Only)"

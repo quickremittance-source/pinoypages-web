@@ -1,6 +1,6 @@
 ---
 piece: 8
-slug: /advertise
+slug: /magazine/get-listed
 lang: en
 status: DRAFT — CONFIDENTIAL — not for publication
 seo_title: "Get Your Business in Pinoy Pages 2026–2027 (Free)"
