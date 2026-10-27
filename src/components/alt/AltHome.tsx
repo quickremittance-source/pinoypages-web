@@ -16,7 +16,7 @@ const WHY = [
   {
     icon: "🏪",
     t: "For businesses",
-    d: "List free with your name and contact, or get Verified for $99, one-time (+ HST): a featured card, a ZCard with Save contact, a QR that counts every scan, and a monthly scan report.",
+    d: "List free with your name and contact, or get Verified for $99 a year (+ HST): a featured card, a ZCard with Save contact, a QR that counts every scan, and a monthly scan report.",
   },
   {
     icon: "🤝",
@@ -138,7 +138,7 @@ export function AltHome() {
         <p className="mt-4 text-sm text-muted">
           Prefer a listing instead?{" "}
           <Link href="/get-verified" className="font-semibold text-turqdk underline">
-            Verified listing, $99 one-time + HST
+            Verified listing, $99 per year + HST
           </Link>
         </p>
       </section>

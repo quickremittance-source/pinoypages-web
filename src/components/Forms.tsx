@@ -97,7 +97,7 @@ export function InquiryForm({ slot, size }: { slot?: string; size?: string }) {
           <option value="ad-half">Half page ad</option>
           <option value="ad-quarter">Quarter page ad</option>
           <option value="ad-card">Business card ad</option>
-          <option value="verified">Verified listing ($99 one-time + HST, everything included)</option>
+          <option value="verified">Verified listing ($99 per year + HST, everything included)</option>
         </select>
         {fe?.product && <span className="text-sm font-normal text-coral-dk">{fe.product[0]}</span>}
       </label>
@@ -292,7 +292,7 @@ export function ListFreeForm({ subs, listing }: { subs: { value: string; label: 
       </Suspense>
       <label className="flex items-start gap-2">
         <input type="checkbox" name="wantsVerified" className="mt-1" />
-        <span>Also send me the details on Verified ($99, one-time). Optional.</span>
+        <span>Also send me the details on Verified ($99 per year). Optional.</span>
       </label>
       <label className="flex items-start gap-2">
         <input type="checkbox" name="consent" className="mt-1" />

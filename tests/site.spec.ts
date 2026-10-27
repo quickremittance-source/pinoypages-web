@@ -467,7 +467,7 @@ test("event submission validates then succeeds (member featured event is free)",
   );
 });
 
-test("pilot menu = two tiers: Free / Verified $99 one-time (everything included); no add-ons; prices from config", async ({
+test("pilot menu = two tiers: Free / Verified $99 per year (everything included); no add-ons; prices from config", async ({
   page,
 }) => {
   const price = Object.fromEntries(guide.adMenu.map((a) => [a.id, a.price]));
@@ -480,7 +480,7 @@ test("pilot menu = two tiers: Free / Verified $99 one-time (everything included)
   const menu = JSON.stringify(guide.adMenu);
   expect(menu).not.toMatch(/lead|bundle|founding|bronze|silver|gold|platinum|starter|Verified Plus|Verified Ad/i);
   expect(JSON.stringify(guide)).not.toMatch(/\$(159|199|299|350|390|360|450|600|690|850)\b/);
-  for (const o of guide.adMenu.filter((x) => x.price > 0)) expect(o.unit).toMatch(/one-time/);
+  for (const o of guide.adMenu.filter((x) => x.price > 0)) expect(o.unit).toMatch(/per year/);
   expect(JSON.stringify(guide)).not.toMatch(/yearbook|guarantee(d)? (leads|results|calls)|results report|pinoypera/i);
   expect(guide.brand.siteUrl).toBe("https://pinoypages.ca");
   expect(guide.brand.badgeRule).toMatch(/one mutual vouch/);
@@ -507,7 +507,7 @@ test("pilot menu = two tiers: Free / Verified $99 one-time (everything included)
       0,
     );
     await expect(page.getByText(/pay-per-lead|per lead/i)).toHaveCount(0);
-    await expect(page.getByText(/Verified is a one-time fee, in CAD, plus applicable HST/)).toBeVisible();
+    await expect(page.getByText(/Verified is billed yearly, in CAD, plus applicable HST/)).toBeVisible();
   }
   await page.goto("/upgrade");
   await expect(page.getByText(guide.brand.pitch)).toBeVisible();
@@ -521,7 +521,7 @@ test("pilot menu = two tiers: Free / Verified $99 one-time (everything included)
   await page.getByRole("checkbox").check();
   await page.getByRole("button", { name: "Claim my listing" }).click();
   await expect(page.getByRole("status").first()).toContainText("verify your listing");
-  // Terms: Verified is $99 one-time; no renewal discount.
+  // Terms: Verified is $99 per year; no renewal discount.
   await page.goto("/terms");
   await expect(page.getByText(/payment never buys the badge/i)).toBeVisible();
   await expect(page.getByText(/renewal discount|20% off|\$159|\$199/i)).toHaveCount(0);
@@ -1463,7 +1463,7 @@ test("home leads with advertising; directory stays as proof", async ({ page }) =
   await expect(page.locator("header").getByRole("link", { name: "Book an ad" })).toBeVisible();
 });
 
-test("public listing claim flow: get-verified names the listing and shows $99 one-time", async ({ page }) => {
+test("public listing claim flow: get-verified names the listing and shows $99 per year", async ({ page }) => {
   await page.goto("/get-verified?listing=pub-tummy-fillers-catering-balloon-decor#claimh");
   await expect(page.getByText("Claiming:")).toContainText("Tummy Fillers Catering & Balloon Decor");
   await expect(page.getByTestId("plan-verified")).toContainText("$99");

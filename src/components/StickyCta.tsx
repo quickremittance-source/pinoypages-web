@@ -23,7 +23,7 @@ export function StickyCta() {
       <div className="flex items-center gap-2">
         <p className="min-w-0 flex-1 text-xs leading-tight text-muted">
           <strong className="block text-sm text-ink">Own a Filipino business?</strong>
-          List free, or get Verified for $99, one-time.
+          List free, or get Verified for $99 a year.
         </p>
         <Link href="/get-verified" className="btn px-3 py-2 text-sm">
           Get Verified

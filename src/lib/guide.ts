@@ -66,7 +66,7 @@ export type Section = {
 export const sections = data.sections as Section[];
 export const listings = data.listings as Listing[];
 const rank: Record<Tier, number> = { verified: 1, free: 0 };
-/** Two tiers. Verified ($99 one-time, everything included) gets the counted /go/ link, QR, ZCard, Save contact,
+/** Two tiers. Verified ($99 per year, everything included) gets the counted /go/ link, QR, ZCard, Save contact,
  * featured spot, Call / Book, photos and a counter card. Free = unverified, name + contact only. */
 export const isPaid = (l?: Pick<Listing, "tier">) => !!l && l.tier === "verified";
 /** Kept for call sites: in the two-tier pilot every Verified listing is featured. */

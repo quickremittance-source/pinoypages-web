@@ -130,7 +130,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
 
         <section aria-labelledby="verified-h" className="space-y-4">
           <h2 id="verified-h" className="text-2xl font-bold text-ink">
-            Also available: Verified listing, $99 one-time + HST
+            Also available: Verified listing, $99 per year + HST
           </h2>
           <p className="rounded-xl bg-sand p-4">
             {brand.badgeRule} A listing gets you found. Verification gets you customers.

@@ -88,7 +88,7 @@ export default async function Page({ params }: P) {
               Is this your business?
             </h2>
             <p className="mt-2">
-              Claim this listing to correct details, or get Verified ($99 one-time + HST, everything included).{" "}
+              Claim this listing to correct details, or get Verified ($99 per year + HST, everything included).{" "}
               {brand.badgeRule}
             </p>
             <Link className="btn mt-4" href={`/get-verified?listing=${l.id}#claimh`}>

@@ -16,7 +16,7 @@ export default function Page() {
           ))}
         </ol>
         <table className="w-full rounded-2xl bg-white text-left">
-          <caption className="p-3 text-left text-sm">One-time fee, in CAD, plus applicable HST.</caption>
+          <caption className="p-3 text-left text-sm">Verified is billed yearly, in CAD, plus applicable HST.</caption>
           <thead className="bg-sea text-white">
             <tr>
               <th scope="col" className="p-3">

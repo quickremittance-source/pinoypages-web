@@ -190,7 +190,7 @@ export default function Home() {
             <h3 className="mt-1 text-2xl font-extrabold text-ink">Get Verified · $99</h3>
             <p className="mt-2 text-muted">
               A featured card, the badge once you pass the visit and a mutual vouch, your ZCard and QR, and a monthly
-              scan report. One one-time price, everything included.
+              scan report. One yearly price, everything included.
             </p>
             <Link href="/get-verified" className="btn mt-4 self-start">
               Get Verified
@@ -213,7 +213,7 @@ export default function Home() {
                 Earned, never bought
               </h2>
               <p className="mt-2 text-muted">
-                $99 one-time + HST, everything included. Payment makes you eligible; the badge is earned.
+                $99 per year + HST, everything included. Payment makes you eligible; the badge is earned.
               </p>
               <Link href="/get-verified" className="btn mt-5">
                 Get Verified
