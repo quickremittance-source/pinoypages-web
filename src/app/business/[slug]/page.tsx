@@ -113,9 +113,11 @@ export default async function Page({ params }: P) {
         <h2 id="claim" className="text-xl font-bold text-ink">
           Is this your business?
         </h2>
-        <p className="mt-2">Claim this listing to correct details, advertise in print, or get Verified.</p>
-        <Link className="btn mt-4" href={`/advertise?listing=${l.id}`}>
-          Advertise or claim this listing
+        <p className="mt-2">
+          Claim this listing to correct details, or get Verified ($99 per year + HST, everything included).
+        </p>
+        <Link className="btn mt-4" href={`/get-verified?listing=${l.id}#claimh`}>
+          Claim or verify this listing
         </Link>
       </section>
     </div>

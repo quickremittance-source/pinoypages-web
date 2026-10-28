@@ -48,7 +48,7 @@ export function ListingCard({ l, compact = false }: { l: Listing; compact?: bool
         {l.sample && <SampleChip />}
         <span className="ml-auto text-xs text-muted" data-testid="free-claim">
           Is this your business?{" "}
-          <Link href={`/upgrade?listing=${l.id}`} className="font-semibold text-turqdk underline">
+          <Link href={`/get-verified?listing=${l.id}#claimh`} className="font-semibold text-turqdk underline">
             Claim it free
           </Link>{" "}
           ·{" "}
