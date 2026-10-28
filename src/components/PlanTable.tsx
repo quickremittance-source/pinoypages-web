@@ -15,7 +15,7 @@ export function MirrorNote() {
   );
 }
 
-/** The pilot menu: two tiers, Free and Verified ($199, everything included). No add-ons or bundles. */
+/** The pilot menu: two tiers, Free and Verified ($99 per year, everything included). No add-ons or bundles. */
 export function PlanTable() {
   return (
     <div className="space-y-3">
@@ -40,8 +40,8 @@ export function PlanTable() {
       <div className="overflow-x-auto" role="region" aria-label="Listing options" tabIndex={0}>
         <table className="w-full rounded-2xl bg-white text-left">
           <caption className="p-3 text-left text-sm">
-            Prices per issue, in CAD, plus applicable HST. Listings close {longDate(dates.adClose)}. Two choices: Free,
-            or Verified with everything included. {brand.adsNote}
+            Verified is billed yearly, in CAD, plus applicable HST. Listings close {longDate(dates.adClose)}. Two
+            choices: Free, or Verified with everything included. {brand.adsNote}
           </caption>
           <thead className="bg-sea text-white">
             <tr>

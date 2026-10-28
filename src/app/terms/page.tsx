@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PageHead } from "@/components/Chrome";
-import { adMenu, brand, money, renewal, renewalPrice, terms } from "@/lib/guide";
+import { adMenu, brand, money, terms } from "@/lib/guide";
 
 export const metadata: Metadata = { title: "Advertiser terms (draft)", alternates: { canonical: "/terms" } };
 
@@ -16,19 +16,14 @@ export default function Page() {
           ))}
         </ol>
         <table className="w-full rounded-2xl bg-white text-left">
-          <caption className="p-3 text-left text-sm">
-            Prices per issue. Pilot prices stay locked for advertisers who renew on time. CAD, plus applicable HST.
-          </caption>
+          <caption className="p-3 text-left text-sm">Verified is billed yearly, in CAD, plus applicable HST.</caption>
           <thead className="bg-sea text-white">
             <tr>
               <th scope="col" className="p-3">
                 Tier
               </th>
               <th scope="col" className="p-3">
-                Per issue
-              </th>
-              <th scope="col" className="p-3">
-                Member renewal by Dec 18 (−{renewal.memberDiscountPct}%)
+                Price
               </th>
             </tr>
           </thead>
@@ -39,7 +34,6 @@ export default function Page() {
                   {o.name}
                 </th>
                 <td className="p-3">{money(o.price)}</td>
-                <td className="p-3">{money(renewalPrice(o.price))}</td>
               </tr>
             ))}
           </tbody>
