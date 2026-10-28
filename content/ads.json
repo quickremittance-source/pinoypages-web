@@ -1,0 +1,65 @@
+{
+  "_note": "QR ad landing pages (/ad/<slug>). DEMO placeholders only until a real advertiser supplies approved content.",
+  "ads": [
+    {
+      "slug": "demo-full",
+      "tier": "full",
+      "demo": true,
+      "name": "Sample Business — Demo (Full page)",
+      "tagline": "Placeholder tagline for a full-page print ad.",
+      "offer": "Placeholder offer text. The advertiser's approved offer goes here.",
+      "services": ["Sample service one", "Sample service two", "Sample service three", "Sample service four"],
+      "photos": 4,
+      "phone": "+15550100",
+      "whatsapp": "15550100",
+      "website": "https://example.com",
+      "mapQuery": "Toronto, ON",
+      "listingId": null
+    },
+    {
+      "slug": "demo-half",
+      "tier": "half",
+      "demo": true,
+      "name": "Sample Business — Demo (Half page)",
+      "tagline": "Placeholder tagline for a half-page print ad.",
+      "offer": "Placeholder offer text. The advertiser's approved offer goes here.",
+      "services": ["Sample service one", "Sample service two", "Sample service three"],
+      "photos": 3,
+      "phone": "+15550101",
+      "whatsapp": "15550101",
+      "website": "https://example.com",
+      "mapQuery": "Toronto, ON",
+      "listingId": null
+    },
+    {
+      "slug": "demo-quarter",
+      "tier": "quarter",
+      "demo": true,
+      "name": "Sample Business — Demo (Quarter page)",
+      "tagline": "Placeholder tagline for a quarter-page print ad.",
+      "offer": "Placeholder offer text. The advertiser's approved offer goes here.",
+      "services": [],
+      "photos": 1,
+      "phone": "+15550102",
+      "whatsapp": "15550102",
+      "website": "https://example.com",
+      "mapQuery": "Toronto, ON",
+      "listingId": null
+    },
+    {
+      "slug": "demo-card",
+      "tier": "card",
+      "demo": true,
+      "name": "Sample Business — Demo (Business card)",
+      "tagline": "Placeholder contact card.",
+      "offer": "",
+      "services": [],
+      "photos": 0,
+      "phone": "+15550103",
+      "whatsapp": null,
+      "website": null,
+      "mapQuery": "Toronto, ON",
+      "listingId": null
+    }
+  ]
+}
