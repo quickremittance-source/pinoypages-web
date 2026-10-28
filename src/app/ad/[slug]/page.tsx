@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AdBeacon, AdLink } from "@/components/AdBeacon";
+import { getAd } from "@/lib/adsRepo";
 import {
-  adBySlug,
   adLandings,
   adStatId,
   mapsUrl,
@@ -24,14 +24,16 @@ function VerifiedBadge({ v }: { v: NonNullable<AdLanding["verified"]> }) {
   );
 }
 
-export const dynamicParams = false;
+// Static from ads.json; with DATABASE_URL, new DB ads render on demand and content refreshes every minute.
+export const dynamicParams = true;
+export const revalidate = 60;
 export function generateStaticParams() {
   return adLandings.map((a) => ({ slug: a.slug }));
 }
 type P = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: P): Promise<Metadata> {
   const { slug } = await params;
-  const a = adBySlug(slug);
+  const a = await getAd(slug);
   // Always noindex: QR landing pages are for people holding the printed ad, not for search.
   return {
     title: a ? (a.tier === "zcard" ? `Pinoy Pages zcard · ${a.name}` : a.name) : "Ad",
@@ -93,7 +95,7 @@ function MapEmbed({ q }: { q: string }) {
 /** QR ad landing page: full, half, quarter or business-card tier. Not linked from nav, magazine or sitemap. */
 export default async function Page({ params }: P) {
   const { slug } = await params;
-  const a = adBySlug(slug);
+  const a = await getAd(slug);
   if (!a) notFound();
   const id = adStatId(a.slug);
   const photos = Math.min(a.photos, TIER_PHOTOS[a.tier]);

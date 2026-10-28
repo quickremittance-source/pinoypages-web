@@ -13,9 +13,12 @@
     "format:check": "prettier --check .",
     "test": "playwright test",
     "print:plan": "node scripts/print-plan.mjs",
-    "new-edition": "node scripts/new-edition.mjs"
+    "new-edition": "node scripts/new-edition.mjs",
+    "db:migrate": "node scripts/db-migrate.mjs",
+    "db:seed-demo": "node scripts/db-seed-demo.mjs"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.2.0",
     "marked": "^15.0.12",
     "next": "15.5.28",
     "pdf-lib": "^1.17.1",

@@ -113,3 +113,14 @@ test("zcard Save contact is off (vCard 404); ad pages stay out of sitemap", asyn
   expect(await (await request.get("/sitemap.xml")).text()).not.toContain("/ad/");
   expect((await request.get("/ad/nope")).status()).toBe(404);
 });
+
+test("admin ads view: 404 without key; with key lists ads + QR links, noindex", async ({ page, request }) => {
+  const { TEST_ENV } = await import("../playwright.config");
+  expect((await request.get("/admin/ads")).status()).toBe(404);
+  expect((await request.get("/admin/ads?key=wrong")).status()).toBe(404);
+  await page.goto(`/admin/ads?key=${TEST_ENV.ADMIN_KEY}`);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Ad and QR analytics");
+  await expect(page.getByTestId("admin-ads").locator("li")).toHaveCount(4);
+  await expect(page.getByRole("link", { name: "PNG" }).first()).toHaveAttribute("href", "/ad/qr/demo-full.png");
+  expect(await page.locator('meta[name="robots"]').getAttribute("content")).toContain("noindex");
+});
