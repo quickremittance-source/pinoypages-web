@@ -70,3 +70,11 @@ No rates or rep rates are stored in these tables. Pricing stays out of the publi
 - **Quarter:** no landing page. The QR hits `/ad/<slug>`, the scan is counted server-side, then the visitor is redirected to `/listing/<listing_id>` (or `/directory` if no listing is linked).
 - **zcard:** no QR by default. A QR is available only with the Kabayan Verified++ add-on (`verified = 'verified_plus'`), and it redirects to the listing like quarter.
 - Pricing: Kabayan Verified is $99/year + HST (renews yearly). Everything else is "Rates on request".
+
+## Site content in Neon (stage 2, migration 002_content.sql)
+
+- Tables: `listing_categories`, `listings` (incl. `verified`, `verified_until`, `dish_tags`), `events`, `travel_pages`, `listing_stats`.
+- Import: `npm run db:import-content` upserts from `content/public-listings.json` and `content/guide.json`, removes rows no longer in the files, never imports `sample`/`demo` rows, and fails unless DB counts match the files exactly.
+- Listing view/click stats use Neon (`listing_stats`) whenever `DATABASE_URL` is set.
+- Page reads still come from the content files. Switching reads to Neon (cached, revalidated) is the next step and touches ~26 files.
+- Travel pages and Foodie Finder dish tags live on unmerged branches, so `travel_pages` and `dish_tags` are empty until those branches go live.
