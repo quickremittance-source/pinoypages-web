@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { headers } from "next/headers";
+import { notFound, redirect } from "next/navigation";
+import { track } from "@/lib/analytics/track";
 import { AdBeacon, AdLink } from "@/components/AdBeacon";
 import { getAd } from "@/lib/adsRepo";
 import {
-  adLandings,
+  hasLandingPage,
+  listingTarget,
   adStatId,
   mapsUrl,
   TIER_LABEL,
@@ -24,19 +27,16 @@ function VerifiedBadge({ v }: { v: NonNullable<AdLanding["verified"]> }) {
   );
 }
 
-// Static from ads.json; with DATABASE_URL, new DB ads render on demand and content refreshes every minute.
-export const dynamicParams = true;
-export const revalidate = 60;
-export function generateStaticParams() {
-  return adLandings.map((a) => ({ slug: a.slug }));
-}
-type P = { params: Promise<{ slug: string }> };
+// Dynamic: quarter and zcard QR codes count the scan on the server, then redirect to the business's listing.
+// Ad content reads are cached (see adsRepo.getAd), so DB load stays low.
+export const dynamic = "force-dynamic";
+type P = { params: Promise<{ slug: string }>; searchParams: Promise<{ src?: string; t?: string }> };
 export async function generateMetadata({ params }: P): Promise<Metadata> {
   const { slug } = await params;
   const a = await getAd(slug);
   // Always noindex: QR landing pages are for people holding the printed ad, not for search.
   return {
-    title: a ? (a.tier === "zcard" ? `Pinoy Pages zcard · ${a.name}` : a.name) : "Ad",
+    title: a ? a.name : "Ad",
     robots: { index: false, follow: false },
     alternates: { canonical: `/ad/${slug}` },
   };
@@ -92,21 +92,29 @@ function MapEmbed({ q }: { q: string }) {
   );
 }
 
-/** QR ad landing page: full, half, quarter or business-card tier. Not linked from nav, magazine or sitemap. */
-export default async function Page({ params }: P) {
+/** QR ad landing page (full and half tiers; quarter and zcard redirect to the listing). Not linked from nav, magazine or sitemap. */
+export default async function Page({ params, searchParams }: P) {
   const { slug } = await params;
   const a = await getAd(slug);
   if (!a) notFound();
+  if (!hasLandingPage(a.tier)) {
+    // Quarter / zcard: no landing page. Count, then send the visitor to the listing (or the directory).
+    const { src, t } = await searchParams;
+    const ua = (await headers()).get("user-agent");
+    const fromQr = src === "qr";
+    await track(adStatId(a.slug), fromQr ? "scan" : "view", ua);
+    if (fromQr && t && t === a.trackingId) await track(`${adStatId(a.slug)}:${t}`, "scan", ua);
+    redirect(listingTarget(a));
+  }
   const id = adStatId(a.slug);
   const photos = Math.min(a.photos, TIER_PHOTOS[a.tier]);
-  const rich = a.tier === "full" || a.tier === "half";
   return (
     <div className="min-h-[70vh] bg-aqua/40 px-3 py-5 sm:py-10" data-tier={a.tier}>
       <AdBeacon id={id} />
       <article className="card mx-auto max-w-md space-y-5 p-5">
         <header>
           <p className="kicker">
-            {a.tier === "zcard" ? TIER_LABEL.zcard : `${TIER_LABEL[a.tier]} ad`}{" "}
+            {`${TIER_LABEL[a.tier]} ad`}{" "}
             {a.demo && (
               <span className="sample-chip ml-1" data-testid="demo-chip">
                 DEMO
@@ -133,26 +141,24 @@ export default async function Page({ params }: P) {
                   ))}
                 </div>
               </div>
-            ) : a.tier === "half" ? (
+            ) : (
               <div className="grid grid-cols-3 gap-2">
                 {Array.from({ length: photos }, (_, i) => (
                   <Photo key={i} i={i} />
                 ))}
               </div>
-            ) : (
-              <Photo i={0} big />
             )}
           </section>
         )}
 
-        {a.offer && a.tier !== "zcard" && (
+        {a.offer && (
           <section className="rounded-xl border-l-4 border-phred bg-sand/60 p-4" data-testid="ad-offer">
             <h2 className="text-sm font-bold uppercase tracking-wider text-phred">Offer</h2>
             <p className="mt-1">{a.offer}</p>
           </section>
         )}
 
-        {rich && a.services.length > 0 && (
+        {a.services.length > 0 && (
           <section data-testid="ad-services">
             <h2 className="text-lg font-bold">{a.tier === "full" ? "Services and menu" : "Services"}</h2>
             <ul className="mt-2 list-disc space-y-1 pl-5">
@@ -163,27 +169,9 @@ export default async function Page({ params }: P) {
           </section>
         )}
 
-        {a.tier === "zcard" ? (
-          <div className="grid grid-cols-1 gap-2" data-testid="ad-buttons">
-            {a.features.callButton && (
-              <AdLink id={id} event="call" href={`tel:${a.phone}`} className="btn w-full">
-                Call
-              </AdLink>
-            )}
-            {a.features.saveContact && (
-              <AdLink id={id} event="tap" href={`/ad/vcard/${a.slug}.vcf`} className="btn btn-teal w-full" download>
-                Save contact
-              </AdLink>
-            )}
-            <AdLink id={id} event="map" href={mapsUrl(a.mapQuery)} className="btn btn-ghost w-full">
-              Map
-            </AdLink>
-          </div>
-        ) : (
-          <Buttons a={a} id={id} />
-        )}
+        <Buttons a={a} id={id} />
 
-        {rich && <MapEmbed q={a.mapQuery} />}
+        {<MapEmbed q={a.mapQuery} />}
 
         <footer className="space-y-1 border-t border-sand pt-3 text-center text-sm text-muted">
           {a.listingId ? (

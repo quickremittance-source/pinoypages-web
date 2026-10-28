@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PageHead } from "@/components/Chrome";
-import { TIER_LABEL, VERIFIED_LABEL } from "@/lib/adLanding";
+import { hasLandingPage, hasQr, listingTarget, TIER_LABEL, VERIFIED_LABEL } from "@/lib/adLanding";
 import { adStats, listAds, type AdStatRow } from "@/lib/adsRepo";
 import { validAdminKey } from "@/lib/analytics/token";
 
@@ -95,17 +95,28 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ k
                 <span className="font-semibold">{a.name}</span> · {TIER_LABEL[a.tier]}
                 {a.verified && ` · ${VERIFIED_LABEL[a.verified]}`} · <span className="font-mono">{a.slug}</span> ·
                 tracking <span className="font-mono">{a.trackingId}</span> ·{" "}
-                <a className="underline" href={`/ad/${a.slug}`}>
-                  page
-                </a>{" "}
-                · QR{" "}
-                <a className="underline" href={`/ad/qr/${a.slug}.svg`}>
-                  SVG
-                </a>{" "}
-                /{" "}
-                <a className="underline" href={`/ad/qr/${a.slug}.png`}>
-                  PNG
-                </a>
+                {hasLandingPage(a.tier) ? (
+                  <a className="underline" href={`/ad/${a.slug}`}>
+                    landing page
+                  </a>
+                ) : (
+                  <span>redirects to {listingTarget(a)}</span>
+                )}{" "}
+                ·{" "}
+                {hasQr(a) ? (
+                  <>
+                    QR{" "}
+                    <a className="underline" href={`/ad/qr/${a.slug}.svg`}>
+                      SVG
+                    </a>{" "}
+                    /{" "}
+                    <a className="underline" href={`/ad/qr/${a.slug}.png`}>
+                      PNG
+                    </a>
+                  </>
+                ) : (
+                  <span>no QR (zcard QR is a Kabayan Verified++ add-on)</span>
+                )}
               </li>
             ))}
           </ul>

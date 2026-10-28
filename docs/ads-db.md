@@ -63,3 +63,10 @@ No rates or rep rates are stored in these tables. Pricing stays out of the publi
 1. Create the tables on the Neon Preview branch only, and seed them from ads.json.
 2. Point `/ad/[slug]` at the database behind a flag, keeping ads.json as a fallback.
 3. Connect production only after Jose's go-ahead.
+
+## Tier behaviour (live rules)
+
+- **Full, half:** landing page at `/ad/<slug>`; QR → `/ad/<slug>?src=qr&t=<trackingId>`.
+- **Quarter:** no landing page. The QR hits `/ad/<slug>`, the scan is counted server-side, then the visitor is redirected to `/listing/<listing_id>` (or `/directory` if no listing is linked).
+- **zcard:** no QR by default. A QR is available only with the Kabayan Verified++ add-on (`verified = 'verified_plus'`), and it redirects to the listing like quarter.
+- Pricing: Kabayan Verified is $99/year + HST (renews yearly). Everything else is "Rates on request".

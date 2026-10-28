@@ -53,3 +53,10 @@ export const VERIFIED_LABEL = { verified: "Kabayan Verified", "verified-plus": "
 /** Kabayan Verified is $99/yr + HST; Verified++ bundle shows "Rates on request". */
 export const VERIFIED_PRICE = { verified: "$99/yr + HST", "verified-plus": "Rates on request" } as const;
 export const mapsUrl = (q: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
+
+/** Only full and half ads get a landing page; quarter and zcard QR scans redirect to the listing. */
+export const hasLandingPage = (tier: Tier) => tier === "full" || tier === "half";
+export const listingTarget = (a: Pick<AdLanding, "listingId">) =>
+  a.listingId ? `/listing/${a.listingId}` : "/directory";
+/** zcard gets a QR only with the Kabayan Verified++ add-on; every other tier always has one. */
+export const hasQr = (a: Pick<AdLanding, "tier" | "verified">) => a.tier !== "zcard" || a.verified === "verified-plus";

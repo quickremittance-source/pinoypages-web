@@ -1,4 +1,5 @@
 import "server-only";
+import { unstable_cache } from "next/cache";
 import { adBySlug as jsonAd, adLandings, type AdLanding } from "@/lib/adLanding";
 import type { EventName } from "@/lib/analytics/events";
 import { db } from "@/lib/db";
@@ -28,12 +29,18 @@ const SELECT = `select a.*, (select t.tracking_id from ad_tracking_ids t where t
   order by t.created_at limit 1) as tracking_id from ads a`;
 
 /** Live ad by slug: Neon when DATABASE_URL is set, else content/ads.json. A DB error falls back to JSON. */
+const cachedAd = unstable_cache(
+  async (slug: string) => {
+    const rows = (await db()!.query(`${SELECT} where a.slug = $1 and a.status = 'live'`, [slug])) as Row[];
+    return rows[0] ? toAd(rows[0]) : null;
+  },
+  ["ad-by-slug"],
+  { revalidate: 60, tags: ["ads"] },
+);
 export async function getAd(slug: string): Promise<AdLanding | undefined> {
-  const sql = db();
-  if (!sql) return jsonAd(slug);
+  if (!db()) return jsonAd(slug);
   try {
-    const rows = (await sql.query(`${SELECT} where a.slug = $1 and a.status = 'live'`, [slug])) as Row[];
-    return rows[0] ? toAd(rows[0]) : undefined;
+    return (await cachedAd(slug)) ?? undefined;
   } catch (e) {
     console.warn("[ads] db read failed, using json", (e as Error).message);
     return jsonAd(slug);
