@@ -37,7 +37,12 @@ const Ad = z.object({
     .default({ saveContact: false, callButton: false }),
 });
 export type AdLanding = z.infer<typeof Ad>;
-export const adLandings: AdLanding[] = z.array(Ad).parse(data.ads);
+/** DEMO ads never appear on Production (VERCEL_ENV=production), even on the JSON fallback. */
+const IS_PROD = process.env.VERCEL_ENV === "production";
+export const adLandings: AdLanding[] = z
+  .array(Ad)
+  .parse(data.ads)
+  .filter((a) => !(IS_PROD && a.demo));
 export const adBySlug = (slug: string) => adLandings.find((a) => a.slug === slug);
 /** Analytics key for an ad page, stored alongside listing counts. */
 export const adStatId = (slug: string) => `ad:${slug}`;

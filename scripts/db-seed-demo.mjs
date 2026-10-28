@@ -3,6 +3,7 @@ import { neon } from "@neondatabase/serverless";
 import { readFile } from "node:fs/promises";
 
 if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL not set");
+if (process.env.VERCEL_ENV === "production") throw new Error("Demo ads are never seeded into production");
 const sql = neon(process.env.DATABASE_URL);
 const { ads } = JSON.parse(await readFile("content/ads.json", "utf8"));
 for (const a of ads.filter((x) => x.demo === true)) {
