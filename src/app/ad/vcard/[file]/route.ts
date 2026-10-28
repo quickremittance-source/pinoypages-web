@@ -4,7 +4,7 @@ import { adLandings } from "@/lib/adLanding";
 export const dynamic = "force-static";
 export const dynamicParams = false;
 export function generateStaticParams() {
-  return adLandings.filter((a) => a.tier === "card").map((a) => ({ file: `${a.slug}.vcf` }));
+  return adLandings.filter((a) => a.tier === "zcard" && a.features.saveContact).map((a) => ({ file: `${a.slug}.vcf` }));
 }
 const esc = (s: string) =>
   s
@@ -12,11 +12,12 @@ const esc = (s: string) =>
     .replace(/([,;])/g, "\\$1")
     .replace(/\n/g, "\\n");
 
-/** "Save contact" vCard 3.0 for business-card tier ad pages. */
+/** "Save contact" vCard 3.0 for zcard tier ad pages. */
 export async function GET(_req: Request, { params }: { params: Promise<{ file: string }> }) {
   const { file } = await params;
-  const a = adLandings.find((x) => `${x.slug}.vcf` === file && x.tier === "card");
-  if (!a) return new Response("Not found", { status: 404 });
+  const a = adLandings.find((x) => `${x.slug}.vcf` === file && x.tier === "zcard");
+  // Save contact is off by default (features.saveContact); the route stays for later re-enabling.
+  if (!a || !a.features.saveContact) return new Response("Not found", { status: 404 });
   const body = [
     "BEGIN:VCARD",
     "VERSION:3.0",

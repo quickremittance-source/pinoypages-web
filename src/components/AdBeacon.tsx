@@ -11,10 +11,14 @@ function send(id: string, event: string) {
 /** Counts a view on every load, plus a scan when opened from the printed QR (?src=qr). No personal data. */
 export function AdBeacon({ id }: { id: string }) {
   useEffect(() => {
-    const fromQr = new URLSearchParams(window.location.search).get("src") === "qr";
+    const q = new URLSearchParams(window.location.search);
+    const fromQr = q.get("src") === "qr";
+    const t = q.get("t");
     send(id, "view");
     if (fromQr) send(id, "scan");
-    gtagTrack("ad_landing_view", { ad_id: id, source: fromQr ? "qr" : "web" });
+    // Per-print scan count, keyed by the ad's tracking id (server rejects unknown ids).
+    if (fromQr && t && /^[a-z0-9]{4,12}$/.test(t)) send(`${id}:${t}`, "scan");
+    gtagTrack("ad_landing_view", { ad_id: id, source: fromQr ? "qr" : "web", tracking_id: t ?? undefined });
   }, [id]);
   return null;
 }

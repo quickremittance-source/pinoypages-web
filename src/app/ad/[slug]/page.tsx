@@ -2,7 +2,27 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AdBeacon, AdLink } from "@/components/AdBeacon";
-import { adBySlug, adLandings, adStatId, mapsUrl, TIER_LABEL, TIER_PHOTOS, type AdLanding } from "@/lib/adLanding";
+import {
+  adBySlug,
+  adLandings,
+  adStatId,
+  mapsUrl,
+  TIER_LABEL,
+  TIER_PHOTOS,
+  VERIFIED_LABEL,
+  type AdLanding,
+} from "@/lib/adLanding";
+
+function VerifiedBadge({ v }: { v: NonNullable<AdLanding["verified"]> }) {
+  return (
+    <span
+      data-testid="verified-badge"
+      className="inline-flex items-center gap-1 rounded-full bg-green-700 px-2.5 py-0.5 text-xs font-bold text-white"
+    >
+      <span aria-hidden="true">✅</span> {VERIFIED_LABEL[v]}
+    </span>
+  );
+}
 
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -14,7 +34,7 @@ export async function generateMetadata({ params }: P): Promise<Metadata> {
   const a = adBySlug(slug);
   // Always noindex: QR landing pages are for people holding the printed ad, not for search.
   return {
-    title: a ? a.name : "Ad",
+    title: a ? (a.tier === "zcard" ? `Pinoy Pages zcard · ${a.name}` : a.name) : "Ad",
     robots: { index: false, follow: false },
     alternates: { canonical: `/ad/${slug}` },
   };
@@ -36,9 +56,11 @@ function Buttons({ a, id }: { a: AdLanding; id: string }) {
   const b = "btn w-full";
   return (
     <div className="grid grid-cols-2 gap-2" data-testid="ad-buttons">
-      <AdLink id={id} event="call" href={`tel:${a.phone}`} className={b}>
-        Call
-      </AdLink>
+      {a.features.callButton && (
+        <AdLink id={id} event="call" href={`tel:${a.phone}`} className={b}>
+          Call
+        </AdLink>
+      )}
       {a.whatsapp && (
         <AdLink id={id} event="tap" href={`https://wa.me/${a.whatsapp}`} className={`${b} btn-teal`}>
           WhatsApp
@@ -82,7 +104,7 @@ export default async function Page({ params }: P) {
       <article className="card mx-auto max-w-md space-y-5 p-5">
         <header>
           <p className="kicker">
-            {TIER_LABEL[a.tier]} ad{" "}
+            {a.tier === "zcard" ? TIER_LABEL.zcard : `${TIER_LABEL[a.tier]} ad`}{" "}
             {a.demo && (
               <span className="sample-chip ml-1" data-testid="demo-chip">
                 DEMO
@@ -90,6 +112,11 @@ export default async function Page({ params }: P) {
             )}
           </p>
           <h1 className="mt-1 text-2xl font-extrabold">{a.name}</h1>
+          {a.verified && (
+            <p className="mt-2">
+              <VerifiedBadge v={a.verified} />
+            </p>
+          )}
           {a.tagline && <p className="mt-1 text-muted">{a.tagline}</p>}
         </header>
 
@@ -116,7 +143,7 @@ export default async function Page({ params }: P) {
           </section>
         )}
 
-        {a.offer && a.tier !== "card" && (
+        {a.offer && a.tier !== "zcard" && (
           <section className="rounded-xl border-l-4 border-phred bg-sand/60 p-4" data-testid="ad-offer">
             <h2 className="text-sm font-bold uppercase tracking-wider text-phred">Offer</h2>
             <p className="mt-1">{a.offer}</p>
@@ -134,15 +161,18 @@ export default async function Page({ params }: P) {
           </section>
         )}
 
-        {a.tier === "card" ? (
+        {a.tier === "zcard" ? (
           <div className="grid grid-cols-1 gap-2" data-testid="ad-buttons">
-            <p className="text-center text-lg font-semibold">{a.phone}</p>
-            <AdLink id={id} event="call" href={`tel:${a.phone}`} className="btn w-full">
-              Call
-            </AdLink>
-            <AdLink id={id} event="tap" href={`/ad/vcard/${a.slug}.vcf`} className="btn btn-teal w-full" download>
-              Save contact
-            </AdLink>
+            {a.features.callButton && (
+              <AdLink id={id} event="call" href={`tel:${a.phone}`} className="btn w-full">
+                Call
+              </AdLink>
+            )}
+            {a.features.saveContact && (
+              <AdLink id={id} event="tap" href={`/ad/vcard/${a.slug}.vcf`} className="btn btn-teal w-full" download>
+                Save contact
+              </AdLink>
+            )}
             <AdLink id={id} event="map" href={mapsUrl(a.mapQuery)} className="btn btn-ghost w-full">
               Map
             </AdLink>

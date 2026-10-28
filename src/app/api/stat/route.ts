@@ -19,7 +19,8 @@ export async function POST(req: Request) {
   const p = Body.safeParse(body);
   if (!p.success) return new NextResponse(null, { status: 400 });
   // Listing pages send "view" only; QR ad pages (ad:<slug>) may also send scan and button clicks.
-  if (p.data.event !== "view" && !isAdStatId(p.data.id)) return new NextResponse(null, { status: 400 });
+  if ((p.data.event !== "view" || p.data.id.split(":").length > 2) && !isAdStatId(p.data.id))
+    return new NextResponse(null, { status: 400 });
   const ok = await track(p.data.id, p.data.event, req.headers.get("user-agent"));
   return new NextResponse(null, { status: ok ? 204 : 202 });
 }

@@ -14,7 +14,13 @@
       "whatsapp": "15550100",
       "website": "https://example.com",
       "mapQuery": "Toronto, ON",
-      "listingId": null
+      "listingId": null,
+      "trackingId": "df7k2",
+      "verified": "verified-plus",
+      "features": {
+        "saveContact": false,
+        "callButton": true
+      }
     },
     {
       "slug": "demo-half",
@@ -29,7 +35,13 @@
       "whatsapp": "15550101",
       "website": "https://example.com",
       "mapQuery": "Toronto, ON",
-      "listingId": null
+      "listingId": null,
+      "trackingId": "dh4m9",
+      "verified": "verified",
+      "features": {
+        "saveContact": false,
+        "callButton": true
+      }
     },
     {
       "slug": "demo-quarter",
@@ -44,14 +56,20 @@
       "whatsapp": "15550102",
       "website": "https://example.com",
       "mapQuery": "Toronto, ON",
-      "listingId": null
+      "listingId": null,
+      "trackingId": "dq8p3",
+      "verified": null,
+      "features": {
+        "saveContact": false,
+        "callButton": true
+      }
     },
     {
       "slug": "demo-card",
-      "tier": "card",
+      "tier": "zcard",
       "demo": true,
-      "name": "Sample Business — Demo (Business card)",
-      "tagline": "Placeholder contact card.",
+      "name": "Sample Business — Demo (zcard)",
+      "tagline": "Placeholder Pinoy Pages zcard.",
       "offer": "",
       "services": [],
       "photos": 0,
@@ -59,7 +77,13 @@
       "whatsapp": null,
       "website": null,
       "mapQuery": "Toronto, ON",
-      "listingId": null
+      "listingId": null,
+      "trackingId": "dz5r1",
+      "verified": null,
+      "features": {
+        "saveContact": false,
+        "callButton": false
+      }
     }
   ]
 }
