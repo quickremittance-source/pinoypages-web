@@ -55,6 +55,16 @@ test("verified badges: full = Verified++, half = Verified", async ({ page }) => 
   await expect(page.getByTestId("verified-badge")).toHaveText(/Kabayan Verified$/);
 });
 
+test("full and half landing pages carry powered-by-zcard branding, no extra prices", async ({ page }) => {
+  for (const slug of ["demo-full", "demo-half"]) {
+    await page.goto(`/ad/${slug}`);
+    await expect(page.getByTestId("powered-by-zcard")).toContainText("powered by zcard");
+    await expect(page.locator("[data-brand=zcard]")).toBeVisible();
+    const body = (await page.locator("body").innerText()).replace(/\$99/g, "");
+    expect(body).not.toMatch(/\$\d/);
+  }
+});
+
 test("print QR decodes to the tracked URL; zcard has no QR without Verified++", async ({ request }) => {
   const { default: jsQR } = await import("jsqr");
   const { PNG } = await import("pngjs");

@@ -5,6 +5,15 @@ import { notFound, redirect } from "next/navigation";
 import { track } from "@/lib/analytics/track";
 import { AdBeacon, AdLink } from "@/components/AdBeacon";
 import { getAd } from "@/lib/adsRepo";
+import { Poppins } from "next/font/google";
+import { PoweredByZcard, VerifiedPlusPlusBadge } from "@/components/brand/PoweredByZcard";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-poppins",
+  display: "swap",
+});
 import {
   hasLandingPage,
   listingTarget,
@@ -20,7 +29,7 @@ function VerifiedBadge({ v }: { v: NonNullable<AdLanding["verified"]> }) {
   return (
     <span
       data-testid="verified-badge"
-      className="inline-flex items-center gap-1 rounded-full bg-green-700 px-2.5 py-0.5 text-xs font-bold text-white"
+      className="inline-flex items-center gap-1 rounded-full bg-[#1FA34A] px-2.5 py-0.5 text-xs font-bold text-[#032357]"
     >
       <span aria-hidden="true">✅</span> {VERIFIED_LABEL[v]}
     </span>
@@ -109,9 +118,13 @@ export default async function Page({ params, searchParams }: P) {
   const id = adStatId(a.slug);
   const photos = Math.min(a.photos, TIER_PHOTOS[a.tier]);
   return (
-    <div className="min-h-[70vh] bg-aqua/40 px-3 py-5 sm:py-10" data-tier={a.tier}>
+    <div
+      className={`${poppins.variable} min-h-[70vh] bg-[#F7F4EC] px-3 py-5 font-[family-name:var(--font-poppins)] text-[#032357] sm:py-10`}
+      data-tier={a.tier}
+      data-brand="zcard"
+    >
       <AdBeacon id={id} />
-      <article className="card mx-auto max-w-md space-y-5 p-5">
+      <article className="mx-auto max-w-md space-y-5 overflow-hidden rounded-2xl border-t-8 border-[#1068C2] bg-white p-5 shadow-sm">
         <header>
           <p className="kicker">
             {`${TIER_LABEL[a.tier]} ad`}{" "}
@@ -124,7 +137,13 @@ export default async function Page({ params, searchParams }: P) {
           <h1 className="mt-1 text-2xl font-extrabold">{a.name}</h1>
           {a.verified && (
             <p className="mt-2">
-              <VerifiedBadge v={a.verified} />
+              {a.verified === "verified-plus" ? (
+                <span className="block" data-testid="verified-badge">
+                  <VerifiedPlusPlusBadge />
+                </span>
+              ) : (
+                <VerifiedBadge v={a.verified} />
+              )}
             </p>
           )}
           {a.tagline && <p className="mt-1 text-muted">{a.tagline}</p>}
@@ -152,8 +171,8 @@ export default async function Page({ params, searchParams }: P) {
         )}
 
         {a.offer && (
-          <section className="rounded-xl border-l-4 border-phred bg-sand/60 p-4" data-testid="ad-offer">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-phred">Offer</h2>
+          <section className="rounded-xl border-l-4 border-[#E11B25] bg-[#FCC645]/20 p-4" data-testid="ad-offer">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-[#032357]">Offer</h2>
             <p className="mt-1">{a.offer}</p>
           </section>
         )}
@@ -172,6 +191,8 @@ export default async function Page({ params, searchParams }: P) {
         <Buttons a={a} id={id} />
 
         {<MapEmbed q={a.mapQuery} />}
+
+        <PoweredByZcard />
 
         <footer className="space-y-1 border-t border-sand pt-3 text-center text-sm text-muted">
           {a.listingId ? (
