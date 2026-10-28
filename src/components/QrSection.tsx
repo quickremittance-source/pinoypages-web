@@ -15,8 +15,8 @@ export function QrSection({ l }: { l: Listing }) {
           Get Verified
         </h2>
         <p className="mt-2">
-          Verified ({money(verified.price)} per year) gives you a dynamic QR to your web page, a ZCard bridge page, a
-          Save contact button and a monthly scan count, and makes you eligible for the Verified Kabayan badge.
+          Verified ({money(verified.price)} per year + HST) gives you a dynamic QR to your web page, a ZCard bridge
+          page, a Save contact button and a monthly scan count, and makes you eligible for the Verified Kabayan badge.
         </p>
         <Link className="btn mt-4" href={`/upgrade?listing=${l.id}`}>
           Upgrade to Verified

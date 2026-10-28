@@ -63,10 +63,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
           <h2 id="sizes" className="text-2xl font-bold text-ink">
             Ad sizes
           </h2>
-          <p className="mt-1 text-muted">
-            Page trim 8.5″ × 11″. {RATES_NOTE}: ask us for the current rate card. Prices are per issue, in CAD, plus
-            applicable HST.
-          </p>
+          <p className="mt-1 text-muted">Page trim 8.5″ × 11″. {RATES_NOTE}: ask us for the current rate card.</p>
           <ul className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" data-testid="ad-sizes">
             {adSizes.map((s) => (
               <li key={s.id} className="card flex flex-col p-5" data-size={s.id}>

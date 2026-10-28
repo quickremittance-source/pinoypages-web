@@ -33,7 +33,9 @@ export default function Page() {
                 <th scope="row" className="p-3">
                   {o.name}
                 </th>
-                <td className="p-3">{money(o.price)}</td>
+                <td className="p-3">
+                  {money(o.price)} {o.unit}
+                </td>
               </tr>
             ))}
           </tbody>
