@@ -205,7 +205,7 @@ export function AltHome() {
                   The first Verified Kabayan businesses will appear here after their in-person visit and vouch.
                 </p>
                 <Link className="btn mt-4 inline-block" href="/get-verified">
-                  Get Verified · $99
+                  Get Verified · $99/yr + HST
                 </Link>
               </div>
             </div>
@@ -305,7 +305,7 @@ export function AltHome() {
             List free
           </Link>
           <Link className="btn" href="/get-verified">
-            Get Verified · $99
+            Get Verified · $99/yr + HST
           </Link>
         </div>
       </section>

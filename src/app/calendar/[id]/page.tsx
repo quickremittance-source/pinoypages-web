@@ -153,7 +153,7 @@ export default async function Page({ params }: P) {
           <section className="card p-5 text-sm">
             <p className="font-bold text-ink">Hosting an event?</p>
             <p className="mt-1 text-muted">
-              Free listings are text only. Featured events cost $49, or nothing for Verified members.
+              Free listings are text only. Featured events: rates on request, free for Verified members.
             </p>
             <Link href="/calendar#evform" className="mt-2 inline-block font-semibold text-turqdk underline">
               Submit your event

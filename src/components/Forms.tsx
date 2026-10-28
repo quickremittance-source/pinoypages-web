@@ -173,7 +173,8 @@ export function EventForm({ members }: { members: { id: string; name: string }[]
             <input type="radio" name="plan" value="event-free" defaultChecked /> Free event listing
           </label>
           <label className="flex items-center gap-2 rounded-lg border border-sea/30 p-2">
-            <input type="radio" name="plan" value="event-featured" /> Featured event ($49, free for members)
+            <input type="radio" name="plan" value="event-featured" /> Featured event (rates on request, free for
+            members)
           </label>
         </div>
         {fe?.plan && <span className="text-sm text-coral-dk">{fe.plan[0]}</span>}
@@ -292,7 +293,7 @@ export function ListFreeForm({ subs, listing }: { subs: { value: string; label: 
       </Suspense>
       <label className="flex items-start gap-2">
         <input type="checkbox" name="wantsVerified" className="mt-1" />
-        <span>Also send me the details on Verified ($99 per year). Optional.</span>
+        <span>Also send me the details on Verified ($99 per year + HST). Optional.</span>
       </label>
       <label className="flex items-start gap-2">
         <input type="checkbox" name="consent" className="mt-1" />

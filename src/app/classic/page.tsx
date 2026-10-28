@@ -115,7 +115,7 @@ export default function Home() {
             </form>
             <div className="mt-4 flex flex-wrap gap-3">
               <Link className="btn" href="/get-verified">
-                Get Verified · $99
+                Get Verified · $99/yr + HST
               </Link>
               <Link className="btn btn-ghost" href="/directory">
                 Browse the directory
@@ -187,7 +187,7 @@ export default function Home() {
           </div>
           <div className="card flex flex-col border-2 border-phred p-6">
             <p className="kicker">Verified · {brand.pilotLabel}</p>
-            <h3 className="mt-1 text-2xl font-extrabold text-ink">Get Verified · $99</h3>
+            <h3 className="mt-1 text-2xl font-extrabold text-ink">Get Verified · $99/yr + HST</h3>
             <p className="mt-2 text-muted">
               A featured card, the badge once you pass the visit and a mutual vouch, your ZCard and QR, and a monthly
               scan report. One yearly price, everything included.

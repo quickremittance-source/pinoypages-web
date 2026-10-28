@@ -1,6 +1,8 @@
 # Ads database: proposed Neon schema (design only)
 
-Status: proposal. Nothing has been migrated, and production is not connected. Ads stay in `content/ads.json` until Jose approves this design.
+Status: implemented on branch `ads-db` against the Neon database connected to **Vercel Preview only**. Production is not connected and has not been migrated; without `DATABASE_URL` the site falls back to `content/ads.json`.
+
+Migrations: `db/migrations/*.sql`, applied with `npm run db:migrate` (refuses Production unless `ALLOW_PROD_MIGRATE=yes`). Demo seed: `npm run db:seed-demo` (DEMO ads only). Admin view: `/admin/ads?key=<ADMIN_KEY>`. The live schema is in `db/migrations/001_ads.sql`; the SQL below was the original proposal.
 
 ## Why
 
@@ -61,3 +63,10 @@ No rates or rep rates are stored in these tables. Pricing stays out of the publi
 1. Create the tables on the Neon Preview branch only, and seed them from ads.json.
 2. Point `/ad/[slug]` at the database behind a flag, keeping ads.json as a fallback.
 3. Connect production only after Jose's go-ahead.
+
+## Tier behaviour (live rules)
+
+- **Full, half:** landing page at `/ad/<slug>`; QR → `/ad/<slug>?src=qr&t=<trackingId>`.
+- **Quarter:** no landing page. The QR hits `/ad/<slug>`, the scan is counted server-side, then the visitor is redirected to `/listing/<listing_id>` (or `/directory` if no listing is linked).
+- **zcard:** no QR by default. A QR is available only with the Kabayan Verified++ add-on (`verified = 'verified_plus'`), and it redirects to the listing like quarter.
+- Pricing: Kabayan Verified is $99/year + HST (renews yearly). Everything else is "Rates on request".

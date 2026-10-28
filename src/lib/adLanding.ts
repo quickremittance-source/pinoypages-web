@@ -37,7 +37,12 @@ const Ad = z.object({
     .default({ saveContact: false, callButton: false }),
 });
 export type AdLanding = z.infer<typeof Ad>;
-export const adLandings: AdLanding[] = z.array(Ad).parse(data.ads);
+/** DEMO ads never appear on Production (VERCEL_ENV=production), even on the JSON fallback. */
+const IS_PROD = process.env.VERCEL_ENV === "production";
+export const adLandings: AdLanding[] = z
+  .array(Ad)
+  .parse(data.ads)
+  .filter((a) => !(IS_PROD && a.demo));
 export const adBySlug = (slug: string) => adLandings.find((a) => a.slug === slug);
 /** Analytics key for an ad page, stored alongside listing counts. */
 export const adStatId = (slug: string) => `ad:${slug}`;
@@ -53,3 +58,10 @@ export const VERIFIED_LABEL = { verified: "Kabayan Verified", "verified-plus": "
 /** Kabayan Verified is $99/yr + HST; Verified++ bundle shows "Rates on request". */
 export const VERIFIED_PRICE = { verified: "$99/yr + HST", "verified-plus": "Rates on request" } as const;
 export const mapsUrl = (q: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
+
+/** Only full and half ads get a landing page; quarter and zcard QR scans redirect to the listing. */
+export const hasLandingPage = (tier: Tier) => tier === "full" || tier === "half";
+export const listingTarget = (a: Pick<AdLanding, "listingId">) =>
+  a.listingId ? `/listing/${a.listingId}` : "/directory";
+/** zcard gets a QR only with the Kabayan Verified++ add-on; every other tier always has one. */
+export const hasQr = (a: Pick<AdLanding, "tier" | "verified">) => a.tier !== "zcard" || a.verified === "verified-plus";

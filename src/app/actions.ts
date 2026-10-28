@@ -162,7 +162,7 @@ export async function submitEvent(_p: FormState, fd: FormData): Promise<FormStat
       r.data.plan === "event-featured"
         ? member
           ? "Thanks! As a member your featured event is free. We'll review it and confirm by email."
-          : "Thanks! We'll review your event and confirm the $49 featured upgrade with you by email before anything is charged."
+          : "Thanks! We'll review your event and confirm the featured upgrade and its rate with you by email before anything is charged."
         : "Thanks! We'll review your free event listing and confirm by email.",
   };
 }

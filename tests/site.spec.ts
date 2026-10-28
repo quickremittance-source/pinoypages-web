@@ -417,7 +417,7 @@ test("Money & Business Calendar: CRA deadlines, free vs featured events, sponsor
     "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
   );
   const price = Object.fromEntries(guide.eventMenu.map((o) => [o.id, [o.price, o.founding]]));
-  expect(price).toEqual({ "event-free": [0, 0], "event-featured": [49, 49] });
+  expect(price).toEqual({ "event-free": [0, 0], "event-featured": [0, 0] });
   expect(guide.pages.find((p) => p.page === 11)).toMatchObject({ route: "/calendar", ad: "slot-cal" });
   for (const e of guide.events.filter((x) => x.kind === "deadline"))
     expect(e.source).toMatch(/^https:\/\/www\.canada\.ca\//);

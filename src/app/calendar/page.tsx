@@ -103,7 +103,7 @@ export default function Page() {
         kicker={presented ? `Presented by ${presented}` : "Calendar"}
         page={11}
         title="Money & Business Calendar"
-        intro={`${brand.seasons}: official tax deadlines plus community money and business events in the GTA. Featured events cost $49, or nothing for Verified members.`}
+        intro={`${brand.seasons}: official tax deadlines plus community money and business events in the GTA. Featured events: rates on request, free for Verified members.`}
       >
         <a href="#evform" className="btn mt-4">
           Submit your event
@@ -221,10 +221,15 @@ export default function Page() {
             List your event
           </h2>
           {eventMenu.map((o) => (
-            <div key={o.id} className={`card p-5 ${o.price ? "border-2 border-phred" : ""}`} data-plan={o.id}>
+            <div
+              key={o.id}
+              className={`card p-5 ${o.price || ("onRequest" in o && o.onRequest) ? "border-2 border-phred" : ""}`}
+              data-plan={o.id}
+            >
               <p className="kicker">{o.name}</p>
               <p className="mt-1 text-2xl font-extrabold text-ink">
-                {o.price ? money(o.price) : "Free"} <span className="text-sm font-semibold text-muted">{o.unit}</span>
+                {"onRequest" in o && o.onRequest ? "Rates on request" : o.price ? money(o.price) : "Free"}{" "}
+                <span className="text-sm font-semibold text-muted">{o.unit}</span>
               </p>
               <p className="mt-2 text-sm">{o.includes}</p>
               {o.memberNote && <p className="mt-1 text-sm font-semibold text-sea">{o.memberNote}</p>}
