@@ -270,7 +270,7 @@ test("ZCard bridge never asks for login, payment or personal data", async ({ pag
   }
   // The page that QR scans land on has no forms at all.
   await page.goto("/listing/tax-01");
-  await expect(page.locator("form, input[type=password]")).toHaveCount(0);
+  await expect(page.locator("main form, input[type=password]")).toHaveCount(0);
 });
 
 test("categories: Money & Business is the live category; Travel, Padala & Remit is coming next edition", async ({

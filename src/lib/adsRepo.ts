@@ -78,3 +78,32 @@ export async function adStats(): Promise<AdStatRow[] | null> {
      order by a.slug, c.month desc, c.tracking_id`,
   )) as AdStatRow[];
 }
+
+/** Live business-card (zcard) landing pages. Not shown in directory browsing; used by site search and the sitemap. */
+const cachedZcards = unstable_cache(
+  async () =>
+    ((await db()!.query(`${SELECT} where a.tier = 'zcard' and a.status = 'live' order by a.slug`)) as Row[]).map(toAd),
+  ["zcards-live"],
+  { revalidate: 300, tags: ["ads"] },
+);
+export async function listZcards(): Promise<AdLanding[]> {
+  if (!db()) return adLandings.filter((a) => a.tier === "zcard");
+  try {
+    return await cachedZcards();
+  } catch (e) {
+    console.warn("[ads] db read failed, using json", (e as Error).message);
+    return adLandings.filter((a) => a.tier === "zcard");
+  }
+}
+/** Simple text match for site search: name, tagline, offer and services. */
+export async function searchZcards(q: string, limit = 12): Promise<AdLanding[]> {
+  const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+  if (!terms.length) return [];
+  const all = await listZcards();
+  return all
+    .filter((a) => {
+      const hay = [a.name, a.tagline, a.offer, ...a.services].join(" ").toLowerCase();
+      return terms.every((t) => hay.includes(t));
+    })
+    .slice(0, limit);
+}

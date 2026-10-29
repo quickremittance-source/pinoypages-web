@@ -30,3 +30,29 @@ test("footer shows 'Powered by zcard digital ads' on home and directory (plain t
     expect(await f.locator("a").count()).toBe(0);
   }
 });
+
+test("/zcard explains the concept with only the $99 public price", async ({ page }) => {
+  await page.goto("/zcard");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("zcard");
+  await expect(page.getByTestId("verified-price")).toHaveText("$99 per year + HST");
+  const text = (await page.getByTestId("zcard-pricing").innerText()).replace("$99", "");
+  expect(text).not.toMatch(/\$\d/);
+  await expect(page.getByText("Scan to order yours").first()).toBeVisible();
+  await expect(page.getByTestId("zcard-limited")).toContainText("Limited spaces available");
+  expect(await page.locator('meta[name="robots"]').getAttribute("content")).toContain("noindex");
+});
+
+test("zcard pages: hidden from directory browsing, found by search, in sitemap, noindex", async ({ page, request }) => {
+  await page.goto("/directory");
+  await expect(page.getByTestId("zcard-results")).toHaveCount(0);
+  const sm = await (await request.get("/sitemap.xml")).text();
+  expect(sm).toContain("/zcard");
+  const m = sm.match(/\/zcard\/([a-z0-9-]+)/);
+  if (!m) return; // no zcard pages in this environment
+  await page.goto(`/zcard/${m[1]}`);
+  await expect(page.getByTestId("zcard-landing")).toBeVisible();
+  expect(await page.locator('meta[name="robots"]').getAttribute("content")).toContain("noindex");
+  const name = (await page.getByRole("heading", { level: 1 }).innerText()).split(" ")[0] ?? "";
+  await page.goto(`/directory?q=${encodeURIComponent(name)}`);
+  await expect(page.getByTestId("zcard-results")).toContainText(name);
+});

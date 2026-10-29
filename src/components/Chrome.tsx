@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { SearchBox } from "@/components/SearchBox";
 import { liveTools } from "@/lib/registry";
 import { brand } from "@/lib/guide";
 
@@ -64,9 +65,13 @@ export function Header() {
             ))}
           </ul>
         </nav>
+        <SearchBox className="hidden w-56 lg:flex" />
         <Link href="/advertise" className="btn shrink-0 px-3.5 py-2 text-sm">
           Book an ad
         </Link>
+      </div>
+      <div className="border-t border-sand px-4 py-1.5 lg:hidden">
+        <SearchBox id="site-q-m" className="mx-auto max-w-6xl" />
       </div>
       <nav aria-label="Main (mobile)" className="border-t border-sand md:hidden">
         <ul className="flex gap-1 overflow-x-auto px-2 py-1 text-sm font-semibold whitespace-nowrap text-ink">

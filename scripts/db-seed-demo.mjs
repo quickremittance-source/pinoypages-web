@@ -39,3 +39,20 @@ for (const a of ads.filter((x) => x.demo === true)) {
   await sql.query(`update ads set advertiser_id = $1 where slug = $2 and is_demo`, [adv.id, a.slug]);
   console.log("demo advertiser", name);
 }
+
+// Demo Sponsored search placement (preview only; labelled DEMO, hidden in production).
+{
+  const [adv] = await sql.query(
+    `select id from advertisers where business_name = 'DEMO advertiser – demo-card' and is_demo`,
+  );
+  if (adv) {
+    const [has] = await sql.query(`select 1 from sponsored_placements where advertiser_id = $1 and is_demo`, [adv.id]);
+    if (!has)
+      await sql.query(
+        `insert into sponsored_placements (advertiser_id, title, href, blurb, keywords, categories, is_demo)
+         values ($1, 'DEMO Sponsored result', '/zcard/demo-card', 'Sample Sponsored placement for testing.', $2, '{}', true)`,
+        [adv.id, ["demo", "sponsored"]],
+      );
+    console.log("demo sponsored placement");
+  }
+}

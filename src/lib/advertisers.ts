@@ -45,9 +45,11 @@ export async function advertiserByToken(token: string): Promise<Advertiser | nul
 
 export type MonthRow = { month: string; event: string; n: number };
 /** Monthly counts for the advertiser's ads (all QR tracking ids) and linked listings. */
-export async function advertiserStats(a: Advertiser): Promise<{ ads: MonthRow[]; listings: MonthRow[] }> {
+export async function advertiserStats(
+  a: Advertiser,
+): Promise<{ ads: MonthRow[]; listings: MonthRow[]; sponsored: MonthRow[] }> {
   const sql = db()!;
-  const [ads, listings] = await Promise.all([
+  const [ads, listings, sponsored] = await Promise.all([
     sql.query(
       `select c.month, c.event, sum(c.count) n from ad_event_counts c join ads a on a.id = c.ad_id
        where a.advertiser_id = $1 group by c.month, c.event order by c.month desc`,
@@ -59,7 +61,15 @@ export async function advertiserStats(a: Advertiser): Promise<{ ads: MonthRow[];
           [a.listing_ids],
         )
       : Promise.resolve([]),
+    sql
+      .query(
+        `select c.month, c.event, sum(c.count) n from sponsored_event_counts c
+         join sponsored_placements p on p.id = c.placement_id
+         where p.advertiser_id = $1 group by c.month, c.event order by c.month desc`,
+        [a.id],
+      )
+      .catch(() => []),
   ]);
   const fix = (r: unknown[]) => (r as MonthRow[]).map((x) => ({ ...x, n: Number(x.n) }));
-  return { ads: fix(ads), listings: fix(listings) };
+  return { ads: fix(ads), listings: fix(listings), sponsored: fix(sponsored) };
 }

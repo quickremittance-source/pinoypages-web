@@ -2,6 +2,13 @@ import { publicCategories, publicListings, type PublicListing } from "@/lib/publ
 
 /** Indexing stays OFF unless ALLOW_INDEXING=true is set explicitly (owner's choice: noindex until launch). */
 export const ALLOW_INDEXING = process.env.ALLOW_INDEXING === "true";
+/**
+ * Per-section indexing flags, so one section can be opened to search engines before the rest.
+ * zcard pages index only when ALLOW_INDEXING_ZCARD=true (default off; owner's choice).
+ */
+export const SECTION_INDEXING = { zcard: ALLOW_INDEXING || process.env.ALLOW_INDEXING_ZCARD === "true" } as const;
+export const sectionRobots = (s: keyof typeof SECTION_INDEXING) =>
+  SECTION_INDEXING[s] ? { index: true, follow: true } : { index: false, follow: false };
 
 export const slugOf = (l: PublicListing) => l.id.replace(/^pub-/, "");
 export const bizPath = (l: PublicListing) => `/business/${slugOf(l)}`;
