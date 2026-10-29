@@ -6,6 +6,7 @@ import { StickyCta } from "@/components/StickyCta";
 import { brand, SITE_URL } from "@/lib/guide";
 import { ALLOW_INDEXING } from "@/lib/seo";
 import { Analytics } from "@/components/Analytics";
+import { PageView } from "@/components/PageView";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Footer />
         <StickyCta />
         <Analytics />
+        <PageView />
       </body>
     </html>
   );
