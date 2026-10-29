@@ -21,3 +21,12 @@ test("page-view beacon validates input and never counts private paths", async ({
   expect((await request.post("/api/pv", { data: { p: "https://evil" } })).status()).toBe(400);
   expect((await request.post("/api/pv", { data: { p: "/directory", r: "https://google.com/x" } })).status()).toBe(204);
 });
+
+test("footer shows 'Powered by zcard digital ads' on home and directory (plain text)", async ({ page }) => {
+  for (const p of ["/", "/directory"]) {
+    await page.goto(p);
+    const f = page.getByTestId("zcard-footer");
+    await expect(f).toHaveText("Powered by zcard digital ads");
+    expect(await f.locator("a").count()).toBe(0);
+  }
+});
