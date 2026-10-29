@@ -26,6 +26,13 @@ const nextConfig: NextConfig = {
       { source: "/deadlines", destination: "/tax-deadlines", permanent: true },
     ];
   },
+  // Optional /gta prefix for the default region (future regions get their own prefix). Existing URLs and QR paths unchanged.
+  async rewrites() {
+    return [
+      { source: "/gta", destination: "/" },
+      { source: "/gta/:path*", destination: "/:path*" },
+    ];
+  },
   async headers() {
     return [
       {

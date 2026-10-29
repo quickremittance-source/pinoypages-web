@@ -8,7 +8,10 @@ import { DirectoryPagination } from "@/components/DirectoryPagination";
 import { directoryFilterOptions, filterPublicListings, paginateListings, parseDirectoryFilters } from "@/lib/directory";
 import { brand, sections } from "@/lib/guide";
 
-export const metadata: Metadata = { title: "Directory", alternates: { canonical: "/directory" } };
+export const metadata: Metadata = {
+  title: "Filipino Business Directory · Greater Toronto Area (GTA)",
+  alternates: { canonical: "/directory" },
+};
 
 /** Directory index: server-filtered, paginated public listings. Category pages stay separate. */
 export default async function Page({

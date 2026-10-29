@@ -1,3 +1,4 @@
+import { sortCities } from "@/lib/regions";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHead } from "@/components/Chrome";
@@ -21,7 +22,10 @@ import {
 } from "@/lib/guide";
 import { byMonthFeaturedFirst, dayLabel, monthGrid, monthKeyOf, monthLabel } from "@/lib/cal";
 
-export const metadata: Metadata = { title: "Money & Business Calendar", alternates: { canonical: "/calendar" } };
+export const metadata: Metadata = {
+  title: "Money & Business Calendar · GTA Events",
+  alternates: { canonical: "/calendar" },
+};
 
 const seasonOf = (d: string) => seasons.find((s) => s.months.includes(Number(d.slice(5, 7))))?.id ?? "fall";
 const catOf = (e: CalEvent) => (e.category ?? "community") as EventCategory;
@@ -96,7 +100,7 @@ export default function Page() {
   const cats = (Object.keys(EVENT_CATEGORIES) as EventCategory[])
     .filter((c) => events.some((e) => catOf(e) === c))
     .map((c) => ({ value: c, label: EVENT_CATEGORIES[c] }));
-  const cities = [...new Set(events.map((e) => e.city ?? "").filter(Boolean))].sort();
+  const cities = sortCities([...new Set(events.map((e) => e.city ?? "").filter(Boolean))]);
   return (
     <>
       <PageHead

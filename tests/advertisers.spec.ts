@@ -30,3 +30,13 @@ test("footer shows 'Powered by zcard digital ads' on home and directory (plain t
     expect(await f.locator("a").count()).toBe(0);
   }
 });
+
+test("GTA region: titles say GTA, /gta alias works, existing URLs unchanged", async ({ page, request }) => {
+  await page.goto("/directory");
+  await expect(page).toHaveTitle(/Greater Toronto Area \(GTA\)/);
+  for (const p of ["/gta", "/gta/directory", "/directory", "/calendar"]) {
+    const r = await request.get(p);
+    expect(r.status(), p).toBe(200);
+    expect(r.headers()["x-robots-tag"]).toContain("noindex");
+  }
+});

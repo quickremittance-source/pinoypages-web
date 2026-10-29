@@ -1,4 +1,5 @@
 import { publicCategories, publicListings } from "@/lib/public";
+import { inRegion, sortCities } from "@/lib/regions";
 import {
   categories,
   EVENT_CATEGORIES,
@@ -10,16 +11,8 @@ import {
 } from "@/lib/guide";
 
 /** Alt design (alt-design branch): derived, never invented. Every number here is counted from the listing data (real free listings only). */
-export const GTA_AREAS = [
-  "Toronto",
-  "Scarborough",
-  "North York",
-  "Etobicoke",
-  "Mississauga",
-  "Brampton",
-  "Markham",
-  "Vaughan",
-] as const;
+/** GTA areas that have listings, in region order (see src/lib/regions.ts). */
+export const GTA_AREAS = sortCities([...new Set(publicListings.map((l) => l.area))].filter((a) => inRegion(a)));
 
 export const CATEGORY_ICONS: Record<string, string> = {
   "tax-accounting": "🧾",

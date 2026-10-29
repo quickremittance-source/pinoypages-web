@@ -1,3 +1,4 @@
+import { sortCities } from "@/lib/regions";
 import { publicCategories, publicListings, type PublicListing } from "@/lib/public";
 
 /** Page size for /directory. Keeps HTML small as the catalogue grows. */
@@ -70,6 +71,6 @@ export function directoryFilterOptions() {
   const categories = publicCategories
     .filter((c) => publicListings.some((l) => l.category === c.slug))
     .map((c) => ({ value: c.slug, label: c.name }));
-  const areas = [...new Set(publicListings.map((l) => l.area))].sort((a, b) => a.localeCompare(b));
+  const areas = sortCities([...new Set(publicListings.map((l) => l.area))]);
   return { categories, areas };
 }

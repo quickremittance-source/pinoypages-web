@@ -12,8 +12,8 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "sw
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: `${brand.name} ${brand.edition}`, template: `%s · ${brand.name}` },
-  description: `${brand.tagline} · ${brand.region}`,
+  title: { default: `${brand.name} ${brand.edition} · Greater Toronto Area (GTA)`, template: `%s · ${brand.name}` },
+  description: `${brand.tagline} for the Greater Toronto Area (GTA): Filipino businesses, events and money guides.`,
   robots: ALLOW_INDEXING ? { index: true, follow: true } : { index: false, follow: false },
   alternates: { canonical: "/" },
 };

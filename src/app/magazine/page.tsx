@@ -7,7 +7,10 @@ import { adsForRoute, brand, pages } from "@/lib/guide";
 import { editionArticles, KIND_LABEL, sampleStories } from "@/lib/magazine";
 import { SignupForm } from "@/components/Forms";
 
-export const metadata: Metadata = { title: "Magazine", alternates: { canonical: "/magazine" } };
+export const metadata: Metadata = {
+  title: "Magazine · Greater Toronto Area (GTA)",
+  alternates: { canonical: "/magazine" },
+};
 const SEASON = { spring: "Spring", summer: "Summer", fall: "Fall" } as const;
 
 export default function Page() {

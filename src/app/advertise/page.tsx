@@ -6,7 +6,10 @@ import { PlanTable } from "@/components/PlanTable";
 import { ads, brand } from "@/lib/guide";
 import { adSizes, ARTWORK_SPECS, BOOKING_NOTE, RATES_NOTE, type AdSize } from "@/lib/adSizes";
 
-export const metadata: Metadata = { title: "Advertise", alternates: { canonical: "/advertise" } };
+export const metadata: Metadata = {
+  title: "Advertise to the GTA Filipino Community",
+  alternates: { canonical: "/advertise" },
+};
 
 const SIZE_IDS = adSizes.map((s) => s.id) as string[];
 
