@@ -152,6 +152,9 @@ export function Footer() {
       <p data-testid="alpha-footer" className="py-2 text-center text-xs text-muted">
         Pinoy Pages Alpha — release 2026.11-alpha
       </p>
+      <p data-testid="zcard-footer" className="pb-3 text-center text-xs text-muted">
+        Powered by zcard digital ads
+      </p>
     </footer>
   );
 }
