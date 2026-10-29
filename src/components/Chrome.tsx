@@ -6,6 +6,7 @@ import { brand } from "@/lib/guide";
 const nav = [
   { href: "/advertise", label: "Advertise" },
   { href: "/directory", label: "Directory" },
+  { href: "/filipinofoodie", label: "Filipino Foodie" },
   { href: "/get-verified", label: "Get Verified" },
   { href: "/awards", label: "Awards" },
   { href: liveTools[0]?.route ?? "/", label: "Free tools" },

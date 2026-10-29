@@ -4,7 +4,11 @@ import { articles } from "@/lib/magazine";
 import { liveTools } from "@/lib/registry";
 import { publicListings } from "@/lib/public";
 import { bizPath, landings } from "@/lib/seo";
-export default function sitemap(): MetadataRoute.Sitemap {
+import { AREAS } from "@/lib/foodie/areas";
+import { getDishes, getRestaurants, getVideos } from "@/lib/foodie/data";
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const [ffR, ffD, ffV] = await Promise.all([getRestaurants(), getDishes(), getVideos()]);
+  const ff = "/filipinofoodie";
   const paths = [
     "/",
     "/tax-deadlines",
@@ -30,6 +34,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     events.map((e) => `/calendar/${e.id}`),
     publicListings.map(bizPath),
     landings.map((l) => `/${l.slug}`),
+    [
+      ff,
+      ...["restaurants", "dish", "videos", "delicacies", "catering", "groceries", "promos", "claim", "legal"].map(
+        (x) => `${ff}/${x}`,
+      ),
+    ],
+    AREAS.filter((a) => ffR.some((r) => r.area === a.slug)).map((a) => `${ff}/gta/${a.slug}`),
+    ffR.map((r) => `${ff}/restaurants/${r.slug}`),
+    ffD.map((d) => `${ff}/dish/${d.slug}`),
+    ffV.map((v) => `${ff}/videos/${v.youtubeId}`),
   );
   return paths.map((p) => ({ url: abs(p) }));
 }

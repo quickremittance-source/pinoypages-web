@@ -7,9 +7,10 @@ const csp = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}${ga ? " https://www.googletagmanager.com" : ""}`,
   "style-src 'self' 'unsafe-inline'",
-  `img-src 'self' data:${ga ? " https://*.google-analytics.com https://*.googletagmanager.com" : ""}`,
+  `img-src 'self' data: https://i.ytimg.com${ga ? " https://*.google-analytics.com https://*.googletagmanager.com" : ""}`,
   "font-src 'self'",
   `connect-src 'self'${ga ? " https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com" : ""}`,
+  "frame-src https://www.youtube-nocookie.com",
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",
@@ -23,6 +24,9 @@ const nextConfig: NextConfig = {
     return [
       { source: "/tools/hst", destination: "/tools/hst-checker", permanent: true },
       { source: "/tools/cpp", destination: "/tools/cpp-estimator", permanent: true },
+      // QR codes were printed for /food; Filipino Foodie lives at /filipinofoodie (query strings are preserved).
+      { source: "/food", destination: "/filipinofoodie", permanent: false },
+      { source: "/food/:path*", destination: "/filipinofoodie/:path*", permanent: false },
       { source: "/deadlines", destination: "/tax-deadlines", permanent: true },
     ];
   },
