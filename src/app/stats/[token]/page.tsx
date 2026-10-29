@@ -65,6 +65,17 @@ export default async function Page({ params }: { params: Promise<{ token: string
             rows={byMonth(s.listings)}
           />
         )}
+        {s.sponsored.length > 0 && (
+          <SimpleTable
+            label="Sponsored search by month"
+            head={["Month", "Impressions", "Clicks"]}
+            rows={[...new Set(s.sponsored.map((r) => r.month))].map((m) => [
+              m,
+              s.sponsored.filter((r) => r.month === m && r.event === "impression").reduce((t, r) => t + r.n, 0),
+              s.sponsored.filter((r) => r.month === m && r.event === "click").reduce((t, r) => t + r.n, 0),
+            ])}
+          />
+        )}
         <p className="text-xs text-muted">
           Counts only; no visitor personal data is collected. This link is private to you — please don’t share it.
         </p>

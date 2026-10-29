@@ -71,6 +71,26 @@ export default function Page() {
           </div>
         </section>
 
+        <section aria-labelledby="two-h" className="grid gap-5 md:grid-cols-2" data-testid="zcard-two-parts">
+          <h2 id="two-h" className="sr-only">
+            Two parts of zcard
+          </h2>
+          <div className="card p-6">
+            <h3 className="text-xl font-extrabold text-ink">1. Strategic ad spaces on pinoypages.ca</h3>
+            <p className="mt-2 text-sm">
+              A small number of zcard ad spaces placed across pinoypages.ca where visitors look for kabayan businesses.
+            </p>
+          </div>
+          <div className="card p-6">
+            <h3 className="text-xl font-extrabold text-ink">2. Your own business card landing page</h3>
+            <p className="mt-2 text-sm">
+              A page at pinoypages.ca/zcard/your-business. It is a separate section, not part of the directory listings,
+              but people can find it through the site search, and it is ready for Google once search indexing is turned
+              on.
+            </p>
+          </div>
+        </section>
+
         <section aria-labelledby="how-h">
           <h2 id="how-h" className="text-2xl font-bold text-ink">
             How it works
@@ -113,6 +133,15 @@ export default function Page() {
                 Ask about Verified++
               </Link>
             </div>
+          </div>
+          <div className="card mt-5 p-6" data-testid="sponsored-pricing">
+            <h3 className="text-xl font-extrabold text-ink">Sponsored search placement</h3>
+            <p className="mt-2 text-3xl font-extrabold text-phred">Rates on request</p>
+            <p className="mt-2 text-sm">
+              Appear at the top of matching Pinoy Pages search results for your chosen keywords or categories, clearly
+              labelled “Sponsored”. Only a few Sponsored spots are shown per search, and impressions and clicks appear
+              in your private stats.
+            </p>
           </div>
           <p className="mt-6 rounded-xl bg-aqua/60 p-4 font-semibold" data-testid="zcard-limited">
             {ZCARD_SCARCITY_NOTE}

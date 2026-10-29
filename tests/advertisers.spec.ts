@@ -41,3 +41,18 @@ test("/zcard explains the concept with only the $99 public price", async ({ page
   await expect(page.getByTestId("zcard-limited")).toContainText("Limited spaces available");
   expect(await page.locator('meta[name="robots"]').getAttribute("content")).toContain("noindex");
 });
+
+test("zcard pages: hidden from directory browsing, found by search, in sitemap, noindex", async ({ page, request }) => {
+  await page.goto("/directory");
+  await expect(page.getByTestId("zcard-results")).toHaveCount(0);
+  const sm = await (await request.get("/sitemap.xml")).text();
+  expect(sm).toContain("/zcard");
+  const m = sm.match(/\/zcard\/([a-z0-9-]+)/);
+  if (!m) return; // no zcard pages in this environment
+  await page.goto(`/zcard/${m[1]}`);
+  await expect(page.getByTestId("zcard-landing")).toBeVisible();
+  expect(await page.locator('meta[name="robots"]').getAttribute("content")).toContain("noindex");
+  const name = (await page.getByRole("heading", { level: 1 }).innerText()).split(" ")[0] ?? "";
+  await page.goto(`/directory?q=${encodeURIComponent(name)}`);
+  await expect(page.getByTestId("zcard-results")).toContainText(name);
+});

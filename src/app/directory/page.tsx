@@ -7,6 +7,7 @@ import { DirectoryFilterForm } from "@/components/DirectoryFilterForm";
 import { DirectoryPagination } from "@/components/DirectoryPagination";
 import { directoryFilterOptions, filterPublicListings, paginateListings, parseDirectoryFilters } from "@/lib/directory";
 import { brand, sections } from "@/lib/guide";
+import { searchZcards } from "@/lib/adsRepo";
 
 export const metadata: Metadata = { title: "Directory", alternates: { canonical: "/directory" } };
 
@@ -21,6 +22,8 @@ export default async function Page({
   const page = paginateListings(filtered, filters.page);
   const { categories, areas } = directoryFilterOptions();
   const formFilters = { ...filters, page: page.page };
+  // zcard pages are not browsable here; they appear only as search matches.
+  const zcards = filters.q ? await searchZcards(filters.q) : [];
 
   return (
     <>
@@ -61,6 +64,21 @@ export default async function Page({
             All listings
           </h2>
           <DirectoryFilterForm filters={formFilters} categories={categories} areas={areas} resultCount={page.total} />
+          {zcards.length > 0 && (
+            <div data-testid="zcard-results" className="rounded-xl bg-sand p-4">
+              <h3 className="font-bold text-ink">zcard pages matching “{filters.q}”</h3>
+              <ul className="mt-2 space-y-1">
+                {zcards.map((z) => (
+                  <li key={z.slug}>
+                    <Link className="font-semibold text-turqdk underline" href={`/zcard/${z.slug}`}>
+                      {z.name}
+                    </Link>
+                    {z.demo && <span className="ml-2 text-xs text-muted">(sample)</span>}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           <PublicListings items={page.items} from={page.from} to={page.to} total={page.total} />
           <DirectoryPagination filters={formFilters} page={page.page} totalPages={page.totalPages} />
         </section>

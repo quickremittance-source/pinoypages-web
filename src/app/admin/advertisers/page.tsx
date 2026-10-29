@@ -4,6 +4,7 @@ import { PageHead } from "@/components/Chrome";
 import { SimpleTable } from "@/components/admin/Tables";
 import { ADV_TIER_LABEL, listAdvertisers } from "@/lib/advertisers";
 import { validAdminKey } from "@/lib/analytics/token";
+import { listPlacements, SPONSORED_PRICE, sponsoredSlots } from "@/lib/sponsored";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Admin · advertisers", robots: { index: false, follow: false } };
@@ -16,6 +17,8 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ k
     console.warn("[admin] advertisers failed", (e as Error).message);
     return null;
   });
+  const placements = await listPlacements().catch(() => null);
+  const names = new Map((list ?? []).map((a) => [a.id, a.business_name]));
   return (
     <>
       <PageHead kicker="Admin" title="Advertisers" intro="Private. Share each stats link only with that advertiser." />
@@ -36,6 +39,25 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ k
               a.listing_ids.join(", ") || "—",
               a.ads.map((x) => `${x.slug} (${x.tier}, ${x.status})`).join(", ") || "—",
               `/stats/${a.stats_token}`,
+            ])}
+          />
+        )}
+        <h2 className="pt-4 text-xl font-bold text-ink">Sponsored search placements</h2>
+        <p className="text-sm text-muted">
+          {SPONSORED_PRICE}. Up to {sponsoredSlots()} Sponsored results per search (SPONSORED_SLOTS).
+        </p>
+        {placements && (
+          <SimpleTable
+            label="Sponsored search placements"
+            head={["Advertiser", "Title", "Target", "Keywords", "Categories", "Dates", "Active"]}
+            rows={placements.map((p) => [
+              `${names.get(p.advertiser_id) ?? p.advertiser_id}${p.is_demo ? " [DEMO]" : ""}`,
+              p.title,
+              p.href,
+              p.keywords.join(", ") || "—",
+              p.categories.join(", ") || "—",
+              `${p.start_date ?? "—"} → ${p.end_date ?? "—"}`,
+              p.active ? "yes" : "no",
             ])}
           />
         )}

@@ -4,7 +4,8 @@ import { articles } from "@/lib/magazine";
 import { liveTools } from "@/lib/registry";
 import { publicListings } from "@/lib/public";
 import { bizPath, landings } from "@/lib/seo";
-export default function sitemap(): MetadataRoute.Sitemap {
+import { listZcards } from "@/lib/adsRepo";
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const paths = [
     "/",
     "/tax-deadlines",
@@ -30,6 +31,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     events.map((e) => `/calendar/${e.id}`),
     publicListings.map(bizPath),
     landings.map((l) => `/${l.slug}`),
+    // zcard section: not linked from the directory, but listed here so search engines can find it once indexed.
+    ["/zcard"],
+    (await listZcards().catch(() => [])).map((a) => `/zcard/${a.slug}`),
   );
   return paths.map((p) => ({ url: abs(p) }));
 }
