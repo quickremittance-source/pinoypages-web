@@ -24,3 +24,18 @@ for (const a of ads.filter((x) => x.demo === true)) {
   );
   console.log("seeded", slug);
 }
+
+// Demo advertisers (one per demo ad), clearly labelled; never in production. Idempotent by business_name + is_demo.
+const PLAN = { full: "verified_plus", half: "verified", quarter: "ads_only", zcard: "ads_only" };
+for (const a of ads.filter((x) => x.demo === true)) {
+  const name = `DEMO advertiser – ${a.slug}`;
+  let [adv] = await sql.query(`select id from advertisers where business_name = $1 and is_demo`, [name]);
+  if (!adv)
+    [adv] = await sql.query(
+      `insert into advertisers (business_name, tier, ad_sizes, status, is_demo, notes)
+       values ($1, $2, $3, 'active', true, 'Demo record for testing; not a real business') returning id`,
+      [name, PLAN[a.tier], [a.tier]],
+    );
+  await sql.query(`update ads set advertiser_id = $1 where slug = $2 and is_demo`, [adv.id, a.slug]);
+  console.log("demo advertiser", name);
+}
