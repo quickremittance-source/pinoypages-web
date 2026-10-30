@@ -110,6 +110,15 @@ export default function Page() {
         </a>
       </PageHead>
       <div className="mx-auto max-w-6xl space-y-8 px-4 py-8">
+        {!events.some((e) => e.kind === "community") && (
+          <p data-testid="no-community-events" className="card p-4 text-ink">
+            No community events are listed yet. Hosting one in the GTA?{" "}
+            <a href="#evform" className="font-semibold text-turqdk underline">
+              Submit your event
+            </a>
+            .
+          </p>
+        )}
         <CalendarControls
           target="cal"
           months={months.map((m) => ({ value: m, label: monthLabel(m) }))}

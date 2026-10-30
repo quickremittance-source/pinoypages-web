@@ -2,30 +2,8 @@ import Link from "next/link";
 import { ClaimForm } from "@/components/Forms";
 import { PlanTable } from "@/components/PlanTable";
 import { QrSection } from "@/components/QrSection";
-import { LogoTile, PartnerStars } from "@/components/Badge";
 import { ListingCard } from "@/components/ListingCard";
-import { adMenu, brand, listingById, money, mutualPartners, type Listing } from "@/lib/guide";
-
-/** Social proof drawn ONLY from SAMPLE stories (fictional businesses), always labelled SAMPLE. */
-const PROOF = [
-  {
-    id: "tax-01",
-    quote:
-      "My clients are careful people. They should be able to check that I'm who I say I am before they hand me their SIN.",
-    story: "/magazine/meet-bituin-tax",
-  },
-  {
-    id: "biz-01",
-    quote:
-      "Mutual vouching sounds like a formality until you think about what it means. I'm putting my name next to theirs.",
-    story: "/magazine/meet-perlas-bookkeeping",
-  },
-  {
-    id: "tax-04",
-    quote: "Newcomers don't write online reviews. They tell their cousin.",
-    story: "/magazine/kabayans-pick-preview",
-  },
-];
+import { adMenu, brand, listingById, money, type Listing } from "@/lib/guide";
 
 const verified = adMenu.find((o) => o.id === "verified")!;
 
@@ -134,34 +112,6 @@ export function GetVerified({ l }: { l?: Pick<Listing, "id" | "name"> }) {
             <ul>{listingById("tax-01") && <ListingCard l={listingById("tax-01")!} />}</ul>
           </div>
         </div>
-        <h3 className="mt-8 text-lg font-bold text-ink">
-          From our sample stories <span className="sample-chip align-middle">Sample</span>
-        </h3>
-        <ul className="mt-3 grid gap-4 md:grid-cols-3">
-          {PROOF.map((p) => {
-            const l = listingById(p.id);
-            if (!l) return null;
-            return (
-              <li key={p.id} className="card flex flex-col p-5" data-proof={p.id}>
-                <blockquote className="text-ink">“{p.quote}”</blockquote>
-                <div className="mt-4 flex items-center gap-3">
-                  <LogoTile l={l} size="sm" />
-                  <div className="text-sm">
-                    <p className="font-bold">{l.zcard?.person}</p>
-                    <p className="text-muted">{l.name}</p>
-                    <PartnerStars n={mutualPartners(l).length} />
-                  </div>
-                </div>
-                <p className="mt-3 text-xs text-muted">
-                  SAMPLE quote from a fictional business ·{" "}
-                  <Link href={p.story} className="font-semibold text-turqdk underline">
-                    Read the story
-                  </Link>
-                </p>
-              </li>
-            );
-          })}
-        </ul>
       </section>
 
       <section aria-labelledby="checks">
