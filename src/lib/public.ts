@@ -1,4 +1,5 @@
 import data from "../../content/public-listings.json";
+import brevo from "../../content/brevo-listings.json";
 
 /** Free, unverified listings compiled from public information. Name + contact only (Free tier rules). */
 export type ListingTier = "free" | "business_card" | "premium";
@@ -25,5 +26,7 @@ export type PublicListing = {
 };
 export type PublicCategory = { slug: string; name: string; icon: string; section: string };
 export const publicCategories = data.categories as PublicCategory[];
-export const publicListings = (data.listings as PublicListing[]).slice().sort((a, b) => a.name.localeCompare(b.name));
+export const publicListings = ([...data.listings, ...brevo.listings] as PublicListing[])
+  .slice()
+  .sort((a, b) => a.name.localeCompare(b.name));
 export const publicIn = (slug: string) => publicListings.filter((l) => l.category === slug);

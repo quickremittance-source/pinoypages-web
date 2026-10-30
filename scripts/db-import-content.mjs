@@ -9,10 +9,11 @@ const sql = neon(process.env.DATABASE_URL);
 const read = async (f) => JSON.parse(await readFile(f, "utf8"));
 const pub = await read("content/public-listings.json");
 const guide = await read("content/guide.json");
+const brevo = await read("content/brevo-listings.json");
 const real = (x) => x && x.sample !== true && x.demo !== true;
 
 const cats = pub.categories.filter(real);
-const listings = [...pub.listings, ...guide.listings].filter(real);
+const listings = [...pub.listings, ...brevo.listings, ...guide.listings].filter(real);
 const events = guide.events.filter(real);
 
 const q = [];
