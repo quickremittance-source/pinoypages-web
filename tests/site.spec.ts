@@ -1427,3 +1427,14 @@ test("public listing claim flow: get-verified names the listing and shows $99 pe
   await expect(page.getByText("Claiming:")).toContainText("Tummy Fillers Catering & Balloon Decor");
   await expect(page.getByTestId("plan-verified")).toContainText("$99");
 });
+
+test("Tagalog Get Listed page retired: /tl falls back to English, no Tagalog link", async ({ page, request }) => {
+  expect(existsSync(path.join("content", "magazine", "08-get-listed.tl.md"))).toBe(false);
+  const r = await request.get("/magazine/get-listed/tl", { maxRedirects: 0 });
+  expect(r.status()).toBe(307);
+  expect(r.headers().location).toMatch(/\/magazine\/get-listed$/);
+  await page.goto("/magazine/get-listed");
+  await expect(page.locator('a[href="/magazine/get-listed/tl"]')).toHaveCount(0);
+  expect(await (await request.get("/sitemap.xml")).text()).not.toContain("/magazine/get-listed/tl");
+  expect((await request.get("/magazine/do-i-need-hst/tl")).status()).toBe(200);
+});

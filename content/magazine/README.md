@@ -13,7 +13,7 @@ Brand: **Pinoy Pages 2026–2027** (working name). Sources checked October 17, 2
 | 5   | Newcomer first return checklist         | 05-newcomer-first-tax-return.en.md | 05-newcomer-first-tax-return.tl.md |
 | 6   | Benefits families miss                  | 06-benefits-families-miss.en.md    | 06-benefits-families-miss.tl.md    |
 | 7   | Choosing a tax preparer                 | 07-choose-tax-preparer.en.md       | 07-choose-tax-preparer.tl.md       |
-| 8   | Get listed / upgrade                    | 08-get-listed.en.md                | 08-get-listed.tl.md                |
+| 8   | Get listed / upgrade                    | 08-get-listed.en.md                | (retired; falls back to English)   |
 | –   | 6 Facebook group posts (EN + TL)        | social.md                          |                                    |
 | –   | Monthly member email template (EN + TL) | email.md                           |                                    |
 
