@@ -8,7 +8,6 @@ const nav = [
   { href: "/advertise", label: "Advertise" },
   { href: "/directory", label: "Directory" },
   { href: "/get-verified", label: "Get Verified" },
-  { href: "/awards", label: "Awards" },
   { href: liveTools[0]?.route ?? "/", label: "Free tools" },
   { href: "/tax-deadlines", label: "Deadlines" },
   { href: "/calendar", label: "Calendar" },

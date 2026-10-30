@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { PageHead } from "@/components/Chrome";
 import { listingById } from "@/lib/guide";
 import { storyIdeas } from "@/lib/ideas";
@@ -9,6 +10,8 @@ const SEASON = { spring: "Spring", summer: "Summer", fall: "Fall" } as const;
 
 /** Unlisted editorial pipeline: not linked from the site, not in the sitemap, noindex. */
 export default function Page() {
+  // Route audit 28 Oct: internal editorial notes are not public on production.
+  if (process.env.VERCEL_ENV === "production") notFound();
   const written = storyIdeas.filter((i) => i.status === "written").length;
   return (
     <>
