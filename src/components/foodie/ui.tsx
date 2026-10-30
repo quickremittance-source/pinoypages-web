@@ -14,6 +14,14 @@ export function AiBadge() {
   );
 }
 
+export function DraftBadge() {
+  return (
+    <span className="ml-1 inline-block rounded bg-sunset/40 px-1.5 py-0.5 align-middle text-[10px] font-semibold text-ink">
+      Draft – under review
+    </span>
+  );
+}
+
 /** "Sponsored · zcard" slot. Reserved height prevents layout shift. Index beyond the configured count renders nothing. */
 export function ZcardSlot({
   slot,
@@ -63,12 +71,18 @@ export function ZcardSlot({
 
 export function ScoreBars({ scores }: { scores: Record<string, Score | number> }) {
   const order = ["overall", "food", "value", "authenticity", "buzz"];
-  const keys = Object.keys(scores).sort((a, b) => ((order.indexOf(a) + 99) % 99) - ((order.indexOf(b) + 99) % 99));
+  const keys = Object.keys(scores)
+    .filter((k) => {
+      const v = scores[k];
+      return Array.isArray(v) || typeof v === "number";
+    })
+    .sort((a, b) => ((order.indexOf(a) + 99) % 99) - ((order.indexOf(b) + 99) % 99));
   return (
     <dl className="space-y-3">
       {keys.map((k) => {
         const v = scores[k];
         const [n, why] = Array.isArray(v) ? v : [Number(v), ""];
+        if (!Number.isFinite(n)) return null;
         return (
           <div key={k}>
             <dt className="flex justify-between text-sm font-semibold capitalize">
@@ -94,6 +108,7 @@ export function RestaurantCard({ r }: { r: Restaurant }) {
       <Link href={`${FF}/restaurants/${r.slug}`} className="text-lg font-bold text-sea hover:underline">
         {r.name}
       </Link>
+      {r.draft ? <DraftBadge /> : null}
       <p className="text-sm text-muted">
         {[r.neighbourhood, r.city].filter(Boolean).join(" · ")}
         {r.area ? "" : " (outside listed GTA areas)"}

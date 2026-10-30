@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AiBadge, FF, ScoreBars, ZcardSlot } from "@/components/foodie/ui";
+import { AiBadge, DraftBadge, FF, ScoreBars, ZcardSlot } from "@/components/foodie/ui";
 import { VideoFacade } from "@/components/foodie/client";
 import { getVideos } from "@/lib/foodie/data";
 import { ffMeta } from "../../meta";
@@ -21,7 +21,10 @@ export default async function VideoPage({ params }: P) {
   return (
     <div className="grid gap-6 py-6 md:grid-cols-[2fr_1fr]">
       <div>
-        <h1 className="mb-3 text-2xl font-bold text-sea">{v.title}</h1>
+        <h1 className="mb-3 text-2xl font-bold text-sea">
+          {v.title}
+          {v.draft ? <DraftBadge /> : null}
+        </h1>
         <VideoFacade id={v.youtubeId} title={v.title} thumb={v.thumbnail ?? ""} />
         {v.channel ? <p className="mt-2 text-sm text-muted">Channel: {v.channel}</p> : null}
         {v.aiReview ? (
@@ -35,7 +38,7 @@ export default async function VideoPage({ params }: P) {
                 <ScoreBars scores={v.scores} />
               </div>
             ) : null}
-            <p className="mt-2 text-xs text-muted">AI-generated from the video title and metadata.</p>
+            <p className="mt-2 text-xs text-muted">{v.aiLabel ?? "AI-generated from the video title and metadata."}</p>
           </section>
         ) : null}
         {v.dishSlug ? (

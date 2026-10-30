@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Empty, FF, PageTitle, ZcardSlot } from "@/components/foodie/ui";
+import { AiBadge, DraftBadge, Empty, FF, PageTitle, ZcardSlot } from "@/components/foodie/ui";
 import { getVideos } from "@/lib/foodie/data";
 import { ffMeta } from "../meta";
 
@@ -20,6 +20,18 @@ export default async function Videos() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={v.thumbnail ?? ""} alt="" loading="lazy" className="aspect-video w-full object-cover" />
                 <p className="p-3 font-semibold text-sea">{v.title}</p>
+              </Link>
+              <p className="px-3 pb-3 text-xs text-muted">
+                {v.channel}
+                {v.aiReview ? (
+                  <span className="ml-1">
+                    <AiBadge /> review
+                  </span>
+                ) : null}
+                {v.draft ? <DraftBadge /> : null}
+              </p>
+              <Link href={`${FF}/videos/${v.youtubeId}`} className="sr-only">
+                {v.title}
               </Link>
             </li>
           ))}

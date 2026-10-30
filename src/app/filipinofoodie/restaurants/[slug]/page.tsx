@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AiBadge, Empty, FF, RestaurantCard, ScoreBars, ZcardSlot } from "@/components/foodie/ui";
+import { AiBadge, DraftBadge, Empty, FF, RestaurantCard, ScoreBars, ZcardSlot } from "@/components/foodie/ui";
 import { JsonLd } from "@/components/JsonLd";
 import { getEvaluation, getMenu, getRestaurant, getRestaurants, getVideos } from "@/lib/foodie/data";
 import { areaName } from "@/lib/foodie/areas";
@@ -51,7 +51,10 @@ export default async function Profile({ params }: P) {
         }}
       />
       <header className="py-6">
-        <h1 className="font-display text-3xl font-bold text-sea">{r.name}</h1>
+        <h1 className="font-display text-3xl font-bold text-sea">
+          {r.name}
+          {r.draft ? <DraftBadge /> : null}
+        </h1>
         <p className="text-muted">{[r.address, r.neighbourhood].filter(Boolean).join(" · ")}</p>
         {r.phone ? <p className="text-sm">Phone: {r.phone}</p> : null}
         {r.website ? (

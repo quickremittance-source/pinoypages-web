@@ -10,6 +10,8 @@ import { AREAS, areaOf } from "./areas";
 const sql = () => (process.env.FF_DATABASE_URL ? neon(process.env.FF_DATABASE_URL) : null);
 
 export type Score = [number, string];
+/** Preview-only: include draft rows (e.g. unpublished videos) when FF_SHOW_DRAFTS=true. Never set in Production. */
+export const SHOW_DRAFTS = process.env.FF_SHOW_DRAFTS === "true" && process.env.VERCEL_ENV !== "production";
 export type Evaluation = {
   scores: Record<string, Score>;
   summary: string | null;
@@ -34,6 +36,8 @@ export type Restaurant = {
   signatureDishes: string | null;
   dishSlugs: string[];
   overall: number | null;
+  notes: string | null;
+  draft: boolean;
 };
 export type Dish = { slug: string; name: string; description: string | null };
 export type Video = {
@@ -47,6 +51,7 @@ export type Video = {
   aiLabel: string | null;
   scores: Record<string, number | Score> | null;
   restaurantSlugs: string[];
+  draft: boolean;
 };
 
 async function safe<T>(fn: () => Promise<T>, fallback: T): Promise<T> {
@@ -63,7 +68,7 @@ export const getRestaurants = cache(async (): Promise<Restaurant[]> => {
   if (!q) return [];
   return safe(async () => {
     const rows = (await q`
-      select r.slug, r.name, r.address, r.city, r.neighbourhood, r.phone, r.website, r.status, r.signature_dishes,
+      select r.slug, r.name, r.address, r.city, r.neighbourhood, r.phone, r.website, r.status, r.signature_dishes, r.cuisine_notes,
         (e.scores->'overall'->>0)::float as overall,
         coalesce(array_agg(d.slug) filter (where d.slug is not null), '{}') as dish_slugs
       from restaurants r
@@ -86,6 +91,8 @@ export const getRestaurants = cache(async (): Promise<Restaurant[]> => {
       signatureDishes: (r.signature_dishes as string) ?? null,
       dishSlugs: (r.dish_slugs as string[]) ?? [],
       overall: r.overall == null ? null : Number(r.overall),
+      notes: (r.cuisine_notes as string) ?? null,
+      draft: !String(r.status).startsWith("open"),
     }));
   }, []);
 });
@@ -145,10 +152,12 @@ export const getVideos = cache(async (): Promise<Video[]> => {
   if (!q) return [];
   return safe(async () => {
     const rows = (await q`
-      select v.youtube_id, v.title, v.channel, v.thumbnail_url, v.dish, d.slug as dish_slug, v.ai_review, v.ai_review_label,
+      select v.youtube_id, v.title, v.channel, v.thumbnail_url, v.dish,
+        coalesce(d.slug, (select d2.slug from dishes d2 where d2.slug = any(v.dish_tags) or lower(d2.name) = any(v.dish_tags) limit 1)) as dish_slug,
+        v.published, v.ai_review, v.ai_review_label,
         v.eval_scores, coalesce((select array_agg(r.slug) from restaurants r where r.id = any(v.restaurant_ids)), '{}') as rs
       from videos v left join dishes d on d.id = v.dish_id
-      where v.published and coalesce(v.embeddable, false)
+      where (v.published or (${SHOW_DRAFTS} and v.status = 'draft')) and coalesce(v.embeddable, false)
       order by v.published_at desc nulls last`) as Record<string, unknown>[];
     return rows.map((v) => ({
       youtubeId: String(v.youtube_id),
@@ -161,6 +170,7 @@ export const getVideos = cache(async (): Promise<Video[]> => {
       aiLabel: (v.ai_review_label as string) ?? null,
       scores: (v.eval_scores as Video["scores"]) ?? null,
       restaurantSlugs: (v.rs as string[]) ?? [],
+      draft: !v.published,
     }));
   }, []);
 });
@@ -169,3 +179,8 @@ export async function areaCounts() {
   const rs = await getRestaurants();
   return AREAS.map((a) => ({ ...a, count: rs.filter((r) => r.area === a.slug).length }));
 }
+
+const has = (r: Restaurant, re: RegExp) => re.test(`${r.notes ?? ""} ${r.name}`);
+export const isCatering = (r: Restaurant) => has(r, /catering|party tray|boodle/i);
+export const isDelicacy = (r: Restaurant) => has(r, /bakery|dessert|kakanin|siopao|bake/i);
+export const isGrocery = (r: Restaurant) => has(r, /grocer|market|sari[- ]sari|supermarket/i);
