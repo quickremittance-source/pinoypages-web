@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import ideasData from "../content/story-ideas.json";
 import { test, expect, type Page } from "@playwright/test";
@@ -20,11 +20,7 @@ const routes = [...new Set(guide.pages.map((p) => p.route))].concat([
   "/magazine",
   "/magazine/do-i-need-hst",
   "/magazine/do-i-need-hst/tl",
-  "/magazine/meet-bituin-tax",
-  "/magazine/fhsa-first-home",
   "/magazine/ideas",
-  "/calendar/ev-sample-featured",
-  "/calendar/ev-newcomer-jan",
   "/list-free",
   "/calendar",
   "/upgrade",
@@ -871,7 +867,7 @@ const contactsFor = (email: string) =>
     .map((l) => JSON.parse(l) as { email: string; lists: string[] })
     .filter((c) => c.email === email);
 const uniq = (tag: string) => `${tag}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}@example.com`;
-const stories = guide.articles.filter((a) => "sample" in a && a.sample) as {
+const stories = guide.articles.filter((a) => "sample" in a && a.sample) as unknown as {
   slug: string;
   file: string;
   title: string;
@@ -924,46 +920,28 @@ test("rich listing page: owner story, SAMPLE quote, why line, hours and service 
   await expect(page.getByTestId("owner-quote")).toHaveCount(0);
 });
 
-test("magazine: 6 SAMPLE stories with the editorial byline; edition articles still listed", async ({ page }) => {
-  expect(stories).toHaveLength(6);
+const removedStories = [
+  "meet-bituin-tax",
+  "meet-perlas-bookkeeping",
+  "life-insurance-ofw-families",
+  "fhsa-first-home",
+  "why-verification-matters",
+  "kabayans-pick-preview",
+];
+test("magazine: fictional sample stories removed; edition articles still listed", async ({ page, request }) => {
+  expect(stories).toHaveLength(0);
   await page.goto("/magazine");
-  for (const a of stories) {
-    const card = page.locator(`[data-story="${a.slug}"]`);
-    await expect(card).toContainText(a.title);
-    await expect(card).toContainText("Pinoy Pages Editorial (SAMPLE)");
-  }
+  await expect(page.locator("[data-story]")).toHaveCount(0);
+  await expect(page.getByText("Pinoy Pages Editorial (SAMPLE)")).toHaveCount(0);
   await expect(page.getByRole("link", { name: /Do I need to register for HST/ })).toBeVisible();
   await expect(page.locator('a[href="/magazine/ideas"]')).toHaveCount(0);
-});
-
-test("sample articles: 300–500 words, byline, links to their sample listings and tools, Get Verified CTA", async ({
-  page,
-}) => {
-  for (const a of stories) {
-    const raw = readFileSync(path.join("content", "magazine", `${a.file}.en.md`), "utf8").replace(
-      /^---\n[\s\S]*?\n---\n/,
-      "",
-    );
-    const words = raw.split(/\s+/).filter(Boolean).length;
-    expect(words, a.slug).toBeGreaterThanOrEqual(300);
-    expect(words, a.slug).toBeLessThanOrEqual(500);
-    expect(raw, a.slug).not.toMatch(
-      /navigate|empower|fast-paced|unlock|journey|seamless|whether you're|in conclusion/i,
-    );
-    const res = await page.goto(`/magazine/${a.slug}`);
-    expect(res?.status()).toBe(200);
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText(a.title);
-    await expect(page.getByTestId("byline")).toContainText("Pinoy Pages Editorial (SAMPLE)");
-    const article = page.locator("article");
-    for (const id of a.listings) {
-      await expect(article.locator(`a[href="/listing/${id}"]`).first(), `${a.slug} → ${id}`).toBeVisible();
-      await expect(page.locator(`[data-listing-mention="${id}"]`)).toBeVisible();
-    }
-    for (const t of a.tools) await expect(page.locator("main").locator(`a[href="${t}"]`).first()).toBeVisible();
-    const cta = page.getByTestId("article-cta");
-    await expect(cta.getByRole("heading", { name: "Featured in this story? Get Verified" })).toBeVisible();
-    await expect(cta.getByRole("link", { name: /Get Verified/ })).toHaveAttribute("href", "/get-verified");
+  for (const slug of removedStories) {
+    expect((await request.get(`/magazine/${slug}`)).status(), slug).toBe(404);
+    expect(existsSync(path.join("content", "magazine", `${slug}.en.md`))).toBe(false);
   }
+  await page.goto("/get-verified");
+  for (const slug of removedStories) await expect(page.locator(`a[href="/magazine/${slug}"]`)).toHaveCount(0);
+  expect(ideasData.ideas.filter((i) => i.status === "written")).toHaveLength(0);
 });
 
 test("story ideas: unlisted pipeline of 12 with angle, category, sample business and season", async ({
@@ -994,16 +972,14 @@ test("story ideas: unlisted pipeline of 12 with angle, category, sample business
 // ---------- Event calendar ----------
 const community = guide.events.filter((e) => e.kind === "community");
 
-test("calendar data: ~15 SAMPLE events Nov 2026–Apr 2027, free and featured, incl. the Awards launch", () => {
-  expect(community.length).toBeGreaterThanOrEqual(14);
-  for (const e of community) {
-    expect(e.sample, e.id).toBe(true);
-    expect(e.date >= "2026-11-01" && e.date <= "2027-04-30", e.id).toBe(true);
-    expect("address" in e && e.address, e.id).toBeTruthy();
-  }
-  expect(community.some((e) => e.tier === "featured")).toBe(true);
-  expect(community.some((e) => e.tier === "free")).toBe(true);
-  expect(community.find((e) => e.id === "ev-awards-apr")?.date).toBe("2027-04-16");
+test("calendar: fictional sample events removed; deadlines stay; clean empty state", async ({ page, request }) => {
+  expect(community).toHaveLength(0);
+  expect(guide.events.some((e) => "sample" in e && e.sample)).toBe(false);
+  for (const id of ["ev-sample-featured", "ev-sample-free", "ev-newcomer-jan", "ev-awards-apr"])
+    expect((await request.get(`/calendar/${id}`)).status(), id).toBe(404);
+  await page.goto("/calendar");
+  await expect(page.getByTestId("no-community-events")).toBeVisible();
+  await expect(page.locator('[data-kind="deadline"]').first()).toBeVisible();
 });
 
 test("calendar: list and month views, filters by category, city and free/featured; featured first in each month", async ({
@@ -1022,28 +998,15 @@ test("calendar: list and month views, filters by category, city and free/feature
   await controls.getByLabel("Listing type").selectOption("featured");
   await expect(list.filter({ visible: true })).toHaveCount(guide.events.filter((e) => e.tier === "featured").length);
   await controls.getByLabel("Listing type").selectOption("");
-  await controls.getByLabel("City").selectOption("Markham");
-  await expect(list.filter({ visible: true })).toHaveCount(community.filter((e) => e.city === "Markham").length);
-  await controls.getByLabel("City").selectOption("");
-  await controls.getByLabel("Category").selectOption("insurance");
-  await expect(list.filter({ visible: true })).toHaveCount(
-    guide.events.filter((e) => "category" in e && e.category === "insurance").length,
-  );
-  await expect(page).toHaveURL(/cat=insurance/);
-  await controls.getByLabel("Category").selectOption("");
+  // City and category options come from events; with only CRA deadlines left, the sample cities are gone.
+  await expect(controls.getByLabel("City").locator('option[value="Markham"]')).toHaveCount(0);
   // Month view.
   await controls.getByRole("button", { name: "Month view" }).click();
   await expect(page.getByTestId("month-view")).toBeVisible();
   await expect(page.locator("#cal [data-list]")).toBeHidden();
-  await expect(page.getByTestId("month-label")).toHaveText("November 2026");
-  const nov = page.locator('[data-month-grid="2026-11"]');
-  await expect(nov.getByRole("link", { name: /Kabayan networking night/ })).toBeVisible();
-  await controls.getByRole("button", { name: "Next month" }).click();
-  await expect(page.getByTestId("month-label")).toHaveText("December 2026");
-  await expect(page.locator('[data-month-grid="2026-12"]').getByRole("link", { name: /Simbang Gabi/ })).toBeVisible();
-  await expect(page).toHaveURL(/view=month&m=2026-12/);
-  // Print mirror (page 11) lists the events too.
-  await expect(page.locator("[data-print-mirror]")).toContainText("Pinoy Pages Awards launch");
+  // Only CRA deadlines remain after the sample events were removed.
+  await expect(page.getByTestId("month-label")).not.toHaveText("");
+  await expect(page.getByTestId("month-view").getByRole("link").first()).toBeVisible();
 });
 
 test("event pages: .ics, address + map, host, host listing link only when Verified; featured has image + QR", async ({
@@ -1112,16 +1075,11 @@ test("submit your event: zod validation, CASL consent, interest only, tagged eve
   await expect.poll(() => contactsFor(email).flatMap((c) => c.lists)).toContain("event-submitter");
 });
 
-test("upcoming events show on the home page and on sub-category pages", async ({ page }) => {
-  await page.goto("/classic");
-  await expect(page.getByTestId("upcoming-events").locator("li")).toHaveCount(3);
-  await page.goto("/directory/tax-accounting");
-  const up = page.getByTestId("upcoming-events");
-  await expect(up.getByRole("heading", { name: "Upcoming events · Tax & accounting" })).toBeVisible();
-  for (const id of await up.locator("li").evaluateAll((els) => els.map((e) => e.getAttribute("data-event"))))
-    expect(["tax-accounting", undefined]).toContain(
-      (guide.events.find((e) => e.id === id) as { sub?: string } | undefined)?.sub,
-    );
+test("upcoming events strip is hidden while no community events are listed", async ({ page }) => {
+  for (const p of ["/classic", "/directory/tax-accounting"]) {
+    await page.goto(p);
+    await expect(page.getByTestId("upcoming-events"), p).toHaveCount(0);
+  }
 });
 
 // ---------- Marketing the free and paid listings ----------
@@ -1269,7 +1227,8 @@ test("alt home: search + GTA area dropdown, real counts, featured tabs, communit
   const html = await page.content();
   for (const n of ["Bituin", "Perlas Bookkeeping", "Hiraya", "Dagat Tax", "555-01", "example.com", "SAMPLE Money"])
     expect(html).not.toContain(n);
-  expect(await page.getByTestId("alt-events").locator("li").count()).toBeGreaterThan(0);
+  // Sample community events removed: the section is hidden until real events exist.
+  await expect(page.getByTestId("alt-events")).toHaveCount(0);
   await expect(page.getByTestId("alt-why").locator("li")).toHaveCount(3);
   await expect(page.getByLabel("Monthly member email sign-up")).toBeVisible();
   const text = await page.getByRole("main").innerText();
