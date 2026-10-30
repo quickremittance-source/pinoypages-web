@@ -8,7 +8,11 @@ import AxeBuilder from "@axe-core/playwright";
 import guideJson from "../content/guide.json";
 // Samples removed on alt-design: listings is empty in the JSON, so type it explicitly.
 const guide = { ...guideJson, listings: guideJson.listings as unknown as Listing[] };
-import pub from "../content/public-listings.json";
+import pubFile from "../content/public-listings.json";
+import brevoFile from "../content/brevo-listings.json";
+
+// The directory shows both the hand-compiled public listings and the Brevo-imported prospects (all free, unverified).
+const pub = { ...pubFile, listings: [...pubFile.listings, ...brevoFile.listings] };
 import { badgeState, isVerified, listings as allListings, mutualPartners, type Listing } from "../src/lib/guide";
 import jsQR from "jsqr";
 import { PNG } from "pngjs";
@@ -1242,14 +1246,18 @@ test("alt home: search + GTA area dropdown, real counts, featured tabs, communit
 test("public free listings: GTA only, free + unverified, sourced, name + contact only, no padala/remit", async ({
   page,
 }) => {
-  const areas = ["Toronto", "Scarborough", "North York", "Etobicoke", "Mississauga", "Brampton", "Markham", "Vaughan"];
+  const areas = [
+    ...["Toronto", "Scarborough", "North York", "Etobicoke", "Mississauga", "Brampton", "Markham", "Vaughan"],
+    ...["East York", "York", "Richmond Hill", "Ajax", "Pickering", "Burlington", "Thornhill", "Maple", "Concord"],
+  ];
   expect(pub.listings.length).toBeGreaterThanOrEqual(140);
   expect(new Set(pub.listings.map((l) => l.id)).size).toBe(pub.listings.length);
   for (const l of pub.listings as Record<string, unknown>[]) {
     expect(areas).toContain(l.area);
     expect(l.tier).toBe("free");
     expect(l.verified).toBe(false);
-    expect(String(l.source)).toMatch(/^https?:\/\//);
+    // Brevo prospects without a recorded source URL carry source "brevo" (never displayed).
+    expect(String(l.source)).toMatch(/^(https?:\/\/|brevo$)/);
     expect(l.phone || l.website || l.address || l.email).toBeTruthy();
     expect((pub.categories as { slug: string }[]).map((c) => c.slug)).toContain(l.category);
     for (const k of Object.keys(l))
@@ -1296,12 +1304,14 @@ test("directory search and filters cover the free public listings", async ({ pag
   await expect(page.getByTestId("search-count")).toHaveText(
     `${miss.length} business${miss.length === 1 ? "" : "es"} found`,
   );
-  await expect(page.getByTestId("public-listings").locator("li[data-public]")).toHaveCount(miss.length);
+  await expect(page.getByTestId("public-listings").locator("li[data-public]")).toHaveCount(Math.min(48, miss.length));
   await search.locator('select[name="category"]').selectOption("food");
   await search.getByRole("button", { name: "Search" }).click();
   await expect(page).toHaveURL(/category=food/);
   await expect(page).toHaveURL(/area=Mississauga/);
-  await expect(page.getByTestId("public-listings").locator("li[data-public]")).toHaveCount(missFood.length);
+  await expect(page.getByTestId("public-listings").locator("li[data-public]")).toHaveCount(
+    Math.min(48, missFood.length),
+  );
   await search.getByRole("link", { name: "Clear" }).click();
   await expect(page).toHaveURL(/\/directory\/?$/);
   await expect(page.getByTestId("search-count")).toHaveText(`${ls.length} businesses found`);
@@ -1347,7 +1357,9 @@ test("directory pagination: page size, page 2 link, filter combos keep page in U
   const missFood = (pub.listings as { category: string; area: string }[]).filter(
     (l) => l.category === "food" && l.area === "Mississauga",
   );
-  await expect(page.getByTestId("public-listings").locator("li[data-public]")).toHaveCount(missFood.length);
+  await expect(page.getByTestId("public-listings").locator("li[data-public]")).toHaveCount(
+    Math.min(48, missFood.length),
+  );
   await expect(page.getByTestId("directory-pagination")).toHaveCount(0);
   // Legacy city/sub aliases still work
   await page.goto("/directory?city=Scarborough&sub=food");

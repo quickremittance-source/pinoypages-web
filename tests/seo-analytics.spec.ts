@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import pub from "../content/public-listings.json";
+import brevo from "../content/brevo-listings.json";
 import { activeAds, ads, type AdDef } from "../src/lib/ads";
 
 const withPhone = pub.listings.find((l) => (l as { phone?: string }).phone && (l as { address?: string }).address)!;
@@ -89,7 +90,7 @@ test("ad config holds no ads; slots render nothing; date window filtering works"
 });
 
 test("every public listing has a unique, stable listing_id", () => {
-  const ids = pub.listings.map((l) => l.listing_id);
+  const ids = [...pub.listings, ...brevo.listings].map((l) => l.listing_id);
   expect(ids.every((x) => typeof x === "string" && x.length > 0)).toBe(true);
   expect(new Set(ids).size).toBe(ids.length);
 });
