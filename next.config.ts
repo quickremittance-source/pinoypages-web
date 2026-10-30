@@ -24,6 +24,8 @@ const nextConfig: NextConfig = {
       { source: "/tools/hst", destination: "/tools/hst-checker", permanent: true },
       { source: "/tools/cpp", destination: "/tools/cpp-estimator", permanent: true },
       { source: "/deadlines", destination: "/tax-deadlines", permanent: true },
+      // Tagalog Get Listed page retired (Jose, 30 Oct): fall back to the English article.
+      { source: "/magazine/get-listed/tl", destination: "/magazine/get-listed", permanent: false },
     ];
   },
   async headers() {
