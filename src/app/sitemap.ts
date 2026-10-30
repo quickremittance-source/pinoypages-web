@@ -5,6 +5,7 @@ import { liveTools } from "@/lib/registry";
 import { publicListings } from "@/lib/public";
 import { bizPath, landings } from "@/lib/seo";
 import { listZcards } from "@/lib/adsRepo";
+import { TOPICS, getVideos as beVideos } from "@/lib/explorer/data";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const paths = [
     "/",
@@ -21,6 +22,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/privacy",
     "/terms",
   ].concat(
+    ["/explore"],
+    TOPICS.map((t) => `/explore/${t.slug}`),
+    beVideos().map((v) => `/explore/videos/${v.youtubeId}`),
     liveTools.map((t) => t.route),
     sections.filter((s) => s.status === "live").map((s) => `/directory/${s.slug}`),
     categories.map((c) => `/directory/${c.slug}`),
