@@ -1,5 +1,5 @@
 /**
- * Pinoy Pages Inquiries: Google Apps Script web app bound to the private "Pinoy Pages Inquiries" sheet.
+ * OPTIONAL (off by default; site emails via Brevo). Pinoy Pages Inquiries: Google Apps Script web app bound to the private "Pinoy Pages Inquiries" sheet.
  * Setup (owner only): Extensions > Apps Script, paste this file, Project Settings > Script properties:
  *   WEBHOOK_SECRET = <same random value as Vercel SHEETS_WEBHOOK_SECRET>
  *   NOTIFY_EMAIL   = pinoypagesca@gmail.com
