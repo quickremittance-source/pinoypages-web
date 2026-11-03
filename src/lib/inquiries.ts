@@ -1,10 +1,12 @@
 import "server-only";
 import { db } from "@/lib/db";
+import { NOTIFY_TO, SENDER, notifyEnabled } from "@/lib/inquiryNotice";
 
 /**
- * Inquiry store. Neon `inquiries` is the source of truth. Each new row triggers ONE internal notification email via
- * Brevo transactional API (BREVO_API_KEY) to the owner inbox only, reply-to = submitter. Nothing is ever sent to the
- * submitter. Optional, off unless both env vars are set: mirror to a Google Sheet Apps Script (SHEETS_WEBHOOK_*).
+ * Inquiry store. Neon `inquiries` is the source of truth; claims are worked from pinoypagesca@gmail.com only.
+ * ONE optional notification path, OFF by default: only when INQUIRY_NOTIFY_ENABLED === "true" (and BREVO_API_KEY is
+ * set) is an internal notice sent via Brevo, from PinoyPages <info@pinoypages.ca>, to pinoypagesca@gmail.com only,
+ * reply-to = submitter. Nothing is ever sent to the submitter. No Google Sheet mirror.
  */
 export type Inquiry = {
   kind: string;
@@ -44,40 +46,16 @@ export async function saveInquiry(q: Inquiry): Promise<number | null> {
     }
   }
   await notifyOwner(id, q);
-  const ok = await mirrorToSheet(id, q);
-  if (ok && sql && id) {
-    try {
-      await sql.query("update inquiries set sheet_synced = true where id = $1", [id]);
-    } catch {}
-  }
   return id;
 }
 
-async function mirrorToSheet(id: number | null, q: Inquiry): Promise<boolean> {
-  const url = process.env.SHEETS_WEBHOOK_URL;
-  const secret = process.env.SHEETS_WEBHOOK_SECRET;
-  if (!url || !secret) return false;
-  try {
-    const r = await fetch(url, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ secret, id, submittedAt: new Date().toISOString(), ...q }),
-      signal: AbortSignal.timeout(5000),
-      redirect: "follow",
-    });
-    return r.ok;
-  } catch (e) {
-    console.error("[inquiries] sheet mirror failed", (e as Error).message);
-    return false;
-  }
-}
 
-const NOTIFY_TO = "pinoypagesca@gmail.com";
 const esc = (v: unknown) =>
   String(v ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]!);
 
 /** Internal notice to the owner only. Returns true when Brevo accepted it. Never throws. */
 export async function notifyOwner(id: number | null, q: Inquiry): Promise<boolean> {
+  if (!notifyEnabled()) return false;
   const key = process.env.BREVO_API_KEY;
   if (!key) {
     console.warn("[inquiries] BREVO_API_KEY not set; notification skipped");
@@ -93,7 +71,7 @@ export async function notifyOwner(id: number | null, q: Inquiry): Promise<boolea
       method: "POST",
       headers: { "api-key": key, "content-type": "application/json", accept: "application/json" },
       body: JSON.stringify({
-        sender: { name: "Pinoy Pages website", email: process.env.INQUIRY_SENDER_EMAIL || NOTIFY_TO },
+        sender: SENDER,
         to: [{ email: NOTIFY_TO }],
         ...(validReply ? { replyTo: { email: q.email, name: q.name || q.email } } : {}),
         subject: `New ${q.kind}${id ? ` #${id}` : ""}: ${q.business || q.name || q.email}`.slice(0, 180),
