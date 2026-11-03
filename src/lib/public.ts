@@ -10,10 +10,13 @@ export type PublicListing = {
   name: string;
   category: string;
   area: string;
-  tier: "free";
+  /** "free" for every bundled listing; Neon may carry a paid tier. */
+  tier: string;
   /** Analytics tier; current public listings are all free (line listing). */
   listing_tier?: ListingTier;
-  verified: false;
+  /** True only when Neon says verified and verified_until has not passed. */
+  verified: boolean;
+  verified_until?: string;
   /** Where the listing was confirmed. Kept in the data file, never displayed. */
   source: string;
   address?: string;
