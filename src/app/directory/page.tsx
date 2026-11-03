@@ -8,6 +8,7 @@ import { DirectoryPagination } from "@/components/DirectoryPagination";
 import { directoryFilterOptions, filterPublicListings, paginateListings, parseDirectoryFilters } from "@/lib/directory";
 import { brand, sections } from "@/lib/guide";
 import { searchZcards } from "@/lib/adsRepo";
+import { getPublicListings } from "@/lib/listingsRepo";
 
 export const metadata: Metadata = { title: "Directory", alternates: { canonical: "/directory" } };
 
@@ -18,9 +19,10 @@ export default async function Page({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const filters = parseDirectoryFilters(await searchParams);
-  const filtered = filterPublicListings(filters);
+  const { listings, source } = await getPublicListings();
+  const filtered = filterPublicListings(filters, listings);
   const page = paginateListings(filtered, filters.page);
-  const { categories, areas } = directoryFilterOptions();
+  const { categories, areas } = directoryFilterOptions(listings);
   const formFilters = { ...filters, page: page.page };
   // zcard pages are not browsable here; they appear only as search matches.
   const zcards = filters.q ? await searchZcards(filters.q) : [];
@@ -32,7 +34,7 @@ export default async function Page({
         title="Find a kabayan business you can trust"
         intro="Search by name, category or area. Verified businesses passed a visit and carry a mutual vouch; free listings are unverified."
       />
-      <div className="mx-auto max-w-6xl space-y-10 px-4 py-8">
+      <div className="mx-auto max-w-6xl space-y-10 px-4 py-8" data-listings-source={source}>
         {sections.map((s) => (
           <section key={s.slug} aria-labelledby={`sec-${s.slug}`} data-section={s.slug} data-status={s.status}>
             <h2 id={`sec-${s.slug}`} className="flex flex-wrap items-center gap-2 text-2xl font-bold text-ink">

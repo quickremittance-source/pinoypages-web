@@ -95,9 +95,9 @@ test("every public listing has a unique, stable listing_id", () => {
   expect(new Set(ids).size).toBe(ids.length);
 });
 
-test("Alpha label in header and footer; still noindex", async ({ page }) => {
+test("Beta label in header and footer; still noindex", async ({ page }) => {
   const res = await page.goto("/");
-  await expect(page.getByTestId("alpha-badge")).toHaveText("Alpha");
-  await expect(page.getByTestId("alpha-footer")).toHaveText("Pinoy Pages Alpha — release 2026.11-alpha");
+  await expect(page.getByTestId("alpha-badge")).toHaveText("Beta");
+  await expect(page.getByTestId("alpha-footer")).toHaveText("Pinoy Pages Beta — release 2026.11-beta");
   expect(res?.headers()["x-robots-tag"]).toContain("noindex");
 });

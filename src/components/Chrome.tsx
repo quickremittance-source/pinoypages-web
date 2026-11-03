@@ -50,7 +50,7 @@ export function Header() {
             data-testid="alpha-badge"
             className="ml-2 inline-block rounded bg-turqdk px-1.5 py-0.5 align-middle text-[10px] font-bold tracking-wider text-white uppercase"
           >
-            Alpha
+            Beta
           </span>
         </div>
         <nav aria-label="Main" className="hidden md:block">
@@ -154,7 +154,7 @@ export function Footer() {
         {brand.name} · {brand.pilotLabel}
       </div>
       <p data-testid="alpha-footer" className="py-2 text-center text-xs text-muted">
-        Pinoy Pages Alpha — release 2026.11-alpha
+        Pinoy Pages Beta — release 2026.11-beta
       </p>
       <p data-testid="zcard-footer" className="pb-3 text-center text-xs text-muted">
         Powered by zcard digital ads

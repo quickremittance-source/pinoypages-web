@@ -16,7 +16,8 @@
     "new-edition": "node scripts/new-edition.mjs",
     "db:migrate": "node scripts/db-migrate.mjs",
     "db:seed-demo": "node scripts/db-seed-demo.mjs",
-    "db:import-content": "node scripts/db-import-content.mjs"
+    "db:import-content": "node scripts/db-import-content.mjs",
+    "db:sync-brevo": "node scripts/import-brevo-listings.mjs"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.2.0",
