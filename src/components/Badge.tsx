@@ -4,8 +4,8 @@ import { badgeState, brand, initials, logoColor, shortDate, type Listing, isVeri
 function Check({ className = "h-3.5 w-3.5" }: { className?: string }) {
   return (
     <svg aria-hidden="true" viewBox="0 0 16 16" className={className} focusable="false">
-      <circle cx="8" cy="8" r="8" fill="#fff" />
-      <path d="M4.5 8.3l2.2 2.2 4.8-4.9" fill="none" stroke="#C8102E" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="8" cy="8" r="8" fill="#13806f" />
+      <path d="M4.5 8.3l2.2 2.2 4.8-4.9" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
 }
@@ -16,7 +16,7 @@ export function VerifiedKabayan({ l, withDate = false }: { l: Listing; withDate?
   return (
     <span
       data-testid="vk-badge"
-      className="inline-flex flex-wrap items-center gap-1 rounded-md bg-phred px-2 py-0.5 text-xs font-bold text-white"
+      className="inline-flex flex-wrap items-center gap-1 rounded-full border border-palm/20 bg-aqua px-2.5 py-1 text-xs font-bold text-palm"
     >
       <Check /> Verified Kabayan
       {withDate && l.verifiedOn && " "}

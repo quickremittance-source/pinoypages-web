@@ -30,7 +30,7 @@ export function Logo({ small = false }: { small?: boolean }) {
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-30 border-b border-sand bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-30 border-b border-sand bg-sandlt/85 backdrop-blur-md">
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:bg-phred focus:p-2 focus:text-white"
@@ -89,10 +89,10 @@ export function Header() {
 
 export function Footer() {
   return (
-    <footer className="mt-16 border-t border-sand bg-white">
+    <footer className="mt-16 border-t border-sand/60 bg-sand">
       <div className="mx-auto grid max-w-6xl gap-6 px-4 py-10 text-sm sm:grid-cols-3">
         <div>
-          <Logo small />
+          <Image src="/brand/pinoypages-logo-stacked.png" alt="Pinoy Pages" width={480} height={363} className="h-24 w-auto" />
           <p className="mt-2 text-muted">
             {brand.tagline} · {brand.region}
           </p>
