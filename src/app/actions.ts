@@ -5,6 +5,7 @@ import { appendFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import { ads, categories, listings } from "@/lib/guide";
 import { saveContact, type ListKey } from "@/lib/contacts";
+import { saveInquiry } from "@/lib/inquiries";
 
 const urlOk = z.url("Enter a full link starting with https://").max(300);
 
@@ -42,12 +43,23 @@ const claimSchema = z.object({
 });
 
 /**
- * No emails are sent. Submissions are logged and, outside Vercel, appended to a local JSONL file (data/ is git-ignored).
+ * No emails are sent to submitters. Submissions go to Neon `inquiries` (+ private Google Sheet mirror) and, outside Vercel, appended to a local JSONL file (data/ is git-ignored).
  * On Vercel the filesystem is read-only, so they appear in the function logs only until a real store is chosen.
  */
 async function store(kind: string, data: Record<string, unknown>) {
   const record = { kind, ...data, submittedAt: new Date().toISOString() };
-  console.info(`[${kind}]`, JSON.stringify(record));
+  console.info(`[${kind}] received`);
+  const str = (k: string) => (typeof data[k] === "string" ? (data[k] as string) : undefined);
+  await saveInquiry({
+    kind,
+    email: str("email") ?? "",
+    name: str("name") ?? str("organizer"),
+    business: str("business") ?? str("eventName"),
+    phone: str("phone"),
+    listing: str("listing") ?? str("memberListing"),
+    product: str("product") ?? str("plan"),
+    data,
+  });
   if (process.env.VERCEL) return;
   try {
     const dir = path.join(process.cwd(), "data");
