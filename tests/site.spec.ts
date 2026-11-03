@@ -1450,3 +1450,10 @@ test("Tagalog Get Listed page retired: /tl falls back to English, no Tagalog lin
   expect(await (await request.get("/sitemap.xml")).text()).not.toContain("/magazine/get-listed/tl");
   expect((await request.get("/magazine/do-i-need-hst/tl")).status()).toBe(200);
 });
+
+test("dev-mode products are hidden outside dev; directory shows Brevo listings", async ({ page, request }) => {
+  const r = await request.get("/food-finder");
+  expect([404]).toContain(r.status());
+  await page.goto("/directory");
+  await expect(page.locator("[data-listings-source]")).toHaveCount(1);
+});

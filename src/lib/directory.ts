@@ -28,9 +28,12 @@ export function parseDirectoryFilters(
   };
 }
 
-export function filterPublicListings(f: Pick<DirectoryFilters, "q" | "category" | "area">): PublicListing[] {
+export function filterPublicListings(
+  f: Pick<DirectoryFilters, "q" | "category" | "area">,
+  source: PublicListing[] = publicListings,
+): PublicListing[] {
   const q = f.q.toLowerCase();
-  return publicListings.filter((l) => {
+  return source.filter((l) => {
     if (f.category && l.category !== f.category) return false;
     if (f.area && l.area !== f.area) return false;
     if (!q) return true;
@@ -66,10 +69,10 @@ export function directoryHref(f: Partial<DirectoryFilters> & { page?: number }):
   return qs ? `/directory?${qs}` : "/directory";
 }
 
-export function directoryFilterOptions() {
+export function directoryFilterOptions(source: PublicListing[] = publicListings) {
   const categories = publicCategories
-    .filter((c) => publicListings.some((l) => l.category === c.slug))
+    .filter((c) => source.some((l) => l.category === c.slug))
     .map((c) => ({ value: c.slug, label: c.name }));
-  const areas = [...new Set(publicListings.map((l) => l.area))].sort((a, b) => a.localeCompare(b));
+  const areas = [...new Set(source.map((l) => l.area))].sort((a, b) => a.localeCompare(b));
   return { categories, areas };
 }
