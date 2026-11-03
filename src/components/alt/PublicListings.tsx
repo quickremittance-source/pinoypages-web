@@ -46,7 +46,8 @@ export function PublicListings({
                 data-public={l.id}
                 data-listing={l.id}
                 data-listing-id={l.listing_id}
-                data-tier="free"
+                data-tier={l.tier}
+                data-verified={l.verified ? "true" : undefined}
                 data-name={`${l.name} ${l.address ?? ""}`.toLowerCase()}
                 data-sub={l.category}
                 data-category={l.category}
@@ -58,6 +59,14 @@ export function PublicListings({
                 <Link href={bizPath(l)} className="font-bold text-ink underline">
                   {l.name}
                 </Link>
+                {l.verified && (
+                  <span
+                    data-testid="vk-badge"
+                    className="ml-2 inline-flex items-center gap-1 rounded-md bg-[#0e7c86] px-2 py-0.5 text-xs font-bold text-white"
+                  >
+                    <span aria-hidden="true">★</span> Verified Kabayan
+                  </span>
+                )}
                 <span className="text-muted">
                   {" "}
                   · <span aria-hidden="true">{catIcon(l.category)} </span>

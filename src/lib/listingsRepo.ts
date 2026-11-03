@@ -2,6 +2,7 @@ import "server-only";
 import { unstable_cache } from "next/cache";
 import { db } from "@/lib/db";
 import { publicListings, type PublicListing } from "@/lib/public";
+import { fromNeonRow, mergeListings, type NeonListingRow } from "@/lib/listingsMerge";
 
 export const LISTINGS_TAG = "listings";
 
@@ -14,33 +15,26 @@ async function load(): Promise<{ listings: PublicListing[]; source: "neon" | "fi
   const sql = db();
   if (!sql) return { listings: publicListings, source: "file" };
   try {
-    const rows = (await sql.query(
-      `select listing_id, id, name, category, area, address, phone, website from public_listings_v order by name`,
-    )) as Array<Record<string, string | null>>;
+    const [rows, known] = (await Promise.all([
+      sql.query(
+        `select listing_id, id, name, category, area, tier, verified, verified_until, address, phone, website
+           from public_listings_v order by name`,
+      ),
+      sql.query(`select listing_id from listings`),
+    ])) as [NeonListingRow[], Array<{ listing_id: string }>];
     if (!rows.length) return { listings: publicListings, source: "file" };
-    const listings = rows.map((r) => {
-      const l: PublicListing = {
-        listing_id: r.listing_id!,
-        id: r.id!,
-        name: r.name!,
-        category: r.category ?? "",
-        area: r.area ?? "",
-        tier: "free",
-        verified: false,
-        source: "",
-      };
-      if (r.address) l.address = r.address;
-      if (r.phone) l.phone = r.phone;
-      if (r.website) l.website = r.website;
-      return l;
-    });
+    const listings = mergeListings(
+      rows.map((r) => fromNeonRow(r)),
+      publicListings,
+      new Set(known.map((k) => k.listing_id)),
+    );
     return { listings, source: "neon" };
   } catch {
     return { listings: publicListings, source: "file" };
   }
 }
 
-export const getPublicListings = unstable_cache(load, ["public-listings-v1"], {
+export const getPublicListings = unstable_cache(load, ["public-listings-v2"], {
   revalidate: 3600,
   tags: [LISTINGS_TAG],
 });
