@@ -114,7 +114,7 @@ export default function Page() {
             <div className="card border-2 border-green-600 p-6">
               <h3 className="text-xl font-extrabold text-ink">✅ Kabayan Verified</h3>
               <p className="mt-2 text-3xl font-extrabold text-green-700" data-testid="verified-price">
-                $199 per issue/year + HST
+                $199 per issue
               </p>
               <p className="mt-2 text-sm">
                 The green Kabayan Verified badge on your directory listing, earned through verification.

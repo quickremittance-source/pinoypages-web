@@ -63,7 +63,7 @@ export function PartnerStars({ n, testId }: { n: number; testId?: string }) {
   );
 }
 
-/** Prototype logo tile: initials on a brand colour (real logos are uploaded at the visit). */
+/** Prototype logo tile: initials on a brand colour (real logos are uploaded on the verification call). */
 export function LogoTile({ l, size = "md" }: { l: Pick<Listing, "id" | "name">; size?: "sm" | "md" | "lg" }) {
   const cls =
     size === "lg"

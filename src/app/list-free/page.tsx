@@ -37,8 +37,8 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ l
               Get Verified · {money(verified.price)} {verified.unit}
             </h2>
             <p className="mt-2 text-sm">
-              A featured card with your logo and services, the Verified Kabayan badge once you pass the visit and a
-              mutual vouch, a ZCard with Save contact, a QR code for everything you print, and a monthly scan report.
+              A featured card with your logo and services, the Verified Kabayan badge once you pass the live video
+              identity check, a ZCard with Save contact, a QR code for everything you print, and a monthly scan report.
             </p>
             <Link href={`/get-verified${listing ? `?listing=${listing}` : ""}`} className="btn mt-4">
               See how Verified works
