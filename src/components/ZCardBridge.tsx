@@ -43,7 +43,7 @@ export function ZCardBridge({ l, standalone = false }: { l: Listing; standalone?
             <div className="space-y-1.5">
               <VerifiedKabayan l={l} withDate />
               <p className="text-xs text-muted">
-                Visited in person and vouched for by a verified business. Valid 12 months from{" "}
+                Identity and business licence checked on a live video call on{" "}
                 {shortDate(l.verifiedOn!)}.
               </p>
             </div>
@@ -57,7 +57,7 @@ export function ZCardBridge({ l, standalone = false }: { l: Listing; standalone?
             </p>
           ) : (
             <p className="text-sm font-bold text-ink" data-testid="verification-pending">
-              Verification pending: no badge until the visit is passed and one mutual vouch is confirmed.
+              Verification pending: no badge until the live video identity check is passed.
             </p>
           )}
         </div>

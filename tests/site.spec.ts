@@ -467,7 +467,7 @@ test("event submission validates then succeeds (member featured event is free)",
   );
 });
 
-test("pilot menu = two tiers: Free / Verified $199 per issue/year (everything included); no add-ons; prices from config", async ({
+test("pilot menu = two tiers: Free / Verified $199 per issue (everything included); no add-ons; prices from config", async ({
   page,
 }) => {
   const price = Object.fromEntries(guide.adMenu.map((a) => [a.id, a.price]));
@@ -480,10 +480,13 @@ test("pilot menu = two tiers: Free / Verified $199 per issue/year (everything in
   const menu = JSON.stringify(guide.adMenu);
   expect(menu).not.toMatch(/lead|bundle|founding|bronze|silver|gold|platinum|starter|Verified Plus|Verified Ad/i);
   expect(JSON.stringify(guide)).not.toMatch(/\$(159|299|350|390|360|450|600|690|850)\b/);
-  for (const o of guide.adMenu.filter((x) => x.price > 0)) expect(o.unit).toMatch(/per issue\/year/);
+  for (const o of guide.adMenu.filter((x) => x.price > 0)) expect(o.unit).toBe("per issue");
+  expect(JSON.stringify(guide)).not.toMatch(/\+ ?HST(?! checker)|plus applicable HST|per issue\/year|issue\/yr|renews yearly|billed yearly|One yearly price|vouch|in-person visit/i);
+  expect(JSON.stringify(guide)).toMatch(/\$99\.50 per issue/);
   expect(JSON.stringify(guide)).not.toMatch(/yearbook|guarantee(d)? (leads|results|calls)|results report|pinoypera/i);
   expect(guide.brand.siteUrl).toBe("https://pinoypages.ca");
-  expect(guide.brand.badgeRule).toMatch(/one mutual vouch/);
+  expect(guide.brand.badgeRule).toMatch(/identity only/);
+  expect(guide.brand.badgeRule).toMatch(/live video/);
   expect(guide.brand.adsNote).toBe("Print ads are now booking for the 2026–2027 edition.");
   for (const path of ["/upgrade", "/advertise"]) {
     await page.goto(path);
@@ -491,11 +494,11 @@ test("pilot menu = two tiers: Free / Verified $199 per issue/year (everything in
       page.getByText(/Pinoy Pages 2026–2027 · Spring · Summer · Fall · Pilot Edition/).first(),
     ).toBeVisible();
     await expect(page.getByTestId("badge-rule").first()).toContainText("Payment never buys the badge");
-    await expect(page.getByTestId("badge-rule").first()).toContainText("one mutual vouch");
+    await expect(page.getByTestId("badge-rule").first()).toContainText("live video");
     const keep = page.getByTestId("keep-rules").first();
     await expect(keep.getByRole("heading", { name: "Keeping your badge" })).toBeVisible();
-    await expect(keep.getByRole("listitem")).toHaveCount(5);
-    await expect(keep).toContainText("60 days");
+    await expect(keep.getByRole("listitem")).toHaveCount(4);
+    await expect(keep).not.toContainText(/vouch/i);
     for (const name of ["Free", "Verified"])
       await expect(page.getByRole("rowheader", { name: new RegExp(`^${name}`) }).first()).toBeVisible();
     await expect(
@@ -507,7 +510,7 @@ test("pilot menu = two tiers: Free / Verified $199 per issue/year (everything in
       0,
     );
     await expect(page.getByText(/pay-per-lead|per lead/i)).toHaveCount(0);
-    await expect(page.getByText(/Verified is billed yearly, in CAD, plus applicable HST/)).toBeVisible();
+    await expect(page.getByText(/Verified is \$199 per issue, in CAD, shown before tax \(no HST charged\)/)).toBeVisible();
   }
   await page.goto("/upgrade");
   await expect(page.getByText(guide.brand.pitch)).toBeVisible();
@@ -521,12 +524,13 @@ test("pilot menu = two tiers: Free / Verified $199 per issue/year (everything in
   await page.getByRole("checkbox").check();
   await page.getByRole("button", { name: "Claim my listing" }).click();
   await expect(page.getByRole("status").first()).toContainText("verify your listing");
-  // Terms: Verified is $199 per issue/year; no renewal discount.
+  // Terms: Verified is $199 per issue, no HST; loyalty rate $99.50 per issue after 4 seasons.
   await page.goto("/terms");
   await expect(page.getByText(/payment never buys the badge/i)).toBeVisible();
-  await expect(page.getByText(/renewal discount|20% off|\$159/i)).toHaveCount(0);
+  await expect(page.getByText(/20% off|\$159|\+ ?HST|plus applicable HST/i)).toHaveCount(0);
+  await expect(page.getByText(/\$99\.50 per issue for the next 4 seasons/).first()).toBeVisible();
   await expect(page.getByRole("row", { name: /Verified \$199/ })).toBeVisible();
-  await expect(page.getByText(/Keeping your badge — vouch: .*60-day grace period/)).toBeVisible();
+  await expect(page.getByText(/vouch/i)).toHaveCount(0);
   await expect(
     page.getByText(/Keeping your badge — complaints: a complaint pauses the badge pending review/),
   ).toBeVisible();
@@ -600,22 +604,18 @@ test("badge logic: shows only within 12 months of the verification date and only
   expect(badgeState(L("ind-01"), at("2026-12-01"))).toBe("pending");
 });
 
-test("badge logic: one mutual vouch is required (founding vouch at the visit, or a 60-day grace after removal)", () => {
-  test.skip(
-    true,
-    "Needs the fictional SAMPLE Verified listings removed on alt-design; re-enable with real Verified listings.",
-  );
-  const ins = L("ins-01"); // mutual with tax-01, no founding vouch
-  expect(badgeState(ins, at("2026-12-01"))).toBe("active");
-  // One-sided vouch does not count.
-  const others = allListings.map((l) => (l.id === "tax-01" ? { ...l, badge: { ...l.badge!, vouches: [] } } : l));
-  expect(badgeState(ins, at("2026-12-01"), others)).toBe("pending");
-  // Vouch removed: 60-day grace, then paused.
-  const lost: Listing = { ...ins, badge: { ...ins.badge!, vouches: [], vouchLostOn: "2026-12-01" } };
-  expect(badgeState(lost, at("2027-01-29"), others)).toBe("active");
-  expect(badgeState(lost, at("2027-02-15"), others)).toBe("paused");
-  // Founding members are vouched for at the visit.
-  expect(badgeState(L("biz-01"), at("2026-12-01"))).toBe("active");
+test("badge logic: vouches are retired; the live video check alone earns the badge", () => {
+  const base: Listing = {
+    ...(allListings[0] ?? ({} as Listing)),
+    id: "t-1",
+    tier: "verified",
+    verifiedOn: "2026-11-20",
+    zcard: { person: "A", role: "Owner", completed: true },
+    badge: { status: "active", vouches: [] },
+  } as Listing;
+  expect(badgeState(base, at("2026-12-01"))).toBe("active");
+  expect(badgeState({ ...base, verifiedOn: undefined } as Listing, at("2026-12-01"))).toBe("pending");
+  expect(badgeState({ ...base, badge: { status: "paused" } } as Listing, at("2026-12-01"))).toBe("paused");
 });
 
 test("paused badge: listing keeps its Verified page, but no badge anywhere; directory marks it paused", async ({
@@ -822,9 +822,11 @@ test("Get Verified: Free vs Verified, the 4 checks, keeping-your-badge rules, an
   await expect(page.getByTestId("plan-verified")).toContainText("$199");
   const checks = page.getByTestId("badge-checks").getByRole("listitem");
   await expect(checks).toHaveCount(4);
-  for (const t of ["Kabayan-owned or run", "Really trading", "ZCard completed", "One mutual vouch"])
+  for (const t of ["Owner identity", "Business licence", "Live premises", "ZCard completed"])
     await expect(page.getByTestId("badge-checks")).toContainText(t);
-  await expect(page.getByTestId("keep-rules").getByRole("listitem")).toHaveCount(5);
+  await expect(page.getByTestId("keep-rules").getByRole("listitem")).toHaveCount(4);
+  await expect(page.getByText(/\$99\.50 per issue/).first()).toBeVisible();
+  await expect(page.locator("main")).not.toContainText(/vouch|in-person|\+ ?HST|plus applicable HST|issue\/year/i);
   await page.getByRole("button", { name: "Claim my listing" }).click();
   await expect(page.getByRole("alert").filter({ hasText: "Please fix" })).toBeVisible();
   await page.getByLabel("Your name *").fill("Test Person");
@@ -1434,7 +1436,7 @@ test("home leads with advertising; directory stays as proof", async ({ page }) =
   await expect(page.locator("header").getByRole("link", { name: "Book an ad" })).toBeVisible();
 });
 
-test("public listing claim flow: get-verified names the listing and shows $199 per issue/year", async ({ page }) => {
+test("public listing claim flow: get-verified names the listing and shows $199 per issue", async ({ page }) => {
   await page.goto("/get-verified?listing=pub-tummy-fillers-catering-balloon-decor#claimh");
   await expect(page.getByText("Claiming:")).toContainText("Tummy Fillers Catering & Balloon Decor");
   await expect(page.getByTestId("plan-verified")).toContainText("$199");

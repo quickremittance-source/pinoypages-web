@@ -14,21 +14,20 @@ const FREE = [
   "No QR, ZCard or Save contact",
 ];
 const VERIFIED = [
-  "Verified Kabayan badge + “Verified [date]” once you pass the visit",
+  "Verified Kabayan badge + “Verified [date]” once you pass the live video check",
   "Featured card with your logo, services and photos",
   "ZCard bridge page with Save contact and Call / Book",
   "Dynamic QR for cards, flyers, signs + counter card",
   "Monthly scan report: proof people found you",
-  "Mutual partner stars from businesses you vouch with",
   "Printed proof copy of the Pilot Edition",
 ];
 export const CHECKS = [
-  { t: "Kabayan-owned or run", d: "A Filipino owner or operator runs the business day to day." },
-  { t: "Really trading", d: "A real, operating business: we see it at a ~15-minute visit." },
-  { t: "ZCard completed", d: "Your digital card is filled in and checked with you at the visit." },
+  { t: "Owner identity", d: "The owner is on camera on a ~15-minute live video call. ID is viewed, never stored." },
+  { t: "Business licence", d: "Your business licence or registration is checked, plus one proof of trading." },
+  { t: "Live premises", d: "A live walkthrough of your premises, or a screen-share if you work online." },
   {
-    t: "One mutual vouch",
-    d: "A verified business vouches for you and you vouch back. Founding members are vouched for at the visit.",
+    t: "ZCard completed",
+    d: "Your digital card is filled in and checked with you on the call.",
   },
 ];
 
@@ -79,7 +78,7 @@ export function GetVerified({ l }: { l?: Pick<Listing, "id" | "name"> }) {
             <p className="mt-1 text-3xl font-extrabold text-ink">
               {money(verified.price)} <span className="text-base font-semibold text-muted">{verified.unit}</span>
             </p>
-            <p className="text-sm text-muted">Plus applicable HST. One price, everything included.</p>
+            <p className="text-sm text-muted">One quarterly season, shown before tax; no HST is charged. Loyalty rate: after 4 seasons at $199, it’s $99.50 per issue for the next 4 seasons.</p>
             <ul className="mt-4 space-y-2">
               {VERIFIED.map((f) => (
                 <li key={f} className="flex gap-2">
@@ -119,8 +118,8 @@ export function GetVerified({ l }: { l?: Pick<Listing, "id" | "name"> }) {
           How the badge is earned: 4 checks
         </h2>
         <p className="mt-1 max-w-3xl text-muted">
-          Payment never buys the badge. Verified makes you eligible; a ~15-minute visit covers checks 1–3, and one
-          mutual vouch completes it.
+          Payment never buys the badge. The badge certifies identity only. Verified makes you eligible; one ~15-minute
+          live video call covers all four checks. Verification is online only.
         </p>
         <ol className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-testid="badge-checks">
           {CHECKS.map((c, i) => (
@@ -153,7 +152,7 @@ export function GetVerified({ l }: { l?: Pick<Listing, "id" | "name"> }) {
             Claim your listing
           </h2>
           <p className="mt-2 text-muted">
-            Tell us who you are and choose Free or Verified. We reply by email to book your ~15-minute visit. Nothing is
+            Tell us who you are and choose Free or Verified. We reply by email to book your ~15-minute live video check. Nothing is
             charged online.
           </p>
           <p className="mt-3 text-sm text-muted">

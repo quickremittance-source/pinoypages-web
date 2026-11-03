@@ -11,12 +11,12 @@ const WHY = [
   {
     icon: "🔎",
     t: "For customers",
-    d: "Find Filipino-run restaurants, shops and services near you. A Verified Kabayan badge means the business was visited in person and vouched for by another verified business. Free listings are unverified.",
+    d: "Find Filipino-run restaurants, shops and services near you. A Verified Kabayan badge means the owner's identity and business licence were checked on a live video call. Free listings are unverified.",
   },
   {
     icon: "🏪",
     t: "For businesses",
-    d: "List free with your name and contact, or get Verified for $199 per issue/year (+ HST): a featured card, a ZCard with Save contact, a QR that counts every scan, and a monthly scan report.",
+    d: "List free with your name and contact, or get Verified for $199 per issue: a featured card, a ZCard with Save contact, a QR that counts every scan, and a monthly scan report.",
   },
   {
     icon: "🤝",
@@ -138,7 +138,7 @@ export function AltHome() {
         <p className="mt-4 text-sm text-muted">
           Prefer a listing instead?{" "}
           <Link href="/get-verified" className="font-semibold text-turqdk underline">
-            Verified listing, $199 per issue/year + HST
+            Verified listing, $199 per issue
           </Link>
         </p>
       </section>
@@ -202,10 +202,10 @@ export function AltHome() {
               </div>
               <div>
                 <p className="text-ink">
-                  The first Verified Kabayan businesses will appear here after their in-person visit and vouch.
+                  The first Verified Kabayan businesses will appear here after their live video identity check.
                 </p>
                 <Link className="btn mt-4 inline-block" href="/get-verified">
-                  Get Verified · $199/issue/yr + HST
+                  Get Verified · $199 per issue
                 </Link>
               </div>
             </div>
@@ -305,7 +305,7 @@ export function AltHome() {
             List free
           </Link>
           <Link className="btn" href="/get-verified">
-            Get Verified · $199/issue/yr + HST
+            Get Verified · $199 per issue
           </Link>
         </div>
       </section>

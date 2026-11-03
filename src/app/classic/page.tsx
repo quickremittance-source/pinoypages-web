@@ -9,10 +9,9 @@ import { liveTools } from "@/lib/registry";
 
 const STEPS = [
   {
-    t: "Get visited",
-    d: "A ~15-minute visit checks you're kabayan-owned or run, really trading, and your ZCard is complete.",
+    t: "Get checked live",
+    d: "A ~15-minute live video call checks the owner's identity, your business licence and your premises, and completes your ZCard.",
   },
-  { t: "Get vouched", d: "One mutual vouch from a verified business. Founding members are vouched for at the visit." },
   { t: "Share your QR", d: "Put one QR on your cards, flyers and counter. Every scan opens your ZCard." },
   { t: "See the proof", d: "A monthly scan report shows how many people found you and saved your contact." },
 ];
@@ -85,7 +84,7 @@ export default function Home() {
             </h1>
             <p className="mt-4 max-w-xl text-lg text-muted">
               Pinoy Pages lists Filipino-run tax, insurance, bookkeeping and business pros in the GTA. Verified
-              businesses are visited in person, vouched for by another kabayan business, and get a QR that counts every
+              businesses pass a live video identity check (identity only, never bought), and get a QR that counts every
               scan.
             </p>
             <p
@@ -115,7 +114,7 @@ export default function Home() {
             </form>
             <div className="mt-4 flex flex-wrap gap-3">
               <Link className="btn" href="/get-verified">
-                Get Verified · $199/issue/yr + HST
+                Get Verified · $199 per issue
               </Link>
               <Link className="btn btn-ghost" href="/directory">
                 Browse the directory
@@ -152,7 +151,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-4 py-12">
           <div className="flex flex-wrap items-end justify-between gap-2">
             <div>
-              <p className="kicker">Visited · vouched · current</p>
+              <p className="kicker">Identity checked · current</p>
               <h2 id="featured" className="mt-1 text-2xl font-bold text-ink sm:text-3xl">
                 Featured Verified businesses
               </h2>
@@ -187,10 +186,10 @@ export default function Home() {
           </div>
           <div className="card flex flex-col border-2 border-phred p-6">
             <p className="kicker">Verified · {brand.pilotLabel}</p>
-            <h3 className="mt-1 text-2xl font-extrabold text-ink">Get Verified · $199/issue/yr + HST</h3>
+            <h3 className="mt-1 text-2xl font-extrabold text-ink">Get Verified · $199 per issue</h3>
             <p className="mt-2 text-muted">
-              A featured card, the badge once you pass the visit and a mutual vouch, your ZCard and QR, and a monthly
-              scan report. One yearly price, everything included.
+              A featured card, the badge once you pass the live video identity check, your ZCard and QR, and a monthly
+              scan report. One price per issue, everything included.
             </p>
             <Link href="/get-verified" className="btn mt-4 self-start">
               Get Verified
@@ -213,7 +212,7 @@ export default function Home() {
                 Earned, never bought
               </h2>
               <p className="mt-2 text-muted">
-                $199 per issue/year + HST, everything included. Payment makes you eligible; the badge is earned.
+                $199 per issue, everything included. Payment makes you eligible; the badge is earned.
               </p>
               <Link href="/get-verified" className="btn mt-5">
                 Get Verified

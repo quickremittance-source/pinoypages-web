@@ -43,7 +43,7 @@ function Crumbs({ sub, slug }: { sub: string; slug: string }) {
 
 /**
  * Online entry mirrors the print entry. Free = unverified: name + contact only (no badge, QR, Save contact, ZCard).
- * Verified gets the ZCard bridge (where QR scans land) and is ELIGIBLE for the badge; the visit earns it.
+ * Verified gets the ZCard bridge (where QR scans land) and is ELIGIBLE for the badge; the live video identity check earns it.
  */
 export default async function Page({ params }: P) {
   const { id } = await params;
@@ -88,7 +88,7 @@ export default async function Page({ params }: P) {
               Is this your business?
             </h2>
             <p className="mt-2">
-              Claim this listing to correct details, or get Verified ($199 per issue/year + HST, everything included).{" "}
+              Claim this listing to correct details, or get Verified ($199 per issue, everything included).{" "}
               {brand.badgeRule}
             </p>
             <Link className="btn mt-4" href={`/get-verified?listing=${l.id}#claimh`}>

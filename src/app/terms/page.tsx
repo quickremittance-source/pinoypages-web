@@ -16,7 +16,7 @@ export default function Page() {
           ))}
         </ol>
         <table className="w-full rounded-2xl bg-white text-left">
-          <caption className="p-3 text-left text-sm">Verified is billed yearly, in CAD, plus applicable HST.</caption>
+          <caption className="p-3 text-left text-sm">Verified is $199 per issue, in CAD, shown before tax (no HST charged). Loyalty rate: after 4 seasons at $199, it’s $99.50 per issue for the next 4 seasons.</caption>
           <thead className="bg-sea text-white">
             <tr>
               <th scope="col" className="p-3">

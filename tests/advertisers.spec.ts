@@ -34,7 +34,7 @@ test("footer shows 'Powered by zcard digital ads' on home and directory (plain t
 test("/zcard explains the concept with only the $199 public price", async ({ page }) => {
   await page.goto("/zcard");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("zcard");
-  await expect(page.getByTestId("verified-price")).toHaveText("$199 per issue/year + HST");
+  await expect(page.getByTestId("verified-price")).toHaveText("$199 per issue");
   const text = (await page.getByTestId("zcard-pricing").innerText()).replace("$199", "");
   expect(text).not.toMatch(/\$\d/);
   await expect(page.getByText("Scan to order yours").first()).toBeVisible();

@@ -15,7 +15,7 @@ export function MirrorNote() {
   );
 }
 
-/** The pilot menu: two tiers, Free and Verified ($199 per issue/year, everything included). No add-ons or bundles. */
+/** The pilot menu: two tiers, Free and Verified ($199 per issue, everything included). No add-ons or bundles. */
 export function PlanTable() {
   return (
     <div className="space-y-3">
@@ -40,7 +40,7 @@ export function PlanTable() {
       <div className="overflow-x-auto" role="region" aria-label="Listing options" tabIndex={0}>
         <table className="w-full rounded-2xl bg-white text-left">
           <caption className="p-3 text-left text-sm">
-            Verified is billed yearly, in CAD, plus applicable HST. Listings close {longDate(dates.adClose)}. Two
+            Verified is $199 per issue, in CAD, shown before tax (no HST charged). Listings close {longDate(dates.adClose)}. Two
             choices: Free, or Verified with everything included. {brand.adsNote}
           </caption>
           <thead className="bg-sea text-white">
