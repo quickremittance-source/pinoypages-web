@@ -59,8 +59,8 @@
     {
       "id": "verified",
       "name": "Verified",
-      "price": 99,
-      "unit": "per year + HST (renews yearly)",
+      "price": 199,
+      "unit": "per issue/year + HST (renews yearly)",
       "recommended": true,
       "tagline": "One tier, everything included. Badge-eligible.",
       "print": "Featured listing with logo and the ✓ Verified Kabayan badge once earned",
@@ -386,7 +386,7 @@
   "sponsors": [],
   "terms": [
     "Pilot Edition: Pinoy Pages 2026–2027 (Category: Money & Business, Greater Toronto Area). The printed proof copy is released spring (April 16, 2027); the website is updated year-round.",
-    "Listings are Free, or Verified at $99 per year (CAD, plus applicable HST), with everything included. No add-ons, bundles or founding discounts in the pilot. Print ads are now booking for the 2026–2027 edition; rates on request.",
+    "Listings are Free, or Verified at $199 per issue/year (CAD, plus applicable HST), with everything included. No add-ons, bundles or founding discounts in the pilot. Print ads are now booking for the 2026–2027 edition; rates on request.",
     "Verified Kabayan badge: payment never buys the badge. Verified listings are only eligible; the badge is earned by four checks: a ~15-minute verification visit (kabayan-owned or run, really trading, ZCard completed) plus one mutual vouch from a verified business, confirmed by both. In the pilot, founding members are vouched for at the visit. We may withhold the badge if a check fails; the Verified listing continues without it.",
     "Free listings are unverified: name and contact only, with no badge, no QR code, no Save contact button, no ZCard, and they can't give or receive vouches.",
     "Keeping your badge — validity: the badge is valid for one year (12 months from the verification date). A light re-check at renewal updates the “Verified [date]”.",

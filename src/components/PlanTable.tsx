@@ -15,7 +15,7 @@ export function MirrorNote() {
   );
 }
 
-/** The pilot menu: two tiers, Free and Verified ($99 per year, everything included). No add-ons or bundles. */
+/** The pilot menu: two tiers, Free and Verified ($199 per issue/year, everything included). No add-ons or bundles. */
 export function PlanTable() {
   return (
     <div className="space-y-3">

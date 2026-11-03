@@ -467,11 +467,11 @@ test("event submission validates then succeeds (member featured event is free)",
   );
 });
 
-test("pilot menu = two tiers: Free / Verified $99 per year (everything included); no add-ons; prices from config", async ({
+test("pilot menu = two tiers: Free / Verified $199 per issue/year (everything included); no add-ons; prices from config", async ({
   page,
 }) => {
   const price = Object.fromEntries(guide.adMenu.map((a) => [a.id, a.price]));
-  expect(price).toEqual({ free: 0, verified: 99 });
+  expect(price).toEqual({ free: 0, verified: 199 });
   expect(guide.adMenu.map((a) => a.name)).toEqual(["Free", "Verified"]);
   expect(guide.adMenu.every((a) => a.menu === "main")).toBe(true);
   expect(guide.adMenu.find((a) => a.recommended)?.id).toBe("verified");
@@ -479,8 +479,8 @@ test("pilot menu = two tiers: Free / Verified $99 per year (everything included)
   expect(guide.sponsors).toEqual([]);
   const menu = JSON.stringify(guide.adMenu);
   expect(menu).not.toMatch(/lead|bundle|founding|bronze|silver|gold|platinum|starter|Verified Plus|Verified Ad/i);
-  expect(JSON.stringify(guide)).not.toMatch(/\$(159|199|299|350|390|360|450|600|690|850)\b/);
-  for (const o of guide.adMenu.filter((x) => x.price > 0)) expect(o.unit).toMatch(/per year/);
+  expect(JSON.stringify(guide)).not.toMatch(/\$(159|299|350|390|360|450|600|690|850)\b/);
+  for (const o of guide.adMenu.filter((x) => x.price > 0)) expect(o.unit).toMatch(/per issue\/year/);
   expect(JSON.stringify(guide)).not.toMatch(/yearbook|guarantee(d)? (leads|results|calls)|results report|pinoypera/i);
   expect(guide.brand.siteUrl).toBe("https://pinoypages.ca");
   expect(guide.brand.badgeRule).toMatch(/one mutual vouch/);
@@ -521,11 +521,11 @@ test("pilot menu = two tiers: Free / Verified $99 per year (everything included)
   await page.getByRole("checkbox").check();
   await page.getByRole("button", { name: "Claim my listing" }).click();
   await expect(page.getByRole("status").first()).toContainText("verify your listing");
-  // Terms: Verified is $99 per year; no renewal discount.
+  // Terms: Verified is $199 per issue/year; no renewal discount.
   await page.goto("/terms");
   await expect(page.getByText(/payment never buys the badge/i)).toBeVisible();
-  await expect(page.getByText(/renewal discount|20% off|\$159|\$199/i)).toHaveCount(0);
-  await expect(page.getByRole("row", { name: /Verified \$99/ })).toBeVisible();
+  await expect(page.getByText(/renewal discount|20% off|\$159/i)).toHaveCount(0);
+  await expect(page.getByRole("row", { name: /Verified \$199/ })).toBeVisible();
   await expect(page.getByText(/Keeping your badge — vouch: .*60-day grace period/)).toBeVisible();
   await expect(
     page.getByText(/Keeping your badge — complaints: a complaint pauses the badge pending review/),
@@ -819,7 +819,7 @@ test("home: value proposition, category tiles, featured Verified, Get Verified C
 test("Get Verified: Free vs Verified, the 4 checks, keeping-your-badge rules, and the claim form", async ({ page }) => {
   await page.goto("/get-verified");
   await expect(page.getByTestId("plan-free")).toContainText("$0");
-  await expect(page.getByTestId("plan-verified")).toContainText("$99");
+  await expect(page.getByTestId("plan-verified")).toContainText("$199");
   const checks = page.getByTestId("badge-checks").getByRole("listitem");
   await expect(checks).toHaveCount(4);
   for (const t of ["Kabayan-owned or run", "Really trading", "ZCard completed", "One mutual vouch"])
@@ -1434,10 +1434,10 @@ test("home leads with advertising; directory stays as proof", async ({ page }) =
   await expect(page.locator("header").getByRole("link", { name: "Book an ad" })).toBeVisible();
 });
 
-test("public listing claim flow: get-verified names the listing and shows $99 per year", async ({ page }) => {
+test("public listing claim flow: get-verified names the listing and shows $199 per issue/year", async ({ page }) => {
   await page.goto("/get-verified?listing=pub-tummy-fillers-catering-balloon-decor#claimh");
   await expect(page.getByText("Claiming:")).toContainText("Tummy Fillers Catering & Balloon Decor");
-  await expect(page.getByTestId("plan-verified")).toContainText("$99");
+  await expect(page.getByTestId("plan-verified")).toContainText("$199");
 });
 
 test("Tagalog Get Listed page retired: /tl falls back to English, no Tagalog link", async ({ page, request }) => {
