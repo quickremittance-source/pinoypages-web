@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PageHead } from "@/components/Chrome";
 import { SimpleTable } from "@/components/admin/Tables";
+import { rangeDays } from "@/lib/dashRange";
+import { getAdvertiserDaily, getQrDashboard } from "@/lib/dashboards";
+import { Bars, BRAND, RangePicker } from "@/components/admin/Charts";
 import { ADV_TIER_LABEL, advertiserByToken, advertiserStats, type MonthRow } from "@/lib/advertisers";
 
 export const dynamic = "force-dynamic";
@@ -28,11 +31,22 @@ function byMonth(rows: MonthRow[]) {
 const total = (rows: MonthRow[], ev: string[]) => rows.filter((r) => ev.includes(r.event)).reduce((a, r) => a + r.n, 0);
 
 /** Private per-advertiser stats via unguessable token (/stats/<36 hex>). 404 for unknown tokens. */
-export default async function Page({ params }: { params: Promise<{ token: string }> }) {
+export default async function Page({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ token: string }>;
+  searchParams: Promise<{ days?: string }>;
+}) {
   const { token } = await params;
+  const days = rangeDays((await searchParams).days);
   const a = await advertiserByToken(token).catch(() => null);
   if (!a) notFound();
-  const s = await advertiserStats(a);
+  const [s, daily, qr] = await Promise.all([
+    advertiserStats(a),
+    getAdvertiserDaily(a.id, days).catch(() => null),
+    getQrDashboard(days, a.id).catch(() => null),
+  ]);
   const all = [...s.ads, ...s.listings];
   return (
     <>
@@ -57,6 +71,36 @@ export default async function Page({ params }: { params: Promise<{ token: string
             </div>
           ))}
         </dl>
+        {daily && (
+          <section className="space-y-3" data-testid="adv-daily">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <h2 className="text-xl font-bold text-[#002050]">Day by day</h2>
+              <RangePicker days={days} base={`/stats/${token}`} />
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              {([
+                ["Views (ZCard, ads, listing)", daily.views, BRAND.navy],
+                ["Ad clicks", daily.clicks, BRAND.teal],
+                ["QR scans", qr?.total ?? [], BRAND.red],
+                ["Contact clicks (call, map, website)", daily.contacts, BRAND.teal],
+              ] as const).map(([t, d, c]) => (
+                <section key={t} className="rounded-lg border border-[#d0d4dc] bg-white p-4">
+                  <h3 className="mb-2 text-sm font-bold text-[#002050]">
+                    {t}: {d.reduce((x, r) => x + r.n, 0)}
+                  </h3>
+                  <Bars data={[...d]} label={t} color={c} />
+                </section>
+              ))}
+            </div>
+            {qr && qr.codes.length > 0 && (
+              <SimpleTable
+                label="Your QR codes"
+                head={["Code", "Placement", `Scans (${days} days)`, "Lifetime"]}
+                rows={qr.codes.map((c) => [c.code, c.placement, c.n, c.lifetime])}
+              />
+            )}
+          </section>
+        )}
         <SimpleTable label="Your ads by month" head={["Month", ...COLS.map((c) => c[1])]} rows={byMonth(s.ads)} />
         {a.listing_ids.length > 0 && (
           <SimpleTable
