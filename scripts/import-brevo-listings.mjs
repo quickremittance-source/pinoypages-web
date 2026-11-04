@@ -11,6 +11,7 @@
 // Alias: npm run db:sync-brevo
 import { readFileSync, writeFileSync } from "node:fs";
 import { neon } from "@neondatabase/serverless";
+import { revalidateListings } from "./revalidate.mjs";
 
 const KEY = process.env.BREVO_API_KEY;
 if (!KEY) throw new Error("BREVO_API_KEY not set");
@@ -291,3 +292,5 @@ const report = {
 };
 if (reportPath) writeFileSync(reportPath, JSON.stringify(report, null, 2));
 console.log(JSON.stringify(report, null, 2));
+// Neon changed: drop the site's cached listings so directory/area counters refresh now, not in up to 1h.
+if (db) await revalidateListings();

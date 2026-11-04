@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export type NavItem = { href: string; label: string };
+export type NavItem = { href: string; label: string; match?: string[] };
 /** Active when the path is the item itself or nested under it (e.g. /directory/food). */
 export const isActive = (path: string, href: string) => href !== "/" && (path === href || path.startsWith(`${href}/`));
 
@@ -10,7 +10,7 @@ export const isActive = (path: string, href: string) => href !== "/" && (path ==
 export function NavLinks({ items, mobile = false }: { items: NavItem[]; mobile?: boolean }) {
   const path = usePathname() ?? "/";
   return items.map((n) => {
-    const on = isActive(path, n.href);
+    const on = [n.href, ...(n.match ?? [])].some((h) => isActive(path, h));
     return (
       <li key={n.href}>
         <Link

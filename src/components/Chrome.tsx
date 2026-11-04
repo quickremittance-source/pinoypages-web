@@ -5,9 +5,9 @@ import { NavLinks } from "@/components/NavLinks";
 import { brand } from "@/lib/guide";
 
 const nav = [
-  { href: "/advertise", label: "Advertise" },
   { href: "/directory", label: "Directory" },
-  { href: "/get-verified", label: "Get Verified" },
+  // Advertise + Get Verified share one menu item (Jose, Nov 3); both pages stay, linked by tabs.
+  { href: "/advertise", label: "Advertise & Get Verified", match: ["/get-verified"] },
   // "Free tools" hidden from the menu (Nov 3); /tools/* pages and routes stay live.
   { href: "/calendar", label: "Events & deadlines" },
   { href: "/magazine", label: "Magazine" },

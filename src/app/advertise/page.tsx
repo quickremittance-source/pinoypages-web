@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageHead } from "@/components/Chrome";
+import { AdvertiseTabs } from "@/components/AdvertiseTabs";
 import { AdGrid } from "@/components/AdCard";
 import { InquiryForm } from "@/components/Forms";
 import { PlanTable } from "@/components/PlanTable";
@@ -58,6 +59,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
         title={`Advertise in ${brand.editionName}`}
         intro={`The Filipino Business Directory for the GTA, in print and online. ${BOOKING_NOTE} Four ad sizes: full page, half page, quarter page and business card.`}
       />
+      <AdvertiseTabs current="/advertise" />
       <div className="mx-auto max-w-6xl space-y-12 px-4 py-8">
         <section aria-labelledby="sizes">
           <h2 id="sizes" className="text-2xl font-bold text-ink">

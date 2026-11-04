@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PageHead } from "@/components/Chrome";
 import { PublicListings } from "@/components/alt/PublicListings";
 import { CategoryTiles } from "@/components/CategoryTiles";
+import { CategoryAreaCounts } from "@/components/CategoryAreaCounts";
 import { DirectoryFilterForm } from "@/components/DirectoryFilterForm";
 import { DirectoryPagination } from "@/components/DirectoryPagination";
 import { directoryFilterOptions, filterPublicListings, paginateListings, parseDirectoryFilters } from "@/lib/directory";
@@ -61,7 +62,8 @@ export default async function Page({
             )}
           </section>
         ))}
-        <section aria-labelledby="all" className="space-y-6">
+        <CategoryAreaCounts listings={listings} />
+        <section aria-labelledby="all" id="results" className="scroll-mt-24 space-y-6">
           <h2 id="all" className="sr-only">
             All listings
           </h2>

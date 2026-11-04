@@ -17,6 +17,9 @@ export function CategoryTiles({ section }: { section: Section }) {
         .map((c) => {
           const ls = listingsIn(c.slug);
           const v = ls.filter((l) => isVerified(l)).length;
+          const byArea = new Map<string, number>();
+          for (const l of ls) if (l.area) byArea.set(l.area, (byArea.get(l.area) ?? 0) + 1);
+          const top = [...byArea].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 3);
           return (
             <li key={c.slug}>
               <Link
@@ -44,6 +47,11 @@ export function CategoryTiles({ section }: { section: Section }) {
                   <span className="text-sm text-muted">
                     {ls.length} listings · {v} verified
                   </span>
+                  {top.length > 0 && (
+                    <span className="block text-xs text-muted" data-testid="tile-areas">
+                      {top.map(([a, n]) => `${a} ${n}`).join(" · ")}
+                    </span>
+                  )}
                 </span>
               </Link>
             </li>
