@@ -76,6 +76,8 @@ export const getRestaurants = cache(async (): Promise<Restaurant[]> => {
       left join restaurant_dishes rd on rd.restaurant_id = r.id
       left join dishes d on d.id = rd.dish_id
       where r.status not ilike 'closed%'
+        -- Permanently closed (Nov 4 2026), hidden even if the DB status is not updated yet.
+        and r.name not ilike 'platito%' and r.name not ilike 'islas%'
       group by r.id, e.scores
       order by overall desc nulls last, r.name`) as Record<string, unknown>[];
     return rows.map((r) => ({
