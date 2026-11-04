@@ -1,0 +1,66 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { validAdminKey } from "@/lib/analytics/token";
+import { qrTarget, rangeDays } from "@/lib/dashRange";
+import { getQrDashboard } from "@/lib/dashboards";
+import { Bars, BRAND, DashShell, RangePicker } from "@/components/admin/Charts";
+
+export const dynamic = "force-dynamic";
+export const metadata: Metadata = { title: "Admin · QR trackers", robots: { index: false, follow: false, nocache: true }, referrer: "no-referrer" };
+
+export default async function Page({ searchParams }: { searchParams: Promise<{ key?: string; days?: string }> }) {
+  const { key, days: d } = await searchParams;
+  if (!validAdminKey(key)) notFound();
+  const days = rangeDays(d);
+  const q = await getQrDashboard(days).catch(() => null);
+  return (
+    <DashShell>
+      <header className="flex flex-wrap items-end justify-between gap-4 border-b-4 border-[#E01820] pb-3">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-wide text-[#E01820]">Admin</p>
+          <h1 className="text-3xl font-bold text-[#002050]">QR code trackers</h1>
+          <p className="text-sm text-[#5b6475]">Printed codes point at pinoypages.ca/qr/&lt;code&gt;; each scan adds one to a daily counter (code, day, device type only).</p>
+        </div>
+        <RangePicker days={days} base="/admin/qr" extra={{ key: key! }} />
+      </header>
+      <p><a className="text-sm font-bold text-[#0E7C86] underline" href={`/admin/dashboard?key=${encodeURIComponent(key!)}&days=${days}`}>← Overall dashboard</a></p>
+      {!q ? (
+        <p className="rounded border border-[#d0d4dc] p-4" data-testid="no-db">No database connected in this environment, so there is nothing to chart.</p>
+      ) : (
+        <>
+          <section className="rounded-lg border border-[#d0d4dc] p-4">
+            <h2 className="mb-2 text-sm font-bold text-[#002050]">All scans per day</h2>
+            <Bars data={q.total} label="All QR scans per day" color={BRAND.red} />
+          </section>
+          {q.codes.length === 0 ? (
+            <p className="text-sm text-[#5b6475]">No QR codes have been created yet.</p>
+          ) : (
+            <div className="overflow-x-auto" role="region" aria-label="QR codes" tabIndex={0}>
+              <table className="w-full text-left text-sm">
+                <thead className="bg-[#002050] text-white">
+                  <tr>{["Code", "Placement", "Target", "Status", `Scans (${days}d)`, "Lifetime", "Trend"].map((h) => <th key={h} scope="col" className="p-2">{h}</th>)}</tr>
+                </thead>
+                <tbody>
+                  {q.codes.map((c) => {
+                    const ok = qrTarget(c.target);
+                    return (
+                      <tr key={c.code} className="border-t border-[#d0d4dc]">
+                        <th scope="row" className="p-2 font-mono">{c.code}</th>
+                        <td className="p-2">{c.placement}</td>
+                        <td className="p-2 break-all">{c.target}{!ok && <span className="ml-1 font-bold text-[#E01820]">(not allowed: must be pinoypages.ca /go, /card or /qr)</span>}</td>
+                        <td className="p-2">{c.active ? "active" : "off"}</td>
+                        <td className="p-2 font-bold">{c.n}</td>
+                        <td className="p-2">{c.lifetime}</td>
+                        <td className="w-48 p-2"><Bars data={c.series} label={`${c.code} scans`} color={BRAND.teal} height={30} /></td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </>
+      )}
+    </DashShell>
+  );
+}
