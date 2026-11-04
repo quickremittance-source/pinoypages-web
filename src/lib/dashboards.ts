@@ -17,18 +17,18 @@ async function loadOverview(days: RangeDays) {
   const all = daysIn(from, to);
   const q = (t: string) => sql.query(t, [from, to]) as Promise<Row[]>;
   const [pv, pages, biz, cats, search, topQ, le, cities, topL, inq, qr, card, ad] = await Promise.all([
-    q(`select to_char(day,'YYYY-MM-DD') day, sum(count) n from site_daily where day between $1 and $2 group by 1`),
+    q(`select to_char(day,'YYYY-MM-DD') as day, sum(count) n from site_daily where day between $1 and $2 group by 1`),
     q(`select path, sum(count) n from site_daily where day between $1 and $2 group by 1 order by 2 desc, 1 limit 10`),
     q(`select path, sum(count) n from site_daily where day between $1 and $2 and path like '/business/%' group by 1 order by 2 desc, 1 limit 10`),
     q(`select split_part(path,'/',3) cat, sum(count) n from site_daily where day between $1 and $2 and path like '/directory/%' group by 1 order by 2 desc limit 10`),
-    q(`select to_char(day,'YYYY-MM-DD') day, sum(n) n from search_log where day between $1 and $2 group by 1`),
+    q(`select to_char(day,'YYYY-MM-DD') as day, sum(n) n from search_log where day between $1 and $2 group by 1`),
     q(`select query, sum(n) n from search_log where day between $1 and $2 group by 1 order by 2 desc, 1 limit 10`),
-    q(`select to_char(day,'YYYY-MM-DD') day, event, sum(n) n from listing_event_daily where day between $1 and $2 group by 1,2`),
+    q(`select to_char(day,'YYYY-MM-DD') as day, event, sum(n) n from listing_event_daily where day between $1 and $2 group by 1,2`),
     q(`select coalesce(l.area,'—') area, sum(e.n) n from listing_event_daily e left join listings l on l.listing_id=e.listing_id where e.day between $1 and $2 group by 1 order by 2 desc limit 10`),
     q(`select coalesce(l.name,e.listing_id) name, sum(e.n) filter (where event='view') n from listing_event_daily e left join listings l on l.listing_id=e.listing_id where e.day between $1 and $2 group by 1 order by 2 desc nulls last limit 10`),
     q(`select kind, status, count(*) n from inquiries where (created_at at time zone 'America/Toronto')::date between $1 and $2 group by 1,2 order by 3 desc`),
-    q(`select to_char(day,'YYYY-MM-DD') day, sum(n) n from qr_scan_daily where day between $1 and $2 group by 1`),
-    q(`select to_char(day,'YYYY-MM-DD') day, sum(count) n from site_daily where day between $1 and $2 and path like '/card/%' group by 1`),
+    q(`select to_char(day,'YYYY-MM-DD') as day, sum(n) n from qr_scan_daily where day between $1 and $2 group by 1`),
+    q(`select to_char(day,'YYYY-MM-DD') as day, sum(count) n from site_daily where day between $1 and $2 and path like '/card/%' group by 1`),
     q(`select event, sum(n) n from ad_event_daily where day between $1 and $2 group by 1`),
   ]);
   const ev = (e: string) => fill(all, le.filter((r) => r.event === e).map((r) => ({ day: String(r.day), n: N(r.n) })));
@@ -68,7 +68,7 @@ async function loadOverview(days: RangeDays) {
 }
 /** Cached 5 minutes per range: one round of parallel queries, then served from the Next data cache. */
 export const getOverview = (days: RangeDays) =>
-  unstable_cache(() => loadOverview(days), ["dash-overview-v1", String(days)], { revalidate: 300, tags: ["dash"] })();
+  unstable_cache(() => loadOverview(days), ["dash-overview-v2", String(days)], { revalidate: 300, tags: ["dash"] })();
 
 async function loadQr(days: RangeDays, advertiserId?: string) {
   const sql = db();
@@ -76,17 +76,19 @@ async function loadQr(days: RangeDays, advertiserId?: string) {
   const { from, to } = windowOf(days);
   const all = daysIn(from, to);
   const p: unknown[] = [from, to];
-  const where = advertiserId ? (p.push(advertiserId), "where c.advertiser_id = $3") : "";
+  // Advertiser scope: codes they own, plus codes on their linked listings.
+  const scope = "(c.advertiser_id = $3 or c.listing_id in (select listing_id from advertiser_listings where advertiser_id = $3))";
+  const where = advertiserId ? (p.push(advertiserId), `where ${scope}`) : "";
   const [codes, daily] = await Promise.all([
     sql.query(
       `select c.code, c.placement, c.target_url, c.active, c.listing_id, coalesce(sum(s.n) filter (where s.day between $1 and $2),0) n,
               coalesce(sum(s.n),0) lifetime
-         from qr_codes c left join qr_scan_daily s on s.code = c.code ${where} group by c.code order by n desc, c.code limit 200`,
+         from qr_codes c left join qr_scan_daily s on s.code = c.code ${where} group by c.code order by c.listing_id nulls last, n desc, c.code limit 500`,
       p,
     ) as Promise<Row[]>,
     sql.query(
-      `select s.code, to_char(s.day,'YYYY-MM-DD') day, sum(s.n) n from qr_scan_daily s join qr_codes c on c.code = s.code
-        where s.day between $1 and $2 ${advertiserId ? "and c.advertiser_id = $3" : ""} group by 1,2`,
+      `select s.code, to_char(s.day,'YYYY-MM-DD') as day, sum(s.n) n from qr_scan_daily s join qr_codes c on c.code = s.code
+        where s.day between $1 and $2 ${advertiserId ? `and ${scope}` : ""} group by 1,2`,
       p,
     ) as Promise<Row[]>,
   ]);
@@ -103,11 +105,21 @@ async function loadQr(days: RangeDays, advertiserId?: string) {
       lifetime: N(c.lifetime),
       series: fill(all, daily.filter((d) => d.code === c.code).map((d) => ({ day: String(d.day), n: N(d.n) }))),
     })),
+    byListing: Object.values(
+      codes.reduce<Record<string, { listing: string; codes: number; n: number; lifetime: number }>>((a, c) => {
+        const k = c.listing_id ? String(c.listing_id) : "(no listing)";
+        const r = (a[k] ??= { listing: k, codes: 0, n: 0, lifetime: 0 });
+        r.codes += 1;
+        r.n += N(c.n);
+        r.lifetime += N(c.lifetime);
+        return a;
+      }, {}),
+    ).sort((x, y) => y.n - x.n),
     total: fill(all, Object.entries(daily.reduce<Record<string, number>>((a, d) => ((a[String(d.day)] = (a[String(d.day)] ?? 0) + N(d.n)), a), {})).map(([day, n]) => ({ day, n }))),
   };
 }
 export const getQrDashboard = (days: RangeDays, advertiserId?: string) =>
-  unstable_cache(() => loadQr(days, advertiserId), ["dash-qr-v1", String(days), advertiserId ?? "all"], {
+  unstable_cache(() => loadQr(days, advertiserId), ["dash-qr-v3", String(days), advertiserId ?? "all"], {
     revalidate: 300,
     tags: ["dash"],
   })();
@@ -121,13 +133,13 @@ async function loadAdvertiserDaily(advertiserId: string, days: RangeDays) {
   const p = [from, to, advertiserId];
   const [ads, listing] = await Promise.all([
     sql.query(
-      `select to_char(e.day,'YYYY-MM-DD') day, e.event, sum(e.n) n from ad_event_daily e
+      `select to_char(e.day,'YYYY-MM-DD') as day, e.event, sum(e.n) n from ad_event_daily e
         where e.day between $1 and $2 and (e.ad_ref in (select id from zcards where advertiser_id = $3)
               or e.ad_ref in (select id::text from ads where advertiser_id = $3)) group by 1,2`,
       p,
     ) as Promise<Row[]>,
     sql.query(
-      `select to_char(e.day,'YYYY-MM-DD') day, e.event, sum(e.n) n from listing_event_daily e
+      `select to_char(e.day,'YYYY-MM-DD') as day, e.event, sum(e.n) n from listing_event_daily e
         where e.day between $1 and $2 and e.listing_id in (select listing_id from advertiser_listings where advertiser_id = $3) group by 1,2`,
       p,
     ) as Promise<Row[]>,
@@ -143,7 +155,7 @@ async function loadAdvertiserDaily(advertiserId: string, days: RangeDays) {
   };
 }
 export const getAdvertiserDaily = (advertiserId: string, days: RangeDays) =>
-  unstable_cache(() => loadAdvertiserDaily(advertiserId, days), ["dash-adv-v1", advertiserId, String(days)], {
+  unstable_cache(() => loadAdvertiserDaily(advertiserId, days), ["dash-adv-v2", advertiserId, String(days)], {
     revalidate: 300,
     tags: ["dash"],
   })();

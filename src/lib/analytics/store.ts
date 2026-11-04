@@ -121,7 +121,12 @@ export class NeonStore implements AnalyticsStore {
   }
   async increment(id: string, e: EventName, month: string, by = 1) {
     await this.sql().query(
-      `insert into listing_stats (listing_id, month, event, n) values ($1, $2, $3, $4)
+      // One round trip: monthly row (reports) + daily row (dashboards, Toronto day).
+      `with d as (
+         insert into listing_event_daily (listing_id, day, event, n)
+         values ($1, (now() at time zone 'America/Toronto')::date, $3, $4)
+         on conflict (listing_id, day, event) do update set n = listing_event_daily.n + excluded.n)
+       insert into listing_stats (listing_id, month, event, n) values ($1, $2, $3, $4)
        on conflict (listing_id, month, event) do update set n = listing_stats.n + excluded.n`,
       [id, month, e, by],
     );

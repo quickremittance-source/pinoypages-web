@@ -34,3 +34,20 @@ for (const p of ["/admin/dashboard", "/admin/qr"]) {
 test("unknown QR code 404s", async ({ request }) => {
   expect((await request.get("/qr/nope-123", { maxRedirects: 0 })).status()).toBe(404);
 });
+
+test("qr-create script locks targets and builds per-label codes", async () => {
+  const { execFileSync } = await import("node:child_process");
+  const run = (...a: string[]) =>
+    execFileSync("node", ["scripts/qr-create.mjs", "--dry-run", ...a], { encoding: "utf8", env: { ...process.env, DATABASE_URL: "" } });
+  const out = JSON.parse(run("--listing", "abc", "--label", "Magazine p.12", "--target", "https://pinoypages.ca/go/abc"));
+  expect(out).toMatchObject({ code: "magazine-p-12-abc", placement: "Magazine p.12", url: "https://pinoypages.ca/qr/magazine-p-12-abc" });
+  expect(JSON.parse(run("--listing", "abc", "--label", "storefront", "--target", "https://pinoypages.ca/card/abc")).code).toBe("storefront-abc");
+  expect(() => run("--listing", "abc", "--label", "x", "--target", "https://evil.com/go/abc")).toThrow();
+  expect(() => run("--listing", "abc", "--label", "x", "--target", "https://pinoypages.ca/qr/abc")).toThrow();
+});
+
+test("ad daily event mapping", async () => {
+  const src = (await import("node:fs")).readFileSync("src/lib/adsRepo.ts", "utf8");
+  expect(src).toContain("insert into ad_event_daily");
+  expect((await import("node:fs")).readFileSync("src/lib/analytics/store.ts", "utf8")).toContain("insert into listing_event_daily");
+});

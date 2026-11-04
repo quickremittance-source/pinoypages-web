@@ -52,6 +52,8 @@ export async function listAds(): Promise<AdLanding[]> {
   return ((await sql.query(`${SELECT} order by a.slug`)) as Row[]).map(toAd);
 }
 
+export const adDailyEvent = (e: EventName) => (e === "view" ? "impression" : e === "scan" ? "scan" : "click");
+
 /** Record one aggregated count for "ad:<slug>" or "ad:<slug>:<trackingId>". Returns false for unknown ids. */
 export async function recordAdEvent(statId: string, event: EventName, month: string): Promise<boolean | null> {
   const sql = db();
@@ -59,12 +61,20 @@ export async function recordAdEvent(statId: string, event: EventName, month: str
   const [p, slug, t = "", extra] = statId.split(":");
   if (p !== "ad" || !slug || extra !== undefined) return false;
   const rows = (await sql.query(
-    `insert into ad_event_counts (ad_id, tracking_id, event, month, count)
-     select a.id, $2, $3, $4, 1 from ads a
-      where a.slug = $1 and ($2 = '' or exists (select 1 from ad_tracking_ids t where t.ad_id = a.id and t.tracking_id = $2))
+    // One round trip: monthly ad_event_counts (reports) + daily ad_event_daily (dashboards).
+    // Daily events: view -> impression, scan -> scan, call/map/website/tap -> click.
+    `with a as (
+       select a.id from ads a
+        where a.slug = $1 and ($2 = '' or exists (select 1 from ad_tracking_ids t where t.ad_id = a.id and t.tracking_id = $2))),
+     d as (
+       insert into ad_event_daily (ad_ref, day, event, n)
+       select a.id::text, (now() at time zone 'America/Toronto')::date, $5, 1 from a
+       on conflict (ad_ref, day, event) do update set n = ad_event_daily.n + 1)
+     insert into ad_event_counts (ad_id, tracking_id, event, month, count)
+     select a.id, $2, $3, $4, 1 from a
      on conflict (ad_id, tracking_id, event, month) do update set count = ad_event_counts.count + 1
      returning count`,
-    [slug, t, event, month],
+    [slug, t, event, month, adDailyEvent(event)],
   )) as unknown[];
   return rows.length > 0;
 }
