@@ -1,6 +1,7 @@
 "use server";
 import { redirect } from "next/navigation";
 import { revalidateTag } from "next/cache";
+import { revalidateListings } from "@/lib/revalidateListings";
 import { validAdminKey } from "@/lib/analytics/token";
 import { DECISIONS, type Decision } from "@/lib/onboarding";
 import { addQr, decide, markVerified } from "@/lib/onboardingDb";
@@ -21,7 +22,7 @@ export async function decideAction(fd: FormData) {
   try {
     msg = `#${fd.get("id")}: ${await decide(Number(fd.get("id")), d)}`;
     if (d === "approve") {
-      revalidateTag("listings");
+      revalidateListings();
       revalidateTag("dash");
     }
   } catch (e) {
@@ -43,6 +44,6 @@ export async function verifyAction(fd: FormData) {
   if (fd.get("confirm") !== "on") back(k, `/admin/welcome/${encodeURIComponent(String(fd.get("listing")))}`, "tick the live video check box first");
   const listing = String(fd.get("listing"));
   const until = await markVerified(listing);
-  revalidateTag("listings");
+  revalidateListings();
   back(k, `/admin/welcome/${encodeURIComponent(listing)}`, `Verified until ${until}`);
 }
