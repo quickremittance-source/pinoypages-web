@@ -88,3 +88,20 @@ test("/advertise explains advertise, get Verified, or both", async ({ page }) =>
   await expect(w).not.toContainText(/year|HST/i);
   await expect(w.getByRole("link", { name: "Get Verified" })).toHaveAttribute("href", "/get-verified");
 });
+
+test("migration splitter handles trailing comments and quotes", async () => {
+  const { splitSql } = await import("../scripts/sql-split.mjs");
+  expect(splitSql("alter table a add x int; -- note; here\nselect '--;x';\n-- only\n")).toEqual([
+    "alter table a add x int",
+    "select '--;x'",
+  ]);
+});
+
+test("/go, /card and /vcard 404 for unknown or free listings", async ({ request }) => {
+  for (const p of ["/go/nope", "/card/nope", "/vcard/nope.vcf"]) expect((await request.get(p, { maxRedirects: 0 })).status()).toBe(404);
+});
+
+test("category tiles show a section count from public listings", async ({ page }) => {
+  await page.goto("/directory");
+  await expect(page.getByTestId("section-count").first()).toContainText(/\d+ listings · \d+ verified/);
+});
