@@ -1,6 +1,6 @@
 # PinoyPages: ad/listing engine and analytics engine on Neon
 
-Status as of Nov 3, 2026. Sources: `main` at `11be2fc` (PR #17) plus **PR #18 `dashboards` (not merged)**. Items only in PR #18 are marked **[PR #18, unmerged]**. Migrations 001–009 are applied in production (007 verified Nov 4: constraint `qr_codes_target_pinoypages` present and validated).
+Status as of Nov 4, 2026. Sources: `main` after PRs #19–#27 (see section 12). Migrations 001–009 are applied in production (007 verified Nov 4: constraint `qr_codes_target_pinoypages` present and validated).
 
 No keys, passwords or tokens appear in this document.
 
