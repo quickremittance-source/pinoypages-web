@@ -1,9 +1,8 @@
 import { expect, test } from "@playwright/test";
 
-test("menu hides Free tools and highlights the current page (exact and nested)", async ({ page, isMobile }) => {
+test("menu highlights the current page (exact and nested)", async ({ page, isMobile }) => {
   const nav = () => page.getByRole("navigation", { name: isMobile ? "Main (mobile)" : "Main", exact: true });
   await page.goto("/directory");
-  await expect(nav().getByRole("link", { name: /tools/i })).toHaveCount(0);
   await expect(nav().locator('[aria-current="page"]')).toHaveText("Directory");
   await page.goto("/magazine");
   await expect(nav().locator('[aria-current="page"]')).toHaveText("Magazine");
@@ -26,12 +25,12 @@ test("deadlines merged into the calendar: labels, type filter, redirect", async 
   for (const t of await shown.evaluateAll((els) => els.map((e) => e.getAttribute("data-type")))) expect(t).toBe("deadline");
 });
 
-test("Directory is the first menu item; Advertise & Get Verified is one item active on both pages", async ({ page, isMobile }) => {
+test("Directory is the first menu item; Advertise is one item active on both pages", async ({ page, isMobile }) => {
   for (const path of ["/advertise", "/get-verified"]) {
     await page.goto(path);
     const main = page.getByRole("navigation", { name: isMobile ? "Main (mobile)" : "Main", exact: true });
     await expect(main.getByRole("link").first()).toHaveText("Directory");
-    const item = main.getByRole("link", { name: "Advertise & Get Verified" });
+    const item = main.getByRole("link", { name: "Advertise", exact: true });
     await expect(item).toHaveAttribute("href", "/advertise");
     await expect(item).toHaveAttribute("aria-current", "page");
     await expect(main.getByRole("link", { name: "Get Verified", exact: true })).toHaveCount(0);
@@ -54,4 +53,38 @@ test("/api/revalidate: 404 without a valid key header, GET is 404", async ({ req
   expect((await request.post("/api/revalidate")).status()).toBe(404);
   expect((await request.post("/api/revalidate", { headers: { "x-admin-key": "wrong" } })).status()).toBe(404);
   expect((await request.get("/api/revalidate")).status()).toBe(404);
+});
+
+test("Magazine menu holds Events & deadlines and Tools; top level is Directory, Advertise, Magazine", async ({ page, isMobile }) => {
+  const nav = () => page.getByRole("navigation", { name: isMobile ? "Main (mobile)" : "Main", exact: true });
+  await page.goto("/");
+  const top = nav().locator(":scope > ul > li > a, :scope > ul > li > span > a");
+  await expect(top).toHaveText(["Directory", "Advertise", "Magazine"]);
+  for (const p of ["/magazine", "/calendar", "/tools/hst-checker"]) {
+    await page.goto(p);
+    await expect(nav().getByRole("link", { name: "Magazine", exact: true })).toHaveAttribute("data-active", "true");
+  }
+  if (!isMobile) {
+    const btn = nav().getByRole("button", { name: "Magazine submenu" });
+    await expect(page.getByTestId("submenu")).toBeHidden();
+    await btn.focus();
+    await page.keyboard.press("Enter");
+    await expect(btn).toHaveAttribute("aria-expanded", "true");
+    await expect(page.getByTestId("submenu").getByRole("link", { name: "Tools" })).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(page.getByTestId("submenu")).toBeHidden();
+    await page.getByRole("link", { name: "Magazine", exact: true }).hover();
+    await expect(page.getByTestId("submenu").getByRole("link", { name: "Events & deadlines" })).toBeVisible();
+  } else {
+    await expect(nav().getByRole("link", { name: "Events & deadlines" })).toHaveAttribute("href", "/calendar");
+  }
+});
+
+test("/advertise explains advertise, get Verified, or both", async ({ page }) => {
+  await page.goto("/advertise");
+  const w = page.getByTestId("ways");
+  await expect(w).toContainText("$199 per issue");
+  await expect(w).toContainText("never bought");
+  await expect(w).not.toContainText(/year|HST/i);
+  await expect(w.getByRole("link", { name: "Get Verified" })).toHaveAttribute("href", "/get-verified");
 });

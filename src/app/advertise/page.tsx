@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import { PageHead } from "@/components/Chrome";
 import { AdvertiseTabs } from "@/components/AdvertiseTabs";
@@ -60,6 +61,37 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
         intro={`The Filipino Business Directory for the GTA, in print and online. ${BOOKING_NOTE} Four ad sizes: full page, half page, quarter page and business card.`}
       />
       <AdvertiseTabs current="/advertise" />
+      <section aria-labelledby="ways-h" className="mx-auto mt-4 max-w-5xl px-4" data-testid="ways">
+        <h2 id="ways-h" className="sr-only">
+          Advertise, get Verified, or both
+        </h2>
+        <ul className="grid gap-3 sm:grid-cols-3">
+          <li className="card p-4">
+            <strong className="block text-ink">Advertise</strong>
+            <span className="text-sm text-muted">A print ad in the directory plus a QR to your page online.</span>{" "}
+            <a href="#sizes" className="text-sm font-semibold text-turqdk underline">
+              See ad sizes
+            </a>
+          </li>
+          <li className="card p-4">
+            <strong className="block text-ink">Get Kabayan Verified</strong>
+            <span className="text-sm text-muted">
+              $199 per issue. The badge is earned through a live video identity check (about 15 minutes), never
+              bought.
+            </span>{" "}
+            <Link href="/get-verified" className="text-sm font-semibold text-turqdk underline">
+              Get Verified
+            </Link>
+          </li>
+          <li className="card p-4">
+            <strong className="block text-ink">Do both</strong>
+            <span className="text-sm text-muted">Run an ad and earn the Verified badge on your listing.</span>{" "}
+            <a href="#enquire" className="text-sm font-semibold text-turqdk underline">
+              Ask about both
+            </a>
+          </li>
+        </ul>
+      </section>
       <div className="mx-auto max-w-6xl space-y-12 px-4 py-8">
         <section aria-labelledby="sizes">
           <h2 id="sizes" className="text-2xl font-bold text-ink">

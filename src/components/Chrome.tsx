@@ -6,11 +6,16 @@ import { brand } from "@/lib/guide";
 
 const nav = [
   { href: "/directory", label: "Directory" },
-  // Advertise + Get Verified share one menu item (Jose, Nov 3); both pages stay, linked by tabs.
-  { href: "/advertise", label: "Advertise & Get Verified", match: ["/get-verified"] },
-  // "Free tools" hidden from the menu (Nov 3); /tools/* pages and routes stay live.
-  { href: "/calendar", label: "Events & deadlines" },
-  { href: "/magazine", label: "Magazine" },
+  // One "Advertise" item; /advertise explains advertise / Get Verified / both, tabs link the two pages.
+  { href: "/advertise", label: "Advertise", match: ["/get-verified"] },
+  {
+    href: "/magazine",
+    label: "Magazine",
+    children: [
+      { href: "/calendar", label: "Events & deadlines" },
+      { href: "/tools/hst-checker", label: "Tools", match: ["/tools"] },
+    ],
+  },
 ];
 
 /** Brand mark: the official Pinoy Pages logo (pin + book + wordmark), horizontal layout. */
