@@ -1,4 +1,4 @@
-import { validAdminKey } from "@/lib/analytics/token";
+import { isAdminReq } from "@/lib/adminSession";
 import { qrFile } from "@/lib/onboardingDb";
 
 export const dynamic = "force-dynamic";
@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 /** Print-ready QR (PNG 1200px or SVG) for a stored code. Admin only. */
 export async function GET(req: Request, { params }: { params: Promise<{ code: string; file: string }> }) {
   const { code, file } = await params;
-  if (!validAdminKey(new URL(req.url).searchParams.get("key"))) return new Response("Not found", { status: 404 });
+  if (!isAdminReq(req)) return new Response("Not found", { status: 404 });
   const kind = file === "qr.svg" ? "svg" : file === "qr.png" ? "png" : null;
   if (!kind || !/^[a-z0-9][a-z0-9_-]{0,79}$/.test(code)) return new Response("Not found", { status: 404 });
   const out = await qrFile(code, kind).catch(() => null);

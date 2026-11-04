@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { validAdminKey } from "@/lib/analytics/token";
+import { isAdmin } from "@/lib/adminSession";
 import { qrTarget, rangeDays } from "@/lib/dashRange";
 import { getQrDashboard } from "@/lib/dashboards";
 import { Bars, BRAND, DashShell, RangePicker } from "@/components/admin/Charts";
@@ -8,9 +8,9 @@ import { Bars, BRAND, DashShell, RangePicker } from "@/components/admin/Charts";
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Admin · QR trackers", robots: { index: false, follow: false, nocache: true }, referrer: "no-referrer" };
 
-export default async function Page({ searchParams }: { searchParams: Promise<{ key?: string; days?: string }> }) {
-  const { key, days: d } = await searchParams;
-  if (!validAdminKey(key)) notFound();
+export default async function Page({ searchParams }: { searchParams: Promise<{ days?: string }> }) {
+  const { days: d } = await searchParams;
+  if (!(await isAdmin())) notFound();
   const days = rangeDays(d);
   const raw = await getQrDashboard(days).catch((e: Error) => (console.error("[dashboard]", e.message), "error" as const));
   const failed = raw === "error";
@@ -23,9 +23,9 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ k
           <h1 className="text-3xl font-bold text-[#002050]">QR code trackers</h1>
           <p className="text-sm text-[#5b6475]">Printed codes point at pinoypages.ca/qr/&lt;code&gt;; each scan adds one to a daily counter (code, day, device type only).</p>
         </div>
-        <RangePicker days={days} base="/admin/qr" extra={{ key: key! }} />
+        <RangePicker days={days} base="/admin/qr" />
       </header>
-      <p><a className="text-sm font-bold text-[#0E7C86] underline" href={`/admin/dashboard?key=${encodeURIComponent(key!)}&days=${days}`}>← Overall dashboard</a></p>
+      <p><a className="text-sm font-bold text-[#0E7C86] underline" href={`/admin/dashboard?days=${days}`}>← Overall dashboard</a></p>
       {!q ? (
         <p className="rounded border border-[#d0d4dc] p-4" data-testid="no-db">{failed ? "Could not load data from the database (see server logs)." : "No database connected in this environment, so there is nothing to chart."}</p>
       ) : (

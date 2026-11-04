@@ -1,3 +1,4 @@
+import { login } from "./adminLogin";
 import { test, expect } from "@playwright/test";
 
 test("private analytics pages 404 without key/token and stay noindex", async ({ request }) => {
@@ -9,9 +10,10 @@ test("private analytics pages 404 without key/token and stay noindex", async ({ 
 });
 
 test("admin advertisers + analytics render with key (no DB = note)", async ({ page }) => {
-  await page.goto("/admin/advertisers?key=test-admin-key");
+  await login(page);
+  await page.goto("/admin/advertisers");
   await expect(page.getByRole("heading", { name: "Advertisers" })).toBeVisible();
-  await page.goto("/admin/analytics?key=test-admin-key&from=2026-10-01&to=2026-10-29");
+  await page.goto("/admin/analytics?from=2026-10-01&to=2026-10-29");
   await expect(page.getByTestId("site-analytics")).toBeVisible();
 });
 

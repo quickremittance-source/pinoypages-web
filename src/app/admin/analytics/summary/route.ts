@@ -1,7 +1,8 @@
 import { monthKey } from "@/lib/analytics/events";
 import { store } from "@/lib/analytics/store";
 import { summaryEmail } from "@/lib/analytics/summary";
-import { resultsToken, validAdminKey } from "@/lib/analytics/token";
+import { resultsToken } from "@/lib/analytics/token";
+import { isAdminReq } from "@/lib/adminSession";
 import { abs, isPaid, listings } from "@/lib/guide";
 
 export const dynamic = "force-dynamic";
@@ -9,7 +10,7 @@ export const dynamic = "force-dynamic";
 /** Generates the monthly summary email drafts (text) for every paid listing. Generate only — never sends. */
 export async function GET(req: Request) {
   const u = new URL(req.url);
-  if (!validAdminKey(u.searchParams.get("key"))) return new Response("Not found", { status: 404 });
+  if (!isAdminReq(req)) return new Response("Not found", { status: 404 });
   const month = /^\d{4}-\d{2}$/.test(u.searchParams.get("month") ?? "") ? u.searchParams.get("month")! : monthKey();
   const all = await store().all();
   const drafts = listings

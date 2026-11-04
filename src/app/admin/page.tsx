@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AdminFrame } from "@/components/admin/AdminFrame";
 import { RangePicker, Stat } from "@/components/admin/Charts";
-import { validAdminKey } from "@/lib/analytics/token";
+import { isAdmin } from "@/lib/adminSession";
 import { rangeDays } from "@/lib/dashRange";
 import { getOverview } from "@/lib/dashboards";
 import { getHub } from "@/lib/adminEditDb";
@@ -15,17 +15,16 @@ export const metadata: Metadata = {
   referrer: "no-referrer",
 };
 
-type SP = Promise<{ key?: string; days?: string; sort?: string; dir?: string; kind?: string; msg?: string }>;
+type SP = Promise<{ days?: string; sort?: string; dir?: string; kind?: string; msg?: string }>;
 /** Admin hub: overall site analytics + one sortable table of every listing, ad and ZCard. Cached 5 min. */
 export default async function Page({ searchParams }: { searchParams: SP }) {
-  const { key, days: d, sort, dir, kind, msg } = await searchParams;
-  if (!validAdminKey(key)) notFound();
+  const { days: d, sort, dir, kind, msg } = await searchParams;
+  if (!(await isAdmin())) notFound();
   const days = rangeDays(d);
   const [o, hub] = await Promise.all([
     getOverview(days).catch((e: Error) => (console.error("[hub]", e.message), null)),
     getHub(days).catch((e: Error) => (console.error("[hub]", e.message), null)),
   ]);
-  const k = encodeURIComponent(key!);
   const all = hub
     ? sortRows(
         hub.rows.filter((r) => !kind || r.kind === kind),
@@ -35,16 +34,16 @@ export default async function Page({ searchParams }: { searchParams: SP }) {
     : [];
   const col = (SORT_COLS as readonly string[]).includes(sort ?? "") ? sort : "views";
   const href = (c: string) =>
-    `/admin?key=${k}&days=${days}${kind ? `&kind=${kind}` : ""}&sort=${c}&dir=${col === c && dir !== "asc" ? "asc" : "desc"}`;
+    `/admin?days=${days}${kind ? `&kind=${kind}` : ""}&sort=${c}&dir=${col === c && dir !== "asc" ? "asc" : "desc"}`;
   return (
-    <AdminFrame k={key!} title="Admin hub" msg={msg}>
+    <AdminFrame title="Admin hub" msg={msg}>
       <div className="flex flex-wrap items-end justify-between gap-3">
         <p className="text-sm text-[#5b6475]">
           {hub
             ? `${hub.from} to ${hub.to} (Toronto days) · refreshed at most every 5 minutes`
             : "No database connected in this environment."}
         </p>
-        <RangePicker days={days} base="/admin" extra={{ key: key! }} />
+        <RangePicker days={days} base="/admin" />
       </div>
       {o && (
         <dl className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-7" data-testid="hub-totals">
@@ -72,7 +71,7 @@ export default async function Page({ searchParams }: { searchParams: SP }) {
                 key={v}
                 aria-current={(kind ?? "") === v ? "page" : undefined}
                 className="text-[#0E7C86] underline aria-[current=page]:font-bold"
-                href={`/admin?key=${k}&days=${days}${v ? `&kind=${v}` : ""}`}
+                href={`/admin?days=${days}${v ? `&kind=${v}` : ""}`}
               >
                 {l}
               </a>
@@ -118,11 +117,11 @@ export default async function Page({ searchParams }: { searchParams: SP }) {
                   const zc = r.ref.startsWith("zcard:");
                   const edit =
                     r.kind === "listing"
-                      ? `/admin/listings/${encodeURIComponent(r.ref)}?key=${k}`
+                      ? `/admin/listings/${encodeURIComponent(r.ref)}`
                       : zc
                         ? null
-                        : `/admin/ads/${encodeURIComponent(r.ref)}?key=${k}`;
-                  const stats = r.kind === "listing" ? `/admin/qr?key=${k}&days=${days}` : `/admin/ads?key=${k}`;
+                        : `/admin/ads/${encodeURIComponent(r.ref)}`;
+                  const stats = r.kind === "listing" ? `/admin/qr?days=${days}` : `/admin/ads`;
                   return (
                     <tr key={`${r.kind}:${r.ref}`} className="border-b border-[#d0d4dc]" data-row={r.kind}>
                       <td className="p-2">

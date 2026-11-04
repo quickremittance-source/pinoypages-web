@@ -2,20 +2,16 @@
 import { redirect } from "next/navigation";
 import { revalidateTag } from "next/cache";
 import { revalidateListings } from "@/lib/revalidateListings";
-import { validAdminKey } from "@/lib/analytics/token";
+import { assertAdmin } from "@/lib/adminSession";
 import { DECISIONS, type Decision } from "@/lib/onboarding";
 import { addQr, decide, markVerified } from "@/lib/onboardingDb";
 
-const keyOf = (fd: FormData) => {
-  const k = String(fd.get("key") ?? "");
-  if (!validAdminKey(k)) throw new Error("forbidden");
-  return k;
-};
-const back = (k: string, path: string, msg: string) =>
-  redirect(`${path}${path.includes("?") ? "&" : "?"}key=${encodeURIComponent(k)}&msg=${encodeURIComponent(msg)}`);
+const keyOf = async () => assertAdmin();
+const back = (_: unknown, path: string, msg: string) =>
+  redirect(`${path}${path.includes("?") ? "&" : "?"}msg=${encodeURIComponent(msg)}`);
 
 export async function decideAction(fd: FormData) {
-  const k = keyOf(fd);
+  const k = await keyOf();
   const d = String(fd.get("d")) as Decision;
   if (!DECISIONS.includes(d)) throw new Error("bad decision");
   let msg: string;
@@ -32,7 +28,7 @@ export async function decideAction(fd: FormData) {
 }
 
 export async function addQrAction(fd: FormData) {
-  const k = keyOf(fd);
+  const k = await keyOf();
   const listing = String(fd.get("listing"));
   const label = String(fd.get("label") ?? "").trim().slice(0, 60);
   const msg = label ? `added ${await addQr(listing, label)}` : "label required";
@@ -40,7 +36,7 @@ export async function addQrAction(fd: FormData) {
 }
 
 export async function verifyAction(fd: FormData) {
-  const k = keyOf(fd);
+  const k = await keyOf();
   if (fd.get("confirm") !== "on") back(k, `/admin/welcome/${encodeURIComponent(String(fd.get("listing")))}`, "tick the live video check box first");
   const listing = String(fd.get("listing"));
   const until = await markVerified(listing);

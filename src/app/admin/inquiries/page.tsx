@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { validAdminKey } from "@/lib/analytics/token";
+import { isAdmin } from "@/lib/adminSession";
 import { planFor } from "@/lib/onboarding";
 import { queue } from "@/lib/onboardingDb";
 import { DashShell } from "@/components/admin/Charts";
@@ -11,12 +11,11 @@ export const metadata: Metadata = { title: "Admin · inquiries", robots: { index
 const TABS = ["new", "won", "lost", "spam", "all"];
 
 /** Onboarding queue. ADMIN_KEY gated (404 otherwise). Approve creates the Neon listing or a draft ad; never writes Brevo. */
-export default async function Page({ searchParams }: { searchParams: Promise<{ key?: string; status?: string; msg?: string }> }) {
-  const { key, status = "new", msg } = await searchParams;
-  if (!validAdminKey(key)) notFound();
+export default async function Page({ searchParams }: { searchParams: Promise<{ status?: string; msg?: string }> }) {
+  const { status = "new", msg } = await searchParams;
+  if (!(await isAdmin())) notFound();
   const st = TABS.includes(status) ? status : "new";
   const rows = await queue(st).catch(() => "error" as const);
-  const k = encodeURIComponent(key!);
   return (
     <DashShell>
       <header className="border-b-4 border-[#E01820] pb-3">
@@ -30,7 +29,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ k
       {msg && <p role="status" className="rounded border border-[#0E7C86] p-2 text-sm" data-testid="msg">{msg}</p>}
       <nav className="flex gap-2 text-sm">
         {TABS.map((t) => (
-          <a key={t} href={`/admin/inquiries?key=${k}&status=${t}`} aria-current={t === st ? "page" : undefined} className={`rounded px-3 py-1 font-bold ${t === st ? "bg-[#002050] text-white" : "border border-[#002050] text-[#002050]"}`}>{t}</a>
+          <a key={t} href={`/admin/inquiries?status=${t}`} aria-current={t === st ? "page" : undefined} className={`rounded px-3 py-1 font-bold ${t === st ? "bg-[#002050] text-white" : "border border-[#002050] text-[#002050]"}`}>{t}</a>
         ))}
       </nav>
       {rows === null || rows === "error" ? (
@@ -47,12 +46,11 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ k
                 <p className="font-bold text-[#002050]">#{r.id} · {r.kind} · {r.business || r.name || "—"} <span className="font-normal text-[#5b6475]">({r.status}, {r.created_at})</span></p>
                 <p className="text-[#5b6475]">{r.product ? `product: ${r.product} · ` : ""}{r.listing_id ? `listing: ${r.listing_id} · ` : ""}approve will: {plan.type === "none" ? plan.reason : plan.type === "listing" ? `${plan.mode} listing ${plan.listing_id} (${plan.tier})` : `create draft ${plan.tier} ad ${plan.slug}`}</p>
                 <form action={decideAction} className="mt-2 flex gap-2">
-                  <input type="hidden" name="key" value={key} />
                   <input type="hidden" name="id" value={r.id} />
                   <button name="d" value="approve" disabled={plan.type === "none"} className="rounded bg-[#0E7C86] px-3 py-1 font-bold text-white disabled:opacity-40">Approve</button>
                   <button name="d" value="reject" className="rounded border border-[#002050] px-3 py-1 font-bold text-[#002050]">Reject</button>
                   <button name="d" value="spam" className="rounded border border-[#E01820] px-3 py-1 font-bold text-[#E01820]">Spam</button>
-                  {listing && <a className="self-center underline" href={`/admin/welcome/${encodeURIComponent(listing)}?key=${k}`}>Welcome pack</a>}
+                  {listing && <a className="self-center underline" href={`/admin/welcome/${encodeURIComponent(listing)}`}>Welcome pack</a>}
                 </form>
               </li>
             );

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { AdminFrame, NoDb } from "@/components/admin/AdminFrame";
 import { AuditLog, OpButtons } from "@/components/admin/EditBits";
 import { adOpAction, saveAdAction } from "@/app/admin/editActions";
-import { validAdminKey } from "@/lib/analytics/token";
+import { isAdmin } from "@/lib/adminSession";
 import { db } from "@/lib/db";
 import { getAd, listingAudit } from "@/lib/adminEditDb";
 import { AD_STATUSES, AD_TIERS } from "@/lib/adminEdit";
@@ -15,13 +15,13 @@ export const metadata: Metadata = {
   referrer: "no-referrer",
 };
 
-type P = { params: Promise<{ slug: string }>; searchParams: Promise<{ key?: string; msg?: string }> };
+type P = { params: Promise<{ slug: string }>; searchParams: Promise<{ msg?: string }> };
 export default async function Page({ params, searchParams }: P) {
-  const [{ slug }, { key, msg }] = await Promise.all([params, searchParams]);
-  if (!validAdminKey(key)) notFound();
+  const [{ slug }, { msg }] = await Promise.all([params, searchParams]);
+  if (!(await isAdmin())) notFound();
   if (!db())
     return (
-      <AdminFrame k={key!} title="Edit ad">
+      <AdminFrame title="Edit ad">
         <NoDb />
       </AdminFrame>
     );
@@ -31,11 +31,11 @@ export default async function Page({ params, searchParams }: P) {
   const s = (x: unknown) => (x == null ? "" : String(x));
   const archived = a.archived_at != null;
   return (
-    <AdminFrame k={key!} title={`Edit ad: ${s(a.name || a.slug)}`} msg={msg}>
+    <AdminFrame title={`Edit ad: ${s(a.name || a.slug)}`} msg={msg}>
       <p className="text-sm">
         slug <code>{s(a.slug)}</code> · status <strong>{s(a.status)}</strong>
         {archived ? " · archived" : ""} ·{" "}
-        <a className="text-[#0E7C86] underline" href={`/admin/ads?key=${encodeURIComponent(key!)}`}>
+        <a className="text-[#0E7C86] underline" href={`/admin/ads`}>
           Ad stats
         </a>
       </p>
@@ -47,7 +47,6 @@ export default async function Page({ params, searchParams }: P) {
           className="grid gap-3 rounded-lg border border-[#d0d4dc] p-4 sm:grid-cols-2"
           data-testid="edit-ad"
         >
-          <input type="hidden" name="key" value={key} />
           <input type="hidden" name="slug" value={s(a.slug)} />
           <label className="text-sm font-semibold">
             Name
@@ -88,7 +87,7 @@ export default async function Page({ params, searchParams }: P) {
       )}
       <OpButtons
         action={adOpAction}
-        k={key!}
+       
         idName="slug"
         id={s(a.slug)}
         archived={archived}

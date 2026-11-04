@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { PageHead } from "@/components/Chrome";
 import { hasLandingPage, hasQr, listingTarget, TIER_LABEL, VERIFIED_LABEL } from "@/lib/adLanding";
 import { adStats, listAds, type AdStatRow } from "@/lib/adsRepo";
-import { validAdminKey } from "@/lib/analytics/token";
+import { isAdmin } from "@/lib/adminSession";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Admin · ads", robots: { index: false, follow: false } };
@@ -69,10 +69,9 @@ function Table({ label, rows, head }: { label: string; rows: [Key, Record<string
   );
 }
 
-/** Private ad + QR analytics. Needs ?key=ADMIN_KEY (404 otherwise). Data from Neon when DATABASE_URL is set. */
-export default async function Page({ searchParams }: { searchParams: Promise<{ key?: string }> }) {
-  const { key } = await searchParams;
-  if (!validAdminKey(key)) notFound();
+/** Private ad + QR analytics. Needs an admin session (404 otherwise). Data from Neon when DATABASE_URL is set. */
+export default async function Page() {
+    if (!(await isAdmin())) notFound();
   const [ads, stats] = await Promise.all([listAds(), adStats()]);
   return (
     <>

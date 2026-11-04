@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { validAdminKey } from "@/lib/analytics/token";
+import { isAdmin } from "@/lib/adminSession";
 import { rangeDays } from "@/lib/dashRange";
 import { getOverview } from "@/lib/dashboards";
 import { BarList, Bars, BRAND, DashShell, RangePicker, Stat } from "@/components/admin/Charts";
@@ -8,15 +8,14 @@ import { BarList, Bars, BRAND, DashShell, RangePicker, Stat } from "@/components
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Admin · dashboard", robots: { index: false, follow: false, nocache: true }, referrer: "no-referrer" };
 
-/** Overall analytics from Neon daily counters. Needs ?key=ADMIN_KEY; 404 otherwise. */
-export default async function Page({ searchParams }: { searchParams: Promise<{ key?: string; days?: string }> }) {
-  const { key, days: d } = await searchParams;
-  if (!validAdminKey(key)) notFound();
+/** Overall analytics from Neon daily counters. Needs an admin session; 404 otherwise. */
+export default async function Page({ searchParams }: { searchParams: Promise<{ days?: string }> }) {
+  const { days: d } = await searchParams;
+  if (!(await isAdmin())) notFound();
   const days = rangeDays(d);
   const raw = await getOverview(days).catch((e: Error) => (console.error("[dashboard]", e.message), "error" as const));
   const failed = raw === "error";
   const o = failed ? null : raw;
-  const k = encodeURIComponent(key!);
   return (
     <DashShell>
       <header className="flex flex-wrap items-end justify-between gap-4 border-b-4 border-[#E01820] pb-3">
@@ -25,12 +24,12 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ k
           <h1 className="text-3xl font-bold text-[#002050]">PinoyPages dashboard</h1>
           {o && <p className="text-sm text-[#5b6475]">{o.from} to {o.to} (Toronto days) · refreshed at most every 5 minutes</p>}
         </div>
-        <RangePicker days={days} base="/admin/dashboard" extra={{ key: key! }} />
+        <RangePicker days={days} base="/admin/dashboard" />
       </header>
       <nav className="flex gap-4 text-sm font-bold text-[#0E7C86] underline">
-        <a href={`/admin/qr?key=${k}&days=${days}`}>QR trackers</a>
-        <a href={`/admin/advertisers?key=${k}`}>Advertiser dashboards</a>
-        <a href={`/admin/analytics?key=${k}`}>Classic analytics</a>
+        <a href={`/admin/qr?days=${days}`}>QR trackers</a>
+        <a href={`/admin/advertisers`}>Advertiser dashboards</a>
+        <a href={`/admin/analytics`}>Classic analytics</a>
       </nav>
       {!o ? (
         <p className="rounded border border-[#d0d4dc] p-4" data-testid="no-db">{failed ? "Could not load data from the database (see server logs)." : "No database connected in this environment, so there is nothing to chart."}</p>
