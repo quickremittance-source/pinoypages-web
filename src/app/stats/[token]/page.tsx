@@ -94,8 +94,8 @@ export default async function Page({
             </div>
             {qr && qr.codes.length > 0 && (
               <SimpleTable
-                label="Your QR codes"
-                head={["Code", "Placement", `Scans (${days} days)`, "Lifetime"]}
+                label="Your QR codes (each printed code counted separately)"
+                head={["Code", "Where it is printed", `Scans (${days} days)`, "Lifetime"]}
                 rows={qr.codes.map((c) => [c.code, c.placement, c.n, c.lifetime])}
               />
             )}

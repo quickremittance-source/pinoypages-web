@@ -76,17 +76,19 @@ async function loadQr(days: RangeDays, advertiserId?: string) {
   const { from, to } = windowOf(days);
   const all = daysIn(from, to);
   const p: unknown[] = [from, to];
-  const where = advertiserId ? (p.push(advertiserId), "where c.advertiser_id = $3") : "";
+  // Advertiser scope: codes they own, plus codes on their linked listings.
+  const scope = "(c.advertiser_id = $3 or c.listing_id in (select listing_id from advertiser_listings where advertiser_id = $3))";
+  const where = advertiserId ? (p.push(advertiserId), `where ${scope}`) : "";
   const [codes, daily] = await Promise.all([
     sql.query(
       `select c.code, c.placement, c.target_url, c.active, c.listing_id, coalesce(sum(s.n) filter (where s.day between $1 and $2),0) n,
               coalesce(sum(s.n),0) lifetime
-         from qr_codes c left join qr_scan_daily s on s.code = c.code ${where} group by c.code order by n desc, c.code limit 200`,
+         from qr_codes c left join qr_scan_daily s on s.code = c.code ${where} group by c.code order by c.listing_id nulls last, n desc, c.code limit 500`,
       p,
     ) as Promise<Row[]>,
     sql.query(
       `select s.code, to_char(s.day,'YYYY-MM-DD') day, sum(s.n) n from qr_scan_daily s join qr_codes c on c.code = s.code
-        where s.day between $1 and $2 ${advertiserId ? "and c.advertiser_id = $3" : ""} group by 1,2`,
+        where s.day between $1 and $2 ${advertiserId ? `and ${scope}` : ""} group by 1,2`,
       p,
     ) as Promise<Row[]>,
   ]);
@@ -103,11 +105,21 @@ async function loadQr(days: RangeDays, advertiserId?: string) {
       lifetime: N(c.lifetime),
       series: fill(all, daily.filter((d) => d.code === c.code).map((d) => ({ day: String(d.day), n: N(d.n) }))),
     })),
+    byListing: Object.values(
+      codes.reduce<Record<string, { listing: string; codes: number; n: number; lifetime: number }>>((a, c) => {
+        const k = c.listing_id ? String(c.listing_id) : "(no listing)";
+        const r = (a[k] ??= { listing: k, codes: 0, n: 0, lifetime: 0 });
+        r.codes += 1;
+        r.n += N(c.n);
+        r.lifetime += N(c.lifetime);
+        return a;
+      }, {}),
+    ).sort((x, y) => y.n - x.n),
     total: fill(all, Object.entries(daily.reduce<Record<string, number>>((a, d) => ((a[String(d.day)] = (a[String(d.day)] ?? 0) + N(d.n)), a), {})).map(([day, n]) => ({ day, n }))),
   };
 }
 export const getQrDashboard = (days: RangeDays, advertiserId?: string) =>
-  unstable_cache(() => loadQr(days, advertiserId), ["dash-qr-v1", String(days), advertiserId ?? "all"], {
+  unstable_cache(() => loadQr(days, advertiserId), ["dash-qr-v2", String(days), advertiserId ?? "all"], {
     revalidate: 300,
     tags: ["dash"],
   })();
