@@ -43,7 +43,7 @@ const claimSchema = z.object({
 });
 
 /**
- * No emails are sent to submitters. Submissions go to Neon `inquiries` (+ private Google Sheet mirror) and, outside Vercel, appended to a local JSONL file (data/ is git-ignored).
+ * No emails are sent to submitters. Submissions go to Neon `inquiries` (no Sheet mirror; owner notice OFF unless INQUIRY_NOTIFY_ENABLED=true) and, outside Vercel, appended to a local JSONL file (data/ is git-ignored).
  * On Vercel the filesystem is read-only, so they appear in the function logs only until a real store is chosen.
  */
 async function store(kind: string, data: Record<string, unknown>) {
