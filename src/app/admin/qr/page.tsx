@@ -12,7 +12,9 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ k
   const { key, days: d } = await searchParams;
   if (!validAdminKey(key)) notFound();
   const days = rangeDays(d);
-  const q = await getQrDashboard(days).catch(() => null);
+  const raw = await getQrDashboard(days).catch((e: Error) => (console.error("[dashboard]", e.message), "error" as const));
+  const failed = raw === "error";
+  const q = failed ? null : raw;
   return (
     <DashShell>
       <header className="flex flex-wrap items-end justify-between gap-4 border-b-4 border-[#E01820] pb-3">
@@ -25,7 +27,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ k
       </header>
       <p><a className="text-sm font-bold text-[#0E7C86] underline" href={`/admin/dashboard?key=${encodeURIComponent(key!)}&days=${days}`}>← Overall dashboard</a></p>
       {!q ? (
-        <p className="rounded border border-[#d0d4dc] p-4" data-testid="no-db">No database connected in this environment, so there is nothing to chart.</p>
+        <p className="rounded border border-[#d0d4dc] p-4" data-testid="no-db">{failed ? "Could not load data from the database (see server logs)." : "No database connected in this environment, so there is nothing to chart."}</p>
       ) : (
         <>
           <section className="rounded-lg border border-[#d0d4dc] p-4">

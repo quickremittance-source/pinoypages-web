@@ -13,7 +13,9 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ k
   const { key, days: d } = await searchParams;
   if (!validAdminKey(key)) notFound();
   const days = rangeDays(d);
-  const o = await getOverview(days).catch(() => null);
+  const raw = await getOverview(days).catch((e: Error) => (console.error("[dashboard]", e.message), "error" as const));
+  const failed = raw === "error";
+  const o = failed ? null : raw;
   const k = encodeURIComponent(key!);
   return (
     <DashShell>
@@ -31,7 +33,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ k
         <a href={`/admin/analytics?key=${k}`}>Classic analytics</a>
       </nav>
       {!o ? (
-        <p className="rounded border border-[#d0d4dc] p-4" data-testid="no-db">No database connected in this environment, so there is nothing to chart.</p>
+        <p className="rounded border border-[#d0d4dc] p-4" data-testid="no-db">{failed ? "Could not load data from the database (see server logs)." : "No database connected in this environment, so there is nothing to chart."}</p>
       ) : (
         <>
           <dl className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-7">
