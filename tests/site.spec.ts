@@ -811,7 +811,7 @@ test("home: value proposition, category tiles, featured Verified, Get Verified C
       .getByRole("link", { name: /Get Verified/ })
       .first(),
   ).toHaveAttribute("href", "/get-verified");
-  for (const href of ["/tools/hst-checker", "/tools/cpp-estimator", "/tax-deadlines", "/calendar"])
+  for (const href of ["/tools/hst-checker", "/tools/cpp-estimator", "/calendar?type=deadline", "/calendar"])
     await expect(page.locator(`main a[href="${href}"]`).first()).toBeVisible();
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
 });
@@ -993,7 +993,7 @@ test("calendar: list and month views, filters by category, city and free/feature
 }) => {
   await page.goto("/calendar");
   const list = page.locator("#cal [data-list] [data-ev]");
-  await expect(page.getByTestId("event-count")).toHaveText(`${guide.events.length} events`);
+  await expect(page.getByTestId("event-count")).toHaveText(`${guide.events.length} items`);
   // Featured events sit at the top of their month.
   for (const g of await page.locator("[data-month-group]").all()) {
     const tiers = await g.locator("[data-ev]").evaluateAll((els) => els.map((e) => e.getAttribute("data-event-tier")));

@@ -22,7 +22,7 @@ const TOOLS = [
     t: t.title,
     d: t.id === "hst" ? "Do you need to register for HST?" : "What will CPP cost you this year?",
   })),
-  { href: "/tax-deadlines", t: "2027 tax deadlines", d: "The CRA dates that matter for your 2026 return." },
+  { href: "/calendar?type=deadline", t: "2027 tax deadlines", d: "The CRA dates that matter for your 2026 return." },
   { href: "/calendar", t: "Money & Business Calendar", d: "Deadlines and community events, Spring to Fall." },
 ];
 

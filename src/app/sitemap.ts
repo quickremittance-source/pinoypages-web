@@ -8,7 +8,6 @@ import { listZcards } from "@/lib/adsRepo";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const paths = [
     "/",
-    "/tax-deadlines",
     "/directory",
     "/edition",
     "/magazine",

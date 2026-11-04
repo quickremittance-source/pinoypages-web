@@ -26,6 +26,7 @@ export function CalendarControls({
   const [cat, setCat] = useState("");
   const [city, setCity] = useState("");
   const [tier, setTier] = useState("");
+  const [type, setType] = useState("");
   const [shown, setShown] = useState<number | null>(null);
 
   useEffect(() => {
@@ -35,6 +36,7 @@ export function CalendarControls({
     setCat(p.get("cat") ?? "");
     setCity(p.get("city") ?? "");
     setTier(p.get("tier") ?? "");
+    setType(["event", "deadline"].includes(p.get("type") ?? "") ? p.get("type")! : "");
   }, [months]);
 
   useEffect(() => {
@@ -44,7 +46,8 @@ export function CalendarControls({
     const match = (el: HTMLElement) =>
       (!cat || el.dataset.cat === cat) &&
       (!city || el.dataset.city === city) &&
-      (!tier || el.dataset.eventTier === tier);
+      (!tier || el.dataset.eventTier === tier) &&
+      (!type || el.dataset.type === type);
     let n = 0;
     root.querySelectorAll<HTMLElement>("[data-ev]").forEach((el) => {
       const ok = match(el);
@@ -64,9 +67,10 @@ export function CalendarControls({
     if (cat) p.set("cat", cat);
     if (city) p.set("city", city);
     if (tier) p.set("tier", tier);
+    if (type) p.set("type", type);
     const qs = p.toString();
     window.history.replaceState(null, "", qs ? `?${qs}` : window.location.pathname);
-  }, [target, view, month, cat, city, tier]);
+  }, [target, view, month, cat, city, tier, type]);
 
   const i = months.findIndex((m) => m.value === month);
   const sel = "field mt-1 py-2";
@@ -112,7 +116,15 @@ export function CalendarControls({
           </div>
         )}
       </div>
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
+        <label className="block text-sm font-semibold">
+          Show
+          <select className={sel} value={type} onChange={(e) => setType(e.target.value)} data-testid="type-filter">
+            <option value="">Events and deadlines</option>
+            <option value="event">Events only</option>
+            <option value="deadline">Tax deadlines only</option>
+          </select>
+        </label>
         <label className="block text-sm font-semibold">
           Category
           <select className={sel} value={cat} onChange={(e) => setCat(e.target.value)}>
@@ -145,8 +157,8 @@ export function CalendarControls({
           {shown === null
             ? ""
             : shown === 0
-              ? "No events match these filters."
-              : `${shown} event${shown === 1 ? "" : "s"}`}
+              ? "Nothing matches these filters."
+              : `${shown} item${shown === 1 ? "" : "s"}`}
         </p>
       </div>
     </div>
