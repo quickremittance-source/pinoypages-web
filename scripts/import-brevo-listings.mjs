@@ -244,7 +244,8 @@ if (process.env.DATABASE_URL) {
        on conflict (brevo_contact_id) where brevo_contact_id is not null do update set
          name=excluded.name, category=excluded.category, area=excluded.area, address=excluded.address,
          phone=excluded.phone, website=excluded.website, source=excluded.source, data=excluded.data,
-         status='published', updated_at=now()`,
+         status='published', updated_at=now()
+       where listings.locked is not true`,
       [
         l.listing_id,
         l.id,
@@ -263,7 +264,7 @@ if (process.env.DATABASE_URL) {
   for (let i = 0; i < qs.length; i += 100) await sql.transaction(qs.slice(i, i + 100));
   // Rows that no longer qualify are hidden, not deleted (deletions need Jose's approval).
   await sql.query(
-    "update listings set status='hidden', updated_at=now() where brevo_contact_id is not null and not (brevo_contact_id = any($1)) and status <> 'hidden'",
+    "update listings set status='hidden', updated_at=now() where brevo_contact_id is not null and not (brevo_contact_id = any($1)) and status <> 'hidden' and locked is not true",
     [out.map((l) => l.brevo_contact_id)],
   );
   await sql.query("insert into sync_runs (source, rows_upserted) values ('brevo', $1)", [out.length]);
