@@ -76,8 +76,16 @@ export function ZCardBridge({ l, standalone = false }: { l: Listing; standalone?
         )}
 
         <p className="mt-4 text-sm text-muted">
-          {l.area} · Languages: {l.languages}
+          {l.area}
+          {l.languages && <> · Languages: {l.languages}</>}
         </p>
+        {l.email && (
+          <p className="mt-1 text-sm" data-testid="card-email">
+            <a className="text-turqdk underline" href={`mailto:${l.email}`}>
+              {l.email}
+            </a>
+          </p>
+        )}
         {l.hours && <p className="mt-1 text-sm text-muted">Hours: {l.hours}</p>}
 
         <div className="mt-4 grid grid-cols-2 gap-2">

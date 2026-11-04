@@ -105,3 +105,29 @@ test("category tiles show a section count from public listings", async ({ page }
   await page.goto("/directory");
   await expect(page.getByTestId("section-count").first()).toContainText(/\d+ listings · \d+ verified/);
 });
+
+test("migration splitter: statements followed by '; --' comments split correctly", async () => {
+  const { splitSql } = await import("../scripts/sql-split.mjs");
+  const src = [
+    "alter table listings add column if not exists locked boolean; -- sync lock",
+    "alter table ads add column if not exists end_date date;   -- ends; inclusive",
+    "create table t (a text default 'x;--y'); -- quoted ; and -- kept",
+    "create function f() returns int as $$ select 1; -- inside body\n $$ language sql; -- after",
+    "-- trailing comment only",
+  ].join("\n");
+  const out = splitSql(src);
+  expect(out).toHaveLength(4);
+  expect(out[0]).toBe("alter table listings add column if not exists locked boolean");
+  expect(out[1]).toBe("alter table ads add column if not exists end_date date");
+  expect(out[2]).toBe("create table t (a text default 'x;--y')");
+  expect(out[3]).toContain("$$ select 1; -- inside body\n $$ language sql");
+  for (const s of out) expect(s.trim().startsWith("--")).toBe(false);
+});
+
+test("ZCard from Neon: email and languages when present, omitted (not invented) when missing", async () => {
+  const { parseLanguages } = await import("../src/lib/cardParse");
+  expect(parseLanguages(["Tagalog", "English", 3, " "])).toBe("Tagalog, English");
+  expect(parseLanguages("Ilocano")).toBe("Ilocano");
+  expect(parseLanguages(null)).toBeUndefined();
+  expect(parseLanguages({})).toBeUndefined();
+});

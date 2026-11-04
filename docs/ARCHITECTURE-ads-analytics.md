@@ -92,7 +92,7 @@ Filters:
 **Reads:**
 - `src/lib/dashboards.ts` **[PR #18]** runs about 13 queries in parallel per range, cached with `unstable_cache` for 300 s per range or advertiser.
 - Charts are inline SVG (`src/components/admin/Charts.tsx`), with no chart library.
-- Correction from the design summary: **nothing writes `listing_event_daily` or `ad_event_daily`**, so the dashboard series for listing views, contacts and ad events stay at zero until `track()` also writes the daily tables.
+- **[PR #19]** `track()` now also writes the daily tables `listing_event_daily` and `ad_event_daily`, so the dashboard series fill in from the deploy date onward (no backfill).
 
 ## 7. Dashboards and access
 
@@ -100,7 +100,7 @@ Filters:
 - **QR trackers** **[PR #18]:** `/admin/qr?days=…`.
 - **Classic analytics:** `/admin/analytics`.
 - **Advertiser list:** `/admin/advertisers`. It links each advertiser's private stats page, which is how admin can see every advertiser.
-- **Admin key check:** `validAdminKey()` (`src/lib/analytics/token.ts`, timing-safe). A missing or wrong key gives a 404. Every admin page is noindex.
+- **Admin sign-in [PR #25]:** `/admin/login` (POST the key once) sets the `pp_admin` cookie: HttpOnly, Secure, SameSite=Strict, 8 h, HMAC-signed with ADMIN_KEY (`src/lib/adminSession.ts`). Without a valid session every admin page, admin route and server action gives a 404. No key in any URL. Login is rate-limited (5 failures per 10 min per IP, per instance). `/api/revalidate` and scripts keep the `x-admin-key` header. Every admin page is noindex.
 - **Advertiser view:** `/stats/<token>`, where the token is 36 hex characters (`advertisers.stats_token`, a random default in migration 003).
   - Shows monthly tables, plus **[PR #18]** a day-by-day section and that advertiser's QR codes.
   - Every query is filtered by `advertiser_id`.
@@ -118,10 +118,12 @@ Filters:
 | search_log | 005_zcard_search | search counts | yes | 5 |
 | site_daily | 003 | page views | yes | 103 |
 | listing_stats | 002 | monthly listing events | yes | 0 |
-| listing_event_daily | 005 | daily listing events | **no** | 0 |
+| listing_event_daily | 005 | daily listing events | yes (PR #19) | 0 |
 | qr_codes, qr_scan_daily | 005 | QR tracker | PR #18 (scans) | 0 |
-| zcards, ad_slots, ad_bookings, ad_event_daily | 005 | planned booking engine | **no** | 0 |
-| inquiries | 006 | form submissions | yes | 0 |
+| zcards, ad_slots, ad_bookings | 005 | planned booking engine | **no** | 0 |
+| ad_event_daily | 005 | daily ad events | yes (PR #19) | 0 |
+| admin_audit | 009 | before/after of every admin edit | yes (PR #24) | 0 |
+| inquiries | 006/008 | form submissions + onboarding decisions | yes | 0 |
 
 ## 9. Cost and Cloudflare
 
@@ -132,12 +134,11 @@ Filters:
 
 ## 10. Known gaps
 
-- `listing_event_daily`, `ad_event_daily`, `zcards`, `ad_slots` and `ad_bookings` are empty and unused.
-- Listings, QR and ZCard charts will show zeros.
+- `zcards`, `ad_slots` and `ad_bookings` are empty and unused. Daily counters start at the PR #19 deploy, so earlier days show zeros.
 - Vercel previews have no `DATABASE_URL`. They use the JSON fallback, and the dashboards show "No database connected".
 - Nov 3 includes about 467 test page views in `site_daily`. They are kept as-is.
 - `/q/<code>` (GA only) and `/qr/<code>` (Neon counter) are two separate QR systems.
-- Sync doesn't revalidate the cache, so changes can take up to an hour to appear.
+- The Brevo sync is paused. When it runs it revalidates the cache (PR #21); admin edits and approvals revalidate immediately.
 
 ## 11. Design review
 
@@ -156,4 +157,16 @@ Filters:
 4. **Previews have no database**, so they can't test DB features. Tests run against production also caused test rows (fixed by unsetting `DATABASE_URL` for tests). Use a Neon preview branch per PR through the Vercel integration.
 5. **One database write per page view** (`/api/pv`) is fine at today's volume. At scale, batch the writes, for example with a Cloudflare Worker or a queue flushing every minute.
 6. **At scale:** serve ZCard images from R2, and move QR redirects to a Worker with KV/edge caching.
-7. **Connect the daily listing/ad counters** to `track()`, or drop those tables, so the dashboards show real data.
+7. **Daily listing/ad counters [done, PR #19].**
+
+## 12. Changes in PRs #19–#26 (Nov 3–4, 2026)
+
+- **#19 Daily counters and multi-QR:** fixed dashboard SQL; `track()` writes `listing_event_daily`/`ad_event_daily`; a listing can have several labelled QR codes (`qr_codes`, one per placement), each counted in `qr_scan_daily`.
+- **#20 Onboarding (migration 008):** `/admin/inquiries` queue (approve / reject / spam). Approve creates the Neon listing or a draft ad, issues the first QR code, and links a welcome pack (`/admin/welcome/<listing>`) with PNG/SVG QR downloads and a draft email (never sent automatically). The Verified step records the ~15-minute live video identity check (`listings.video_check_at`); Verified is never sold. 008 adds `inquiries.decided_at`, `inquiries.created_ref`, `listings.video_check_at`, `listings.onboarded_inquiry`.
+- **#21 Revalidate:** `POST /api/revalidate` with header `x-admin-key` drops the `listings` cache tag (directory, counters, cards). Maintenance only: no public UI, 404 without the key. Approvals and Verified call it automatically. Nav: active page highlighted; deadlines merged into the calendar.
+- **#22 Menu:** Directory, Advertise, Magazine; Magazine dropdown holds Events & deadlines (`/calendar`) and Tools. `/advertise` explains the three ways: advertise, get Kabayan Verified ($199 per issue, live video check), or both.
+- **#23 Cards from Neon:** `/go`, `/card`, `/vcard` read paid listings from Neon (`src/lib/cardListing.ts`) as well as the bundled guide. Category tiles count public listings. Migration splitter (`scripts/sql-split.mjs`) strips `--` comments outside quotes and `$$` bodies, so `stmt; -- note` lines split correctly (tested).
+- **#24 Admin hub and editor (migration 009):** `/admin` hub (site analytics plus sortable per-listing, ad and ZCard metrics, 5-min cache). `/admin/listings` and `/admin/ads/manage` edit, hide/unhide, archive/restore and permanently delete (archived rows only, type DELETE). Every change is written to `admin_audit` (before/after JSON) in the same statement. Editing or hiding a listing sets `listings.locked`, which the Brevo import skips. 009 adds `listings.locked`, `listings.archived_at`, `ads.start_date`, `ads.end_date`, `ads.archived_at` and `admin_audit`.
+- **#25 Cookie sign-in:** see section 7. ADMIN_KEY was rotated in Production (Nov 3) and in the analytics-advertisers and ads-db Preview environments (Nov 4).
+- **#26 Empty categories and Others:** categories and sub-category tiles with no public listings (Neon `public_listings_v` via `listingsRepo`, JSON fallback) are hidden on tiles, the home grid, filters, counters and the sitemap. Nothing is deleted; they reappear when a listing is filed there. Listings with a missing or unknown category display under **Others** (display-only; stored data unchanged), shown last and hidden when empty.
+- **Follow-up (this PR):** ZCards for paid Neon listings show email and languages when the listings row has them (`listings.email`, `data.languages`); `public_listings_v` still has no email. Missing values are omitted, never invented. As of Nov 4 no listing has languages and no paid listing exists yet.

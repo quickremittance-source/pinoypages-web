@@ -94,7 +94,8 @@ export function ListingCard({ l, compact = false }: { l: Listing; compact?: bool
         {state === "active" && <PartnerStars n={partners} />}
       </div>
       <p className="mt-2 text-sm text-muted">
-        {l.area} · {l.languages}
+        {l.area}
+        {l.languages && ` · ${l.languages}`}
       </p>
       <div className="mt-auto flex flex-wrap gap-2 pt-4">
         <a href={`/go/${l.id}?via=call`} className="btn px-3.5 py-2 text-sm">
