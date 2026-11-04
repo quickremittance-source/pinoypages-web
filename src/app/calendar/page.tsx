@@ -21,7 +21,16 @@ import {
 } from "@/lib/guide";
 import { byMonthFeaturedFirst, dayLabel, monthGrid, monthKeyOf, monthLabel } from "@/lib/cal";
 
-export const metadata: Metadata = { title: "Money & Business Calendar", alternates: { canonical: "/calendar" } };
+export const metadata: Metadata = { title: "Events & tax deadlines calendar", alternates: { canonical: "/calendar" } };
+
+// Moved from the retired /tax-deadlines page (now redirects here with ?type=deadline).
+const checklist = [
+  "T4 / T4A slips from every employer or client",
+  "Receipts for business expenses, home office and vehicle log",
+  "RRSP, childcare and medical receipts",
+  "Rent or property tax receipts for the Ontario Trillium Benefit",
+  "Foreign income or property details (e.g. property in the Philippines) — ask a pro about form T1135",
+];
 
 const seasonOf = (d: string) => seasons.find((s) => s.months.includes(Number(d.slice(5, 7))))?.id ?? "fall";
 const catOf = (e: CalEvent) => (e.category ?? "community") as EventCategory;
@@ -31,6 +40,7 @@ const attrs = (e: CalEvent) => ({
   "data-city": e.city ?? "",
   "data-event-tier": e.tier,
   "data-kind": e.kind,
+  "data-type": e.kind === "deadline" ? "deadline" : "event",
 });
 
 function ListItem({ e }: { e: CalEvent }) {
@@ -66,6 +76,12 @@ function ListItem({ e }: { e: CalEvent }) {
   // Free basic: text only (no image, no button). Deadlines carry their CRA source.
   return (
     <li {...attrs(e)} className="border-b border-sand py-2.5 text-sm">
+      <span
+        data-testid="type-label"
+        className={`mr-1.5 inline-block rounded px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white ${e.kind === "deadline" ? "bg-[#E01820]" : "bg-[#0E7C86]"}`}
+      >
+        {e.kind === "deadline" ? "Tax deadline" : "Event"}
+      </span>
       <strong>{dayLabel(e.date)}</strong> ·{" "}
       {e.kind === "deadline" ? (
         e.name
@@ -201,6 +217,18 @@ export default function Page() {
           </div>
         </div>
         <p className="text-sm text-muted">{brand.eventNote}</p>
+
+        <section aria-labelledby="cl" className="card p-5" id="tax-checklist">
+          <h2 id="cl" className="text-xl font-bold text-ink">
+            Tax season: bring to your tax preparer
+          </h2>
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
+            {checklist.map((c) => (
+              <li key={c}>{c}</li>
+            ))}
+          </ul>
+          <p className="mt-2 text-xs text-muted">Deadlines are for the 2026 tax year. Source: Canada Revenue Agency.</p>
+        </section>
 
         <section aria-labelledby="print" className="card p-5" data-print-mirror>
           <h2 id="print" className="text-xl font-bold text-ink">

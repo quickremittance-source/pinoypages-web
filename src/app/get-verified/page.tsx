@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageHead } from "@/components/Chrome";
+import { AdvertiseTabs } from "@/components/AdvertiseTabs";
 import { GetVerified } from "@/components/GetVerified";
 import { brand, listings } from "@/lib/guide";
 import { publicListings } from "@/lib/public";
@@ -16,6 +17,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ l
         title="Be the kabayan they can trust"
         intro="Get Verified for $199 per issue, everything included: the Verified Kabayan badge (earned, never bought), your ZCard, a QR for everything you print, and a monthly scan report that shows people found you."
       />
+      <AdvertiseTabs current="/get-verified" />
       <GetVerified l={l} />
     </>
   );

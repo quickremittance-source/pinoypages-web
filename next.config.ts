@@ -23,7 +23,9 @@ const nextConfig: NextConfig = {
     return [
       { source: "/tools/hst", destination: "/tools/hst-checker", permanent: true },
       { source: "/tools/cpp", destination: "/tools/cpp-estimator", permanent: true },
-      { source: "/deadlines", destination: "/tax-deadlines", permanent: true },
+      { source: "/deadlines", destination: "/calendar?type=deadline", permanent: true },
+      // Deadlines merged into the calendar (Jose, Nov 3).
+      { source: "/tax-deadlines", destination: "/calendar?type=deadline", permanent: true },
       // Tagalog Get Listed page retired (Jose, 30 Oct): fall back to the English article.
       { source: "/magazine/get-listed/tl", destination: "/magazine/get-listed", permanent: false },
     ];

@@ -1,16 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SearchBox } from "@/components/SearchBox";
-import { liveTools } from "@/lib/registry";
+import { NavLinks } from "@/components/NavLinks";
 import { brand } from "@/lib/guide";
 
 const nav = [
-  { href: "/advertise", label: "Advertise" },
   { href: "/directory", label: "Directory" },
-  { href: "/get-verified", label: "Get Verified" },
-  { href: liveTools[0]?.route ?? "/", label: "Free tools" },
-  { href: "/tax-deadlines", label: "Deadlines" },
-  { href: "/calendar", label: "Calendar" },
+  // Advertise + Get Verified share one menu item (Jose, Nov 3); both pages stay, linked by tabs.
+  { href: "/advertise", label: "Advertise & Get Verified", match: ["/get-verified"] },
+  // "Free tools" hidden from the menu (Nov 3); /tools/* pages and routes stay live.
+  { href: "/calendar", label: "Events & deadlines" },
   { href: "/magazine", label: "Magazine" },
 ];
 
@@ -55,13 +54,7 @@ export function Header() {
         </div>
         <nav aria-label="Main" className="hidden md:block">
           <ul className="flex items-center gap-1 text-sm font-semibold text-ink">
-            {nav.map((n) => (
-              <li key={n.href}>
-                <Link className="inline-block rounded-md px-2.5 py-2 hover:bg-aqua hover:text-sea" href={n.href}>
-                  {n.label}
-                </Link>
-              </li>
-            ))}
+            <NavLinks items={nav} />
           </ul>
         </nav>
         <SearchBox className="hidden w-56 lg:flex" />
@@ -74,13 +67,7 @@ export function Header() {
       </div>
       <nav aria-label="Main (mobile)" className="border-t border-sand md:hidden">
         <ul className="flex gap-1 overflow-x-auto px-2 py-1 text-sm font-semibold whitespace-nowrap text-ink">
-          {nav.map((n) => (
-            <li key={n.href}>
-              <Link className="inline-block rounded-md px-2.5 py-2" href={n.href}>
-                {n.label}
-              </Link>
-            </li>
-          ))}
+          <NavLinks items={nav} mobile />
         </ul>
       </nav>
     </header>

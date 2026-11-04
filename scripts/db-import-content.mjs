@@ -2,6 +2,7 @@
 // longer in the files. Sample/demo/fictional rows (sample: true) are never imported.
 // Usage: DATABASE_URL=... node scripts/db-import-content.mjs
 import { neon } from "@neondatabase/serverless";
+import { revalidateListings } from "./revalidate.mjs";
 import { readFile } from "node:fs/promises";
 
 if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL not set");
@@ -82,3 +83,4 @@ const want = {
 const ok = Object.keys(want).every((k) => c[k] === want[k]);
 console.log(JSON.stringify({ db: c, files: want, match: ok, skippedSamples: guide.events.length - events.length }));
 if (!ok) process.exit(1);
+await revalidateListings();
