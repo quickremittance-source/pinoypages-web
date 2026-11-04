@@ -2,7 +2,7 @@ import { siteSummary, type Range } from "@/lib/siteAnalytics";
 import { SimpleTable } from "./Tables";
 
 /** Site-wide first-party analytics (Neon). Renders a note when DATABASE_URL is not set. */
-export async function SiteAnalytics({ range, adminKey }: { range: Range; adminKey: string }) {
+export async function SiteAnalytics({ range }: { range: Range }) {
   const s = await siteSummary(range).catch((e) => {
     console.warn("[admin] site summary failed", (e as Error).message);
     return null;
@@ -13,7 +13,6 @@ export async function SiteAnalytics({ range, adminKey }: { range: Range; adminKe
         Site traffic
       </h2>
       <form method="get" className="flex flex-wrap items-end gap-3 text-sm">
-        <input type="hidden" name="key" value={adminKey} />
         <label className="flex flex-col">
           From
           <input type="date" name="from" defaultValue={range.from} className="border p-1" />

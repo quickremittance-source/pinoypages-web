@@ -1,7 +1,7 @@
 "use server";
 import { redirect } from "next/navigation";
 import { revalidateTag } from "next/cache";
-import { validAdminKey } from "@/lib/analytics/token";
+import { assertAdmin } from "@/lib/adminSession";
 import { parseAdForm, parseListingForm } from "@/lib/adminEdit";
 import {
   AD_OPS,
@@ -17,13 +17,9 @@ import {
 } from "@/lib/adminEditDb";
 import { revalidateListings } from "@/lib/revalidateListings";
 
-const keyOf = (fd: FormData) => {
-  const k = String(fd.get("key") ?? "");
-  if (!validAdminKey(k)) throw new Error("forbidden");
-  return k;
-};
-const back = (k: string, path: string, msg: string): never =>
-  redirect(`${path}${path.includes("?") ? "&" : "?"}key=${encodeURIComponent(k)}&msg=${encodeURIComponent(msg)}`);
+const keyOf = async () => assertAdmin();
+const back = (_: unknown, path: string, msg: string): never =>
+  redirect(`${path}${path.includes("?") ? "&" : "?"}msg=${encodeURIComponent(msg)}`);
 /** Every change: refresh the public listing cache (directory, counters) and the 5-min admin dashboards. */
 const refresh = () => {
   revalidateListings();
@@ -40,7 +36,7 @@ const run = async (fn: () => Promise<boolean>, ok: string) => {
 };
 
 export async function saveListingAction(fd: FormData) {
-  const k = keyOf(fd);
+  const k = await keyOf();
   const id = String(fd.get("listing_id"));
   let msg: string;
   try {
@@ -53,7 +49,7 @@ export async function saveListingAction(fd: FormData) {
 }
 
 export async function listingOpAction(fd: FormData) {
-  const k = keyOf(fd);
+  const k = await keyOf();
   const id = String(fd.get("listing_id"));
   const op = String(fd.get("op"));
   if (op === "delete") {
@@ -70,7 +66,7 @@ export async function listingOpAction(fd: FormData) {
 }
 
 export async function saveAdAction(fd: FormData) {
-  const k = keyOf(fd);
+  const k = await keyOf();
   const slug = String(fd.get("slug"));
   let msg: string;
   try {
@@ -83,7 +79,7 @@ export async function saveAdAction(fd: FormData) {
 }
 
 export async function adOpAction(fd: FormData) {
-  const k = keyOf(fd);
+  const k = await keyOf();
   const slug = String(fd.get("slug"));
   const op = String(fd.get("op"));
   if (op === "delete") {

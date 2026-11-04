@@ -1,18 +1,16 @@
+import { logoutAction } from "@/app/admin/login/actions";
 import { DashShell } from "@/components/admin/Charts";
 
-/** Shared chrome for the internal admin tools: title, section links (key carried), flash message. */
+/** Shared chrome for the internal admin tools: title, section links, flash message. */
 export function AdminFrame({
-  k,
   title,
   msg,
   children,
 }: {
-  k: string;
   title: string;
   msg?: string;
   children: React.ReactNode;
 }) {
-  const q = `?key=${encodeURIComponent(k)}`;
   return (
     <DashShell>
       <header className="border-b-4 border-[#E01820] pb-3">
@@ -20,13 +18,14 @@ export function AdminFrame({
         <h1 className="text-3xl font-bold text-[#002050]">{title}</h1>
       </header>
       <nav aria-label="Admin" className="flex flex-wrap gap-4 text-sm font-bold text-[#0E7C86] underline">
-        <a href={`/admin${q}`}>Hub</a>
-        <a href={`/admin/listings${q}`}>Listings</a>
-        <a href={`/admin/ads/manage${q}`}>Ads</a>
-        <a href={`/admin/inquiries${q}`}>Inquiries</a>
-        <a href={`/admin/dashboard${q}`}>Dashboard</a>
-        <a href={`/admin/qr${q}`}>QR</a>
-        <a href={`/admin/advertisers${q}`}>Advertisers</a>
+        <a href={`/admin`}>Hub</a>
+        <a href={`/admin/listings`}>Listings</a>
+        <a href={`/admin/ads/manage`}>Ads</a>
+        <a href={`/admin/inquiries`}>Inquiries</a>
+        <a href={`/admin/dashboard`}>Dashboard</a>
+        <a href={`/admin/qr`}>QR</a>
+        <a href={`/admin/advertisers`}>Advertisers</a>
+        <form action={logoutAction} className="inline"><button className="underline">Sign out</button></form>
       </nav>
       {msg && (
         <p role="status" data-testid="msg" className="rounded border border-[#0E7C86] bg-[#0E7C86]/5 p-3 text-sm">

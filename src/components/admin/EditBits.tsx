@@ -3,14 +3,12 @@ type Row = Record<string, unknown>;
 /** Hide/Unhide, Delete (archive, confirm tick), Restore and permanent Delete (archived only, type DELETE). */
 export function OpButtons({
   action,
-  k,
   idName,
   id,
   archived,
   live,
 }: {
   action: (fd: FormData) => Promise<void>;
-  k: string;
   idName: string;
   id: string;
   archived: boolean;
@@ -18,7 +16,6 @@ export function OpButtons({
 }) {
   const hidden = (
     <>
-      <input type="hidden" name="key" value={k} />
       <input type="hidden" name={idName} value={id} />
     </>
   );

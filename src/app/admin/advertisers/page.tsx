@@ -3,16 +3,15 @@ import { notFound } from "next/navigation";
 import { PageHead } from "@/components/Chrome";
 import { SimpleTable } from "@/components/admin/Tables";
 import { ADV_TIER_LABEL, listAdvertisers } from "@/lib/advertisers";
-import { validAdminKey } from "@/lib/analytics/token";
+import { isAdmin } from "@/lib/adminSession";
 import { listPlacements, SPONSORED_PRICE, sponsoredSlots } from "@/lib/sponsored";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Admin · advertisers", robots: { index: false, follow: false } };
 
-/** Advertisers in Neon with their private stats links. Needs ?key=ADMIN_KEY; 404 otherwise. */
-export default async function Page({ searchParams }: { searchParams: Promise<{ key?: string }> }) {
-  const { key } = await searchParams;
-  if (!validAdminKey(key)) notFound();
+/** Advertisers in Neon with their private stats links. Needs an admin session; 404 otherwise. */
+export default async function Page() {
+    if (!(await isAdmin())) notFound();
   const list = await listAdvertisers().catch((e) => {
     console.warn("[admin] advertisers failed", (e as Error).message);
     return null;
@@ -62,11 +61,11 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ k
           />
         )}
         <p>
-          <a className="underline" href={`/admin/analytics?key=${encodeURIComponent(key!)}`}>
+          <a className="underline" href={`/admin/analytics`}>
             Site analytics
           </a>{" "}
           ·{" "}
-          <a className="underline" href={`/admin/ads?key=${encodeURIComponent(key!)}`}>
+          <a className="underline" href={`/admin/ads`}>
             Ads
           </a>
         </p>

@@ -1,3 +1,4 @@
+import { login } from "./adminLogin";
 import { expect, test } from "@playwright/test";
 import { parseAdForm, parseListingForm, sortRows, type MetricRow } from "../src/lib/adminEdit";
 
@@ -13,11 +14,12 @@ test("admin hub and editor pages 404 without the key or with a wrong key", async
 
 test("with the key (no DB here): noindex, admin nav, no-database notice, nothing public links to admin", async ({ page }) => {
   for (const p of ["/admin/listings", "/admin/ads/manage", "/admin/listings/x", "/admin/ads/x"]) {
-    await page.goto(`${p}?key=test-admin-key`);
+    if (p === "/admin/listings") await login(page);
+    await page.goto(p);
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
     await expect(page.getByTestId("no-db")).toBeVisible();
   }
-  await page.goto("/admin?key=test-admin-key");
+  await page.goto("/admin");
   await expect(page.getByRole("navigation", { name: "Admin" }).getByRole("link", { name: "Listings" })).toBeVisible();
   for (const p of ["/", "/directory", "/advertise"]) {
     await page.goto(p);

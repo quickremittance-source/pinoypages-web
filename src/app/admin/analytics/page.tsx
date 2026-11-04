@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import { PageHead } from "@/components/Chrome";
 import { EVENT_LABEL, last12, sum, type EventName } from "@/lib/analytics/events";
 import { store } from "@/lib/analytics/store";
-import { resultsToken, validAdminKey } from "@/lib/analytics/token";
+import { resultsToken } from "@/lib/analytics/token";
+import { isAdmin } from "@/lib/adminSession";
 import { listings } from "@/lib/guide";
 import { SiteAnalytics } from "@/components/admin/SiteAnalytics";
 import { parseRange } from "@/lib/siteAnalytics";
@@ -12,14 +13,14 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Admin · analytics", robots: { index: false, follow: false } };
 const COLS: EventName[] = ["view", "scan", "call", "map", "website", "tap"];
 
-/** Admin table of all listings (last 12 months). Needs ?key=ADMIN_KEY; 404 otherwise or if ADMIN_KEY unset. */
+/** Admin table of all listings (last 12 months). Needs an admin session; 404 otherwise or if ADMIN_KEY unset. */
 export default async function Page({
   searchParams,
 }: {
-  searchParams: Promise<{ key?: string; from?: string; to?: string }>;
+  searchParams: Promise<{ from?: string; to?: string }>;
 }) {
-  const { key, from, to } = await searchParams;
-  if (!validAdminKey(key)) notFound();
+  const { from, to } = await searchParams;
+  if (!(await isAdmin())) notFound();
   const all = await store().all();
   const months = last12();
   return (
@@ -30,9 +31,9 @@ export default async function Page({
         intro={`Site traffic for the chosen range; listing table covers the last 12 months (${months[0]} to ${months[11]}).`}
       />
       <div className="mx-auto max-w-6xl space-y-4 px-4 py-8">
-        <SiteAnalytics range={parseRange(from, to)} adminKey={key!} />
+        <SiteAnalytics range={parseRange(from, to)} />
         <p>
-          <a className="underline" href={`/admin/advertisers?key=${encodeURIComponent(key!)}`}>
+          <a className="underline" href={`/admin/advertisers`}>
             Advertisers and their private stats links
           </a>
         </p>
@@ -80,7 +81,7 @@ export default async function Page({
           </table>
         </div>
         <p>
-          <a className="underline" href={`/admin/analytics/summary?key=${encodeURIComponent(key!)}`}>
+          <a className="underline" href={`/admin/analytics/summary`}>
             Monthly summary emails for paid listings (drafts only; nothing is sent)
           </a>
         </p>

@@ -1,3 +1,4 @@
+import { login } from "./adminLogin";
 import { expect, test } from "@playwright/test";
 import { planFor, qrCodeFor, qrTargetFor, verifiedUntil, welcomeDraft } from "../src/lib/onboarding";
 
@@ -28,7 +29,8 @@ for (const p of ["/admin/inquiries", "/admin/welcome/abc", "/admin/qr-file/abc/q
   });
 }
 test("inquiry queue renders with key, noindex, no DB note", async ({ page }) => {
-  expect((await page.goto("/admin/inquiries?key=test-admin-key"))?.status()).toBe(200);
+  await login(page);
+  expect((await page.goto("/admin/inquiries"))?.status()).toBe(200);
   await expect(page.getByTestId("no-db")).toBeVisible();
   await expect(page.getByText("update the Brevo record yourself")).toBeVisible();
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);

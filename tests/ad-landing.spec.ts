@@ -1,6 +1,6 @@
+import { login } from "./adminLogin";
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
-import { TEST_ENV } from "../playwright.config";
 
 const landing = [
   { slug: "demo-full", photos: 4, buttons: ["Call", "WhatsApp", "Directions", "Website"] },
@@ -91,7 +91,8 @@ test("admin ads view: 404 without key; with key lists ads, QR links and redirect
 }) => {
   expect((await request.get("/admin/ads")).status()).toBe(404);
   expect((await request.get("/admin/ads?key=wrong")).status()).toBe(404);
-  await page.goto(`/admin/ads?key=${TEST_ENV.ADMIN_KEY}`);
+  await login(page);
+  await page.goto("/admin/ads");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Ad and QR analytics");
   await expect(page.getByTestId("admin-ads").locator("li")).toHaveCount(4);
   await expect(page.getByRole("link", { name: "PNG" })).toHaveCount(3);

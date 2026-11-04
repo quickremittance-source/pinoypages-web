@@ -96,10 +96,10 @@ Filters:
 
 ## 7. Dashboards and access
 
-- **Overall** **[PR #18]:** `/admin/dashboard?key=<ADMIN_KEY>&days=7|30|90`.
-- **QR trackers** **[PR #18]:** `/admin/qr?key=<ADMIN_KEY>&days=…`.
-- **Classic analytics:** `/admin/analytics?key=…`.
-- **Advertiser list:** `/admin/advertisers?key=…`. It links each advertiser's private stats page, which is how admin can see every advertiser.
+- **Overall** **[PR #18]:** `/admin/dashboard?days=7|30|90`.
+- **QR trackers** **[PR #18]:** `/admin/qr?days=…`.
+- **Classic analytics:** `/admin/analytics`.
+- **Advertiser list:** `/admin/advertisers`. It links each advertiser's private stats page, which is how admin can see every advertiser.
 - **Admin key check:** `validAdminKey()` (`src/lib/analytics/token.ts`, timing-safe). A missing or wrong key gives a 404. Every admin page is noindex.
 - **Advertiser view:** `/stats/<token>`, where the token is 36 hex characters (`advertisers.stats_token`, a random default in migration 003).
   - Shows monthly tables, plus **[PR #18]** a day-by-day section and that advertiser's QR codes.
@@ -152,7 +152,7 @@ Filters:
 **Risks and recommendations**
 1. **Top priority: reset the leaked Neon password.** The code can't confirm this either way. It is reported as not yet reset. Rotate it in Neon, then update `DATABASE_URL` in Vercel and in the local env files.
 2. **Advertiser token links never expire.** There is no expiry or revoke column (migration 003). Add `stats_token_expires_at` plus a "rotate token" admin action.
-3. **The admin key is passed in the URL (`?key=`)**, where it can end up in browser history and logs. Move it to an HttpOnly cookie session set by a login form.
+3. **Admin auth [done]:** `/admin/login` takes ADMIN_KEY once and sets an 8h HttpOnly, Secure, SameSite=Strict signed session cookie (signed with ADMIN_KEY, so rotating the key ends all sessions). No key in URLs. Scripts and `/api/revalidate` keep the `x-admin-key` header.
 4. **Previews have no database**, so they can't test DB features. Tests run against production also caused test rows (fixed by unsetting `DATABASE_URL` for tests). Use a Neon preview branch per PR through the Vercel integration.
 5. **One database write per page view** (`/api/pv`) is fine at today's volume. At scale, batch the writes, for example with a Cloudflare Worker or a queue flushing every minute.
 6. **At scale:** serve ZCard images from R2, and move QR redirects to a Worker with KV/edge caching.

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AdminFrame, NoDb } from "@/components/admin/AdminFrame";
-import { validAdminKey } from "@/lib/analytics/token";
+import { isAdmin } from "@/lib/adminSession";
 import { searchAds } from "@/lib/adminEditDb";
 
 export const dynamic = "force-dynamic";
@@ -14,16 +14,14 @@ export const metadata: Metadata = {
 export default async function Page({
   searchParams,
 }: {
-  searchParams: Promise<{ key?: string; q?: string; show?: string; msg?: string }>;
+  searchParams: Promise<{ q?: string; show?: string; msg?: string }>;
 }) {
-  const { key, q = "", show = "", msg } = await searchParams;
-  if (!validAdminKey(key)) notFound();
+  const { q = "", show = "", msg } = await searchParams;
+  if (!(await isAdmin())) notFound();
   const rows = await searchAds(q.trim().slice(0, 80), show);
-  const k = encodeURIComponent(key!);
   return (
-    <AdminFrame k={key!} title="Manage ads" msg={msg}>
+    <AdminFrame title="Manage ads" msg={msg}>
       <form className="flex flex-wrap items-end gap-2" data-testid="ad-search">
-        <input type="hidden" name="key" value={key} />
         <label className="text-sm">
           Search <input name="q" defaultValue={q} className="field ml-1" placeholder="slug or name" />
         </label>
@@ -35,7 +33,7 @@ export default async function Page({
           </select>
         </label>
         <button className="btn px-3 py-2 text-sm">Filter</button>
-        <a className="text-sm text-[#0E7C86] underline" href={`/admin/ads?key=${k}`}>
+        <a className="text-sm text-[#0E7C86] underline" href={`/admin/ads`}>
           Ad stats
         </a>
       </form>
@@ -67,7 +65,7 @@ export default async function Page({
                 <td className="p-2">
                   <a
                     className="font-bold text-[#0E7C86] underline"
-                    href={`/admin/ads/${encodeURIComponent(String(r.slug))}?key=${k}`}
+                    href={`/admin/ads/${encodeURIComponent(String(r.slug))}`}
                   >
                     Edit
                   </a>

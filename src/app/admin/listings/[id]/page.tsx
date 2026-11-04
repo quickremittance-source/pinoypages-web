@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { AdminFrame, NoDb, SyncWarning } from "@/components/admin/AdminFrame";
 import { AuditLog, OpButtons } from "@/components/admin/EditBits";
 import { listingOpAction, saveListingAction } from "@/app/admin/editActions";
-import { validAdminKey } from "@/lib/analytics/token";
+import { isAdmin } from "@/lib/adminSession";
 import { db } from "@/lib/db";
 import { getListing, listingAudit } from "@/lib/adminEditDb";
 import { LISTING_STATUSES, LISTING_TIERS } from "@/lib/adminEdit";
@@ -16,13 +16,13 @@ export const metadata: Metadata = {
   referrer: "no-referrer",
 };
 
-type P = { params: Promise<{ id: string }>; searchParams: Promise<{ key?: string; msg?: string }> };
+type P = { params: Promise<{ id: string }>; searchParams: Promise<{ msg?: string }> };
 export default async function Page({ params, searchParams }: P) {
-  const [{ id }, { key, msg }] = await Promise.all([params, searchParams]);
-  if (!validAdminKey(key)) notFound();
+  const [{ id }, { msg }] = await Promise.all([params, searchParams]);
+  if (!(await isAdmin())) notFound();
   if (!db())
     return (
-      <AdminFrame k={key!} title="Edit listing">
+      <AdminFrame title="Edit listing">
         <NoDb />
       </AdminFrame>
     );
@@ -31,14 +31,13 @@ export default async function Page({ params, searchParams }: P) {
   const audit = await listingAudit("listing", id);
   const s = (x: unknown) => (x == null ? "" : String(x));
   const archived = l.status === "archived";
-  const k = encodeURIComponent(key!);
   return (
-    <AdminFrame k={key!} title={`Edit listing: ${s(l.name)}`} msg={msg}>
+    <AdminFrame title={`Edit listing: ${s(l.name)}`} msg={msg}>
       {Boolean(l.from_brevo) && <SyncWarning />}
       <p className="text-sm">
         id <code>{s(l.listing_id)}</code> · status <strong>{s(l.status)}</strong>
         {l.locked ? " · locked (manual override)" : ""} ·{" "}
-        <a className="text-[#0E7C86] underline" href={`/admin/qr?key=${k}`}>
+        <a className="text-[#0E7C86] underline" href={`/admin/qr`}>
           QR stats
         </a>
       </p>
@@ -50,7 +49,6 @@ export default async function Page({ params, searchParams }: P) {
           className="grid gap-3 rounded-lg border border-[#d0d4dc] p-4 sm:grid-cols-2"
           data-testid="edit-listing"
         >
-          <input type="hidden" name="key" value={key} />
           <input type="hidden" name="listing_id" value={s(l.listing_id)} />
           {(
             [
@@ -116,7 +114,7 @@ export default async function Page({ params, searchParams }: P) {
       )}
       <OpButtons
         action={listingOpAction}
-        k={key!}
+       
         idName="listing_id"
         id={s(l.listing_id)}
         archived={archived}

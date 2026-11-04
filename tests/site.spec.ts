@@ -1,3 +1,4 @@
+import { login } from "./adminLogin";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import ideasData from "../content/story-ideas.json";
@@ -320,8 +321,9 @@ test("sold ad mirrors online with corner QR and tap-to-open button", async ({ pa
 // ---------- Per-listing analytics (v1): counting + access control ----------
 const hmac = (id: string) =>
   createHmac("sha256", TEST_ENV.ANALYTICS_SECRET).update(`results:${id}`).digest("base64url").slice(0, 32);
-const ADMIN = `/admin/analytics?key=${TEST_ENV.ADMIN_KEY}`;
+const ADMIN = "/admin/analytics";
 async function count(page: Page, id: string, event: string) {
+  await login(page);
   await page.goto(ADMIN);
   return Number(await page.locator(`tr[data-listing="${id}"] td[data-event="${event}"]`).innerText());
 }
@@ -401,7 +403,7 @@ test("analytics access control: signed results links, paid vs free, admin key", 
   await expect(page.getByRole("row", { name: /QR scans/ })).toHaveCount(0);
   for (const url of ["/admin/analytics", "/admin/analytics?key=wrong", "/admin/analytics/summary?key=wrong"])
     expect((await request.get(url)).status()).toBe(404);
-  const s = await (await request.get(`/admin/analytics/summary?key=${TEST_ENV.ADMIN_KEY}&month=2026-11`)).text();
+  const s = await (await page.request.get("/admin/analytics/summary?month=2026-11")).text();
   expect(s).toContain("DRAFTS ONLY — NOT SENT (2026-11)");
   expect(s).toContain("Bituin Tax & Bookkeeping: your Pinoy Pages counts for November 2026");
   expect(s).toContain("not a promise of future results");

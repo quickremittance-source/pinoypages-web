@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AdminFrame, NoDb, SyncWarning } from "@/components/admin/AdminFrame";
-import { validAdminKey } from "@/lib/analytics/token";
+import { isAdmin } from "@/lib/adminSession";
 import { searchListings } from "@/lib/adminEditDb";
 
 export const dynamic = "force-dynamic";
@@ -11,20 +11,18 @@ export const metadata: Metadata = {
   referrer: "no-referrer",
 };
 
-type SP = Promise<{ key?: string; q?: string; status?: string; msg?: string }>;
+type SP = Promise<{ q?: string; status?: string; msg?: string }>;
 export default async function Page({ searchParams }: { searchParams: SP }) {
-  const { key, q = "", status = "", msg } = await searchParams;
-  if (!validAdminKey(key)) notFound();
+  const { q = "", status = "", msg } = await searchParams;
+  if (!(await isAdmin())) notFound();
   const rows = await searchListings(
     q.trim().slice(0, 80),
     ["published", "hidden", "archived"].includes(status) ? status : "",
   );
-  const k = encodeURIComponent(key!);
   return (
-    <AdminFrame k={key!} title="Listings" msg={msg}>
+    <AdminFrame title="Listings" msg={msg}>
       <SyncWarning />
       <form className="flex flex-wrap items-end gap-2" data-testid="listing-search">
-        <input type="hidden" name="key" value={key} />
         <label className="text-sm">
           Search <input name="q" defaultValue={q} className="field ml-1" placeholder="name, id, area, category" />
         </label>
@@ -66,7 +64,7 @@ export default async function Page({ searchParams }: { searchParams: SP }) {
                   <td className="p-2">
                     <a
                       className="font-bold text-[#0E7C86] underline"
-                      href={`/admin/listings/${encodeURIComponent(r.listing_id)}?key=${k}`}
+                      href={`/admin/listings/${encodeURIComponent(r.listing_id)}`}
                     >
                       Edit
                     </a>

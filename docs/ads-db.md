@@ -2,7 +2,7 @@
 
 Status: implemented on branch `ads-db` against the Neon database connected to **Vercel Preview only**. Production is not connected and has not been migrated; without `DATABASE_URL` the site falls back to `content/ads.json`.
 
-Migrations: `db/migrations/*.sql`, applied with `npm run db:migrate` (refuses Production unless `ALLOW_PROD_MIGRATE=yes`). Demo seed: `npm run db:seed-demo` (DEMO ads only). Admin view: `/admin/ads?key=<ADMIN_KEY>`. The live schema is in `db/migrations/001_ads.sql`; the SQL below was the original proposal.
+Migrations: `db/migrations/*.sql`, applied with `npm run db:migrate` (refuses Production unless `ALLOW_PROD_MIGRATE=yes`). Demo seed: `npm run db:seed-demo` (DEMO ads only). Admin view: `/admin/ads` (sign in at `/admin/login`). The live schema is in `db/migrations/001_ads.sql`; the SQL below was the original proposal.
 
 ## Why
 
