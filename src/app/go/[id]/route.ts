@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { track } from "@/lib/analytics/track";
-import { isFeatured, isPaid, listingById, mapUrl } from "@/lib/guide";
+import { isFeatured, mapUrl } from "@/lib/guide";
+import { getCardListing } from "@/lib/cardListing";
 
 const VIA = { scan: "scan", tap: "tap", call: "call", map: "map", web: "website" } as const;
 type Via = keyof typeof VIA;
@@ -12,9 +13,9 @@ type Via = keyof typeof VIA;
  */
 export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const l = listingById(id);
-  // Counted links exist for paid tiers only (free listings have no QR).
-  if (!l || !isPaid(l)) return new NextResponse("Not found", { status: 404 });
+  // Counted links exist for paid tiers only (free listings have no QR). Guide first, then Neon.
+  const l = (await getCardListing(id))?.l;
+  if (!l) return new NextResponse("Not found", { status: 404 });
   const v = new URL(req.url).searchParams.get("via") ?? "scan";
   const via: Via = v in VIA ? (v as Via) : "scan";
   if (via === "call" && !isFeatured(l)) return new NextResponse("Not found", { status: 404 });
