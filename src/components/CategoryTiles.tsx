@@ -25,6 +25,10 @@ export async function CategoryTiles({ section }: { section: Section }) {
   const { listings } = await getPublicListings();
   const inSection = listings.filter((l) => l.category === section.slug || section.subcategories.includes(l.category));
   const top = topAreas(inSection, 5);
+  // Sub-categories with no public listings are hidden (not deleted); they come back once a listing is filed there.
+  const subs = categories.filter(
+    (c) => section.subcategories.includes(c.slug) && listings.some((l) => l.category === c.slug),
+  );
   return (
     <>
       <p className="mb-3 text-sm text-muted" data-testid="section-count">
@@ -38,10 +42,9 @@ export async function CategoryTiles({ section }: { section: Section }) {
         {inSection.filter((l) => l.verified).length} verified
         {top.length > 0 && ` · ${top.map(([a, n]) => `${a} ${n}`).join(" · ")}`}
       </p>
-      <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        {categories
-          .filter((c) => section.subcategories.includes(c.slug))
-          .map((c) => {
+      {subs.length > 0 && (
+      <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4" data-testid="sub-tiles">
+        {subs.map((c) => {
             const ls = listings.filter((l) => l.category === c.slug);
             const v = ls.filter((l) => l.verified).length;
             const top = topAreas(ls);
@@ -83,6 +86,7 @@ export async function CategoryTiles({ section }: { section: Section }) {
             );
           })}
       </ul>
+      )}
     </>
   );
 }

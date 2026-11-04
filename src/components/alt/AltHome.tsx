@@ -6,6 +6,7 @@ import { areaCounts, categoryCounts, communityEvents, featuredForAlt, GTA_AREAS,
 import { FeaturedGrid } from "./FeaturedGrid";
 import { PublicNote } from "./PublicNote";
 import { AdSlot } from "@/components/AdSlot";
+import { getPublicListings } from "@/lib/listingsRepo";
 
 const WHY = [
   {
@@ -25,8 +26,8 @@ const WHY = [
   },
 ];
 
-export function AltHome() {
-  const cats = categoryCounts();
+export async function AltHome() {
+  const cats = categoryCounts((await getPublicListings()).listings);
   const areas = areaCounts();
   const max = Math.max(...areas.map((a) => a.n));
   const total = areas.reduce((s, a) => s + a.n, 0);

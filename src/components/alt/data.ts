@@ -1,4 +1,4 @@
-import { publicCategories, publicListings } from "@/lib/public";
+import { nonEmptyCategories, publicListings, type PublicListing } from "@/lib/public";
 import {
   categories,
   EVENT_CATEGORIES,
@@ -29,9 +29,10 @@ export const CATEGORY_ICONS: Record<string, string> = {
 };
 
 /** Combined counts: SAMPLE Money & Business listings + free listings compiled from public information. */
-export const categoryCounts = () => [
+export const categoryCounts = (pub: PublicListing[] = publicListings) => [
+  // Sub-categories show only when public listings are filed there; empty categories are hidden, not deleted.
   ...categories
-    .filter((c) => listings.some((l) => l.category === c.slug))
+    .filter((c) => pub.some((l) => l.category === c.slug))
     .map((c) => ({
       slug: c.slug,
       name: c.name,
@@ -41,12 +42,12 @@ export const categoryCounts = () => [
       sample: listings.filter((l) => l.category === c.slug).length,
       verified: listings.filter((l) => l.category === c.slug && isPaid(l)).length,
     })),
-  ...publicCategories.map((c) => ({
+  ...nonEmptyCategories(pub).map((c) => ({
     slug: c.slug,
     name: c.name,
     href: `/directory?category=${c.slug}`,
     icon: c.icon,
-    total: publicListings.filter((l) => l.category === c.slug).length,
+    total: pub.filter((l) => l.category === c.slug).length,
     sample: 0,
     verified: 0,
   })),

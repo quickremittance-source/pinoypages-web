@@ -1,7 +1,7 @@
 import "server-only";
 import { unstable_cache } from "next/cache";
 import { db } from "@/lib/db";
-import { publicListings, type PublicListing } from "@/lib/public";
+import { publicListings, withKnownCategory, type PublicListing } from "@/lib/public";
 import { fromNeonRow, mergeListings, type NeonListingRow } from "@/lib/listingsMerge";
 
 export const LISTINGS_TAG = "listings";
@@ -28,7 +28,7 @@ async function load(): Promise<{ listings: PublicListing[]; source: "neon" | "fi
       publicListings,
       new Set(known.map((k) => k.listing_id)),
     );
-    return { listings, source: "neon" };
+    return { listings: listings.map(withKnownCategory), source: "neon" };
   } catch {
     return { listings: publicListings, source: "file" };
   }
