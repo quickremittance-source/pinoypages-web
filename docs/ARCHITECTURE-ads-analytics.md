@@ -1,6 +1,6 @@
 # PinoyPages: ad/listing engine and analytics engine on Neon
 
-Status as of Nov 3, 2026. Sources: `main` at `11be2fc` (PR #17) plus **PR #18 `dashboards` (not merged)**. Items only in PR #18 are marked **[PR #18, unmerged]**. Migrations 001–006 are applied in production. **007 is pending and not applied.**
+Status as of Nov 3, 2026. Sources: `main` at `11be2fc` (PR #17) plus **PR #18 `dashboards` (not merged)**. Items only in PR #18 are marked **[PR #18, unmerged]**. Migrations 001–009 are applied in production (007 verified Nov 4: constraint `qr_codes_target_pinoypages` present and validated).
 
 No keys, passwords or tokens appear in this document.
 
@@ -61,7 +61,7 @@ flowchart LR
 | `/qr/<id>/<file>` | `src/app/qr/[id]/[file]/route.ts` | QR image files. |
 | `/qr/<code>` **[PR #18, unmerged]** | `src/app/qr/[id]/route.ts` | Active `qr_codes` row → adds 1 to `qr_scan_daily` (code, day, device) → 302 redirect. The target must be `https://(www.)pinoypages.ca/go\|card/<id>`. A `/qr` target or any other host gets a 404. Check: `qrTarget()` in `src/lib/dashRange.ts`. |
 
-Migration **007 (pending)**, `db/migrations/007_qr_target_check.sql`, adds a CHECK constraint so `qr_codes.target_url` must match `^https://(www\.)?pinoypages\.ca/(go|card|qr)/…`.
+Migration **007 (applied in production, validated)**, `db/migrations/007_qr_target_check.sql`, adds a CHECK constraint so `qr_codes.target_url` must match `^https://(www\.)?pinoypages\.ca/(go|card|qr)/…`.
 
 ## 5. Inquiries
 
@@ -147,7 +147,7 @@ Filters:
 - **Resilience:** a JSON fallback for listings and ads when the database is missing or failing.
 - **Brevo as the editing source**, with manual, idempotent sync that hides rows instead of deleting them.
 - **Privacy by design:** no PII in counters; DNT/GPC are honoured; the public view leaves out contact data.
-- **QR target lock:** enforced in code by `qrTarget()` **[PR #18]**, and in the database by 007 (pending).
+- **QR target lock:** enforced in code by `qrTarget()` **[PR #18]**, and in the database by 007 (applied in production, validated).
 - **Simple stack:** Next.js, Neon and SVG charts.
 
 **Risks and recommendations**
