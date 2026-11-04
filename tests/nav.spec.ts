@@ -87,6 +87,8 @@ test("/advertise explains advertise, get Verified, or both", async ({ page }) =>
   await expect(w).toContainText("never bought");
   await expect(w).not.toContainText(/year|HST/i);
   await expect(w.getByRole("link", { name: "Get Verified" })).toHaveAttribute("href", "/get-verified");
+});
+
 test("migration splitter handles trailing comments and quotes", async () => {
   const { splitSql } = await import("../scripts/sql-split.mjs");
   expect(splitSql("alter table a add x int; -- note; here\nselect '--;x';\n-- only\n")).toEqual([
