@@ -28,8 +28,20 @@ export type PublicListing = {
   messenger?: string;
 };
 export type PublicCategory = { slug: string; name: string; icon: string; section: string };
-export const publicCategories = data.categories as PublicCategory[];
+export const OTHERS: PublicCategory = { slug: "others", name: "Others", icon: "📁", section: "community" };
+/** Known categories plus "Others" (always last). Lists show only those with at least one public listing. */
+export const publicCategories = [...(data.categories as PublicCategory[]), OTHERS];
+const KNOWN = new Set((data.categories as PublicCategory[]).map((c) => c.slug));
+/** Missing or unknown category → "others". Only the displayed value changes; stored data is untouched. */
+export const normalizeCategory = (c: string | null | undefined) => (c && KNOWN.has(c) ? c : OTHERS.slug);
+export const withKnownCategory = <T extends { category: string }>(l: T): T =>
+  normalizeCategory(l.category) === l.category ? l : { ...l, category: normalizeCategory(l.category) };
+/** Public category slugs that have at least one listing in `ls`, in display order (Others last). */
+export const nonEmptyCategories = (ls: { category: string }[]) => {
+  const has = new Set(ls.map((l) => l.category));
+  return publicCategories.filter((c) => has.has(c.slug));
+};
 export const publicListings = ([...data.listings, ...brevo.listings] as PublicListing[])
-  .slice()
+  .map(withKnownCategory)
   .sort((a, b) => a.name.localeCompare(b.name));
 export const publicIn = (slug: string) => publicListings.filter((l) => l.category === slug);
