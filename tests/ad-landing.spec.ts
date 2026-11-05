@@ -28,11 +28,11 @@ for (const t of landing) {
   });
 }
 
-test("quarter and zcard have no landing page: they redirect to the listing (or /directory)", async ({ request }) => {
+test("quarter and zcard have no landing page: they redirect to the listing (or /)", async ({ request }) => {
   for (const slug of ["demo-quarter", "demo-card"]) {
     const r = await request.get(`/ad/${slug}?src=qr`, { maxRedirects: 0 });
     expect([302, 307]).toContain(r.status());
-    expect(r.headers()["location"]).toMatch(/\/directory$|\/listing\//);
+    expect(r.headers()["location"]).toMatch(/\/$|\/listing\//);
   }
 });
 
@@ -96,7 +96,7 @@ test("admin ads view: 404 without key; with key lists ads, QR links and redirect
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Ad and QR analytics");
   await expect(page.getByTestId("admin-ads").locator("li")).toHaveCount(4);
   await expect(page.getByRole("link", { name: "PNG" })).toHaveCount(4);
-  await expect(page.getByText("redirects to /directory").first()).toBeVisible();
+  await expect(page.getByText("redirects to /").first()).toBeVisible();
   expect(await page.locator('meta[name="robots"]').getAttribute("content")).toContain("noindex");
 });
 

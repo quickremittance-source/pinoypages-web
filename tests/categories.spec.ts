@@ -5,7 +5,16 @@ import { directoryFilterOptions } from "../src/lib/directory";
 import type { PublicListing } from "../src/lib/public";
 
 const L = (id: string, category: string): PublicListing =>
-  ({ listing_id: id, id, name: id, category, area: "Toronto", tier: "free", verified: false, source: "" }) as PublicListing;
+  ({
+    listing_id: id,
+    id,
+    name: id,
+    category,
+    area: "Toronto",
+    tier: "free",
+    verified: false,
+    source: "",
+  }) as PublicListing;
 
 test("Others: missing or unknown categories map to others; known ones are untouched", () => {
   expect(normalizeCategory("food")).toBe("food");
@@ -33,10 +42,13 @@ test("directory and home: no zero-count category tiles, filters only list non-em
   await expect(page.getByTestId("sub-tiles")).toHaveCount(0);
   await expect(page.getByTestId("section-count")).toBeVisible();
   await expect(page.locator("text=/\\b0 listings\\b/")).toHaveCount(0);
-  const opts = await page.locator('select[name="category"] option').evaluateAll((o) => o.map((x) => (x as HTMLOptionElement).value));
+  const opts = await page
+    .locator('select[name="category"] option')
+    .evaluateAll((o) => o.map((x) => (x as HTMLOptionElement).value));
   expect(opts).not.toContain("others"); // bundled data has no uncategorised listings
   expect(opts).not.toContain("tax-accounting");
-  for (const c of await page.locator("[data-cat]").evaluateAll((e) => e.map((x) => x.getAttribute("data-cat")))) expect(c).not.toBe("others");
+  for (const c of await page.locator("[data-cat]").evaluateAll((e) => e.map((x) => x.getAttribute("data-cat"))))
+    expect(c).not.toBe("others");
   await page.goto("/");
   await expect(page.locator('a[href="/directory/tax-accounting"]')).toHaveCount(0);
 });
@@ -44,5 +56,7 @@ test("directory and home: no zero-count category tiles, filters only list non-em
 test("sitemap omits empty sub-category pages", async ({ request }) => {
   const x = await (await request.get("/sitemap.xml")).text();
   expect(x).toContain("/directory/money-business");
-  for (const s of ["tax-accounting", "insurance-financial", "business-services", "independents"]) expect(x).not.toContain(`/directory/${s}<`);
+  expect(x).not.toMatch(/pinoypages\.ca\/directory</); // index redirects to home
+  for (const s of ["tax-accounting", "insurance-financial", "business-services", "independents"])
+    expect(x).not.toContain(`/directory/${s}<`);
 });

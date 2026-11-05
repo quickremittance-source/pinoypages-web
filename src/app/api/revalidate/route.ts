@@ -9,7 +9,7 @@ import { LISTINGS_TAG } from "@/lib/listingsRepo";
 export async function POST(req: Request) {
   if (!validAdminKey(req.headers.get("x-admin-key"))) return new Response("Not found", { status: 404 });
   revalidateTag(LISTINGS_TAG);
-  for (const p of ["/", "/directory"]) revalidatePath(p);
+  for (const p of ["/"]) revalidatePath(p);
   revalidatePath("/directory/[category]", "page");
   return Response.json({ ok: true, revalidated: [LISTINGS_TAG] }, { headers: { "cache-control": "no-store" } });
 }

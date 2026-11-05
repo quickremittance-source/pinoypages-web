@@ -20,7 +20,6 @@ import { PNG } from "pngjs";
 
 const routes = [...new Set(guide.pages.map((p) => p.route))].concat([
   "/classic",
-  "/directory",
   "/edition",
   "/magazine",
   "/magazine/do-i-need-hst",
@@ -67,8 +66,6 @@ test("all ad slots (11 + calendar sponsor) show on /advertise as the online prev
     await expect(page.locator('aside[aria-label^="Ad space"], aside[aria-label^="Advertisement"]')).toHaveCount(0);
   }
 });
-
-
 
 test("claim flow from a listing validates then succeeds", async ({ page }) => {
   test.skip(
@@ -266,8 +263,10 @@ test("categories: Money & Business is the live category; Travel, Padala & Remit 
   const live = JSON.stringify([guide.categories, guide.listings, guide.ads, guide.adMenu]);
   expect(live).not.toMatch(/remit|padala|money transfer/i);
   await page.goto("/");
-  await expect(page.getByTestId("category-tag")).toHaveText("Category: Money & Business");
+  await expect(page.getByRole("heading", { name: /Category: Money & Business/ })).toBeVisible();
+  await expect(page.getByTestId("home-promo-strip")).toBeVisible();
   await page.goto("/directory");
+  await expect(page).toHaveURL(/\/$/);
   await expect(page.getByRole("heading", { name: /Category: Money & Business/ })).toBeVisible();
   const coming = page.locator('[data-section="travel-padala-remit"]');
   await expect(coming).toContainText("Coming next edition");
@@ -464,7 +463,9 @@ test("pilot menu = two tiers: Free / Verified $199 per issue (everything include
   expect(menu).not.toMatch(/lead|bundle|founding|bronze|silver|gold|platinum|starter|Verified Plus|Verified Ad/i);
   expect(JSON.stringify(guide)).not.toMatch(/\$(159|299|350|390|360|450|600|690|850)\b/);
   for (const o of guide.adMenu.filter((x) => x.price > 0)) expect(o.unit).toBe("per issue");
-  expect(JSON.stringify(guide)).not.toMatch(/\+ ?HST(?! checker)|plus applicable HST|per issue\/year|issue\/yr|renews yearly|billed yearly|One yearly price|vouch|in-person visit/i);
+  expect(JSON.stringify(guide)).not.toMatch(
+    /\+ ?HST(?! checker)|plus applicable HST|per issue\/year|issue\/yr|renews yearly|billed yearly|One yearly price|vouch|in-person visit/i,
+  );
   expect(JSON.stringify(guide)).toMatch(/\$99\.50 per issue/);
   expect(JSON.stringify(guide)).not.toMatch(/yearbook|guarantee(d)? (leads|results|calls)|results report|pinoypera/i);
   expect(guide.brand.siteUrl).toBe("https://pinoypages.ca");
@@ -493,7 +494,9 @@ test("pilot menu = two tiers: Free / Verified $199 per issue (everything include
       0,
     );
     await expect(page.getByText(/pay-per-lead|per lead/i)).toHaveCount(0);
-    await expect(page.getByText(/Verified is \$199 per issue, in CAD, shown before tax \(no HST charged\)/)).toBeVisible();
+    await expect(
+      page.getByText(/Verified is \$199 per issue, in CAD, shown before tax \(no HST charged\)/),
+    ).toBeVisible();
   }
   await page.goto("/upgrade");
   await expect(page.getByText(guide.brand.pitch)).toBeVisible();
@@ -675,7 +678,7 @@ test("directory search filters by name, sub-category, city and language (and syn
   await page.goto("/");
   await page.getByRole("search", { name: "Find a business" }).getByLabel("Business name").fill("perlas");
   await page.getByRole("button", { name: "Search" }).click();
-  await expect(page).toHaveURL(/\/directory\?q=perlas/);
+  await expect(page).toHaveURL(/\/\?q=perlas/);
   await expect(visible(page)).toHaveCount(1);
 });
 
@@ -1174,61 +1177,19 @@ test("alt-design: no fictional sample listings; old sample listing routes 404 cl
 });
 
 // ---------- alt-design: alternate home ----------
-test("alt home: search + GTA area dropdown, real counts, featured tabs, community events, why, consent signup", async ({
-  page,
-}) => {
+test("home is the Directory: collage hero, promo strip, search, categories, listings", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByTestId("alt-home")).toBeVisible();
-  await expect(page.getByTestId("confidential-badge")).toHaveText(/confidential draft/i);
-  await expect(page.getByTestId("brand-line")).toHaveText(
-    "Advertise in Pinoy Pages 2026–2027 · The Filipino Business Directory · GTA",
-  );
-  const opts = await page.locator("#alt-area option").allInnerTexts();
-  expect(opts).toEqual([
-    "All GTA",
-    "Toronto",
-    "Scarborough",
-    "North York",
-    "Etobicoke",
-    "Mississauga",
-    "Brampton",
-    "Markham",
-    "Vaughan",
-  ]);
-  const pubData = pub.listings as { category: string }[];
-  for (const li of await page.getByTestId("alt-categories").locator("li").all()) {
-    const href = (await li.locator("a").getAttribute("href"))!;
-    const slug = href.includes("category=")
-      ? new URL(href, "https://pinoypages.ca").searchParams.get("category")!
-      : href.split(/[/#]/).pop()!.replace(/^pub-/, "");
-    const n =
-      guide.listings.filter((l) => l.category === slug).length + pubData.filter((l) => l.category === slug).length;
-    expect(Number(await li.getAttribute("data-count"))).toBe(n);
-  }
-  const areaTotal = (
-    await page
-      .getByTestId("alt-areas")
-      .locator("li")
-      .evaluateAll((els) => els.map((e) => Number(e.getAttribute("data-count"))))
-  ).reduce((a, b) => a + b, 0);
-  expect(areaTotal).toBe(guide.listings.length + pubData.length);
-  await expect(page.getByTestId("public-note")).toContainText("compiled from public information and are not verified");
-  // Samples removed: no Verified listings yet, so the badge is explained with a labelled generic example.
-  await expect(page.getByTestId("alt-badge-example")).toContainText("Example");
-  await expect(page.getByTestId("alt-badge-example")).toContainText("Your business name");
+  await expect(page.locator("[data-magazine-hero] h1")).toHaveText("Find a kabayan business you can trust");
+  const strip = page.getByTestId("home-promo-strip");
+  await expect(strip.getByRole("link", { name: "Advertise or get Verified" })).toHaveAttribute("href", "/advertise");
+  await expect(strip.getByRole("link", { name: "Read the Magazine" })).toHaveAttribute("href", "/magazine");
+  await expect(page.getByRole("search", { name: "Search the directory" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Category: Money & Business/ })).toBeVisible();
+  await expect(page.getByTestId("public-listings")).toBeVisible();
+  await expect(page.getByTestId("alt-home")).toHaveCount(0);
   const html = await page.content();
-  for (const n of ["Bituin", "Perlas Bookkeeping", "Hiraya", "Dagat Tax", "555-01", "example.com", "SAMPLE Money"])
+  for (const n of ["Bituin", "Perlas Bookkeeping", "Hiraya", "Dagat Tax", "555-01", "SAMPLE Money"])
     expect(html).not.toContain(n);
-  // Sample community events removed: the section is hidden until real events exist.
-  await expect(page.getByTestId("alt-events")).toHaveCount(0);
-  await expect(page.getByTestId("alt-why").locator("li")).toHaveCount(3);
-  await expect(page.getByLabel("Monthly member email sign-up")).toBeVisible();
-  const text = await page.getByRole("main").innerText();
-  expect(text).not.toMatch(/we verify every|\d,\d{3}\+|since 20\d\d|subscribers|Open now/i);
-  expect(await page.locator("main img").count()).toBe(0);
-  await page.locator("#alt-area").selectOption("Mississauga");
-  await page.getByRole("search").getByRole("button", { name: "Search" }).click();
-  await expect(page).toHaveURL(/\/directory\?.*area=Mississauga/);
 });
 
 test("public free listings: GTA only, free + unverified, sourced, name + contact only, no padala/remit", async ({
@@ -1301,7 +1262,7 @@ test("directory search and filters cover the free public listings", async ({ pag
     Math.min(48, missFood.length),
   );
   await search.getByRole("link", { name: "Clear" }).click();
-  await expect(page).toHaveURL(/\/directory\/?$/);
+  await expect(page).toHaveURL(/\/$/);
   await expect(page.getByTestId("search-count")).toHaveText(`${ls.length} businesses found`);
   await page.goto("/directory?q=harina");
   await expect(page).toHaveURL(/q=harina/);
@@ -1329,10 +1290,10 @@ test("directory pagination: page size, page 2 link, filter combos keep page in U
   await expect(page.getByTestId("directory-range")).toHaveText(`Showing 1–${pageSize} of ${total}`);
   const nav = page.getByTestId("directory-pagination");
   await expect(nav).toBeVisible();
-  await expect(nav.getByRole("link", { name: "Next page, page 2" })).toHaveAttribute("href", "/directory?page=2");
-  await expect(nav.getByRole("link", { name: "Go to page 2" })).toHaveAttribute("href", "/directory?page=2");
+  await expect(nav.getByRole("link", { name: "Next page, page 2" })).toHaveAttribute("href", "/?page=2");
+  await expect(nav.getByRole("link", { name: "Go to page 2" })).toHaveAttribute("href", "/?page=2");
   await nav.getByRole("link", { name: "Go to page 2" }).click();
-  await expect(page).toHaveURL(/\/directory\?page=2/);
+  await expect(page).toHaveURL(/\/\?page=2/);
   const remaining = total - pageSize;
   await expect(page.getByTestId("public-listings").locator("li[data-public]")).toHaveCount(
     Math.min(pageSize, remaining),
@@ -1408,18 +1369,16 @@ test("ad enquiry: size preselected from link, consent required, all four sizes a
   await expect(page.getByRole("status").first()).toContainText("We received your request");
 });
 
-test("home leads with advertising; directory stays as proof", async ({ page }) => {
+test("home is Directory with slim Advertise + Magazine strip; Book an ad stays in header", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByTestId("brand-line")).toContainText(
-    "Advertise in Pinoy Pages 2026–2027 · The Filipino Business Directory · GTA",
-  );
-  await expect(page.getByTestId("hero-ad-cta").getByRole("link", { name: "See ad sizes" })).toHaveAttribute(
-    "href",
-    "/advertise",
-  );
-  await expect(page.getByTestId("home-ad-sizes").locator("li")).toHaveCount(4);
-  await expect(page.getByRole("search", { name: "Find a business" })).toBeVisible();
+  await expect(page.getByTestId("home-promo-strip")).toBeVisible();
+  await expect(
+    page.getByTestId("home-promo-strip").getByRole("link", { name: "Advertise or get Verified" }),
+  ).toHaveAttribute("href", "/advertise");
+  await expect(page.getByRole("search", { name: "Search the directory" })).toBeVisible();
   await expect(page.locator("header").getByRole("link", { name: "Book an ad" })).toBeVisible();
+  await expect(page.getByTestId("brand-line")).toHaveCount(0);
+  await expect(page.getByTestId("home-ad-sizes")).toHaveCount(0);
 });
 
 test("public listing claim flow: get-verified names the listing and shows $199 per issue", async ({ page }) => {

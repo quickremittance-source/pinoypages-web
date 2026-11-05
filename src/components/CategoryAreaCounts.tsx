@@ -24,7 +24,7 @@ export function categoryAreaCounts(listings: PublicListing[]) {
   };
 }
 
-const q = (o: Record<string, string>) => `/directory?${new URLSearchParams(o).toString()}#results`;
+const q = (o: Record<string, string>) => `/?${new URLSearchParams(o).toString()}#results`;
 
 /**
  * Category counters with area counts. Computed from the same cached listing set the directory already loaded
@@ -59,7 +59,11 @@ export function CategoryAreaCounts({ listings }: { listings: PublicListing[] }) 
               {c.areas.map(([a, n], i) => (
                 <span key={a}>
                   {i > 0 && " · "}
-                  <Link href={q({ category: c.slug, area: a })} className="hover:underline" data-cat-area={`${c.slug}|${a}`}>
+                  <Link
+                    href={q({ category: c.slug, area: a })}
+                    className="hover:underline"
+                    data-cat-area={`${c.slug}|${a}`}
+                  >
                     {a} {n}
                   </Link>
                 </span>

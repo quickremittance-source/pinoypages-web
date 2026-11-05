@@ -8,14 +8,7 @@ test("collage assets stay small", () => {
   expect(statSync(path.join(dir, "collage.jpg")).size).toBeLessThanOrEqual(80 * 1024);
 });
 
-for (const route of [
-  "/magazine",
-  "/calendar",
-  "/directory",
-  "/directory/money-business",
-  "/advertise",
-  "/get-verified",
-]) {
+for (const route of ["/", "/magazine", "/calendar", "/directory/money-business", "/advertise", "/get-verified"]) {
   test(`magazine hero renders on ${route}`, async ({ page }) => {
     await page.goto(route);
     const hero = page.locator("[data-magazine-hero]");

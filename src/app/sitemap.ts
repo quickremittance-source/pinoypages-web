@@ -10,7 +10,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const used = new Set(pub.map((l) => l.category));
   const paths = [
     "/",
-    "/directory",
     "/edition",
     "/magazine",
     "/calendar",
