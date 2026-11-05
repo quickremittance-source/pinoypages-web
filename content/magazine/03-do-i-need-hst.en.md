@@ -4,7 +4,7 @@ slug: /guides/do-i-need-hst
 lang: en
 status: DRAFT — CONFIDENTIAL — not for publication
 seo_title: "Do I Need to Register for HST? The $30,000 Rule"
-meta_description: "Self-employed in Ontario? Learn how the CRA's $30,000 small supplier limit works, when you must register for GST/HST, and try our free HST checker."
+meta_description: "Self-employed in Ontario? Learn how the CRA's $30,000 small supplier limit works and when you must register for GST/HST."
 last_checked: 2026-10-17
 ---
 
@@ -23,7 +23,6 @@ Most businesses **must register for GST/HST once they are no longer a "small sup
 
 If you stay at **$30,000 or less** over four consecutive calendar quarters, you're a small supplier. You **don't have to register**, but you can choose to.
 
-> 👉 **Try it:** our free [HST registration checker](https://pinoypages.ca/tools/hst-checker) _[URL TBC]_ walks you through your quarter-by-quarter sales. It gives you a general indication only, not a ruling.
 
 ## What counts toward the $30,000
 
@@ -79,7 +78,7 @@ Some small suppliers choose to register so they can claim **input tax credits** 
 
 ---
 
-_General information only, not tax, legal or financial advice. The HST checker gives a general indication, not a CRA ruling. Check canada.ca or talk to a qualified professional about your situation. Last checked October 17, 2026._
+_General information only, not tax, legal or financial advice. Check canada.ca or talk to a qualified professional about your situation. Last checked October 17, 2026._
 
 **Sources**
 

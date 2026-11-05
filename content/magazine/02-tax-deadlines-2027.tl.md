@@ -42,7 +42,7 @@ Sa 2027, ifa-file mo ang tax return mo para sa **2026 tax year** (January 1 hang
 - **Monthly o quarterly filer:** mag-file at magbayad **isang buwan pagkatapos** ng bawat reporting period.
 - **Annual filer:** karaniwang **tatlong buwan pagkatapos** ng fiscal year-end mo. Pero kung **self-employed ka na December 31 ang year-end**, ang GST/HST **payment ay due sa April 30, 2027** at ang **filing ay sa June 15, 2027**.
 
-Hindi sigurado kung kailangan mong mag-register? Basahin ang [Kailangan ko bang mag-register sa HST?](/tl/guides/do-i-need-hst) o subukan ang [HST checker](https://pinoypages.ca/tools/hst-checker) _[URL TBC]_.
+Hindi sigurado kung kailangan mong mag-register? Basahin ang [Kailangan ko bang mag-register sa HST?](/tl/guides/do-i-need-hst).
 
 ## Rule kapag weekend o holiday
 

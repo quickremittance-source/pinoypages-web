@@ -1,10 +1,10 @@
 import type { MetadataRoute } from "next";
 import { abs, categories, events, isPaid, listings, sections } from "@/lib/guide";
 import { articles } from "@/lib/magazine";
-import { liveTools } from "@/lib/registry";
 import { bizPath, landings } from "@/lib/seo";
 import { listZcards } from "@/lib/adsRepo";
 import { getPublicListings } from "@/lib/listingsRepo";
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const { listings: pub } = await getPublicListings();
   const used = new Set(pub.map((l) => l.category));
@@ -22,7 +22,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/privacy",
     "/terms",
   ].concat(
-    liveTools.map((t) => t.route),
     sections.filter((s) => s.status === "live").map((s) => `/directory/${s.slug}`),
     // Sub-category pages only when they have public listings (hidden, not deleted, when empty).
     categories.filter((c) => used.has(c.slug)).map((c) => `/directory/${c.slug}`),

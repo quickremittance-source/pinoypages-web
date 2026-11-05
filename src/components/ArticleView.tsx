@@ -4,12 +4,11 @@ import { AdGrid } from "@/components/AdCard";
 import { ListingCard } from "@/components/ListingCard";
 import { adsForRoute, listingById, pages, type Listing } from "@/lib/guide";
 import { KIND_LABEL, readArticle, type Article } from "@/lib/magazine";
-import { liveTools } from "@/lib/registry";
 
 const TOOL_NAMES: Record<string, string> = {
-  ...Object.fromEntries(liveTools.map((t) => [t.route, t.title])),
   "/tax-deadlines": "2027 tax deadlines",
   "/calendar": "Money & Business Calendar",
+  "/calendar?type=deadline": "2027 tax deadlines",
 };
 const SEASON = { spring: "Spring", summer: "Summer", fall: "Fall" } as const;
 

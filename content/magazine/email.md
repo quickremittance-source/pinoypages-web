@@ -18,7 +18,7 @@ placeholders: "{first_name} {month} {year} {guide_title} {guide_summary} {guide_
 - Money notes ngayong `{month}`: `{guide_title}` + mga petsang dapat tandaan
 - Ang `{month}` update mo mula sa Pinoy Pages
 
-**Preheader:** One useful guide, the dates that matter this month, and a free tool. Takes 2 minutes to read.
+**Preheader:** One useful guide, the dates that matter this month, and the dates that matter. Takes 2 minutes to read.
 
 ---
 
@@ -26,7 +26,7 @@ placeholders: "{first_name} {month} {year} {guide_title} {guide_summary} {guide_
 
 Hi {first_name},
 
-Kumusta! Here's your **{month} {year}** update from **Pinoy Pages 2026–2027**: one useful read, the dates that matter, and a free tool.
+Kumusta! Here's your **{month} {year}** update from **Pinoy Pages 2026–2027**: one useful read and the dates that matter.
 
 **📖 This month's guide: {guide_title}**
 {guide_summary} (2–3 plain sentences. Every figure must match the cited official source in the article.)
@@ -39,7 +39,7 @@ Kumusta! Here's your **{month} {year}** update from **Pinoy Pages 2026–2027**:
 - {date_3}: {what's due}
   (Pull these only from the Tax deadlines page, which is sourced from canada.ca.)
 
-**🧮 Free tool of the month: {tool_name}**
+**📖 Featured guide: {tool_name}**
 {one sentence on what it does}. It gives a general estimate only → {tool_url}
 
 **💬 Your question, our next guide**
@@ -93,5 +93,5 @@ _Pangkalahatang impormasyon lamang ito, hindi tax, legal o financial advice. Hin
 
 - **guide_title:** 2027 tax season: the deadlines that matter
 - **dates:** March 1, 2027 (RRSP, ⚠️ PLACEHOLDER until the CRA confirms) · March 15, 2027 (1st 2027 instalment, if the CRA asked you) · April 30, 2027 (file and pay)
-- **tool:** Self-employed CPP estimator
+- **guide:** Self-employed CPP contributions
 - **question_prompt:** What's confusing you most about tax season this year?

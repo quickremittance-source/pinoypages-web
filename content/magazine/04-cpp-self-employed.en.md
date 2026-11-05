@@ -3,8 +3,8 @@ piece: 4
 slug: /guides/cpp-self-employed
 lang: en
 status: DRAFT — CONFIDENTIAL — not for publication
-seo_title: "CPP for Self-Employed in Canada (2026): Rates & Estimator"
-meta_description: "Self-employed? You pay both halves of CPP. See the official 2026 rates (11.9% and 8%), the maximums, worked examples, and our free CPP estimator."
+seo_title: "CPP for Self-Employed in Canada (2026): Rates"
+meta_description: "Self-employed? You pay both halves of CPP. See the official 2026 rates (11.9% and 8%), the maximums, and worked examples."
 last_checked: 2026-10-17
 ---
 
@@ -14,7 +14,6 @@ _From Pinoy Pages 2026–2027_
 
 When you work for an employer, CPP (Canada Pension Plan) comes off every paycheque and your employer pays the same amount again. **When you're self-employed, you pay both halves yourself**, usually when you file your tax return. For many Pinoys who go independent, this is the "surprise" on their first self-employed tax bill.
 
-> 👉 **Try it:** our free [self-employed CPP estimator](https://pinoypages.ca/tools/cpp-estimator) _[URL TBC]_ uses the official 2026 rates below. It gives an estimate only.
 
 ## Who pays
 
@@ -60,7 +59,7 @@ If you had employment income with CPP already deducted **and** self-employment i
 
 ---
 
-_General information only, not tax, legal or financial advice. The CPP estimator and the examples above are estimates, not a CRA calculation. Check canada.ca or talk to a qualified professional about your situation. Last checked October 17, 2026._
+_General information only, not tax, legal or financial advice. The examples above are estimates, not a CRA calculation. Check canada.ca or talk to a qualified professional about your situation. Last checked October 17, 2026._
 
 **Sources**
 
