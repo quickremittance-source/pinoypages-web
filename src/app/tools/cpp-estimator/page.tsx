@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PageHead } from "@/components/Chrome";
+import { MagazineHero } from "@/components/MagazineHero";
 import { CppTool } from "./CppTool";
 
 export const metadata: Metadata = {
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <PageHead
+      <MagazineHero
         kicker="Free tool"
         page={6}
         title="Self-employed CPP estimator"

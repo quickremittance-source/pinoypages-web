@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { PageHead } from "@/components/Chrome";
+import { MagazineHero } from "@/components/MagazineHero";
 import { listingById } from "@/lib/guide";
 import { storyIdeas } from "@/lib/ideas";
 
@@ -15,7 +15,7 @@ export default function Page() {
   const written = storyIdeas.filter((i) => i.status === "written").length;
   return (
     <>
-      <PageHead
+      <MagazineHero
         kicker="Editorial · Unlisted · SAMPLE"
         title="Story ideas"
         intro={`${storyIdeas.length} ideas for the pilot magazine, ${written} written as sample articles. Every linked business is a SAMPLE.`}

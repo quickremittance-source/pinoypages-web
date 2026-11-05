@@ -3,7 +3,7 @@ import Link from "next/link";
 import QRCode from "qrcode";
 import { notFound } from "next/navigation";
 import { LogoTile, VerifiedKabayan } from "@/components/Badge";
-import { PageHead } from "@/components/Chrome";
+import { MagazineHero } from "@/components/MagazineHero";
 import { EventPoster } from "@/components/EventPoster";
 import { ViewBeacon } from "@/components/ViewBeacon";
 import { abs, EVENT_CATEGORIES, eventHost, eventMapUrl, events, isPaid, type EventCategory } from "@/lib/guide";
@@ -34,7 +34,7 @@ export default async function Page({ params }: P) {
   return (
     <>
       {featured && <ViewBeacon id={e.id} />}
-      <PageHead
+      <MagazineHero
         kicker={`${featured ? "Featured event" : e.kind === "deadline" ? "CRA deadline" : "Event"} · ${cat}${e.sample ? " · SAMPLE" : ""}`}
         title={e.name}
       >
@@ -44,7 +44,7 @@ export default async function Page({ params }: P) {
           </Link>{" "}
           / <span aria-current="page">{dayLabel(e.date)}</span>
         </nav>
-      </PageHead>
+      </MagazineHero>
       <div className="mx-auto grid max-w-6xl gap-6 px-4 py-8 lg:grid-cols-[1fr_320px]" data-event-page={e.tier}>
         <div className="space-y-6">
           {featured && <EventPoster e={e} className="card w-full overflow-hidden" />}

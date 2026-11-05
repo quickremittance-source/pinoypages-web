@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PageHead } from "@/components/Chrome";
+import { MagazineHero } from "@/components/MagazineHero";
 import { AdGrid } from "@/components/AdCard";
 import { ListingCard } from "@/components/ListingCard";
 import { adsForRoute, listingById, pages, type Listing } from "@/lib/guide";
@@ -20,7 +20,7 @@ export function ArticleView({ a, lang }: { a: Article; lang: "en" | "tl" }) {
   const related = (a.listings ?? []).map(listingById).filter((l): l is Listing => !!l);
   return (
     <>
-      <PageHead
+      <MagazineHero
         kicker={
           a.sample
             ? `${a.kind ? KIND_LABEL[a.kind] : "Magazine"} · ${a.season ? SEASON[a.season] : ""} · SAMPLE`
@@ -35,7 +35,7 @@ export function ArticleView({ a, lang }: { a: Article; lang: "en" | "tl" }) {
             By <strong className="text-ink">{a.author ?? "Pinoy Pages Editorial (SAMPLE)"}</strong>
           </p>
         )}
-      </PageHead>
+      </MagazineHero>
       <div className={`mx-auto px-4 py-8 ${a.sample ? "grid max-w-6xl gap-8 lg:grid-cols-[1fr_320px]" : "max-w-3xl"}`}>
         <div>
           <p className="mb-4 text-sm">

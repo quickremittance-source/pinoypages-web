@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PageHead } from "@/components/Chrome";
+import { MagazineHero } from "@/components/MagazineHero";
 import { AdGrid } from "@/components/AdCard";
 import { CalendarControls } from "@/components/CalendarControls";
 import { EventPoster } from "@/components/EventPoster";
@@ -115,7 +115,7 @@ export default function Page() {
   const cities = [...new Set(events.map((e) => e.city ?? "").filter(Boolean))].sort();
   return (
     <>
-      <PageHead
+      <MagazineHero
         kicker={presented ? `Presented by ${presented}` : "Calendar"}
         page={11}
         title="Money & Business Calendar"
@@ -124,7 +124,7 @@ export default function Page() {
         <a href="#evform" className="btn mt-4">
           Submit your event
         </a>
-      </PageHead>
+      </MagazineHero>
       <div className="mx-auto max-w-6xl space-y-8 px-4 py-8">
         {!events.some((e) => e.kind === "community") && (
           <p data-testid="no-community-events" className="card p-4 text-ink">
