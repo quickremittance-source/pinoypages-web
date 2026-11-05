@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PageHead } from "@/components/Chrome";
+import { MagazineHero } from "@/components/MagazineHero";
 import { AdGrid } from "@/components/AdCard";
 import { UpcomingEvents } from "@/components/UpcomingEvents";
 import { adsForRoute, brand, pages } from "@/lib/guide";
@@ -14,7 +14,7 @@ export default function Page() {
   const [lead, ...rest] = sampleStories;
   return (
     <>
-      <PageHead
+      <MagazineHero
         kicker={`${brand.editionLabel} · Magazine`}
         title="Magazine"
         intro="Business profiles, practical money guides and community reporting from the Filipino business community in the GTA."

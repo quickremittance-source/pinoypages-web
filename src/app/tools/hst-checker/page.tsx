@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PageHead } from "@/components/Chrome";
+import { MagazineHero } from "@/components/MagazineHero";
 import { HstTool } from "./HstTool";
 
 export const metadata: Metadata = {
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <PageHead
+      <MagazineHero
         kicker="Free tool"
         page={5}
         title="Do I need to register for HST?"
