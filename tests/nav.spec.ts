@@ -59,7 +59,7 @@ test("/api/revalidate: 404 without a valid key header, GET is 404", async ({ req
   expect((await request.get("/api/revalidate")).status()).toBe(404);
 });
 
-test("Magazine menu holds Events & deadlines and Tools; top level is Home, Directory, Advertise, Magazine", async ({
+test("Magazine menu holds Events & deadlines; top level is Home, Directory, Advertise, Magazine", async ({
   page,
   isMobile,
 }) => {
@@ -68,7 +68,7 @@ test("Magazine menu holds Events & deadlines and Tools; top level is Home, Direc
   const top = nav().locator(":scope > ul > li > a, :scope > ul > li > span > a");
   await expect(top).toHaveText(["", "Directory", "Advertise", "Magazine"]);
   await expect(top.first()).toHaveAttribute("aria-label", "Home");
-  for (const p of ["/magazine", "/calendar", "/tools/hst-checker"]) {
+  for (const p of ["/magazine", "/calendar"]) {
     await page.goto(p);
     await expect(nav().getByRole("link", { name: "Magazine", exact: true })).toHaveAttribute("data-active", "true");
   }
@@ -78,13 +78,16 @@ test("Magazine menu holds Events & deadlines and Tools; top level is Home, Direc
     await btn.focus();
     await page.keyboard.press("Enter");
     await expect(btn).toHaveAttribute("aria-expanded", "true");
-    await expect(page.getByTestId("submenu").getByRole("link", { name: "Tools" })).toBeVisible();
+    await expect(page.getByTestId("submenu").getByRole("link", { name: "Events & deadlines" })).toBeVisible();
+    await expect(page.getByTestId("submenu").getByRole("link", { name: "Tools" })).toHaveCount(0);
     await page.keyboard.press("Escape");
     await expect(page.getByTestId("submenu")).toBeHidden();
     await page.getByRole("link", { name: "Magazine", exact: true }).hover();
     await expect(page.getByTestId("submenu").getByRole("link", { name: "Events & deadlines" })).toBeVisible();
+    await expect(page.getByTestId("submenu").getByRole("link", { name: "Tools" })).toHaveCount(0);
   } else {
     await expect(nav().getByRole("link", { name: "Events & deadlines" })).toHaveAttribute("href", "/calendar");
+    await expect(nav().getByRole("link", { name: "Tools" })).toHaveCount(0);
   }
 });
 

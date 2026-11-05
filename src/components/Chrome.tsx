@@ -14,7 +14,6 @@ const nav: NavItem[] = [
     label: "Magazine",
     children: [
       { href: "/calendar", label: "Events & deadlines" },
-      { href: "/tools/hst-checker", label: "Tools", match: ["/tools"] },
     ],
   },
 ];
