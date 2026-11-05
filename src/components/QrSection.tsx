@@ -15,9 +15,8 @@ export function QrSection({ l }: { l: Listing }) {
           Get Verified
         </h2>
         <p className="mt-2">
-          Verified ({money(verified.price)} per issue) gives you a dynamic QR to your web page, a ZCard
-          bridge page, a Save contact button and a monthly scan count, and makes you eligible for the Verified Kabayan
-          badge.
+          Kabayan Verified ({money(verified.price)} per issue) is an identity badge: it is earned through a ~15-minute
+          live video check, never bought. QR codes and ZCard business-card ads are advertiser products; see Advertise.
         </p>
         <Link className="btn mt-4" href={`/upgrade?listing=${l.id}`}>
           Upgrade to Verified

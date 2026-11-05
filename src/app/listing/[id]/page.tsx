@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { BadgeStateChip, LogoTile, PartnerStars, SampleChip, VerifiedKabayan } from "@/components/Badge";
 import { QrSection } from "@/components/QrSection";
 import { ViewBeacon } from "@/components/ViewBeacon";
-import { ZCardBridge } from "@/components/ZCardBridge";
 import { badgeState, brand, categories, events, isPaid, listings, mutualPartners, sections } from "@/lib/guide";
 import { dayLabel } from "@/lib/cal";
 
@@ -43,7 +42,7 @@ function Crumbs({ sub, slug }: { sub: string; slug: string }) {
 
 /**
  * Online entry mirrors the print entry. Free = unverified: name + contact only (no badge, QR, Save contact, ZCard).
- * Verified gets the ZCard bridge (where QR scans land) and is ELIGIBLE for the badge; the live video identity check earns it.
+ * Verified is an identity badge only (earned by the live video check). QR codes and ZCards are advertiser products, not part of Verified.
  */
 export default async function Page({ params }: P) {
   const { id } = await params;
@@ -217,10 +216,31 @@ export default async function Page({ params }: P) {
               </ul>
             </section>
           )}
-          <QrSection l={l} />
         </div>
-        <aside aria-label="ZCard" className="lg:sticky lg:top-24 lg:self-start">
-          <ZCardBridge l={l} />
+        <aside aria-label="Contact" className="lg:sticky lg:top-24 lg:self-start">
+          <section className="card border-2 border-green-600 p-6" data-testid="verified-contact">
+            <h2 className="text-xl font-bold text-ink">Contact</h2>
+            {l.phone && (
+              <p className="mt-3">
+                <a href={`tel:${l.phone.replace(/[^0-9+]/g, "")}`} className="btn px-4 py-2">
+                  Call {l.phone}
+                </a>
+              </p>
+            )}
+            {l.website && /^https?:\/\//.test(l.website) && (
+              <p className="mt-3">
+                <a
+                  href={l.website}
+                  target="_blank"
+                  rel="noopener"
+                  className="font-bold text-turqdk underline"
+                  data-testid="verified-website"
+                >
+                  Visit website
+                </a>
+              </p>
+            )}
+          </section>
         </aside>
       </div>
     </>

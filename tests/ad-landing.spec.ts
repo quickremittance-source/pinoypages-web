@@ -48,14 +48,14 @@ test("full page ?src=qr&t= sends view, scan and per-tracking-id scan beacons", a
   expect(sent.join()).toContain('"scan"');
 });
 
-test("verified badges: full = Verified++, half = Verified", async ({ page }) => {
+test("verified badge is plain Kabayan Verified (no Verified++ bundle)", async ({ page }) => {
   await page.goto("/ad/demo-full");
-  await expect(page.getByTestId("verified-badge")).toContainText("Kabayan Verified++");
+  await expect(page.getByTestId("verified-badge")).toHaveText(/Kabayan Verified$/);
   await page.goto("/ad/demo-half");
   await expect(page.getByTestId("verified-badge")).toHaveText(/Kabayan Verified$/);
 });
 
-test("print QR decodes to the tracked URL; zcard has no QR without Verified++", async ({ request }) => {
+test("print QR decodes to the tracked URL; zcard ad has QR tracking too", async ({ request }) => {
   const { default: jsQR } = await import("jsqr");
   const { PNG } = await import("pngjs");
   for (const [slug, t] of [
@@ -70,8 +70,8 @@ test("print QR decodes to the tracked URL; zcard has no QR without Verified++", 
     const code = jsQR(new Uint8ClampedArray(png.data), png.width, png.height);
     expect(code?.data).toBe(`https://pinoypages.ca/ad/${slug}?src=qr&t=${t}`);
   }
-  expect((await request.get("/ad/qr/demo-card.png")).status()).toBe(404);
-  expect((await request.get("/ad/qr/demo-card.svg")).status()).toBe(404);
+  expect((await request.get("/ad/qr/demo-card.png")).status()).toBe(200);
+  expect((await request.get("/ad/qr/demo-card.svg")).status()).toBe(200);
 });
 
 test("stat API rejects a wrong tracking id", async ({ request }) => {
@@ -95,7 +95,7 @@ test("admin ads view: 404 without key; with key lists ads, QR links and redirect
   await page.goto("/admin/ads");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Ad and QR analytics");
   await expect(page.getByTestId("admin-ads").locator("li")).toHaveCount(4);
-  await expect(page.getByRole("link", { name: "PNG" })).toHaveCount(3);
+  await expect(page.getByRole("link", { name: "PNG" })).toHaveCount(4);
   await expect(page.getByText("redirects to /directory").first()).toBeVisible();
   expect(await page.locator('meta[name="robots"]').getAttribute("content")).toContain("noindex");
 });

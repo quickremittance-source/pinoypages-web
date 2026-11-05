@@ -16,7 +16,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ l
         page={19}
         kicker="For listed businesses"
         title="Get Verified"
-        intro="Your free listing stays free. Claim it to fix your details, or get Verified: your own ZCard bridge page, a QR that sends people to it, and a monthly scan count."
+        intro="Your free listing stays free. Claim it to fix your details, or get Kabayan Verified: an identity badge earned through a ~15-minute live video check, never bought. ZCard business-card ads and QR tracking are advertiser products."
       >
         <p className="mt-3 max-w-2xl font-semibold text-ink">{brand.pitch}</p>
       </PageHead>

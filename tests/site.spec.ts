@@ -818,13 +818,15 @@ test("home: value proposition, category tiles, featured Verified, Get Verified C
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
 });
 
-test("Get Verified: Free vs Verified, the 4 checks, keeping-your-badge rules, and the claim form", async ({ page }) => {
+test("Get Verified: Free vs Verified, the 3 checks, keeping-your-badge rules, and the claim form", async ({ page }) => {
   await page.goto("/get-verified");
   await expect(page.getByTestId("plan-free")).toContainText("$0");
   await expect(page.getByTestId("plan-verified")).toContainText("$199");
   const checks = page.getByTestId("badge-checks").getByRole("listitem");
-  await expect(checks).toHaveCount(4);
-  for (const t of ["Owner identity", "Business licence", "Live premises", "ZCard completed"])
+  await expect(checks).toHaveCount(3);
+  await expect(page.getByTestId("plan-verified")).toContainText("Standout listing");
+  await expect(page.getByTestId("plan-verified")).not.toContainText(/Verified\+\+|ZCard bridge|Dynamic QR|website/i);
+  for (const t of ["Owner identity", "Business licence", "Live premises"])
     await expect(page.getByTestId("badge-checks")).toContainText(t);
   await expect(page.getByTestId("keep-rules").getByRole("listitem")).toHaveCount(4);
   await expect(page.getByText(/\$99\.50 per issue/).first()).toBeVisible();

@@ -4,7 +4,7 @@ slug: /advertise
 lang: en
 status: DRAFT — CONFIDENTIAL — not for publication
 seo_title: "Get Your Business in Pinoy Pages 2026–2027 (Free)"
-meta_description: "Filipino-Canadian tax, accounting, insurance, mortgage or small business in the GTA? Get listed free, or get Verified for $199 per issue with everything included."
+meta_description: "Filipino-Canadian tax, accounting, insurance, mortgage or small business in the GTA? Get listed free, or get Kabayan Verified for $199 per issue: an identity badge only."
 last_checked: 2026-10-17
 ---
 
@@ -24,12 +24,12 @@ _Pilot Edition prices. Verified is **$199 per issue** (one quarterly season). Al
 
 | Option       | Price                 | What you get                                                                                                                                                                                                        |
 | ------------ | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Free**     | $0                    | Business name + contact details only. Unverified: no badge, no QR, no Save contact button, no ZCard                                                                                                                 |
-| **Verified** | $199 per issue        | Everything included: eligible for the **Verified Kabayan** badge, a **dynamic QR** to your web page, your **ZCard** with **Save contact**, a **featured spot**, a **QR counter card** and a **monthly scan report** |
+| **Free**     | $0                    | Business name + contact details only. Unverified: no badge, no logo                                                                                                                 |
+| **Verified** | $199 per issue        | Identity badge only: eligible for the **Verified Kabayan** badge, earned on a ~15-minute live video check, plus a featured listing with your logo. QR codes and ZCard business-card ads are advertiser products (see Advertise). |
 
 **Payment never buys the badge.** Verified listings are only _eligible_. The Verified Kabayan badge certifies **identity only** and is earned on a ~15-minute live video check (owner on camera, ID viewed and never stored, business licence or registration checked, a live premises walkthrough or screen-share, one proof of trading, and your ZCard completed on the call). Verification is online only.
 
-**Keeping your badge.** The badge stays while your Verified listing is renewed each issue; a light re-check at renewal updates “Verified [date]”. Keep your phone and ZCard current. A dead phone, a closed business or a complaint pauses the badge; no renewal removes it.
+**Keeping your badge.** The badge stays while your Verified listing is renewed each issue; a light re-check at renewal updates “Verified [date]”. Keep your phone and listing current. A dead phone, a closed business or a complaint pauses the badge; no renewal removes it.
 
 Print ads (full page, half page, quarter page and business card) are now booking for the 2026–2027 edition. Rates on request.
 

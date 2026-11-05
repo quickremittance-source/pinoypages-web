@@ -33,7 +33,7 @@ const SIZES = [
   { n: "Full page ad", q: "Own QR landing page", r: "Rates on request" },
   { n: "Half page ad", q: "Own QR landing page", r: "Rates on request" },
   { n: "Quarter page ad", q: "QR opens your directory listing (scan counted)", r: "Rates on request" },
-  { n: "Business card ad", q: "QR included with Kabayan Verified++ only", r: "Rates on request" },
+  { n: "Business card ad", q: "QR tracking included (scan counted)", r: "Rates on request" },
 ];
 
 export default function Page() {
@@ -117,20 +117,20 @@ export default function Page() {
                 $199 per issue
               </p>
               <p className="mt-2 text-sm">
-                The green Kabayan Verified badge on your directory listing, earned through verification.
+                An identity badge on your directory listing, earned through a ~15-minute live video check, never bought. No QR or ZCard included.
               </p>
               <Link className="btn mt-4 inline-block" href="/get-verified">
                 Get Verified
               </Link>
             </div>
             <div className="card p-6">
-              <h3 className="text-xl font-extrabold text-ink">Kabayan Verified++</h3>
+              <h3 className="text-xl font-extrabold text-ink">ZCard business-card ad</h3>
               <p className="mt-2 text-3xl font-extrabold text-phred">Rates on request</p>
               <p className="mt-2 text-sm">
-                Everything in Kabayan Verified, plus a QR code and a business card zcard bundle.
+                An advertiser product: a business-card ad in print with its own QR, and a scan count in your private stats.
               </p>
-              <Link className="btn mt-4 inline-block" href="/advertise#enquire">
-                Ask about Verified++
+              <Link className="btn mt-4 inline-block" href="/advertise#zcard-ad">
+                Ask about a ZCard ad
               </Link>
             </div>
           </div>

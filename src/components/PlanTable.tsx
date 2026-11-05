@@ -72,7 +72,7 @@ export function PlanTable() {
                   {o.name}
                   {o.recommended && (
                     <span className="mt-1 block w-fit rounded bg-coral-dk px-2 py-0.5 text-xs text-white">
-                      Everything included
+                      Recommended
                     </span>
                   )}
                 </th>
