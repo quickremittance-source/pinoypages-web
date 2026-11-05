@@ -1,10 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SearchBox } from "@/components/SearchBox";
-import { NavLinks } from "@/components/NavLinks";
+import { NavLinks, type NavItem } from "@/components/NavLinks";
 import { brand } from "@/lib/guide";
 
-const nav = [
+const nav: NavItem[] = [
+  { href: "/", label: "Home", icon: "home" },
   { href: "/directory", label: "Directory" },
   // One "Advertise" item; /advertise explains advertise / Get Verified / both, tabs link the two pages.
   { href: "/advertise", label: "Advertise", match: ["/get-verified"] },

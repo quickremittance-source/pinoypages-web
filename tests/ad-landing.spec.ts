@@ -99,3 +99,14 @@ test("admin ads view: 404 without key; with key lists ads, QR links and redirect
   await expect(page.getByText("redirects to /directory").first()).toBeVisible();
   expect(await page.locator('meta[name="robots"]').getAttribute("content")).toContain("noindex");
 });
+
+test("admin brand page: 404 without session; with session shows swatches and downloads", async ({ page, request }) => {
+  expect((await request.get("/admin/brand")).status()).toBe(404);
+  await login(page);
+  await page.goto("/admin/brand");
+  const b = page.getByTestId("admin-brand");
+  for (const hex of ["#002050", "#E01820", "#0E7C86", "#00B0C0"])
+    await expect(b.getByText(hex, { exact: true })).toBeVisible();
+  await expect(b.getByRole("link", { name: /Download icon-home\.svg/ })).toBeVisible();
+  expect(await page.locator('meta[name="robots"]').getAttribute("content")).toContain("noindex");
+});
