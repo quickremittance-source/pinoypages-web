@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { ClaimForm } from "@/components/Forms";
 import { PlanTable } from "@/components/PlanTable";
-import { QrSection } from "@/components/QrSection";
 import { ListingCard } from "@/components/ListingCard";
 import { adMenu, brand, listingById, money, type Listing } from "@/lib/guide";
 
@@ -11,24 +10,20 @@ const FREE = [
   "Name, phone and city in the directory",
   "One text line, no logo",
   "Unverified: no badge",
-  "No QR, ZCard or Save contact",
+  "Plain text line, not highlighted",
 ];
 const VERIFIED = [
   "Verified Kabayan badge + “Verified [date]” once you pass the live video check",
+  "Standout listing: bold and highlighted in the directory",
+  "Free listing updates",
   "Featured card with your logo, services and photos",
-  "ZCard bridge page with Save contact and Call / Book",
-  "Dynamic QR for cards, flyers, signs + counter card",
-  "Monthly scan report: proof people found you",
+  "QR codes and ZCard business-card ads are separate advertiser products (see Advertise)",
   "Printed proof copy of the Pilot Edition",
 ];
 export const CHECKS = [
   { t: "Owner identity", d: "The owner is on camera on a ~15-minute live video call. ID is viewed, never stored." },
   { t: "Business licence", d: "Your business licence or registration is checked, plus one proof of trading." },
   { t: "Live premises", d: "A live walkthrough of your premises, or a screen-share if you work online." },
-  {
-    t: "ZCard completed",
-    d: "Your digital card is filled in and checked with you on the call.",
-  },
 ];
 
 function Tick({ ok }: { ok: boolean }) {
@@ -72,7 +67,7 @@ export function GetVerified({ l }: { l?: Pick<Listing, "id" | "name"> }) {
           </div>
           <div className="card relative border-2 border-phred p-6" data-testid="plan-verified">
             <span className="absolute -top-3 right-4 rounded-md bg-phred px-2 py-0.5 text-xs font-bold text-white">
-              Everything included
+              What Verified includes
             </span>
             <p className="kicker">Verified</p>
             <p className="mt-1 text-3xl font-extrabold text-ink">
@@ -115,11 +110,11 @@ export function GetVerified({ l }: { l?: Pick<Listing, "id" | "name"> }) {
 
       <section aria-labelledby="checks">
         <h2 id="checks" className="text-2xl font-bold text-ink">
-          How the badge is earned: 4 checks
+          How the badge is earned: 3 checks
         </h2>
         <p className="mt-1 max-w-3xl text-muted">
           Payment never buys the badge. The badge certifies identity only. Verified makes you eligible; one ~15-minute
-          live video call covers all four checks. Verification is online only.
+          live video call covers all three checks. Verification is online only.
         </p>
         <ol className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-testid="badge-checks">
           {CHECKS.map((c, i) => (
@@ -165,7 +160,6 @@ export function GetVerified({ l }: { l?: Pick<Listing, "id" | "name"> }) {
         </div>
         <ClaimForm listing={l?.id} listingName={l?.name} />
       </section>
-      {l && listingById(l.id) && <QrSection l={listingById(l.id)!} />}
     </div>
   );
 }

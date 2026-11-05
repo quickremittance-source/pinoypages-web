@@ -68,7 +68,7 @@ No rates or rep rates are stored in these tables. Pricing stays out of the publi
 
 - **Full, half:** landing page at `/ad/<slug>`; QR → `/ad/<slug>?src=qr&t=<trackingId>`.
 - **Quarter:** no landing page. The QR hits `/ad/<slug>`, the scan is counted server-side, then the visitor is redirected to `/listing/<listing_id>` (or `/directory` if no listing is linked).
-- **zcard:** no QR by default. A QR is available only with the Kabayan Verified++ add-on (`verified = 'verified_plus'`), and it redirects to the listing like quarter.
+- **zcard:** the business-card ad is an advertiser product with QR tracking; its QR redirects to the listing like quarter. Kabayan Verified is an identity badge only and never bundles a QR or ZCard (Nov 4 2026).
 - Pricing: Kabayan Verified is $99/year + HST (renews yearly). Everything else is "Rates on request".
 
 ## Site content in Neon (stage 2, migration 002_content.sql)

@@ -114,7 +114,7 @@ export default async function Page() {
                     </a>
                   </>
                 ) : (
-                  <span>no QR (zcard QR is a Kabayan Verified++ add-on)</span>
+                  <span>no QR</span>
                 )}
               </li>
             ))}

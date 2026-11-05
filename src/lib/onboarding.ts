@@ -62,14 +62,14 @@ export function welcomeDraft(o: { business: string; cardUrl: string; qrUrls: str
     `Hi ${o.business} team,`,
     "",
     "Your PinoyPages listing is set up. Here is your welcome pack:",
-    `- Your card: ${o.cardUrl}`,
+    `- Your listing: ${o.cardUrl}`,
     ...o.qrUrls.map((u) => `- QR code: ${u}`),
     ...(o.statsUrl ? [`- Your private results page (please keep it private): ${o.statsUrl}`] : []),
     "",
     o.verified
       ? "Your Verified badge is active after passing our live video check."
       : "Verified is earned by passing a short live video check; it cannot be bought.",
-    "Advertising is $199 per issue.",
+    "Kabayan Verified is $199 per issue and is an identity badge only. ZCard business-card ads with QR tracking are an advertiser product; rates on request.",
     "",
     "Salamat,",
     "Jose, PinoyPages",

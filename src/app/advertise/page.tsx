@@ -76,7 +76,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
           <li className="card p-4">
             <strong className="block text-ink">Get Kabayan Verified</strong>
             <span className="text-sm text-muted">
-              $199 per issue. The badge is earned through a live video identity check (about 15 minutes), never
+              $199 per issue: the green Kabayan Verified badge, a standout (bold, highlighted) listing and free listing updates. The badge is earned through a live video identity check (about 15 minutes), never
               bought.
             </span>{" "}
             <Link href="/get-verified" className="text-sm font-semibold text-turqdk underline">
@@ -85,7 +85,10 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
           </li>
           <li className="card p-4">
             <strong className="block text-ink">Do both</strong>
-            <span className="text-sm text-muted">Run an ad and earn the Verified badge on your listing.</span>{" "}
+            <span className="text-sm text-muted">
+              Run an ad (including a ZCard business-card ad with QR tracking) and, separately, earn the Verified identity
+              badge on your listing.
+            </span>{" "}
             <a href="#enquire" className="text-sm font-semibold text-turqdk underline">
               Ask about both
             </a>
@@ -141,6 +144,29 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
             <p className="mt-3 text-sm text-muted">
               Every ad comes with a QR code to your page on the Pinoy Pages website, so readers can save your contact.
               We report scan counts; we do not guarantee results.
+            </p>
+          </div>
+        </section>
+
+        <section aria-labelledby="zcard-ad-h" id="zcard-ad" className="scroll-mt-24" data-testid="zcard-ad">
+          <h2 id="zcard-ad-h" className="text-2xl font-bold text-ink">
+            ZCard business-card ad
+          </h2>
+          <div className="card mt-3 p-6">
+            <p>
+              A business-card size ad in the print directory with its own QR code. Scans open your directory listing and
+              are counted in your private stats link. ZCards are an advertiser product; they are not part of Kabayan
+              Verified.
+            </p>
+            <p className="mt-2 font-extrabold text-phred">Rates on request</p>
+            <p className="mt-3 text-sm">
+              <Link href="/zcard" className="font-semibold text-turqdk underline">
+                How ZCard works
+              </Link>{" "}
+              ·{" "}
+              <a href="#enquire" className="font-semibold text-turqdk underline">
+                Ask about a ZCard ad
+              </a>
             </p>
           </div>
         </section>

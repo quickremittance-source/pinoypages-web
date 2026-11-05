@@ -17,7 +17,7 @@ const WHY = [
   {
     icon: "🏪",
     t: "For businesses",
-    d: "List free with your name and contact, or get Verified for $199 per issue: a featured card, a ZCard with Save contact, a QR that counts every scan, and a monthly scan report.",
+    d: "List free with your name and contact, or get Kabayan Verified for $199 per issue: an identity badge earned through a live video check. ZCard business-card ads with QR tracking are for advertisers.",
   },
   {
     icon: "🤝",

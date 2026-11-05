@@ -15,7 +15,7 @@
     "category": "Money & Business",
     "eventNote": "Official deadlines come from Canada Revenue Agency pages. 2027 dates follow CRA's published rules; confirm each on canada.ca when CRA posts its 2027 list.",
     "editionName": "Pinoy Pages 2026–2027",
-    "pitch": "Get your business in Pinoy Pages 2026–2027 — online all year, with a QR code that brings customers to your verified page.",
+    "pitch": "Get your business in Pinoy Pages 2026–2027 — online all year. Kabayan Verified is an identity badge; QR codes and ZCards are for advertisers.",
     "productNote": "The website is the product. Print is the proof copy.",
     "seasons": "Spring · Summer · Fall",
     "validity": "Released spring (April 16, 2027) and valid through summer and fall until the next edition.",
@@ -50,7 +50,7 @@
       "tagline": "Name and contact only. Unverified.",
       "print": "One text line in the proof copy",
       "web": "A text-only entry: business name and contact details",
-      "qr": "No QR code",
+      "qr": "No badge",
       "badge": "Not eligible (unverified)",
       "extras": [],
       "menu": "main"
@@ -61,19 +61,17 @@
       "price": 199,
       "unit": "per issue",
       "recommended": true,
-      "tagline": "One tier, everything included. Badge-eligible.",
+      "tagline": "Identity badge, standout listing, free listing updates.",
       "print": "Featured listing with logo and the ✓ Verified Kabayan badge once earned",
-      "web": "Your own web page: featured spot in your category, ZCard with Save contact, Call / Book, photos and the “Digital card by ZCard” mark",
-      "qr": "Dynamic QR to your web page (never goes stale) + QR counter card + monthly scan report",
+      "web": "Standout (bold, highlighted) listing in your category, with photos",
+      "qr": "Not included: QR codes and ZCard business-card ads are advertiser products",
       "badge": "Eligible — earned on a ~15-minute live video identity check",
       "extras": [
         "Verified Kabayan badge eligibility",
-        "Dynamic QR to your web page",
-        "ZCard with Save contact",
+        "Standout (bold, highlighted) listing",
+        "Free listing updates",
         "Featured spot in your category",
-        "QR counter card",
-        "Monthly scan report",
-        "Eligible for the awards"
+                        "Eligible for the awards"
       ],
       "menu": "main"
     }
@@ -384,9 +382,9 @@
   "sponsors": [],
   "terms": [
     "Pilot Edition: Pinoy Pages 2026–2027 (Category: Money & Business, Greater Toronto Area). The printed proof copy is released spring (April 16, 2027); the website is updated year-round.",
-    "Listings are Free, or Verified at $199 per issue (one quarterly season, CAD, shown before tax; no HST is charged), with everything included. Loyalty rate: after 4 seasons at $199, it's $99.50 per issue for the next 4 seasons. No add-ons, bundles or founding discounts in the pilot. Print ads are now booking for the 2026–2027 edition; rates on request.",
+    "Listings are Free, or Verified at $199 per issue (one quarterly season, CAD, shown before tax; no HST is charged), as an identity badge only (no QR or ZCard). Loyalty rate: after 4 seasons at $199, it's $99.50 per issue for the next 4 seasons. No add-ons, bundles or founding discounts in the pilot. Print ads are now booking for the 2026–2027 edition; rates on request.",
     "Verified Kabayan badge: payment never buys the badge. The badge certifies identity only (owner identity + business licence or registration). Verified listings are only eligible; the badge is earned on a ~15-minute live video check (owner on camera, ID viewed and never stored, business licence or registration checked, a live premises walkthrough or screen-share, one proof of trading, and your ZCard completed on the call). ID is viewed, never stored. Verification is online only. We may withhold the badge if a check fails; the Verified listing continues without it.",
-    "Free listings are unverified: name and contact only, with no badge, no QR code, no Save contact button, and no ZCard.",
+    "Free listings are unverified: name and contact only, with no badge. QR codes and ZCards are advertiser products, not part of Verified.",
     "Keeping your badge — renewal by issue: the badge stays while your Verified listing is renewed each issue. A light re-check at renewal updates the “Verified [date]”.",
     "Keeping your badge — current details: contact details and the ZCard must stay current. A dead phone number or a closed business pauses the badge.",
     "Keeping your badge — renewal: if you don't renew, the badge is removed and the listing drops to a Free listing.",

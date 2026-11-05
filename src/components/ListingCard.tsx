@@ -82,10 +82,6 @@ export function ListingCard({ l, compact = false }: { l: Listing; compact?: bool
             {sub} {l.sample && <SampleChip />}
           </p>
         </div>
-        <Link href={`/card/${l.id}`} className="hidden shrink-0 sm:block" aria-label={`Open the ZCard for ${l.name}`}>
-          {/* eslint-disable-next-line @next/next/no-img-element -- static SVG from our own route */}
-          <img src={`/qr/${l.id}/qr.svg`} alt={`QR code for ${l.name}`} width={58} height={72} className="rounded" />
-        </Link>
       </div>
       {l.tagline && <p className="mt-3 font-semibold">{l.tagline}</p>}
       <div className="mt-2 flex flex-wrap items-center gap-2">
@@ -104,9 +100,6 @@ export function ListingCard({ l, compact = false }: { l: Listing; compact?: bool
         <a href={`/vcard/${l.id}.vcf`} download className="btn btn-ghost px-3.5 py-2 text-sm">
           Save contact
         </a>
-        <Link href={`/card/${l.id}`} className="btn btn-ghost px-3.5 py-2 text-sm">
-          ZCard
-        </Link>
       </div>
     </li>
   );
