@@ -28,7 +28,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       </header>
       {msg && <p role="status" className="rounded border border-[#0E7C86] p-2 text-sm">{msg}</p>}
       <section>
-        <h2 className="text-lg font-bold text-[#002050]">QR codes</h2>
+        <h2 className="text-lg font-bold text-[#002050]">QR codes (advertisers only; never part of Verified)</h2>
         <ul className="space-y-1 text-sm">
           {w.codes.map((c) => (
             <li key={c.code}>
@@ -57,7 +57,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
       </section>
       <section>
         <h2 className="text-lg font-bold text-[#002050]">Welcome email (draft only; copy and send it yourself)</h2>
-        <textarea readOnly rows={16} className="w-full border p-2 font-mono text-xs" data-testid="draft" defaultValue={welcomeDraft({ business: name, cardUrl, qrUrls: w.codes.map((c) => `https://pinoypages.ca/qr/${c.code}`), statsUrl, verified })} />
+        <textarea readOnly rows={16} className="w-full border p-2 font-mono text-xs" data-testid="draft" defaultValue={welcomeDraft({ business: name, cardUrl, statsUrl, verified })} />
       </section>
     </DashShell>
   );

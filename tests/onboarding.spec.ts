@@ -17,7 +17,8 @@ test("QR targets locked and verified_until is one quarterly issue", () => {
   expect(verifiedUntil("2026-02-10")).toBe("2026-06-30");
 });
 test("welcome draft: no HST, $199 per issue, badge not purchasable", () => {
-  const t = welcomeDraft({ business: "B", cardUrl: "c", qrUrls: ["q"], statsUrl: null, verified: false });
+  const t = welcomeDraft({ business: "B", cardUrl: "c", statsUrl: null, verified: false });
+  expect(welcomeDraft({ business: "B", cardUrl: "c", statsUrl: null, verified: true })).not.toMatch(/QR code:/);
   expect(t).toContain("$199 per issue");
   expect(t).toContain("cannot be bought");
   expect(t).not.toMatch(/HST/);
