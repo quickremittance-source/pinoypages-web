@@ -68,26 +68,7 @@ test("all ad slots (11 + calendar sponsor) show on /advertise as the online prev
   }
 });
 
-test("HST checker verdicts", async ({ page }) => {
-  await page.goto("/tools/hst-checker");
-  const q = page.getByLabel(/Quarter \d sales/);
-  for (let i = 0; i < 4; i++) await q.nth(i).fill("5000");
-  await expect(page.getByRole("status")).toContainText("small supplier");
-  await q.nth(0).fill("12000");
-  await q.nth(1).fill("12000");
-  await expect(page.getByRole("status")).toContainText("must register by the end of the month");
-  await q.nth(2).fill("31000");
-  await expect(page.getByRole("status")).toContainText("One quarter is over $30,000");
-});
 
-test("CPP estimator caps at 2026 maximums", async ({ page }) => {
-  await page.goto("/tools/cpp-estimator");
-  const input = page.getByLabel(/net self-employment income/);
-  await input.fill("50000");
-  await expect(page.getByTestId("cpp-total")).toContainText("5,533.50");
-  await input.fill("200000");
-  await expect(page.getByTestId("cpp-total")).toContainText("9,292.90");
-});
 
 test("claim flow from a listing validates then succeeds", async ({ page }) => {
   test.skip(
@@ -556,19 +537,20 @@ test("edition = magazine up front + directory at back; 20 pages, 11 ad slots + c
     Math.min(...guide.pages.filter((p) => p.part === "directory").map((p) => p.page)),
   );
   expect((await request.get("/destinations")).status()).toBe(404);
-  expect((await request.get("/tools/hst", { maxRedirects: 0 })).headers().location).toContain("/tools/hst-checker");
+  expect((await request.get("/tools/hst-checker", { maxRedirects: 0 })).headers().location).toContain("/magazine");
+  expect((await request.get("/tools", { maxRedirects: 0 })).headers().location).toContain("/magazine");
   await page.goto("/edition");
   await expect(page.getByRole("heading", { name: "Magazine" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Directory" })).toBeVisible();
   await page.goto("/magazine/do-i-need-hst");
   await expect(page.getByText("Print page 5")).toBeVisible();
   await expect(page.getByRole("link", { name: "Basahin sa Tagalog" })).toBeVisible();
-  await expect(page.getByRole("link", { name: "Open the free tool" })).toHaveAttribute("href", "/tools/hst-checker");
+  await expect(page.getByRole("link", { name: "Open the free tool" })).toHaveCount(0);
   await page.goto("/calendar");
   for (const s of ["spring", "summer", "fall"])
     await expect(page.locator(`[data-season="${s}"]`).first()).toBeVisible();
   const sitemap = await (await request.get("/sitemap.xml")).text();
-  for (const t of guide.tools) expect(sitemap.includes(t.route)).toBe(t.enabled);
+  expect(sitemap).not.toContain("/tools/");
 });
 
 test("member email sign-up needs explicit consent (contacts adapter = local store)", async ({ page }) => {
@@ -813,7 +795,7 @@ test("home: value proposition, category tiles, featured Verified, Get Verified C
       .getByRole("link", { name: /Get Verified/ })
       .first(),
   ).toHaveAttribute("href", "/get-verified");
-  for (const href of ["/tools/hst-checker", "/tools/cpp-estimator", "/calendar?type=deadline", "/calendar"])
+  for (const href of ["/calendar?type=deadline", "/calendar"])
     await expect(page.locator(`main a[href="${href}"]`).first()).toBeVisible();
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
 });

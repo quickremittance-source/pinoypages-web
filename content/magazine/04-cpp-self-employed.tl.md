@@ -3,8 +3,8 @@ piece: 4
 slug: /tl/guides/cpp-self-employed
 lang: tl
 status: DRAFT — CONFIDENTIAL — not for publication — ⚠️ NEEDS NATIVE-SPEAKER REVIEW
-seo_title: "CPP para sa Self-Employed (2026): Rates at Estimator"
-meta_description: "Self-employed ka? Ikaw ang nagbabayad ng parehong bahagi ng CPP. Opisyal na 2026 rates (11.9% at 8%), maximums, halimbawa at libreng estimator."
+seo_title: "CPP para sa Self-Employed (2026): Rates"
+meta_description: "Self-employed ka? Ikaw ang nagbabayad ng parehong bahagi ng CPP. Opisyal na 2026 rates (11.9% at 8%), maximums, at mga halimbawa."
 last_checked: 2026-10-17
 ---
 
@@ -16,7 +16,6 @@ _Mula sa Pinoy Pages 2026–2027_
 
 Kapag may employer ka, kinakaltas ang CPP (Canada Pension Plan) sa bawat sweldo at nagbabayad din ang employer mo ng kaparehong halaga. **Kapag self-employed ka, ikaw ang nagbabayad ng parehong bahagi**, karaniwan kapag nag-file ka ng tax return. Para sa maraming Pinoy na nag-independent, ito ang "gulat" sa unang self-employed tax bill nila.
 
-> 👉 **Subukan:** ginagamit ng libreng [self-employed CPP estimator](https://pinoypages.ca/tools/cpp-estimator) _[URL TBC]_ ang opisyal na 2026 rates sa ibaba. Tantiya lang ito.
 
 ## Sino ang nagbabayad
 
@@ -62,7 +61,7 @@ Kung may employment income ka na may CPP nang kinaltas **at** may self-employmen
 
 ---
 
-_Pangkalahatang impormasyon lamang ito, hindi tax, legal o financial advice. Tantiya lang ang CPP estimator at ang mga halimbawa sa itaas, hindi kuwenta ng CRA. Tingnan ang canada.ca o kumonsulta sa qualified na propesyonal. Huling na-check: October 17, 2026._
+_Pangkalahatang impormasyon lamang ito, hindi tax, legal o financial advice. Tantiya lang ang mga halimbawa sa itaas, hindi kuwenta ng CRA. Tingnan ang canada.ca o kumonsulta sa qualified na propesyonal. Huling na-check: October 17, 2026._
 
 **Sources**
 

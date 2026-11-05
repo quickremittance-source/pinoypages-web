@@ -25,7 +25,6 @@ Karamihan ng negosyo ay **kailangang mag-register sa GST/HST kapag hindi na sila
 
 Kung **$30,000 o mas mababa** ka sa loob ng apat na magkakasunod na quarter, small supplier ka. **Hindi mo kailangang mag-register**, pero puwede kung gusto mo.
 
-> 👉 **Subukan:** dadalhin ka ng libreng [HST registration checker](https://pinoypages.ca/tools/hst-checker) _[URL TBC]_ sa sales mo kada quarter. Pangkalahatang indikasyon lang ito, hindi ruling.
 
 ## Ano ang kasama sa $30,000
 
@@ -81,7 +80,7 @@ May mga small supplier na nagre-register para ma-claim ang **input tax credits**
 
 ---
 
-_Pangkalahatang impormasyon lamang ito, hindi tax, legal o financial advice. Pangkalahatang indikasyon lang ang HST checker, hindi CRA ruling. Tingnan ang canada.ca o kumonsulta sa qualified na propesyonal. Huling na-check: October 17, 2026._
+_Pangkalahatang impormasyon lamang ito, hindi tax, legal o financial advice. Tingnan ang canada.ca o kumonsulta sa qualified na propesyonal. Huling na-check: October 17, 2026._
 
 **Sources**
 

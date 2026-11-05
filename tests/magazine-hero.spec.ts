@@ -11,8 +11,6 @@ test("collage assets stay small", () => {
 for (const route of [
   "/magazine",
   "/calendar",
-  "/tools/cpp-estimator",
-  "/tools/hst-checker",
   "/directory",
   "/directory/money-business",
   "/advertise",

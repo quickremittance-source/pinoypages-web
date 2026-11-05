@@ -23,9 +23,7 @@ Mabuhay! Ang **Pinoy Pages 2026–2027** ay ang taunang direktoryo ng mga Filipi
 ## Ano ang makikita mo dito
 
 - **Direktoryo** ng mga Filipino-Canadian na money at business services (tax, accounting, insurance, banking/mortgage, independent pros at small businesses). Bawat listing ay may pangalan at contact details, kaya ikaw mismo ang makakakontak sa kanila.
-- **Libreng tools:**
-  - **HST registration checker**: sagutin ang ilang tanong para malaman kung baka lampas ka na sa $30,000 na small supplier limit → [HST checker](https://pinoypages.ca/tools/hst-checker) _[URL TBC]_
-  - **Self-employed CPP estimator**: tantiya ng CPP mo sa self-employment income → [CPP estimator](https://pinoypages.ca/tools/cpp-estimator) _[URL TBC]_
+- **Libreng gabay:**
   - **Tax deadlines page**: lahat ng importanteng petsa ng 2027 tax season sa iisang lugar → [Tax deadlines](https://pinoypages.ca/tax-deadlines) _[URL TBC]_
 - **Mga gabay na madaling intindihin** tungkol sa tax at benefits sa Canada, sa English at Tagalog
 

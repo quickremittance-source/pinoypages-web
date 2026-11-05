@@ -55,14 +55,14 @@ _Pangkalahatang impormasyon lang, hindi tax advice. Iba ang rules para sa ridesh
 **EN**
 Went independent this year? Caregiver, nurse, contractor, freelancer? 👋
 Heads-up: when you're self-employed you pay **both halves of CPP**. For 2026 that's **11.9%** of net self-employment income between $3,500 and $74,600, plus **8%** between $74,600 and $85,000 (official CRA/ESDC figures).
-We made a plain-language guide with worked examples, plus a free estimator: [link]
+We made a plain-language guide with worked examples: [link]
 Budget for it now so April 30 isn't a shock 🙏
 _General info only, not tax advice._
 
 **TL**
 Nag-independent ka ba ngayong taon? Caregiver, nurse, contractor, freelancer? 👋
 Paalala: kapag self-employed ka, **ikaw ang magbabayad ng parehong bahagi ng CPP**. Para sa 2026, **11.9%** ito ng net self-employment income mula $3,500 hanggang $74,600, at **8%** mula $74,600 hanggang $85,000 (opisyal na figures ng CRA/ESDC).
-Gumawa kami ng madaling gabay na may halimbawa, kasama ang libreng estimator: [link]
+Gumawa kami ng madaling gabay na may halimbawa: [link]
 Mag-budget na ngayon para hindi ka mabigla sa April 30 🙏
 _Pangkalahatang impormasyon lang, hindi tax advice._
 
@@ -110,7 +110,7 @@ _Pangkalahatang impormasyon lang, hindi tax advice._
 Self-employed friends, a gentle reminder 🙏
 ✅ You can **file** your 2026 return until **June 15, 2027**
 ⚠️ But you **pay** any balance, including your CPP, by **April 30, 2027**
-Not sure how much CPP you'll owe? Our free estimator gives you a ballpark using the official 2026 rates: [link]
+Not sure how much CPP you'll owe? Read our plain-language guide to the official 2026 rates: [link]
 What's your #1 question about doing taxes as a self-employed person? Comment below and we may cover it in our next guide.
 _General info only, not tax advice._
 
@@ -118,6 +118,6 @@ _General info only, not tax advice._
 Sa mga self-employed na kaibigan, isang paalala 🙏
 ✅ Puwede kang **mag-file** ng 2026 return hanggang **June 15, 2027**
 ⚠️ Pero dapat **bayaran** ang anumang utang, kasama ang CPP, bago mag-**April 30, 2027**
-Hindi sigurado kung magkano ang CPP mo? Bibigyan ka ng tantiya ng libreng estimator namin gamit ang opisyal na 2026 rates: [link]
+Hindi sigurado kung magkano ang CPP mo? Basahin ang gabay namin sa opisyal na 2026 rates: [link]
 Ano ang #1 tanong mo sa pag-file bilang self-employed? I-comment mo, baka gawan namin ng susunod na gabay.
 _Pangkalahatang impormasyon lang, hindi tax advice._

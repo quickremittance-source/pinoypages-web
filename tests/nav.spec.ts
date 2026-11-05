@@ -10,7 +10,9 @@ test("menu highlights the current page (exact and nested)", async ({ page, isMob
   await page.goto("/");
   await expect(nav().locator('[aria-current="page"]')).toHaveCount(1);
   await expect(nav().getByRole("link", { name: "Home", exact: true })).toHaveAttribute("aria-current", "page");
-  expect((await page.request.get("/tools/hst-checker")).status()).toBe(200);
+  const tools = await page.request.get("/tools/hst-checker", { maxRedirects: 0 });
+  expect(tools.status()).toBe(308);
+  expect(tools.headers().location).toContain("/magazine");
 });
 
 test("deadlines merged into the calendar: labels, type filter, redirect", async ({ page, request }) => {

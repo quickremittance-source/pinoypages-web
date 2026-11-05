@@ -5,7 +5,6 @@ import { JsonLd } from "@/components/JsonLd";
 import { ListingCard } from "@/components/ListingCard";
 import { UpcomingEvents } from "@/components/UpcomingEvents";
 import { brand, featuredListings, listingById, mutualPartners, sections, SITE_URL } from "@/lib/guide";
-import { liveTools } from "@/lib/registry";
 
 const STEPS = [
   {
@@ -17,11 +16,6 @@ const STEPS = [
 ];
 
 const TOOLS = [
-  ...liveTools.map((t) => ({
-    href: t.route,
-    t: t.title,
-    d: t.id === "hst" ? "Do you need to register for HST?" : "What will CPP cost you this year?",
-  })),
   { href: "/calendar?type=deadline", t: "2027 tax deadlines", d: "The CRA dates that matter for your 2026 return." },
   { href: "/calendar", t: "Money & Business Calendar", d: "Deadlines and community events, Spring to Fall." },
 ];
@@ -241,7 +235,7 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-4 pb-4" aria-labelledby="tools">
         <p className="kicker">Free for everyone</p>
         <h2 id="tools" className="mt-1 text-2xl font-bold text-ink sm:text-3xl">
-          Free money tools
+          Free money guides
         </h2>
         <ul className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {TOOLS.map((t) => (

@@ -21,8 +21,9 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   async redirects() {
     return [
-      { source: "/tools/hst", destination: "/tools/hst-checker", permanent: true },
-      { source: "/tools/cpp", destination: "/tools/cpp-estimator", permanent: true },
+      // Tools removed (Jose, Nov 5): send old /tools URLs to Magazine.
+      { source: "/tools", destination: "/magazine", permanent: true },
+      { source: "/tools/:path*", destination: "/magazine", permanent: true },
       { source: "/deadlines", destination: "/calendar?type=deadline", permanent: true },
       // Deadlines merged into the calendar (Jose, Nov 3).
       { source: "/tax-deadlines", destination: "/calendar?type=deadline", permanent: true },
