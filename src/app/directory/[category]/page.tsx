@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { PageHead } from "@/components/Chrome";
+import { MagazineHero } from "@/components/MagazineHero";
 import { CategoryTiles } from "@/components/CategoryTiles";
 import { ListingResults } from "@/components/ListingResults";
 import { UpcomingEvents } from "@/components/UpcomingEvents";
@@ -33,7 +33,11 @@ export default async function Page({ params }: P) {
     const items = listings.filter((l) => section.subcategories.includes(l.category));
     return (
       <>
-        <PageHead kicker="Directory · Category" title={section.name} intro={`Every sub-category in ${section.name}.`} />
+        <MagazineHero
+          kicker="Directory · Category"
+          title={section.name}
+          intro={`Every sub-category in ${section.name}.`}
+        />
         <div className="mx-auto max-w-6xl space-y-8 px-4 py-8">
           <CategoryTiles section={section} />
           <ListingResults items={items} />
@@ -45,7 +49,7 @@ export default async function Page({ params }: P) {
   const parent = sections.find((s) => s.subcategories.includes(sub.slug));
   return (
     <>
-      <PageHead
+      <MagazineHero
         kicker={`Directory · ${parent ? parent.name : "Category"} · Sub-category`}
         page={sub.page}
         title={sub.name}
@@ -65,7 +69,7 @@ export default async function Page({ params }: P) {
           {" / "}
           <span aria-current="page">{sub.name}</span>
         </nav>
-      </PageHead>
+      </MagazineHero>
       <div className="mx-auto max-w-6xl px-4 py-8">
         <p className="mb-4 text-sm text-muted">
           Businesses marked SAMPLE are fictional, shown until real listings are verified.

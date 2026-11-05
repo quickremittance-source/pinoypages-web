@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { PageHead } from "@/components/Chrome";
+import { MagazineHero } from "@/components/MagazineHero";
 import { AdvertiseTabs } from "@/components/AdvertiseTabs";
 import { AdGrid } from "@/components/AdCard";
 import { InquiryForm } from "@/components/Forms";
@@ -55,7 +55,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
   const mail = `mailto:${brand.email}?subject=${encodeURIComponent("Print ad enquiry · Pinoy Pages 2026–2027")}`;
   return (
     <>
-      <PageHead
+      <MagazineHero
         kicker="Advertise"
         title={`Advertise in ${brand.editionName}`}
         intro={`The Filipino Business Directory for the GTA, in print and online. ${BOOKING_NOTE} Four ad sizes: full page, half page, quarter page and business card.`}
@@ -76,8 +76,8 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
           <li className="card p-4">
             <strong className="block text-ink">Get Kabayan Verified</strong>
             <span className="text-sm text-muted">
-              $199 per issue: the green Kabayan Verified badge, a standout (bold, highlighted) listing and free listing updates. The badge is earned through a live video identity check (about 15 minutes), never
-              bought.
+              $199 per issue: the green Kabayan Verified badge, a standout (bold, highlighted) listing and free listing
+              updates. The badge is earned through a live video identity check (about 15 minutes), never bought.
             </span>{" "}
             <Link href="/get-verified" className="text-sm font-semibold text-turqdk underline">
               Get Verified
@@ -86,8 +86,8 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
           <li className="card p-4">
             <strong className="block text-ink">Do both</strong>
             <span className="text-sm text-muted">
-              Run an ad (including a ZCard business-card ad with QR tracking) and, separately, earn the Verified identity
-              badge on your listing.
+              Run an ad (including a ZCard business-card ad with QR tracking) and, separately, earn the Verified
+              identity badge on your listing.
             </span>{" "}
             <a href="#enquire" className="text-sm font-semibold text-turqdk underline">
               Ask about both
