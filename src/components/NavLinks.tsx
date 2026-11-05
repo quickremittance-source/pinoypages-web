@@ -3,15 +3,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-export type NavItem = { href: string; label: string; match?: string[]; children?: NavItem[] };
+export type NavItem = { href: string; label: string; match?: string[]; children?: NavItem[]; icon?: "home" };
 /** Active when the path is the item itself or nested under it (e.g. /directory/food). */
-export const isActive = (path: string, href: string) => href !== "/" && (path === href || path.startsWith(`${href}/`));
+export const isActive = (path: string, href: string) =>
+  href === "/" ? path === "/" : path === href || path.startsWith(`${href}/`);
 const activeFor = (path: string, n: NavItem): boolean =>
   [n.href, ...(n.match ?? [])].some((h) => isActive(path, h)) || (n.children ?? []).some((c) => activeFor(path, c));
 
 const linkCls = (on: boolean, mobile: boolean) =>
   `inline-block rounded-md border-b-2 px-2.5 py-2 ${
-    on ? "border-[#E01820] bg-[#002050]/5 text-[#002050]" : "border-transparent"
+    on ? "border-phred bg-navy/5 text-navy" : "border-transparent"
   } ${mobile ? "" : "hover:bg-aqua hover:text-sea"}`;
 
 /** Desktop dropdown: opens on hover, on the toggle button (click/Enter/Space) and closes on Escape or outside click. */
@@ -43,7 +44,10 @@ function Dropdown({ n, path }: { n: NavItem; path: string }) {
       <span className="inline-flex items-center">
         <Link
           href={n.href}
-          aria-current={on ? (n.children!.some((c) => activeFor(path, c)) ? "true" : "page") : undefined} data-active={on ? "true" : undefined} className={linkCls(on, false)}>
+          aria-current={on ? (n.children!.some((c) => activeFor(path, c)) ? "true" : "page") : undefined}
+          data-active={on ? "true" : undefined}
+          className={linkCls(on, false)}
+        >
           {n.label}
         </Link>
         <button
@@ -72,7 +76,7 @@ function Dropdown({ n, path }: { n: NavItem; path: string }) {
               <Link
                 href={c.href}
                 aria-current={con ? "page" : undefined}
-                className={`block rounded px-3 py-2 hover:bg-aqua hover:text-sea ${con ? "text-[#002050] underline decoration-[#E01820] decoration-2" : ""}`}
+                className={`block rounded px-3 py-2 hover:bg-aqua hover:text-sea ${con ? "text-navy underline decoration-phred decoration-2" : ""}`}
               >
                 {c.label}
               </Link>
@@ -81,6 +85,25 @@ function Dropdown({ n, path }: { n: NavItem; path: string }) {
         })}
       </ul>
     </li>
+  );
+}
+
+/** Home glyph; same drawing as public/brand/icons/icon-home.svg (official icon set). */
+function HomeIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="h-5 w-5 align-[-4px] text-navy"
+      aria-hidden="true"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M3 10.5 12 3l9 7.5" />
+      <path d="M5 9.5V21h5v-6h4v6h5V9.5" />
+    </svg>
   );
 }
 
@@ -99,8 +122,9 @@ export function NavLinks({ items, mobile = false }: { items: NavItem[]; mobile?:
           aria-current={on ? (childOn ? "true" : "page") : undefined}
           data-active={on ? "true" : undefined}
           className={linkCls(on, mobile)}
+          {...(n.icon === "home" ? { "aria-label": n.label, "data-testid": "nav-home" } : {})}
         >
-          {n.label}
+          {n.icon === "home" ? <HomeIcon /> : n.label}
         </Link>
         {n.children?.length ? (
           <ul aria-label={`${n.label} submenu`} className="flex gap-1 border-l border-sand pl-1 text-xs">

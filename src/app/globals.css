@@ -7,17 +7,24 @@
   --color-aqua: #e6f4f5;
   --color-sand: #eef1f3;
   --color-sandlt: #ffffff;
-  --color-coral: #c8102e;
-  --color-coral-dk: #c8102e;
+  --color-coral: #E01820;
+  --color-coral-dk: #E01820;
   --color-sunset: #f2b705;
   --color-palm: #0e7c86;
   --color-ink: #1b2328;
   --color-muted: #55636b;
   --color-turqdk: #0b6f78;
-  --color-phred: #c8102e;
+  --color-phred: #E01820;
+  /* Official brand sheet tokens (mirrors src/brand.ts) */
+  --color-navy: #002050;
+  --color-phblue: #1068C0;
+  --color-gold: #F8B838;
+  --color-seateal: #00B0C0;
+  --color-green: #3C8A3C;
+  --color-cream: #F8F8D8;
   --color-red-dk: #9e0c24;
-  --font-display: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 body {
   @apply bg-white text-ink font-sans antialiased;

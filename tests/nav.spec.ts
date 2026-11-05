@@ -6,8 +6,10 @@ test("menu highlights the current page (exact and nested)", async ({ page, isMob
   await expect(nav().locator('[aria-current="page"]')).toHaveText("Directory");
   await page.goto("/magazine");
   await expect(nav().locator('[aria-current="page"]')).toHaveText("Magazine");
+  await expect(nav().getByTestId("nav-home")).not.toHaveAttribute("aria-current", "page");
   await page.goto("/");
-  await expect(nav().locator('[aria-current="page"]')).toHaveCount(0);
+  await expect(nav().locator('[aria-current="page"]')).toHaveCount(1);
+  await expect(nav().getByRole("link", { name: "Home", exact: true })).toHaveAttribute("aria-current", "page");
   expect((await page.request.get("/tools/hst-checker")).status()).toBe(200);
 });
 
@@ -20,16 +22,18 @@ test("deadlines merged into the calendar: labels, type filter, redirect", async 
   await expect(page.locator("#tax-checklist")).toBeVisible();
   await page.goto("/calendar?type=deadline");
   await expect(page.getByTestId("type-filter")).toHaveValue("deadline");
-  const shown = page.locator('[data-list] [data-ev]:not([hidden])');
+  const shown = page.locator("[data-list] [data-ev]:not([hidden])");
   expect(await shown.count()).toBeGreaterThan(0);
-  for (const t of await shown.evaluateAll((els) => els.map((e) => e.getAttribute("data-type")))) expect(t).toBe("deadline");
+  for (const t of await shown.evaluateAll((els) => els.map((e) => e.getAttribute("data-type"))))
+    expect(t).toBe("deadline");
 });
 
-test("Directory is the first menu item; Advertise is one item active on both pages", async ({ page, isMobile }) => {
+test("Home icon then Directory lead the menu; Advertise is one item active on both pages", async ({ page, isMobile }) => {
   for (const path of ["/advertise", "/get-verified"]) {
     await page.goto(path);
     const main = page.getByRole("navigation", { name: isMobile ? "Main (mobile)" : "Main", exact: true });
-    await expect(main.getByRole("link").first()).toHaveText("Directory");
+    await expect(main.getByRole("link").first()).toHaveAttribute("aria-label", "Home");
+    await expect(main.getByRole("link").nth(1)).toHaveText("Directory");
     const item = main.getByRole("link", { name: "Advertise", exact: true });
     await expect(item).toHaveAttribute("href", "/advertise");
     await expect(item).toHaveAttribute("aria-current", "page");
@@ -55,11 +59,15 @@ test("/api/revalidate: 404 without a valid key header, GET is 404", async ({ req
   expect((await request.get("/api/revalidate")).status()).toBe(404);
 });
 
-test("Magazine menu holds Events & deadlines and Tools; top level is Directory, Advertise, Magazine", async ({ page, isMobile }) => {
+test("Magazine menu holds Events & deadlines and Tools; top level is Home, Directory, Advertise, Magazine", async ({
+  page,
+  isMobile,
+}) => {
   const nav = () => page.getByRole("navigation", { name: isMobile ? "Main (mobile)" : "Main", exact: true });
   await page.goto("/");
   const top = nav().locator(":scope > ul > li > a, :scope > ul > li > span > a");
-  await expect(top).toHaveText(["Directory", "Advertise", "Magazine"]);
+  await expect(top).toHaveText(["", "Directory", "Advertise", "Magazine"]);
+  await expect(top.first()).toHaveAttribute("aria-label", "Home");
   for (const p of ["/magazine", "/calendar", "/tools/hst-checker"]) {
     await page.goto(p);
     await expect(nav().getByRole("link", { name: "Magazine", exact: true })).toHaveAttribute("data-active", "true");
@@ -98,7 +106,8 @@ test("migration splitter handles trailing comments and quotes", async () => {
 });
 
 test("/go, /card and /vcard 404 for unknown or free listings", async ({ request }) => {
-  for (const p of ["/go/nope", "/card/nope", "/vcard/nope.vcf"]) expect((await request.get(p, { maxRedirects: 0 })).status()).toBe(404);
+  for (const p of ["/go/nope", "/card/nope", "/vcard/nope.vcf"])
+    expect((await request.get(p, { maxRedirects: 0 })).status()).toBe(404);
 });
 
 test("category tiles show a section count from public listings", async ({ page }) => {
@@ -130,4 +139,28 @@ test("ZCard from Neon: email and languages when present, omitted (not invented) 
   expect(parseLanguages("Ilocano")).toBe("Ilocano");
   expect(parseLanguages(null)).toBeUndefined();
   expect(parseLanguages({})).toBeUndefined();
+});
+
+test("home icon is the first main-nav item and links to /", async ({ page, isMobile }) => {
+  await page.goto("/directory");
+  const nav = page.getByRole("navigation", { name: isMobile ? "Main (mobile)" : "Main", exact: true });
+  const first = nav.locator("li > a").first();
+  await expect(first).toHaveAttribute("aria-label", "Home");
+  await expect(first).toHaveAttribute("href", "/");
+  await first.click();
+  await expect(page).toHaveURL(/\/$/);
+});
+
+test("brand assets, manifest and Platito removed from fallback", async ({ request }) => {
+  for (const f of [
+    "/brand/icon-badge-verified-kabayan.png",
+    "/brand/icon-sun.png",
+    "/brand/icons/icon-home.svg",
+    "/brand/pinoypages-logo-stacked-jovi.png",
+  ])
+    expect((await request.get(f)).status(), f).toBe(200);
+  const m = await (await request.get("/manifest.webmanifest")).json();
+  expect(m.theme_color).toBe("#002050");
+  const r = await request.get("/directory?q=platito");
+  expect(await r.text()).not.toContain("brevo-platito-filipino-soul-food");
 });
