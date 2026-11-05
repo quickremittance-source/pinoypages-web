@@ -2,15 +2,7 @@ import { logoutAction } from "@/app/admin/login/actions";
 import { DashShell } from "@/components/admin/Charts";
 
 /** Shared chrome for the internal admin tools: title, section links, flash message. */
-export function AdminFrame({
-  title,
-  msg,
-  children,
-}: {
-  title: string;
-  msg?: string;
-  children: React.ReactNode;
-}) {
+export function AdminFrame({ title, msg, children }: { title: string; msg?: string; children: React.ReactNode }) {
   return (
     <DashShell>
       <header className="border-b-4 border-[#E01820] pb-3">
@@ -21,11 +13,14 @@ export function AdminFrame({
         <a href={`/admin`}>Hub</a>
         <a href={`/admin/listings`}>Listings</a>
         <a href={`/admin/ads/manage`}>Ads</a>
+        <a href={`/admin/zcard`}>ZCards</a>
         <a href={`/admin/inquiries`}>Inquiries</a>
         <a href={`/admin/dashboard`}>Dashboard</a>
         <a href={`/admin/qr`}>QR</a>
         <a href={`/admin/advertisers`}>Advertisers</a>
-        <form action={logoutAction} className="inline"><button className="underline">Sign out</button></form>
+        <form action={logoutAction} className="inline">
+          <button className="underline">Sign out</button>
+        </form>
       </nav>
       {msg && (
         <p role="status" data-testid="msg" className="rounded border border-[#0E7C86] bg-[#0E7C86]/5 p-3 text-sm">
