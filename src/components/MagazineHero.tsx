@@ -3,7 +3,7 @@ import { colors } from "@/brand";
 
 export const MAGAZINE_COLLAGE = "/brand/magazine/collage.webp";
 
-/** Hero banner for Magazine, Events and Tools pages: shared public-domain postcard collage under a navy→teal overlay. */
+/** Hero banner for Magazine, Events, Tools, Directory and Advertise pages: shared public-domain postcard collage under a navy→teal overlay. */
 export function MagazineHero({
   kicker,
   title,

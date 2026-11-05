@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PageHead } from "@/components/Chrome";
+import { MagazineHero } from "@/components/MagazineHero";
 import { PublicListings } from "@/components/alt/PublicListings";
 import { CategoryTiles } from "@/components/CategoryTiles";
 import { CategoryAreaCounts } from "@/components/CategoryAreaCounts";
@@ -30,7 +30,7 @@ export default async function Page({
 
   return (
     <>
-      <PageHead
+      <MagazineHero
         kicker={`Directory · ${brand.region}`}
         title="Find a kabayan business you can trust"
         intro="Search by name, category or area. Verified businesses passed a live video identity check; free listings are unverified."
