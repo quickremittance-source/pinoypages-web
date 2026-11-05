@@ -51,6 +51,8 @@ writeFileSync(
   csv([
     ["edition", "option", "term", "price", "badge", "print", "web", "qr"],
     ...g.adMenu.map((o) => [g.brand.editionLabel, o.name, o.unit, o.price, o.badge, o.print, o.web, o.qr]),
+    // Advertiser product (not a listing tier): ZCard business-card ad with QR tracking. Verified never includes QR/ZCard.
+    [g.brand.editionLabel, "ZCard ad (business card)", "per issue (Pilot Edition)", "Rates on request", "Not included (Verified is separate)", "Business-card size ad with its own QR", "QR scans open your directory listing; scan count in your private stats link", "QR tracking included"],
   ]),
 );
 console.log(

@@ -16,7 +16,7 @@ export async function queue(status: string): Promise<QueueRow[] | null> {
   )) as QueueRow[];
 }
 
-/** Approve/reject/spam. Approve creates or updates the Neon listing or a draft ad row, plus the first QR code. Never writes Brevo. */
+/** Approve/reject/spam. Approve creates or updates the Neon listing or a draft ad row, No QR is auto-created: QR codes are advertiser-only (Nov 4 2026). Never writes Brevo. */
 export async function decide(id: number, d: Decision): Promise<string> {
   const sql = db();
   if (!sql) throw new Error("no database");
@@ -35,7 +35,6 @@ export async function decide(id: number, d: Decision): Promise<string> {
            tier = excluded.tier, onboarded_inquiry = excluded.onboarded_inquiry, updated_at = now()`,
         [p.listing_id, p.name, p.category, p.area, p.phone, p.tier, id],
       );
-      await addQr(p.listing_id, "first");
       ref = `listing:${p.listing_id}`;
     } else {
       await sql.query(

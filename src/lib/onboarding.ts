@@ -55,7 +55,7 @@ export function planFor(i: Inq):
 }
 
 /** Draft welcome email for Jose to send himself. Nothing is sent by the site. */
-export function welcomeDraft(o: { business: string; cardUrl: string; qrUrls: string[]; statsUrl?: string | null; verified: boolean }) {
+export function welcomeDraft(o: { business: string; cardUrl: string; statsUrl?: string | null; verified: boolean }) {
   return [
     `Subject: Welcome to PinoyPages, ${o.business}`,
     "",
@@ -63,7 +63,6 @@ export function welcomeDraft(o: { business: string; cardUrl: string; qrUrls: str
     "",
     "Your PinoyPages listing is set up. Here is your welcome pack:",
     `- Your listing: ${o.cardUrl}`,
-    ...o.qrUrls.map((u) => `- QR code: ${u}`),
     ...(o.statsUrl ? [`- Your private results page (please keep it private): ${o.statsUrl}`] : []),
     "",
     o.verified
