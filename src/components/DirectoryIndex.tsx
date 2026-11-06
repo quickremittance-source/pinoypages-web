@@ -1,6 +1,6 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { MagazineHero } from "@/components/MagazineHero";
+import { HomePromoStrip } from "@/components/HomePromoStrip";
 import { PublicListings } from "@/components/alt/PublicListings";
 import { CategoryTiles } from "@/components/CategoryTiles";
 import { CategoryAreaCounts } from "@/components/CategoryAreaCounts";
@@ -11,13 +11,14 @@ import { brand, sections } from "@/lib/guide";
 import { searchZcards } from "@/lib/adsRepo";
 import { getPublicListings } from "@/lib/listingsRepo";
 
-export const metadata: Metadata = { title: "Directory", alternates: { canonical: "/directory" } };
-
-/** Directory index: server-filtered, paginated public listings. Category pages stay separate. */
-export default async function Page({
+/** Shared Directory index body used on `/` (and formerly `/directory`). */
+export async function DirectoryIndex({
   searchParams,
+  promo = false,
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
+  /** Show the slim Advertise + Magazine strip under the hero (home only). */
+  promo?: boolean;
 }) {
   const filters = parseDirectoryFilters(await searchParams);
   const { listings, source } = await getPublicListings();
@@ -35,6 +36,7 @@ export default async function Page({
         title="Find a kabayan business you can trust"
         intro="Search by name, category or area. Verified businesses passed a live video identity check; free listings are unverified."
       />
+      {promo ? <HomePromoStrip /> : null}
       <div className="mx-auto max-w-6xl space-y-10 px-4 py-8" data-listings-source={source}>
         {sections.map((s) => (
           <section key={s.slug} aria-labelledby={`sec-${s.slug}`} data-section={s.slug} data-status={s.status}>

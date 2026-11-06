@@ -6,15 +6,13 @@ import { brand } from "@/lib/guide";
 
 const nav: NavItem[] = [
   { href: "/", label: "Home", icon: "home" },
-  { href: "/directory", label: "Directory" },
+  // Directory is the home page; home icon covers it (Jose, Nov 5).
   // One "Advertise" item; /advertise explains advertise / Get Verified / both, tabs link the two pages.
   { href: "/advertise", label: "Advertise", match: ["/get-verified"] },
   {
     href: "/magazine",
     label: "Magazine",
-    children: [
-      { href: "/calendar", label: "Events & deadlines" },
-    ],
+    children: [{ href: "/calendar", label: "Events & deadlines" }],
   },
 ];
 
@@ -92,7 +90,7 @@ export function Footer() {
         </div>
         <ul className="space-y-1.5">
           <li>
-            <Link href="/directory" className="hover:underline">
+            <Link href="/" className="hover:underline">
               Directory
             </Link>
           </li>

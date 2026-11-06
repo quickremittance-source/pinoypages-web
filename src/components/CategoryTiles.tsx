@@ -33,7 +33,7 @@ export async function CategoryTiles({ section }: { section: Section }) {
     <>
       <p className="mb-3 text-sm text-muted" data-testid="section-count">
         <Link
-          href={`/directory?category=${encodeURIComponent(section.slug)}#results`}
+          href={`/?category=${encodeURIComponent(section.slug)}#results`}
           className="font-semibold text-turqdk underline"
         >
           {inSection.length} listings
@@ -43,8 +43,8 @@ export async function CategoryTiles({ section }: { section: Section }) {
         {top.length > 0 && ` · ${top.map(([a, n]) => `${a} ${n}`).join(" · ")}`}
       </p>
       {subs.length > 0 && (
-      <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4" data-testid="sub-tiles">
-        {subs.map((c) => {
+        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4" data-testid="sub-tiles">
+          {subs.map((c) => {
             const ls = listings.filter((l) => l.category === c.slug);
             const v = ls.filter((l) => l.verified).length;
             const top = topAreas(ls);
@@ -85,7 +85,7 @@ export async function CategoryTiles({ section }: { section: Section }) {
               </li>
             );
           })}
-      </ul>
+        </ul>
       )}
     </>
   );

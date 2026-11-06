@@ -61,7 +61,6 @@ export const mapsUrl = (q: string) => `https://www.google.com/maps/search/?api=1
 
 /** Only full and half ads get a landing page; quarter and zcard QR scans redirect to the listing. */
 export const hasLandingPage = (tier: Tier) => tier === "full" || tier === "half";
-export const listingTarget = (a: Pick<AdLanding, "listingId">) =>
-  a.listingId ? `/listing/${a.listingId}` : "/directory";
+export const listingTarget = (a: Pick<AdLanding, "listingId">) => (a.listingId ? `/listing/${a.listingId}` : "/");
 /** Every ad tier, including the zcard business-card ad, has QR tracking. Verified never adds or removes a QR. */
 export const hasQr = (a: Pick<AdLanding, "tier" | "verified">) => Boolean(a.tier);

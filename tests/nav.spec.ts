@@ -2,17 +2,22 @@ import { expect, test } from "@playwright/test";
 
 test("menu highlights the current page (exact and nested)", async ({ page, isMobile }) => {
   const nav = () => page.getByRole("navigation", { name: isMobile ? "Main (mobile)" : "Main", exact: true });
-  await page.goto("/directory");
-  await expect(nav().locator('[aria-current="page"]')).toHaveText("Directory");
-  await page.goto("/magazine");
-  await expect(nav().locator('[aria-current="page"]')).toHaveText("Magazine");
-  await expect(nav().getByTestId("nav-home")).not.toHaveAttribute("aria-current", "page");
   await page.goto("/");
   await expect(nav().locator('[aria-current="page"]')).toHaveCount(1);
   await expect(nav().getByRole("link", { name: "Home", exact: true })).toHaveAttribute("aria-current", "page");
+  // /directory permanently redirects to home; home stays lit.
+  await page.goto("/directory");
+  await expect(page).toHaveURL(/\/$/);
+  await expect(nav().getByRole("link", { name: "Home", exact: true })).toHaveAttribute("aria-current", "page");
+  await page.goto("/magazine");
+  await expect(nav().locator('[aria-current="page"]')).toHaveText("Magazine");
+  await expect(nav().getByTestId("nav-home")).not.toHaveAttribute("aria-current", "page");
   const tools = await page.request.get("/tools/hst-checker", { maxRedirects: 0 });
   expect(tools.status()).toBe(308);
   expect(tools.headers().location).toContain("/magazine");
+  const dir = await page.request.get("/directory", { maxRedirects: 0 });
+  expect(dir.status()).toBe(308);
+  expect(dir.headers().location).toMatch(/\/$/);
 });
 
 test("deadlines merged into the calendar: labels, type filter, redirect", async ({ page, request }) => {
@@ -30,12 +35,16 @@ test("deadlines merged into the calendar: labels, type filter, redirect", async 
     expect(t).toBe("deadline");
 });
 
-test("Home icon then Directory lead the menu; Advertise is one item active on both pages", async ({ page, isMobile }) => {
+test("Home icon then Advertise lead the menu; Advertise is one item active on both pages", async ({
+  page,
+  isMobile,
+}) => {
   for (const path of ["/advertise", "/get-verified"]) {
     await page.goto(path);
     const main = page.getByRole("navigation", { name: isMobile ? "Main (mobile)" : "Main", exact: true });
     await expect(main.getByRole("link").first()).toHaveAttribute("aria-label", "Home");
-    await expect(main.getByRole("link").nth(1)).toHaveText("Directory");
+    await expect(main.getByRole("link").nth(1)).toHaveText("Advertise");
+    await expect(main.getByRole("link", { name: "Directory", exact: true })).toHaveCount(0);
     const item = main.getByRole("link", { name: "Advertise", exact: true });
     await expect(item).toHaveAttribute("href", "/advertise");
     await expect(item).toHaveAttribute("aria-current", "page");
@@ -61,14 +70,11 @@ test("/api/revalidate: 404 without a valid key header, GET is 404", async ({ req
   expect((await request.get("/api/revalidate")).status()).toBe(404);
 });
 
-test("Magazine menu holds Events & deadlines; top level is Home, Directory, Advertise, Magazine", async ({
-  page,
-  isMobile,
-}) => {
+test("Magazine menu holds Events & deadlines; top level is Home, Advertise, Magazine", async ({ page, isMobile }) => {
   const nav = () => page.getByRole("navigation", { name: isMobile ? "Main (mobile)" : "Main", exact: true });
   await page.goto("/");
   const top = nav().locator(":scope > ul > li > a, :scope > ul > li > span > a");
-  await expect(top).toHaveText(["", "Directory", "Advertise", "Magazine"]);
+  await expect(top).toHaveText(["", "Advertise", "Magazine"]);
   await expect(top.first()).toHaveAttribute("aria-label", "Home");
   for (const p of ["/magazine", "/calendar"]) {
     await page.goto(p);

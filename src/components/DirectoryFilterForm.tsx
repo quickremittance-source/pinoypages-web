@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { DirectoryFilters } from "@/lib/directory";
 import { directoryHref } from "@/lib/directory";
 
-/** Server-rendered GET form for /directory. Filters and page are shareable via the URL. */
+/** Server-rendered GET form for the Directory home. Filters and page are shareable via the URL. */
 export function DirectoryFilterForm({
   filters,
   categories,
@@ -21,7 +21,7 @@ export function DirectoryFilterForm({
       key={`${filters.q}|${filters.category}|${filters.area}`}
       role="search"
       aria-label="Search the directory"
-      action="/directory"
+      action="/"
       method="get"
       className="card grid grid-cols-2 gap-3 p-4 lg:grid-cols-[2fr_1fr_1fr_auto] lg:items-end"
     >

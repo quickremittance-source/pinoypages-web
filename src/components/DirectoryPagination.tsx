@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { DirectoryFilters } from "@/lib/directory";
 import { directoryHref } from "@/lib/directory";
 
-/** Accessible prev/next and page-number links for /directory. */
+/** Accessible prev/next and page-number links for the Directory home. */
 export function DirectoryPagination({
   filters,
   page,

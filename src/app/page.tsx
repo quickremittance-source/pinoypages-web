@@ -1,13 +1,17 @@
 import { JsonLd } from "@/components/JsonLd";
-import { AltHome } from "@/components/alt/AltHome";
+import { DirectoryIndex } from "@/components/DirectoryIndex";
 import { brand, SITE_URL } from "@/lib/guide";
 
-/** alt-design branch: alternate home (Airbnb × Yelp feel). The original home lives at /classic. */
-export default function Home() {
+/** Home = Directory index, with a slim Advertise + Magazine strip under the hero. */
+export default function Home({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
   return (
     <>
       <JsonLd data={{ "@context": "https://schema.org", "@type": "WebSite", name: brand.name, url: SITE_URL }} />
-      <AltHome />
+      <DirectoryIndex searchParams={searchParams} promo />
     </>
   );
 }

@@ -21,6 +21,8 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   async redirects() {
     return [
+      // Directory is the home page (Jose, Nov 5): keep /directory/[category] routes.
+      { source: "/directory", destination: "/", permanent: true },
       // Tools removed (Jose, Nov 5): send old /tools URLs to Magazine.
       { source: "/tools", destination: "/magazine", permanent: true },
       { source: "/tools/:path*", destination: "/magazine", permanent: true },

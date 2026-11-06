@@ -1,6 +1,6 @@
 import { publicCategories, publicListings, type PublicListing } from "@/lib/public";
 
-/** Page size for /directory. Keeps HTML small as the catalogue grows. */
+/** Page size for the Directory (home). Keeps HTML small as the catalogue grows. */
 export const DIRECTORY_PAGE_SIZE = 48;
 
 export type DirectoryFilters = {
@@ -58,7 +58,7 @@ export function paginateListings<T>(items: T[], page: number, pageSize = DIRECTO
   };
 }
 
-/** Build a /directory URL preserving active filters. Omits page=1. */
+/** Build a home (/) directory URL preserving active filters. Omits page=1. */
 export function directoryHref(f: Partial<DirectoryFilters> & { page?: number }): string {
   const p = new URLSearchParams();
   if (f.q) p.set("q", f.q);
@@ -66,7 +66,7 @@ export function directoryHref(f: Partial<DirectoryFilters> & { page?: number }):
   if (f.area) p.set("area", f.area);
   if (f.page && f.page > 1) p.set("page", String(f.page));
   const qs = p.toString();
-  return qs ? `/directory?${qs}` : "/directory";
+  return qs ? `/?${qs}` : "/";
 }
 
 export function directoryFilterOptions(source: PublicListing[] = publicListings) {
