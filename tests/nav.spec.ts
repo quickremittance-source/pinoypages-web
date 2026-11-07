@@ -35,7 +35,7 @@ test("deadlines merged into the calendar: labels, type filter, redirect", async 
     expect(t).toBe("deadline");
 });
 
-test("Home icon then Advertise lead the menu; Advertise is one item active on both pages", async ({
+test("Home icon then Community lead the menu; Community is one item active on both pages", async ({
   page,
   isMobile,
 }) => {
@@ -43,9 +43,9 @@ test("Home icon then Advertise lead the menu; Advertise is one item active on bo
     await page.goto(path);
     const main = page.getByRole("navigation", { name: isMobile ? "Main (mobile)" : "Main", exact: true });
     await expect(main.getByRole("link").first()).toHaveAttribute("aria-label", "Home");
-    await expect(main.getByRole("link").nth(1)).toHaveText("Advertise");
+    await expect(main.getByRole("link").nth(1)).toHaveText("Community");
     await expect(main.getByRole("link", { name: "Directory", exact: true })).toHaveCount(0);
-    const item = main.getByRole("link", { name: "Advertise", exact: true });
+    const item = main.getByRole("link", { name: "Community", exact: true });
     await expect(item).toHaveAttribute("href", "/advertise");
     await expect(item).toHaveAttribute("aria-current", "page");
     await expect(main.getByRole("link", { name: "Get Verified", exact: true })).toHaveCount(0);
@@ -70,11 +70,11 @@ test("/api/revalidate: 404 without a valid key header, GET is 404", async ({ req
   expect((await request.get("/api/revalidate")).status()).toBe(404);
 });
 
-test("Magazine menu holds Events & deadlines; top level is Home, Advertise, Magazine", async ({ page, isMobile }) => {
+test("Magazine menu holds Events & deadlines; top level is Home, Community, Magazine", async ({ page, isMobile }) => {
   const nav = () => page.getByRole("navigation", { name: isMobile ? "Main (mobile)" : "Main", exact: true });
   await page.goto("/");
   const top = nav().locator(":scope > ul > li > a, :scope > ul > li > span > a");
-  await expect(top).toHaveText(["", "Advertise", "Magazine"]);
+  await expect(top).toHaveText(["", "Community", "Magazine"]);
   await expect(top.first()).toHaveAttribute("aria-label", "Home");
   for (const p of ["/magazine", "/calendar"]) {
     await page.goto(p);

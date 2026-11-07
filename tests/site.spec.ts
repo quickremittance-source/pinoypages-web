@@ -1181,7 +1181,7 @@ test("home is the Directory: collage hero, promo strip, search, categories, list
   await page.goto("/");
   await expect(page.locator("[data-magazine-hero] h1")).toHaveText("Find a kabayan business you can trust");
   const strip = page.getByTestId("home-promo-strip");
-  await expect(strip.getByRole("link", { name: "Advertise or get Verified" })).toHaveAttribute("href", "/advertise");
+  await expect(strip.getByRole("link", { name: "Community" })).toHaveAttribute("href", "/advertise");
   await expect(strip.getByRole("link", { name: "Read the Magazine" })).toHaveAttribute("href", "/magazine");
   await expect(page.getByRole("search", { name: "Search the directory" })).toBeVisible();
   await expect(page.getByRole("heading", { name: /Category: Money & Business/ })).toBeVisible();
@@ -1322,7 +1322,7 @@ test("/advertise shows four print sizes with dimensions, rates on request, specs
   page,
 }) => {
   await page.goto("/advertise");
-  await expect(page.getByRole("heading", { name: /Advertise in Pinoy Pages 2026–2027/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Community/ })).toBeVisible();
   const sizes = page.getByTestId("ad-sizes").locator(":scope > li");
   await expect(sizes).toHaveCount(4);
   for (const [id, name, dim] of <[string, string, string][]>[
@@ -1372,9 +1372,10 @@ test("ad enquiry: size preselected from link, consent required, all four sizes a
 test("home is Directory with slim Advertise + Magazine strip; Book an ad stays in header", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByTestId("home-promo-strip")).toBeVisible();
-  await expect(
-    page.getByTestId("home-promo-strip").getByRole("link", { name: "Advertise or get Verified" }),
-  ).toHaveAttribute("href", "/advertise");
+  await expect(page.getByTestId("home-promo-strip").getByRole("link", { name: "Community" })).toHaveAttribute(
+    "href",
+    "/advertise",
+  );
   await expect(page.getByRole("search", { name: "Search the directory" })).toBeVisible();
   await expect(page.locator("header").getByRole("link", { name: "Book an ad" })).toBeVisible();
   await expect(page.getByTestId("brand-line")).toHaveCount(0);
@@ -1403,4 +1404,10 @@ test("dev-mode products are hidden outside dev; directory shows Brevo listings",
   expect([404]).toContain(r.status());
   await page.goto("/directory");
   await expect(page.locator("[data-listings-source]")).toHaveCount(1);
+});
+
+test("Community hero has the approved community byline", async ({ page }) => {
+  await page.goto("/advertise");
+  await expect(page.getByRole("heading", { name: "Community", exact: true })).toBeVisible();
+  await expect(page.getByText("Join the community and get verified", { exact: true })).toBeVisible();
 });
