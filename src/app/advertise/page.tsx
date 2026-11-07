@@ -6,9 +6,9 @@ import { AdGrid } from "@/components/AdCard";
 import { InquiryForm } from "@/components/Forms";
 import { PlanTable } from "@/components/PlanTable";
 import { ads, brand } from "@/lib/guide";
-import { adSizes, ARTWORK_SPECS, BOOKING_NOTE, RATES_NOTE, type AdSize } from "@/lib/adSizes";
+import { adSizes, ARTWORK_SPECS, RATES_NOTE, type AdSize } from "@/lib/adSizes";
 
-export const metadata: Metadata = { title: "Advertise", alternates: { canonical: "/advertise" } };
+export const metadata: Metadata = { title: "Community", alternates: { canonical: "/advertise" } };
 
 const SIZE_IDS = adSizes.map((s) => s.id) as string[];
 
@@ -55,11 +55,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
   const mail = `mailto:${brand.email}?subject=${encodeURIComponent("Print ad enquiry · Pinoy Pages 2026–2027")}`;
   return (
     <>
-      <MagazineHero
-        kicker="Advertise"
-        title={`Advertise in ${brand.editionName}`}
-        intro={`The Filipino Business Directory for the GTA, in print and online. ${BOOKING_NOTE} Four ad sizes: full page, half page, quarter page and business card.`}
-      />
+      <MagazineHero kicker="Community" title="Community" intro="Join the community and get verified" />
       <AdvertiseTabs current="/advertise" />
       <section aria-labelledby="ways-h" className="mx-auto mt-4 max-w-5xl px-4" data-testid="ways">
         <h2 id="ways-h" className="sr-only">

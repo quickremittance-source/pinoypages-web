@@ -7,8 +7,8 @@ import { brand } from "@/lib/guide";
 const nav: NavItem[] = [
   { href: "/", label: "Home", icon: "home" },
   // Directory is the home page; home icon covers it (Jose, Nov 5).
-  // One "Advertise" item; /advertise explains advertise / Get Verified / both, tabs link the two pages.
-  { href: "/advertise", label: "Advertise", match: ["/get-verified"] },
+  // One "Community" item; /advertise explains advertise / Get Verified / both, tabs link the two pages.
+  { href: "/advertise", label: "Community", match: ["/get-verified"] },
   {
     href: "/magazine",
     label: "Magazine",
