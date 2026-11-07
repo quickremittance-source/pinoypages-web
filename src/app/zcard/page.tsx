@@ -114,7 +114,7 @@ export default function Page() {
             <div className="card border-2 border-green-600 p-6">
               <h3 className="text-xl font-extrabold text-ink">✅ Kabayan Verified</h3>
               <p className="mt-2 text-3xl font-extrabold text-green-700" data-testid="verified-price">
-                $199 per issue
+                $199 for the Foundation Edition
               </p>
               <p className="mt-2 text-sm">
                 An identity badge on your directory listing, earned through a ~15-minute live video check, never bought. No QR or ZCard included.

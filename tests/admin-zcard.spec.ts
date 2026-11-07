@@ -1,4 +1,4 @@
-import { login } from "./adminLogin";
+import { expectAdminGate, login } from "./adminLogin";
 import { expect, test } from "@playwright/test";
 import {
   groupByCodeDay,
@@ -25,8 +25,8 @@ const PRIVATE = [
 
 test("admin zcard pages and downloads 404 without a session", async ({ request }) => {
   for (const p of PRIVATE) {
-    expect((await request.get(p)).status(), p).toBe(404);
-    expect((await request.get(`${p}${p.includes("?") ? "&" : "?"}key=wrong`)).status(), p).toBe(404);
+    await expectAdminGate(request, p);
+    await expectAdminGate(request, `${p}${p.includes("?") ? "&" : "?"}key=wrong`);
   }
 });
 
@@ -130,7 +130,7 @@ test("signed-in admin can open the ZCard index, all four tabs, and downloads", a
 
 test("unknown and non-zcard slugs 404 for an admin", async ({ page, request }) => {
   await login(page);
-  expect((await request.get("/admin/zcard/does-not-exist")).status()).toBe(404);
+  await expectAdminGate(request, "/admin/zcard/does-not-exist");
   // request fixture has no admin cookie; use the signed-in page request
   expect((await page.request.get("/admin/zcard/does-not-exist")).status()).toBe(404);
   expect((await page.request.get("/admin/zcard/demo-full")).status()).toBe(404);

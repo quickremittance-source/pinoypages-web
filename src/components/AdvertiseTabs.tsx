@@ -1,14 +1,14 @@
 import Link from "next/link";
 
 const TABS = [
-  { href: "/advertise", label: "Advertise in print" },
+  { href: "/advertise", label: "Community" },
   { href: "/get-verified", label: "Get Verified" },
 ];
 
 /** Joins /advertise and /get-verified as one "Advertise & Get Verified" section. */
 export function AdvertiseTabs({ current }: { current: "/advertise" | "/get-verified" }) {
   return (
-    <nav aria-label="Advertise & Get Verified" className="mx-auto max-w-5xl px-4 pt-6">
+    <nav aria-label="Community & Get Verified" className="mx-auto max-w-5xl px-4 pt-6">
       <ul className="flex flex-wrap gap-2" data-testid="adv-tabs">
         {TABS.map((t) => (
           <li key={t.href}>

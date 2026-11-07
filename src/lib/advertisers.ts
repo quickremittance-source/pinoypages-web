@@ -2,7 +2,7 @@ import "server-only";
 import { db } from "@/lib/db";
 
 export const ADV_TIER_LABEL: Record<string, string> = {
-  verified: "Kabayan Verified ($199 per issue)",
+  verified: "Kabayan Verified ($199 for the Foundation Edition)",
   verified_plus: "ZCard ad + QR tracking (rates on request)",
   ads_only: "Ads (rates on request)",
 };

@@ -1,4 +1,4 @@
-import { login } from "./adminLogin";
+import { expectAdminGate, login } from "./adminLogin";
 import { expect, test } from "@playwright/test";
 import { planFor, qrCodeFor, qrTargetFor, verifiedUntil, welcomeDraft } from "../src/lib/onboarding";
 
@@ -19,14 +19,14 @@ test("QR targets locked and verified_until is one quarterly issue", () => {
 test("welcome draft: no HST, $199 per issue, badge not purchasable", () => {
   const t = welcomeDraft({ business: "B", cardUrl: "c", statsUrl: null, verified: false });
   expect(welcomeDraft({ business: "B", cardUrl: "c", statsUrl: null, verified: true })).not.toMatch(/QR code:/);
-  expect(t).toContain("$199 per issue");
+  expect(t).toContain("$199 for the Foundation Edition");
   expect(t).toContain("cannot be bought");
   expect(t).not.toMatch(/HST/);
 });
 for (const p of ["/admin/inquiries", "/admin/welcome/abc", "/admin/qr-file/abc/qr.png"]) {
   test(`${p} is admin-only`, async ({ request }) => {
-    expect((await request.get(p)).status()).toBe(404);
-    expect((await request.get(`${p}?key=wrong`)).status()).toBe(404);
+    await expectAdminGate(request, p);
+    await expectAdminGate(request, `${p}?key=wrong`);
   });
 }
 test("inquiry queue renders with key, noindex, no DB note", async ({ page }) => {

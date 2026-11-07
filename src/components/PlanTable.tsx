@@ -15,7 +15,7 @@ export function MirrorNote() {
   );
 }
 
-/** The pilot menu: two tiers, Free and Verified ($199 per issue, everything included). No add-ons or bundles. */
+/** The pilot menu: two tiers, Free and Verified ($199 for the Foundation Edition, everything included). No add-ons or bundles. */
 export function PlanTable() {
   return (
     <div className="space-y-3">
@@ -40,8 +40,8 @@ export function PlanTable() {
       <div className="overflow-x-auto" role="region" aria-label="Listing options" tabIndex={0}>
         <table className="w-full rounded-2xl bg-white text-left">
           <caption className="p-3 text-left text-sm">
-            Verified is $199 per issue, in CAD, shown before tax (no HST charged). Listings close {longDate(dates.adClose)}. Two
-            choices: Free, or Verified with everything included. {brand.adsNote}
+            Verified is $199 for the Foundation Edition (six-month pilot), in CAD, shown before tax (no HST charged). Listings close {longDate(dates.adClose)}. Two
+            choices: a free listing, or Membership and verification. {brand.adsNote}
           </caption>
           <thead className="bg-sea text-white">
             <tr>
@@ -55,13 +55,13 @@ export function PlanTable() {
                 Online: your page (included free)
               </th>
               <th scope="col" className="p-3">
-                QR code + ZCard
+                Membership card + listing QR
               </th>
               <th scope="col" className="p-3">
                 Verified Kabayan badge
               </th>
               <th scope="col" className="p-3">
-                Printed proof copy
+                Printed directory
               </th>
             </tr>
           </thead>

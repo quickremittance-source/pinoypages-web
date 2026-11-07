@@ -90,14 +90,11 @@ export function InquiryForm({ slot, size }: { slot?: string; size?: string }) {
       <Status s={s} />
       <Common fe={fe} />
       <label className="block font-bold">
-        I&apos;m interested in (ad size) *
-        <select name="product" className="field" defaultValue={size ? `ad-${size}` : ""}>
+        I&apos;m interested in *
+        <select name="product" className="field" defaultValue={size ?? ""}>
           <option value="">Choose…</option>
-          <option value="ad-full">Full page ad</option>
-          <option value="ad-half">Half page ad</option>
-          <option value="ad-quarter">Quarter page ad</option>
-          <option value="ad-card">Business card ad</option>
-          <option value="verified">Verified listing ($199 per issue, everything included)</option>
+          <option value="verified">Membership and verification ($199 for the Foundation Edition)</option>
+          <option value="landing-photo">Standard ad landing page with photo (price on enquiry)</option>
         </select>
         {fe?.product && <span className="text-sm font-normal text-coral-dk">{fe.product[0]}</span>}
       </label>
@@ -293,7 +290,7 @@ export function ListFreeForm({ subs, listing }: { subs: { value: string; label: 
       </Suspense>
       <label className="flex items-start gap-2">
         <input type="checkbox" name="wantsVerified" className="mt-1" />
-        <span>Also send me the details on Verified ($199 per issue). Optional.</span>
+        <span>Also send me the details on Verified ($199 for the Foundation Edition). Optional.</span>
       </label>
       <label className="flex items-start gap-2">
         <input type="checkbox" name="consent" className="mt-1" />

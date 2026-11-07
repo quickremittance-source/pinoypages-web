@@ -1,8 +1,8 @@
+import { requireAdmin } from "@/lib/adminGuard";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AdminFrame, NoDb } from "@/components/admin/AdminFrame";
 import { RangePicker } from "@/components/admin/Charts";
-import { isAdmin } from "@/lib/adminSession";
 import { db } from "@/lib/db";
 import { rangeDays } from "@/lib/dashRange";
 import { parseTab, ZCARD_TABS } from "@/lib/adminZcard";
@@ -31,7 +31,7 @@ type P = {
 
 export default async function Page({ params, searchParams }: P) {
   const [{ slug }, sp] = await Promise.all([params, searchParams]);
-  if (!(await isAdmin())) notFound();
+  await requireAdmin(`/admin/zcard/${encodeURIComponent(slug)}`);
   const ad = await getAdminZcard(slug);
   if (!ad) notFound();
   const tab = parseTab(sp.tab);

@@ -1,15 +1,14 @@
+import { requireAdmin } from "@/lib/adminGuard";
 /* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { PageHead } from "@/components/Chrome";
-import { isAdmin } from "@/lib/adminSession";
 import { colors, fontStack, icons, logos, tagline } from "@/brand";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Admin · brand", robots: { index: false, follow: false } };
 
 export default async function BrandPage() {
-  if (!(await isAdmin())) notFound();
+  await requireAdmin("/admin/brand");
   const tile = (a: { file: string; name: string }) => (
     <li key={a.file} className="card p-3">
       <div className="flex h-32 items-center justify-center rounded bg-white">

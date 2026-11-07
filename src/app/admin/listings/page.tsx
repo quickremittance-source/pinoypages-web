@@ -1,7 +1,6 @@
+import { requireAdmin } from "@/lib/adminGuard";
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { AdminFrame, NoDb, SyncWarning } from "@/components/admin/AdminFrame";
-import { isAdmin } from "@/lib/adminSession";
 import { searchListings } from "@/lib/adminEditDb";
 
 export const dynamic = "force-dynamic";
@@ -14,7 +13,7 @@ export const metadata: Metadata = {
 type SP = Promise<{ q?: string; status?: string; msg?: string }>;
 export default async function Page({ searchParams }: { searchParams: SP }) {
   const { q = "", status = "", msg } = await searchParams;
-  if (!(await isAdmin())) notFound();
+  await requireAdmin("/admin/listings");
   const rows = await searchListings(
     q.trim().slice(0, 80),
     ["published", "hidden", "archived"].includes(status) ? status : "",

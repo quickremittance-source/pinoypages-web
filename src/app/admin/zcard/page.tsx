@@ -1,7 +1,6 @@
+import { requireAdmin } from "@/lib/adminGuard";
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { AdminFrame, NoDb } from "@/components/admin/AdminFrame";
-import { isAdmin } from "@/lib/adminSession";
 import { db } from "@/lib/db";
 import { listAdminZcards } from "@/lib/adminZcardDb";
 
@@ -15,7 +14,7 @@ export const metadata: Metadata = {
 /** Private index of full-page ZCard ads (ads.tier = zcard). */
 export default async function Page({ searchParams }: { searchParams: Promise<{ msg?: string }> }) {
   const { msg } = await searchParams;
-  if (!(await isAdmin())) notFound();
+  await requireAdmin("/admin/zcard");
   const rows = await listAdminZcards();
   return (
     <AdminFrame title="ZCard ads" msg={msg}>

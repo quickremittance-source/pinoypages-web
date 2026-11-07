@@ -1,9 +1,9 @@
+import { requireAdmin } from "@/lib/adminGuard";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AdminFrame, NoDb, SyncWarning } from "@/components/admin/AdminFrame";
 import { AuditLog, OpButtons } from "@/components/admin/EditBits";
 import { listingOpAction, saveListingAction } from "@/app/admin/editActions";
-import { isAdmin } from "@/lib/adminSession";
 import { db } from "@/lib/db";
 import { getListing, listingAudit } from "@/lib/adminEditDb";
 import { LISTING_STATUSES, LISTING_TIERS } from "@/lib/adminEdit";
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 type P = { params: Promise<{ id: string }>; searchParams: Promise<{ msg?: string }> };
 export default async function Page({ params, searchParams }: P) {
   const [{ id }, { msg }] = await Promise.all([params, searchParams]);
-  if (!(await isAdmin())) notFound();
+  await requireAdmin(`/admin/listings/${encodeURIComponent(id)}`);
   if (!db())
     return (
       <AdminFrame title="Edit listing">

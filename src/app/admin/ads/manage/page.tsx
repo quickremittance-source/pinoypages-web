@@ -1,7 +1,6 @@
+import { requireAdmin } from "@/lib/adminGuard";
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { AdminFrame, NoDb } from "@/components/admin/AdminFrame";
-import { isAdmin } from "@/lib/adminSession";
 import { searchAds } from "@/lib/adminEditDb";
 
 export const dynamic = "force-dynamic";
@@ -17,7 +16,7 @@ export default async function Page({
   searchParams: Promise<{ q?: string; show?: string; msg?: string }>;
 }) {
   const { q = "", show = "", msg } = await searchParams;
-  if (!(await isAdmin())) notFound();
+  await requireAdmin("/admin/ads/manage");
   const rows = await searchAds(q.trim().slice(0, 80), show);
   return (
     <AdminFrame title="Manage ads" msg={msg}>

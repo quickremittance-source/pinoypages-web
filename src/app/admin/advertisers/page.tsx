@@ -1,9 +1,8 @@
+import { requireAdmin } from "@/lib/adminGuard";
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { PageHead } from "@/components/Chrome";
 import { SimpleTable } from "@/components/admin/Tables";
 import { ADV_TIER_LABEL, listAdvertisers } from "@/lib/advertisers";
-import { isAdmin } from "@/lib/adminSession";
 import { listPlacements, SPONSORED_PRICE, sponsoredSlots } from "@/lib/sponsored";
 
 export const dynamic = "force-dynamic";
@@ -11,7 +10,7 @@ export const metadata: Metadata = { title: "Admin · advertisers", robots: { ind
 
 /** Advertisers in Neon with their private stats links. Needs an admin session; 404 otherwise. */
 export default async function Page() {
-    if (!(await isAdmin())) notFound();
+    await requireAdmin("/admin/advertisers");
   const list = await listAdvertisers().catch((e) => {
     console.warn("[admin] advertisers failed", (e as Error).message);
     return null;

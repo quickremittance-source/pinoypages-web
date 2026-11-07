@@ -1,4 +1,4 @@
-import { login } from "./adminLogin";
+import { expectAdminGate, login } from "./adminLogin";
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
@@ -89,8 +89,8 @@ test("admin ads view: 404 without key; with key lists ads, QR links and redirect
   page,
   request,
 }) => {
-  expect((await request.get("/admin/ads")).status()).toBe(404);
-  expect((await request.get("/admin/ads?key=wrong")).status()).toBe(404);
+  await expectAdminGate(request, "/admin/ads");
+  await expectAdminGate(request, "/admin/ads?key=wrong");
   await login(page);
   await page.goto("/admin/ads");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Ad and QR analytics");
@@ -101,7 +101,7 @@ test("admin ads view: 404 without key; with key lists ads, QR links and redirect
 });
 
 test("admin brand page: 404 without session; with session shows swatches and downloads", async ({ page, request }) => {
-  expect((await request.get("/admin/brand")).status()).toBe(404);
+  await expectAdminGate(request, "/admin/brand");
   await login(page);
   await page.goto("/admin/brand");
   const b = page.getByTestId("admin-brand");

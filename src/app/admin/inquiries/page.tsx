@@ -1,6 +1,5 @@
+import { requireAdmin } from "@/lib/adminGuard";
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { isAdmin } from "@/lib/adminSession";
 import { planFor } from "@/lib/onboarding";
 import { queue } from "@/lib/onboardingDb";
 import { DashShell } from "@/components/admin/Charts";
@@ -13,7 +12,7 @@ const TABS = ["new", "won", "lost", "spam", "all"];
 /** Onboarding queue. ADMIN_KEY gated (404 otherwise). Approve creates the Neon listing or a draft ad; never writes Brevo. */
 export default async function Page({ searchParams }: { searchParams: Promise<{ status?: string; msg?: string }> }) {
   const { status = "new", msg } = await searchParams;
-  if (!(await isAdmin())) notFound();
+  await requireAdmin("/admin/inquiries");
   const st = TABS.includes(status) ? status : "new";
   const rows = await queue(st).catch(() => "error" as const);
   return (

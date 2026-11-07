@@ -130,7 +130,7 @@ export function Footer() {
               Terms
             </Link>
             <Link href="/advertise" className="underline">
-              Advertise
+              Community
             </Link>
           </p>
           <p className="text-xs text-muted">

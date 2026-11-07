@@ -1,9 +1,9 @@
+import { requireAdmin } from "@/lib/adminGuard";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AdminFrame, NoDb } from "@/components/admin/AdminFrame";
 import { AuditLog, OpButtons } from "@/components/admin/EditBits";
 import { adOpAction, saveAdAction } from "@/app/admin/editActions";
-import { isAdmin } from "@/lib/adminSession";
 import { db } from "@/lib/db";
 import { getAd, listingAudit } from "@/lib/adminEditDb";
 import { AD_STATUSES, AD_TIERS } from "@/lib/adminEdit";
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 type P = { params: Promise<{ slug: string }>; searchParams: Promise<{ msg?: string }> };
 export default async function Page({ params, searchParams }: P) {
   const [{ slug }, { msg }] = await Promise.all([params, searchParams]);
-  if (!(await isAdmin())) notFound();
+  await requireAdmin(`/admin/ads/${encodeURIComponent(slug)}`);
   if (!db())
     return (
       <AdminFrame title="Edit ad">

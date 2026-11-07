@@ -53,18 +53,13 @@ test("every printed QR target (with UTM) resolves and canonical drops UTM", asyn
   }
 });
 
-test("all ad slots (11 + calendar sponsor) show on /advertise as the online preview; none on pilot pages", async ({
-  page,
-}) => {
-  await page.goto("/advertise");
-  await expect(page.getByRole("heading", { name: /Online ad spaces \(preview\)/ })).toBeVisible();
-  expect(await page.locator('aside[aria-label^="Ad space"], aside[aria-label^="Advertisement"]').count()).toBe(
-    guide.ads.length,
-  );
-  for (const r of ["/", "/directory", "/get-verified", "/upgrade"]) {
+test("no ad slots or print-ad sales during the Foundation Edition launch (Community + pilot pages)", async ({ page }) => {
+  for (const r of ["/advertise", "/", "/directory/money-business", "/get-verified", "/upgrade"]) {
     await page.goto(r);
-    await expect(page.locator('aside[aria-label^="Ad space"], aside[aria-label^="Advertisement"]')).toHaveCount(0);
+    await expect(page.locator('aside[aria-label^="Ad space"], aside[aria-label^="Advertisement"]'), r).toHaveCount(0);
   }
+  await page.goto("/advertise");
+  await expect(page.locator("main")).not.toContainText(/Online ad spaces|Ad sizes|Half page|Full page|Quarter page|quarterly|99\.50|loyalty/i);
 });
 
 test("claim flow from a listing validates then succeeds", async ({ page }) => {
@@ -89,13 +84,13 @@ test("claim flow from a listing validates then succeeds", async ({ page }) => {
 
 test("ad inquiry form validates then succeeds", async ({ page }) => {
   await page.goto("/advertise?slot=slot-03");
-  await expect(page.getByRole("heading", { name: /space slot-03/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Join or ask a question" })).toBeVisible();
   await page.getByRole("button", { name: "Send ad enquiry" }).click();
   await expect(page.getByRole("alert").filter({ hasText: "Please fix" })).toContainText("Please fix");
   await page.getByLabel("Your name *").fill("Test Person");
   await page.getByLabel("Business name *").fill("Test Business");
   await page.getByLabel("Email *").fill("test@example.com");
-  await page.getByLabel(/interested in/).selectOption("ad-half");
+  await page.getByLabel(/interested in/).selectOption("landing-photo");
   await page.getByRole("checkbox").check();
   await page.getByRole("button", { name: "Send ad enquiry" }).click();
   await expect(page.getByRole("status").first()).toContainText("We received your request");
@@ -454,7 +449,7 @@ test("pilot menu = two tiers: Free / Verified $199 per issue (everything include
 }) => {
   const price = Object.fromEntries(guide.adMenu.map((a) => [a.id, a.price]));
   expect(price).toEqual({ free: 0, verified: 199 });
-  expect(guide.adMenu.map((a) => a.name)).toEqual(["Free", "Verified"]);
+  expect(guide.adMenu.map((a) => a.name)).toEqual(["Free", "Membership and verification"]);
   expect(guide.adMenu.every((a) => a.menu === "main")).toBe(true);
   expect(guide.adMenu.find((a) => a.recommended)?.id).toBe("verified");
   expect(guide.listings.every((l) => ["free", "verified"].includes(l.tier))).toBe(true);
@@ -462,20 +457,20 @@ test("pilot menu = two tiers: Free / Verified $199 per issue (everything include
   const menu = JSON.stringify(guide.adMenu);
   expect(menu).not.toMatch(/lead|bundle|founding|bronze|silver|gold|platinum|starter|Verified Plus|Verified Ad/i);
   expect(JSON.stringify(guide)).not.toMatch(/\$(159|299|350|390|360|450|600|690|850)\b/);
-  for (const o of guide.adMenu.filter((x) => x.price > 0)) expect(o.unit).toBe("per issue");
+  for (const o of guide.adMenu.filter((x) => x.price > 0)) expect(o.unit).toBe("for the Foundation Edition (six-month pilot)");
   expect(JSON.stringify(guide)).not.toMatch(
     /\+ ?HST(?! checker)|plus applicable HST|per issue\/year|issue\/yr|renews yearly|billed yearly|One yearly price|vouch|in-person visit/i,
   );
-  expect(JSON.stringify(guide)).toMatch(/\$99\.50 per issue/);
+  expect(JSON.stringify(guide)).not.toMatch(/99\.50|quarterly season|loyalty/i);
   expect(JSON.stringify(guide)).not.toMatch(/yearbook|guarantee(d)? (leads|results|calls)|results report|pinoypera/i);
   expect(guide.brand.siteUrl).toBe("https://pinoypages.ca");
   expect(guide.brand.badgeRule).toMatch(/identity only/);
   expect(guide.brand.badgeRule).toMatch(/live video/);
-  expect(guide.brand.adsNote).toBe("Print ads are now booking for the 2026–2027 edition.");
+  expect(guide.brand.adsNote).toBe("Print ads are not being sold during the Foundation Edition.");
   for (const path of ["/upgrade", "/advertise"]) {
     await page.goto(path);
     await expect(
-      page.getByText(/Pinoy Pages 2026–2027 · Spring · Summer · Fall · Pilot Edition/).first(),
+      page.getByText(/Pinoy Pages 2026–2027 · Six-month pilot · Foundation Edition/).first(),
     ).toBeVisible();
     await expect(page.getByTestId("badge-rule").first()).toContainText("Payment never buys the badge");
     await expect(page.getByTestId("badge-rule").first()).toContainText("live video");
@@ -483,7 +478,7 @@ test("pilot menu = two tiers: Free / Verified $199 per issue (everything include
     await expect(keep.getByRole("heading", { name: "Keeping your badge" })).toBeVisible();
     await expect(keep.getByRole("listitem")).toHaveCount(4);
     await expect(keep).not.toContainText(/vouch/i);
-    for (const name of ["Free", "Verified"])
+    for (const name of ["Free", "Membership and verification"])
       await expect(page.getByRole("rowheader", { name: new RegExp(`^${name}`) }).first()).toBeVisible();
     await expect(
       page.getByRole("rowheader", {
@@ -495,7 +490,7 @@ test("pilot menu = two tiers: Free / Verified $199 per issue (everything include
     );
     await expect(page.getByText(/pay-per-lead|per lead/i)).toHaveCount(0);
     await expect(
-      page.getByText(/Verified is \$199 per issue, in CAD, shown before tax \(no HST charged\)/),
+      page.getByText(/Verified is \$199 for the Foundation Edition \(six-month pilot\), in CAD, shown before tax \(no HST charged\)/),
     ).toBeVisible();
   }
   await page.goto("/upgrade");
@@ -514,8 +509,8 @@ test("pilot menu = two tiers: Free / Verified $199 per issue (everything include
   await page.goto("/terms");
   await expect(page.getByText(/payment never buys the badge/i)).toBeVisible();
   await expect(page.getByText(/20% off|\$159|\+ ?HST|plus applicable HST/i)).toHaveCount(0);
-  await expect(page.getByText(/\$99\.50 per issue for the next 4 seasons/).first()).toBeVisible();
-  await expect(page.getByRole("row", { name: /Verified \$199/ })).toBeVisible();
+  await expect(page.locator("main")).not.toContainText(/99\.50|loyalty/i);
+  await expect(page.getByText(/six-month pilot limited to 100 memberships/).first()).toBeVisible();
   await expect(page.getByText(/vouch/i)).toHaveCount(0);
   await expect(
     page.getByText(/Keeping your badge — complaints: a complaint pauses the badge pending review/),
@@ -814,7 +809,8 @@ test("Get Verified: Free vs Verified, the 3 checks, keeping-your-badge rules, an
   for (const t of ["Owner identity", "Business licence", "Live premises"])
     await expect(page.getByTestId("badge-checks")).toContainText(t);
   await expect(page.getByTestId("keep-rules").getByRole("listitem")).toHaveCount(4);
-  await expect(page.getByText(/\$99\.50 per issue/).first()).toBeVisible();
+  await expect(page.locator("main")).not.toContainText(/99\.50|quarterly|loyalty/i);
+  await expect(page.getByTestId("plan-verified")).toContainText("six-month pilot");
   await expect(page.locator("main")).not.toContainText(/vouch|in-person|\+ ?HST|plus applicable HST|issue\/year/i);
   await page.getByRole("button", { name: "Claim my listing" }).click();
   await expect(page.getByRole("alert").filter({ hasText: "Please fix" })).toBeVisible();
@@ -1318,52 +1314,34 @@ test("directory pagination: page size, page 2 link, filter combos keep page in U
   await expect(page.getByTestId("public-listings").locator("li[data-public]")).toHaveCount(scarFood.length);
 });
 
-test("/advertise shows four print sizes with dimensions, rates on request, specs and TBA deadlines", async ({
-  page,
-}) => {
+test("/advertise (Community): launch offers, Foundation terms, print milestone, no payment fields", async ({ page }) => {
   await page.goto("/advertise");
-  await expect(page.getByRole("heading", { name: /Community/ })).toBeVisible();
-  const sizes = page.getByTestId("ad-sizes").locator(":scope > li");
-  await expect(sizes).toHaveCount(4);
-  for (const [id, name, dim] of <[string, string, string][]>[
-    ["full", "Full page", "8.5″ × 11″"],
-    ["half", "Half page", "7.5″ × 4.875″"],
-    ["quarter", "Quarter page", "3.625″ × 4.875″"],
-    ["card", "Business card", "3.5″ × 2″"],
-  ]) {
-    const card = page.locator(`[data-size="${id}"]`);
-    await expect(card.getByRole("heading", { name })).toBeVisible();
-    await expect(card).toContainText(dim);
-    await expect(card.getByTestId("rate")).toHaveText("Rates on request");
-    await expect(page.getByTestId(`diagram-${id}`)).toBeVisible();
-  }
-  await expect(page.locator("main")).not.toContainText(/\$\d+ per (ad|page)|April 2027 edition \(preview\)/);
-  await expect(page.getByTestId("artwork-specs")).toContainText("300 dpi");
-  await expect(page.getByTestId("artwork-specs")).toContainText("CMYK");
-  await expect(page.getByTestId("artwork-specs")).toContainText("PDF/X");
-  await expect(page.getByTestId("artwork-specs")).toContainText("bleed");
-  await expect(page.getByTestId("deadlines")).toContainText("to be announced");
-  await expect(page.getByRole("link", { name: "info@pinoypages.ca" }).first()).toHaveAttribute(
-    "href",
-    /^mailto:info@pinoypages\.ca/,
-  );
+  await expect(page.getByRole("heading", { name: /Community/ }).first()).toBeVisible();
+  const ways = page.getByTestId("ways");
+  await expect(ways.locator("[data-offer]")).toHaveCount(3);
+  await expect(page.getByTestId("landing-upgrade")).toContainText("one photo");
+  await expect(page.getByTestId("landing-upgrade")).toContainText("Price on enquiry");
+  await expect(page.getByTestId("landing-upgrade")).not.toContainText(/\$\d/);
+  await expect(page.getByTestId("edition-terms")).toContainText("six-month pilot, limited to 100 memberships at $199 for the issue");
+  await expect(page.getByTestId("edition-terms")).toContainText("archived and remains available to view");
+  await expect(page.getByTestId("print-milestone")).toContainText("after 100 memberships are confirmed");
+  await expect(page.getByTestId("print-milestone")).toContainText("mailed to businesses");
+  await expect(page.getByRole("link", { name: "info@pinoypages.ca" }).first()).toHaveAttribute("href", /^mailto:info@pinoypages\.ca/);
   await expect(page.locator('input[type="password"], input[autocomplete^="cc-"]')).toHaveCount(0);
 });
 
-test("ad enquiry: size preselected from link, consent required, all four sizes accepted", async ({ page }) => {
-  await page.goto("/advertise?size=quarter");
+test("Community enquiry: product preselected from link (old ?size= links still open), consent required", async ({ page }) => {
+  expect((await page.goto("/advertise?size=quarter"))?.status()).toBe(200);
+  await page.goto("/advertise?product=landing-photo");
   const sel = page.getByLabel(/interested in/);
-  await expect(sel).toHaveValue("ad-quarter");
-  for (const v of ["ad-full", "ad-half", "ad-quarter", "ad-card", "verified"])
-    await expect(sel.locator(`option[value="${v}"]`)).toHaveCount(1);
+  await expect(sel).toHaveValue("landing-photo");
+  await expect(sel.locator("option:not([value=''])")).toHaveCount(2);
   await page.getByRole("button", { name: "Send ad enquiry" }).click();
-  await expect(page.getByRole("alert").filter({ hasText: "Please fix" })).toBeVisible();
   await expect(page.getByText("Please agree so we can contact you")).toBeVisible();
   await page.getByLabel("Your name *").fill("Test Person");
   await page.getByLabel("Business name *").fill("Test Business");
   await page.getByLabel("Email *").fill("test@example.com");
-  await page.getByLabel("Phone").fill("416-555-0100");
-  await page.getByLabel(/interested in/).selectOption("ad-card");
+  await sel.selectOption("verified");
   await page.getByRole("checkbox").check();
   await page.getByRole("button", { name: "Send ad enquiry" }).click();
   await expect(page.getByRole("status").first()).toContainText("We received your request");
