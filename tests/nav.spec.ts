@@ -103,6 +103,10 @@ test("/advertise explains advertise, get Verified, or both", async ({ page }) =>
   await page.goto("/advertise");
   const w = page.getByTestId("ways");
   await expect(w).toContainText("$199 per issue");
+  await expect(w).toContainText("Membership and verification");
+  await expect(
+    page.getByRole("heading", { name: "Membership and verification — $199 per issue", exact: true }),
+  ).toBeVisible();
   await expect(w).toContainText("never bought");
   await expect(w).not.toContainText(/year|HST/i);
   await expect(w.getByRole("link", { name: "Get Verified" })).toHaveAttribute("href", "/get-verified");

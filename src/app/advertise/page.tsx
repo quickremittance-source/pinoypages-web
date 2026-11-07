@@ -70,7 +70,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
             </a>
           </li>
           <li className="card p-4">
-            <strong className="block text-ink">Get Kabayan Verified</strong>
+            <strong className="block text-ink">Membership and verification</strong>
             <span className="text-sm text-muted">
               $199 per issue: the green Kabayan Verified badge, a standout (bold, highlighted) listing and free listing
               updates. The badge is earned through a live video identity check (about 15 minutes), never bought.
@@ -183,7 +183,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ s
 
         <section aria-labelledby="verified-h" className="space-y-4">
           <h2 id="verified-h" className="text-2xl font-bold text-ink">
-            Also available: Verified listing, $199 per issue
+            Membership and verification — $199 per issue
           </h2>
           <p className="rounded-xl bg-sand p-4">
             {brand.badgeRule} A listing gets you found. Verification gets you customers.
