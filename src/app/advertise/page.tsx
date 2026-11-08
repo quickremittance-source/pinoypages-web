@@ -97,7 +97,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ p
             Membership and verification — $199 for the Foundation Edition
           </h2>
           <p className="rounded-xl bg-sand p-4">
-            {brand.badgeRule} A listing gets you found. Verification gets you customers.
+            {brand.badgeRule} Verification confirms identity only; results are not guaranteed.
           </p>
           <PlanTable />
         </section>

@@ -40,8 +40,8 @@ test("/zcard explains the concept with only the $199 public price", async ({ pag
   await expect(page.getByTestId("verified-price")).toHaveText("$199 for the Foundation Edition");
   const text = (await page.getByTestId("zcard-pricing").innerText()).replace("$199", "");
   expect(text).not.toMatch(/\$\d/);
-  await expect(page.getByText("Scan to order yours").first()).toBeVisible();
-  await expect(page.getByTestId("zcard-limited")).toContainText("Limited spaces available");
+  await expect(page.getByRole("link", { name: "Ask about a landing page" })).toHaveAttribute("href", "/advertise?product=landing-photo#enquire");
+  await expect(page.locator("body")).not.toContainText(/Rates on request|Sponsored search placement|Limited spaces available/);
   expect(await page.locator('meta[name="robots"]').getAttribute("content")).toContain("noindex");
 });
 
