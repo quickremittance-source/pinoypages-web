@@ -1,12 +1,11 @@
 import Link from "next/link";
-import { adMenu, brand, dates, longDate, money } from "@/lib/guide";
+import { adMenu, brand, money } from "@/lib/guide";
 
 export function MirrorNote() {
   return (
     <div className="space-y-2 rounded-xl bg-aqua p-4 text-sea">
       <p className="font-bold">
-        {brand.editionName} · {brand.seasons} · {brand.pilotLabel}. {brand.productNote} ✓ Website mirror included free
-        with every choice.
+        {brand.editionName} · {brand.seasons} · {brand.pilotLabel}. {brand.productNote}
       </p>
       <p>
         {brand.annualNote} {brand.mirrorNote} {brand.reportNote} {brand.printNote}
@@ -15,7 +14,7 @@ export function MirrorNote() {
   );
 }
 
-/** The pilot menu: two tiers, Free and Verified ($199 per issue, everything included). No add-ons or bundles. */
+/** Membership options; the standard photo landing page is an optional upgrade. */
 export function PlanTable() {
   return (
     <div className="space-y-3">
@@ -40,8 +39,8 @@ export function PlanTable() {
       <div className="overflow-x-auto" role="region" aria-label="Listing options" tabIndex={0}>
         <table className="w-full rounded-2xl bg-white text-left">
           <caption className="p-3 text-left text-sm">
-            Verified is $199 per issue, in CAD, shown before tax (no HST charged). Listings close {longDate(dates.adClose)}. Two
-            choices: Free, or Verified with everything included. {brand.adsNote}
+            Verified is $199 for the Foundation Edition (six-month pilot), in CAD (no HST charged). Foundation Edition memberships are limited to 100. Two
+            choices: a free listing, or Membership and verification. {brand.adsNote}
           </caption>
           <thead className="bg-sea text-white">
             <tr>
@@ -52,16 +51,16 @@ export function PlanTable() {
                 Price
               </th>
               <th scope="col" className="p-3">
-                Online: your page (included free)
+                Directory listing
               </th>
               <th scope="col" className="p-3">
-                QR code + ZCard
+                Membership card + listing QR
               </th>
               <th scope="col" className="p-3">
                 Verified Kabayan badge
               </th>
               <th scope="col" className="p-3">
-                Printed proof copy
+                Printed directory
               </th>
             </tr>
           </thead>

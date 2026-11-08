@@ -74,11 +74,11 @@ export function ArticleView({ a, lang }: { a: Article; lang: "en" | "tl" }) {
               </h2>
               <p className="mt-1 text-sm text-muted">
                 Every business in our stories is drawn from the directory. Verified businesses earn the badge through a
-                live video identity check, and receive a ZCard and a monthly scan report. Listing is free.
+                live video identity check. Membership and verification is $199 for the six-month Foundation Edition. Listing is free.
               </p>
               <div className="mt-3 flex flex-wrap gap-2">
                 <Link href="/get-verified" className="btn px-4 py-2 text-sm">
-                  Get Verified · $199 per issue
+                  Get Verified · $199 for the Foundation Edition
                 </Link>
                 <Link href="/list-free" className="btn btn-ghost px-4 py-2 text-sm">
                   List your business free

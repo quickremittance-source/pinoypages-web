@@ -1,6 +1,5 @@
+import { requireAdmin } from "@/lib/adminGuard";
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { isAdmin } from "@/lib/adminSession";
 import { rangeDays } from "@/lib/dashRange";
 import { getOverview } from "@/lib/dashboards";
 import { BarList, Bars, BRAND, DashShell, RangePicker, Stat } from "@/components/admin/Charts";
@@ -11,7 +10,7 @@ export const metadata: Metadata = { title: "Admin · dashboard", robots: { index
 /** Overall analytics from Neon daily counters. Needs an admin session; 404 otherwise. */
 export default async function Page({ searchParams }: { searchParams: Promise<{ days?: string }> }) {
   const { days: d } = await searchParams;
-  if (!(await isAdmin())) notFound();
+  await requireAdmin("/admin/dashboard");
   const days = rangeDays(d);
   const raw = await getOverview(days).catch((e: Error) => (console.error("[dashboard]", e.message), "error" as const));
   const failed = raw === "error";

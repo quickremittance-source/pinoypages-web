@@ -29,7 +29,7 @@ const Ad = z.object({
   listingId: z.string().nullable(),
   /** Stable short id printed in the QR (?t=); scans are counted per tracking id. */
   trackingId: z.string().regex(/^[a-z0-9]{4,12}$/),
-  /** Legacy data field. "verified" = identity badge ($199 per issue). "verified-plus" is a retired bundle label, shown as plain Kabayan Verified. */
+  /** Legacy data field. "verified" = identity badge ($199 for the Foundation Edition). "verified-plus" is a retired bundle label, shown as plain Kabayan Verified. */
   verified: z.enum(["verified", "verified-plus"]).nullable(),
   /** Feature flags; off unless set true, so buttons can be re-enabled per ad later. */
   features: z
@@ -55,8 +55,8 @@ export const isAdStatId = (id: string) => {
 export const PRINT_ORIGIN = "https://pinoypages.ca";
 export const adQrUrl = (a: AdLanding) => `${PRINT_ORIGIN}/ad/${a.slug}?src=qr&t=${a.trackingId}`;
 export const VERIFIED_LABEL = { verified: "Kabayan Verified", "verified-plus": "Kabayan Verified" } as const;
-/** Kabayan Verified is $199 per issue (identity badge only). */
-export const VERIFIED_PRICE = { verified: "$199 per issue", "verified-plus": "$199 per issue" } as const;
+/** Kabayan Verified is $199 for the Foundation Edition (identity badge only). */
+export const VERIFIED_PRICE = { verified: "$199 for the Foundation Edition", "verified-plus": "$199 for the Foundation Edition" } as const;
 export const mapsUrl = (q: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
 
 /** Only full and half ads get a landing page; quarter and zcard QR scans redirect to the listing. */

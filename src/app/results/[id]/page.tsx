@@ -37,9 +37,9 @@ export default async function Page({ params, searchParams }: P) {
             <h2 id="up" className="text-xl font-semibold text-sea">
               Your listing is being counted
             </h2>
-            <p className="mt-2">Results are shown to Verified members. Upgrade to see your monthly views and clicks.</p>
+            <p className="mt-2">Reporting access is not confirmed as part of the Foundation membership offer. Ask us about available reporting for your listing.</p>
             <Link className="btn mt-4" href={`/upgrade?listing=${l.id}`}>
-              Upgrade to see your results
+              Ask about reporting
             </Link>
           </section>
         )}

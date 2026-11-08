@@ -5,10 +5,13 @@ import { parseAdForm, parseListingForm, sortRows, type MetricRow } from "../src/
 const fd = (o: Record<string, string>) => ({ get: (k: string) => o[k] ?? null });
 const PAGES = ["/admin", "/admin/listings", "/admin/listings/x", "/admin/ads/manage", "/admin/ads/x"];
 
-test("admin hub and editor pages 404 without the key or with a wrong key", async ({ request }) => {
+test("admin hub and editor pages send signed-out visitors to sign-in, with or without a wrong key", async ({ request }) => {
   for (const p of PAGES) {
-    expect((await request.get(p)).status(), p).toBe(404);
-    expect((await request.get(`${p}?key=wrong`)).status(), p).toBe(404);
+    for (const u of [p, `${p}?key=wrong`]) {
+      const r = await request.get(u, { maxRedirects: 0 });
+      expect(r.status(), u).toBe(307);
+      expect(r.headers()["location"], u).toBe(`/admin/login?next=${encodeURIComponent(p)}`);
+    }
   }
 });
 

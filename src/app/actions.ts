@@ -28,7 +28,7 @@ const contact = {
 
 const inquirySchema = z.object({
   ...contact,
-  product: z.enum(["ad-full", "ad-half", "ad-quarter", "ad-card", "verified"], {
+  product: z.enum(["ad-full", "ad-half", "ad-quarter", "ad-card", "verified", "landing-photo"], {
     message: "Choose an ad size or option",
   }),
   slot: z.enum(slotIds).optional().or(z.literal("")),

@@ -1,4 +1,4 @@
-import { login } from "./adminLogin";
+import { expectAdminGate, login } from "./adminLogin";
 import { expect, test } from "@playwright/test";
 import { qrTarget, rangeDays, daysIn, windowOf } from "../src/lib/dashRange";
 
@@ -22,8 +22,8 @@ test("qrTarget allows only pinoypages.ca /go, /card, /qr", () => {
 
 for (const p of ["/admin/dashboard", "/admin/qr"]) {
   test(`${p} needs the admin key and is noindex`, async ({ page, request }) => {
-    expect((await request.get(p)).status()).toBe(404);
-    expect((await request.get(`${p}?key=wrong`)).status()).toBe(404);
+    await expectAdminGate(request, p);
+    await expectAdminGate(request, `${p}?key=wrong`);
     await login(page);
     const r = await page.goto(`${p}?days=7`);
     expect(r?.status()).toBe(200);

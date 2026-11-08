@@ -17,8 +17,8 @@ const VERIFIED = [
   "Standout listing: bold and highlighted in the directory",
   "Free listing updates",
   "Featured card with your logo, services and photos",
-  "QR codes and ZCard business-card ads are separate advertiser products (see Advertise)",
-  "Printed proof copy of the Pilot Edition",
+  "Optional upgrade: a standard ad landing page with a photo (price on enquiry; see Community)",
+  "A standout listing in the printed directory, released after 100 memberships and mailed to businesses",
 ];
 export const CHECKS = [
   { t: "Owner identity", d: "The owner is on camera on a ~15-minute live video call. ID is viewed, never stored." },
@@ -67,13 +67,13 @@ export function GetVerified({ l }: { l?: Pick<Listing, "id" | "name"> }) {
           </div>
           <div className="card relative border-2 border-phred p-6" data-testid="plan-verified">
             <span className="absolute -top-3 right-4 rounded-md bg-phred px-2 py-0.5 text-xs font-bold text-white">
-              What Verified includes
+              What membership includes
             </span>
             <p className="kicker">Verified</p>
             <p className="mt-1 text-3xl font-extrabold text-ink">
               {money(verified.price)} <span className="text-base font-semibold text-muted">{verified.unit}</span>
             </p>
-            <p className="text-sm text-muted">One quarterly season, shown before tax; no HST is charged. Loyalty rate: after 4 seasons at $199, it’s $99.50 per issue for the next 4 seasons.</p>
+            <p className="text-sm text-muted">For the Foundation Edition: a six-month pilot limited to 100 memberships. No HST is charged. Future editions run for one year; ended editions are archived and remain available to view.</p>
             <ul className="mt-4 space-y-2">
               {VERIFIED.map((f) => (
                 <li key={f} className="flex gap-2">

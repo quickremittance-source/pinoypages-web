@@ -9,10 +9,10 @@ import { brand, featuredListings, listingById, mutualPartners, sections, SITE_UR
 const STEPS = [
   {
     t: "Get checked live",
-    d: "A ~15-minute live video call checks the owner's identity, your business licence and your premises, and completes your ZCard.",
+    d: "A ~15-minute live video call checks the owner's identity, business licence and premises. Payment never buys the badge.",
   },
-  { t: "Share your QR", d: "Put one QR on your cards, flyers and counter. Every scan opens your ZCard." },
-  { t: "See the proof", d: "A monthly scan report shows how many people found you and saved your contact." },
+  { t: "Join the community", d: "Membership and verification is $199 for the six-month Foundation Edition, limited to 100 memberships." },
+  { t: "Optional photo landing page", d: "Ask about a standard ad landing page with one photo. Price on enquiry; no results are guaranteed." },
 ];
 
 const TOOLS = [
@@ -74,12 +74,12 @@ export default function Home() {
               {brand.tagline} · {brand.region}
             </p>
             <h1 className="mt-3 text-4xl leading-[1.08] font-extrabold text-ink sm:text-5xl">
-              Be the kabayan they can trust <span className="text-phred">— and see proof people found you</span>
+              Be the kabayan they can trust <span className="text-phred">— join the community</span>
             </h1>
             <p className="mt-4 max-w-xl text-lg text-muted">
               Pinoy Pages lists Filipino-run tax, insurance, bookkeeping and business pros in the GTA. Verified
-              businesses pass a live video identity check (identity only, never bought), and get a QR that counts every
-              scan.
+              businesses pass a live video identity check (identity only, never bought). Membership and verification is
+              $199 for the six-month Foundation Edition.
             </p>
             <p
               className="mt-4 inline-block rounded-md border border-turqdk/40 bg-white px-2 py-1 text-sm font-bold text-sea"
@@ -108,7 +108,7 @@ export default function Home() {
             </form>
             <div className="mt-4 flex flex-wrap gap-3">
               <Link className="btn" href="/get-verified">
-                Get Verified · $199 per issue
+                Membership and verification · $199 for the Foundation Edition
               </Link>
               <Link className="btn btn-ghost" href="/directory">
                 Browse the directory
@@ -180,10 +180,10 @@ export default function Home() {
           </div>
           <div className="card flex flex-col border-2 border-phred p-6">
             <p className="kicker">Verified · {brand.pilotLabel}</p>
-            <h3 className="mt-1 text-2xl font-extrabold text-ink">Get Verified · $199 per issue</h3>
+            <h3 className="mt-1 text-2xl font-extrabold text-ink">Membership and verification · $199 for the Foundation Edition</h3>
             <p className="mt-2 text-muted">
-              A featured card, the badge once you pass the live video identity check, your ZCard and QR, and a monthly
-              scan report. One price per issue, everything included.
+              A featured directory listing and eligibility for the identity badge through a live video check. The Foundation
+              Edition is a six-month pilot limited to 100 memberships. The photo landing page is an optional upgrade.
             </p>
             <Link href="/get-verified" className="btn mt-4 self-start">
               Get Verified
@@ -206,7 +206,7 @@ export default function Home() {
                 Earned, never bought
               </h2>
               <p className="mt-2 text-muted">
-                $199 per issue, everything included. Payment makes you eligible; the badge is earned.
+                $199 for the six-month Foundation Edition. Payment makes you eligible; the identity badge is earned.
               </p>
               <Link href="/get-verified" className="btn mt-5">
                 Get Verified

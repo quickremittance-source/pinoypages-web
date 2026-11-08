@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { SignupForm } from "@/components/Forms";
 import { brand, sections } from "@/lib/guide";
-import { adSizes, BOOKING_NOTE, RATES_NOTE } from "@/lib/adSizes";
+import { adSizes, RATES_NOTE } from "@/lib/adSizes";
 import { areaCounts, categoryCounts, communityEvents, featuredForAlt, GTA_AREAS, POPULAR } from "./data";
 import { FeaturedGrid } from "./FeaturedGrid";
 import { PublicNote } from "./PublicNote";
@@ -17,7 +17,7 @@ const WHY = [
   {
     icon: "🏪",
     t: "For businesses",
-    d: "List free with your name and contact, or get Kabayan Verified for $199 per issue: an identity badge earned through a live video check. ZCard business-card ads with QR tracking are for advertisers.",
+    d: "List free with your name and contact, or get Kabayan Verified for $199 for the Foundation Edition: an identity badge earned through a live video check. A standard ad landing page with a photo is available as an upgrade.",
   },
   {
     icon: "🤝",
@@ -52,12 +52,12 @@ export async function AltHome() {
             Put your business in front of the GTA&apos;s Filipino community
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-white/90">
-            {BOOKING_NOTE} Full page, half page, quarter page and business card ads in the printed directory, alongside{" "}
+            Join the community and get verified, alongside{" "}
             {total} Filipino businesses already listed across the Greater Toronto Area.
           </p>
           <div className="mt-6 flex flex-wrap gap-3" data-testid="hero-ad-cta">
             <Link href="/advertise" className="rounded-full bg-white px-7 py-3 font-bold text-phred hover:bg-sand">
-              See ad sizes
+              Join the community
             </Link>
             <Link
               href="/advertise#enquire"
@@ -139,7 +139,7 @@ export async function AltHome() {
         <p className="mt-4 text-sm text-muted">
           Prefer a listing instead?{" "}
           <Link href="/get-verified" className="font-semibold text-turqdk underline">
-            Verified listing, $199 per issue
+            Verified listing, $199 for the Foundation Edition
           </Link>
         </p>
       </section>
@@ -206,7 +206,7 @@ export async function AltHome() {
                   The first Verified Kabayan businesses will appear here after their live video identity check.
                 </p>
                 <Link className="btn mt-4 inline-block" href="/get-verified">
-                  Get Verified · $199 per issue
+                  Get Verified · $199 for the Foundation Edition
                 </Link>
               </div>
             </div>
@@ -306,7 +306,7 @@ export async function AltHome() {
             List free
           </Link>
           <Link className="btn" href="/get-verified">
-            Get Verified · $199 per issue
+            Get Verified · $199 for the Foundation Edition
           </Link>
         </div>
       </section>

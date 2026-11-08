@@ -1,10 +1,9 @@
+import { requireAdmin } from "@/lib/adminGuard";
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { PageHead } from "@/components/Chrome";
 import { EVENT_LABEL, last12, sum, type EventName } from "@/lib/analytics/events";
 import { store } from "@/lib/analytics/store";
 import { resultsToken } from "@/lib/analytics/token";
-import { isAdmin } from "@/lib/adminSession";
 import { listings } from "@/lib/guide";
 import { SiteAnalytics } from "@/components/admin/SiteAnalytics";
 import { parseRange } from "@/lib/siteAnalytics";
@@ -20,7 +19,7 @@ export default async function Page({
   searchParams: Promise<{ from?: string; to?: string }>;
 }) {
   const { from, to } = await searchParams;
-  if (!(await isAdmin())) notFound();
+  await requireAdmin("/admin/analytics");
   const all = await store().all();
   const months = last12();
   return (

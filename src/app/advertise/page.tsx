@@ -2,202 +2,106 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { MagazineHero } from "@/components/MagazineHero";
 import { AdvertiseTabs } from "@/components/AdvertiseTabs";
-import { AdGrid } from "@/components/AdCard";
 import { InquiryForm } from "@/components/Forms";
 import { PlanTable } from "@/components/PlanTable";
-import { ads, brand } from "@/lib/guide";
-import { adSizes, ARTWORK_SPECS, RATES_NOTE, type AdSize } from "@/lib/adSizes";
+import { brand } from "@/lib/guide";
 
 export const metadata: Metadata = { title: "Community", alternates: { canonical: "/advertise" } };
 
-const SIZE_IDS = adSizes.map((s) => s.id) as string[];
+/** Launch offers (Jose, Nov 7): membership and verification, plus one optional standard photo landing page. */
+const PRODUCTS = ["verified", "landing-photo"] as const;
+/** Old ?size= links (print ad sizes) still open the page; print ads are not sold during the Foundation Edition. */
+const fromQuery = (v?: string) => (PRODUCTS as readonly string[]).includes(v ?? "") ? v : v === "landing" ? "landing-photo" : undefined;
 
-/** Scale drawing of the ad on an 8.5 × 11 page (live area dashed). */
-function SizeDiagram({ s }: { s: AdSize }) {
-  const k = 12;
-  const full = s.id === "full";
-  const x = full ? 0 : s.box.x * k;
-  const y = full ? 0 : s.box.y * k;
-  return (
-    <svg
-      viewBox={`0 0 ${8.5 * k} ${11 * k}`}
-      className="h-40 w-auto"
-      role="img"
-      aria-label={`${s.name} on an 8.5 by 11 inch page`}
-      data-testid={`diagram-${s.id}`}
-    >
-      <rect x="0.5" y="0.5" width={8.5 * k - 1} height={11 * k - 1} fill="#fff" stroke="#1b2328" strokeWidth="1" />
-      <rect
-        x={0.5 * k}
-        y={0.5 * k}
-        width={7.5 * k}
-        height={10 * k}
-        fill="none"
-        stroke="#94a3b8"
-        strokeDasharray="3 3"
-      />
-      <rect
-        x={x}
-        y={y}
-        width={(full ? 8.5 : s.box.w) * k}
-        height={(full ? 11 : s.box.h) * k}
-        fill="#c8102e"
-        fillOpacity="0.85"
-      />
-    </svg>
-  );
-}
-
-export default async function Page({ searchParams }: { searchParams: Promise<{ slot?: string; size?: string }> }) {
-  const { slot, size } = await searchParams;
-  const valid = ads.find((a) => a.id === slot)?.id;
-  const chosen = size && SIZE_IDS.includes(size) ? size : undefined;
-  const mail = `mailto:${brand.email}?subject=${encodeURIComponent("Print ad enquiry · Pinoy Pages 2026–2027")}`;
+export default async function Page({ searchParams }: { searchParams: Promise<{ product?: string; size?: string }> }) {
+  const { product, size } = await searchParams;
+  const chosen = fromQuery(product) ?? fromQuery(size);
+  const mail = `mailto:${brand.email}?subject=${encodeURIComponent("Community enquiry · Pinoy Pages Foundation Edition")}`;
   return (
     <>
       <MagazineHero kicker="Community" title="Community" intro="Join the community and get verified" />
       <AdvertiseTabs current="/advertise" />
       <section aria-labelledby="ways-h" className="mx-auto mt-4 max-w-5xl px-4" data-testid="ways">
         <h2 id="ways-h" className="sr-only">
-          Advertise, get Verified, or both
+          Ways to join
         </h2>
         <ul className="grid gap-3 sm:grid-cols-3">
-          <li className="card p-4">
-            <strong className="block text-ink">Advertise</strong>
-            <span className="text-sm text-muted">A print ad in the directory plus a QR to your page online.</span>{" "}
-            <a href="#sizes" className="text-sm font-semibold text-turqdk underline">
-              See ad sizes
-            </a>
+          <li className="card p-4" data-offer="free">
+            <strong className="block text-ink">Free listing</strong>
+            <span className="text-sm text-muted">Your business name and contact details in the directory.</span>{" "}
+            <Link href="/list-free" className="text-sm font-semibold text-turqdk underline">
+              List free
+            </Link>
           </li>
-          <li className="card p-4">
+          <li className="card p-4" data-offer="verified">
             <strong className="block text-ink">Membership and verification</strong>
             <span className="text-sm text-muted">
-              $199 per issue: the green Kabayan Verified badge, a standout (bold, highlighted) listing and free listing
-              updates. The badge is earned through a live video identity check (about 15 minutes), never bought.
+              $199 for the Foundation Edition: a standout (bold, highlighted) listing, free listing updates and the green
+              Kabayan Verified badge once you pass a live identity check (about 15 minutes). The badge is never bought.
             </span>{" "}
             <Link href="/get-verified" className="text-sm font-semibold text-turqdk underline">
               Get Verified
             </Link>
           </li>
-          <li className="card p-4">
-            <strong className="block text-ink">Do both</strong>
+          <li className="card p-4" data-offer="landing-photo" data-testid="landing-upgrade">
+            <strong className="block text-ink">Standard ad landing page with photo</strong>
             <span className="text-sm text-muted">
-              Run an ad (including a ZCard business-card ad with QR tracking) and, separately, earn the Verified
-              identity badge on your listing.
+              Optional upgrade: one page on Pinoy Pages with one photo, your business name, a short description, services
+              and contact buttons. Price on enquiry.
             </span>{" "}
-            <a href="#enquire" className="text-sm font-semibold text-turqdk underline">
-              Ask about both
-            </a>
+            <Link href="/advertise?product=landing-photo#enquire" className="text-sm font-semibold text-turqdk underline">
+              Ask about a landing page
+            </Link>
           </li>
         </ul>
       </section>
       <div className="mx-auto max-w-6xl space-y-12 px-4 py-8">
-        <section aria-labelledby="sizes">
-          <h2 id="sizes" className="text-2xl font-bold text-ink">
-            Ad sizes
-          </h2>
-          <p className="mt-1 text-muted">Page trim 8.5″ × 11″. {RATES_NOTE}: ask us for the current rate card.</p>
-          <ul className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" data-testid="ad-sizes">
-            {adSizes.map((s) => (
-              <li key={s.id} className="card flex flex-col p-5" data-size={s.id}>
-                <div className="flex justify-center rounded-lg bg-sand/60 p-3">
-                  <SizeDiagram s={s} />
-                </div>
-                <h3 className="mt-4 text-xl font-extrabold text-ink">{s.name}</h3>
-                <p className="mt-1 text-sm font-semibold text-turqdk">{s.size}</p>
-                <p className="mt-1 text-sm text-muted">{s.note}</p>
-                <ul className="mt-3 list-disc space-y-1 pl-5 text-sm">
-                  {s.includes.map((i) => (
-                    <li key={i}>{i}</li>
-                  ))}
-                </ul>
-                <p className="mt-auto pt-4 font-bold text-phred" data-testid="rate">
-                  {RATES_NOTE}
-                </p>
-                <a className="btn mt-3 text-center" href={`/advertise?size=${s.id}#enquire`}>
-                  Ask about a {s.name.toLowerCase()}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <section className="grid gap-6 md:grid-cols-2" aria-label="Artwork and deadlines">
+        <section aria-labelledby="edition-h" className="grid gap-6 md:grid-cols-2" data-testid="edition-terms">
           <div className="rounded-2xl bg-aqua/60 p-6">
-            <h2 className="text-xl font-bold text-ink">Artwork specifications</h2>
-            <ul className="mt-3 list-disc space-y-1 pl-5" data-testid="artwork-specs">
-              {ARTWORK_SPECS.map((a) => (
-                <li key={a}>{a}</li>
-              ))}
-            </ul>
+            <h2 id="edition-h" className="text-xl font-bold text-ink">
+              Foundation Edition
+            </h2>
+            <p className="mt-3">
+              The Foundation Edition is a six-month pilot, limited to 100 memberships at $199 for the issue. Future
+              editions run for one year. After each edition ends, it is archived and remains available to view.
+            </p>
           </div>
           <div className="rounded-2xl bg-sand p-6">
-            <h2 className="text-xl font-bold text-ink">Deadlines</h2>
-            <p className="mt-3" data-testid="deadlines">
-              Booking and artwork deadlines for the 2026–2027 edition are to be announced. Enquire now to hold your
-              size; we confirm every booking in writing before you are invoiced.
+            <h2 className="text-xl font-bold text-ink">Printed directory</h2>
+            <p className="mt-3" data-testid="print-milestone">
+              The printed directory is released after 100 memberships are confirmed, and is mailed to businesses. We will
+              confirm the date when we reach that milestone.
             </p>
             <p className="mt-3 text-sm text-muted">
-              Every ad comes with a QR code to your page on the Pinoy Pages website, so readers can save your contact.
-              We report scan counts; we do not guarantee results.
-            </p>
-          </div>
-        </section>
-
-        <section aria-labelledby="zcard-ad-h" id="zcard-ad" className="scroll-mt-24" data-testid="zcard-ad">
-          <h2 id="zcard-ad-h" className="text-2xl font-bold text-ink">
-            ZCard business-card ad
-          </h2>
-          <div className="card mt-3 p-6">
-            <p>
-              A business-card size ad in the print directory with its own QR code. Scans open your directory listing and
-              are counted in your private stats link. ZCards are an advertiser product; they are not part of Kabayan
-              Verified.
-            </p>
-            <p className="mt-2 font-extrabold text-phred">Rates on request</p>
-            <p className="mt-3 text-sm">
-              <Link href="/zcard" className="font-semibold text-turqdk underline">
-                How ZCard works
-              </Link>{" "}
-              ·{" "}
-              <a href="#enquire" className="font-semibold text-turqdk underline">
-                Ask about a ZCard ad
-              </a>
+              We count QR scans for listings that have a Pinoy Pages QR code. We do not guarantee results.
             </p>
           </div>
         </section>
 
         <section aria-labelledby="enquire-h" id="enquire" className="scroll-mt-24">
           <h2 id="enquire-h" className="mb-3 text-2xl font-bold text-ink">
-            Book or ask about an ad{valid ? ` (space ${valid})` : ""}
+            Join or ask a question
           </h2>
           <p className="mb-4 text-muted">
             This form only sends us your details. We never take payment or ask for card details on this site; we send an
-            invoice after confirming your booking. Prefer email?{" "}
+            invoice after confirming with you. Prefer email?{" "}
             <a className="font-semibold text-turqdk underline" href={mail}>
               {brand.email}
             </a>
           </p>
-          <InquiryForm slot={valid} size={chosen} />
+          <InquiryForm size={chosen} />
         </section>
 
         <section aria-labelledby="verified-h" className="space-y-4">
           <h2 id="verified-h" className="text-2xl font-bold text-ink">
-            Membership and verification — $199 per issue
+            Membership and verification — $199 for the Foundation Edition
           </h2>
           <p className="rounded-xl bg-sand p-4">
-            {brand.badgeRule} A listing gets you found. Verification gets you customers.
+            {brand.badgeRule} Verification confirms identity only; results are not guaranteed.
           </p>
           <PlanTable />
         </section>
       </div>
-      <section aria-labelledby="spaces" className="mx-auto mt-10 max-w-5xl px-4">
-        <h2 id="spaces" className="text-2xl font-bold text-ink">
-          Online ad spaces (preview)
-        </h2>
-        <p className="mt-1 text-muted">Where ads can also appear on the website. Sold spaces below are SAMPLE ads.</p>
-      </section>
-      <AdGrid ads={ads} />
     </>
   );
 }

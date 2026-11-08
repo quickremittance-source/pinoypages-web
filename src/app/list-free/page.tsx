@@ -38,7 +38,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ l
             </h2>
             <p className="mt-2 text-sm">
               A featured card with your logo and services, the Verified Kabayan badge once you pass the live video
-              identity check, a ZCard with Save contact, a QR code for everything you print, and a monthly scan report.
+              identity check. Membership and verification is $199 for the six-month Foundation Edition, limited to 100 memberships. A standard landing page with one photo is an optional upgrade; price on enquiry.
             </p>
             <Link href={`/get-verified${listing ? `?listing=${listing}` : ""}`} className="btn mt-4">
               See how Verified works

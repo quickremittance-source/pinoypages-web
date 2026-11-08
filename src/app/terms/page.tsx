@@ -16,7 +16,7 @@ export default function Page() {
           ))}
         </ol>
         <table className="w-full rounded-2xl bg-white text-left">
-          <caption className="p-3 text-left text-sm">Verified is $199 per issue, in CAD, shown before tax (no HST charged). Loyalty rate: after 4 seasons at $199, it’s $99.50 per issue for the next 4 seasons.</caption>
+          <caption className="p-3 text-left text-sm">Membership and verification is $199 for the Foundation Edition (a six-month pilot limited to 100 memberships), in CAD (no HST charged). Future editions run for one year; ended editions are archived and remain available to view.</caption>
           <thead className="bg-sea text-white">
             <tr>
               <th scope="col" className="p-3">

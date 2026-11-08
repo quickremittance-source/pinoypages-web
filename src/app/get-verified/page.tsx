@@ -15,7 +15,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ l
       <MagazineHero
         kicker={`For kabayan businesses · ${brand.pilotLabel}`}
         title="Be the kabayan they can trust"
-        intro="Get Verified for $199 per issue, everything included: the Verified Kabayan badge (earned, never bought), your ZCard, a QR for everything you print, and a monthly scan report that shows people found you."
+        intro="Membership and verification is $199 CAD for the Foundation Edition, a six-month pilot limited to 100 memberships. The identity-only badge is earned through a live video check, never bought. Ask about the optional standard landing page with one photo; pricing is to be confirmed."
       />
       <AdvertiseTabs current="/get-verified" />
       <GetVerified l={l} />

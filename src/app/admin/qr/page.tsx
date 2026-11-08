@@ -1,6 +1,5 @@
+import { requireAdmin } from "@/lib/adminGuard";
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { isAdmin } from "@/lib/adminSession";
 import { qrTarget, rangeDays } from "@/lib/dashRange";
 import { getQrDashboard } from "@/lib/dashboards";
 import { Bars, BRAND, DashShell, RangePicker } from "@/components/admin/Charts";
@@ -10,7 +9,7 @@ export const metadata: Metadata = { title: "Admin · QR trackers", robots: { ind
 
 export default async function Page({ searchParams }: { searchParams: Promise<{ days?: string }> }) {
   const { days: d } = await searchParams;
-  if (!(await isAdmin())) notFound();
+  await requireAdmin("/admin/qr");
   const days = rangeDays(d);
   const raw = await getQrDashboard(days).catch((e: Error) => (console.error("[dashboard]", e.message), "error" as const));
   const failed = raw === "error";

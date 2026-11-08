@@ -2,7 +2,7 @@
 export const DECISIONS = ["approve", "reject", "spam"] as const;
 export type Decision = (typeof DECISIONS)[number];
 export const STATUS_FOR: Record<Decision, string> = { approve: "won", reject: "lost", spam: "spam" };
-export const PRICE_NOTE = "$199 per issue (no HST). Verified is earned by passing the live video check; it cannot be bought.";
+export const PRICE_NOTE = "$199 for the Foundation Edition (no HST). Verified is earned by passing the live video check; it cannot be bought.";
 export const AD_TIERS = ["full", "half", "quarter", "zcard"] as const;
 
 export const slugify = (s: string) =>
@@ -46,6 +46,9 @@ export function planFor(i: Inq):
     if (!id) return { type: "none", reason: "no listing" };
     return { type: "listing", mode: i.listing_id ? "update" : "insert", listing_id: id, name: name || id, category: null, area: null, phone: i.phone, tier: i.product === "free" ? "free" : "verified" };
   }
+  if (i.kind === "ad-inquiry" && i.product === "landing-photo") {
+    return { type: "none", reason: "standard photo landing page: price pending, set up by hand" };
+  }
   if (i.kind === "ad-inquiry") {
     const tier = (AD_TIERS as readonly string[]).includes(i.product ?? "") ? (i.product as (typeof AD_TIERS)[number]) : "zcard";
     if (!name) return { type: "none", reason: "no business name" };
@@ -68,7 +71,7 @@ export function welcomeDraft(o: { business: string; cardUrl: string; statsUrl?: 
     o.verified
       ? "Your Verified badge is active after passing our live video check."
       : "Verified is earned by passing a short live video check; it cannot be bought.",
-    "Kabayan Verified is $199 per issue and is an identity badge only. ZCard business-card ads with QR tracking are an advertiser product; rates on request.",
+    "Kabayan Verified is $199 for the Foundation Edition and is an identity badge only. A standard ad landing page with a photo is the only optional upgrade at launch; price on enquiry.",
     "",
     "Salamat,",
     "Jose, PinoyPages",

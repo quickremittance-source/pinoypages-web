@@ -1,6 +1,5 @@
+import { requireAdmin } from "@/lib/adminGuard";
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { isAdmin } from "@/lib/adminSession";
 import { PRICE_NOTE, welcomeDraft } from "@/lib/onboarding";
 import { welcome } from "@/lib/onboardingDb";
 import { DashShell } from "@/components/admin/Charts";
@@ -12,7 +11,7 @@ export const metadata: Metadata = { title: "Admin · welcome pack", robots: { in
 export default async function Page({ params, searchParams }: { params: Promise<{ listing: string }>; searchParams: Promise<{ msg?: string }> }) {
   const { listing } = await params;
   const { msg } = await searchParams;
-  if (!(await isAdmin())) notFound();
+  await requireAdmin(`/admin/welcome/${encodeURIComponent(listing)}`);
   const w = await welcome(listing).catch(() => null);
   if (!w) return <DashShell><p data-testid="no-db">No listing {listing} (or no database in this environment).</p></DashShell>;
   const name = String(w.listing.name);

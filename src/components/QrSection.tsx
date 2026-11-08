@@ -6,7 +6,7 @@ import { goUrl } from "@/lib/qr";
 export const QR_USES = "one QR for your business cards, brochures, flyers, storefront signs and vehicle decals";
 const verified = adMenu.find((o) => o.id === "verified")!;
 
-/** Paid tiers: dynamic QR + files + scan count (+ counter card; everything is included in Verified). Free: upsell, no QR. */
+/** Existing QR downloads remain available; this is not a promise of membership-package inclusion. */
 export function QrSection({ l }: { l: Listing }) {
   if (!isPaid(l)) {
     return (
@@ -15,8 +15,8 @@ export function QrSection({ l }: { l: Listing }) {
           Get Verified
         </h2>
         <p className="mt-2">
-          Kabayan Verified ({money(verified.price)} per issue) is an identity badge: it is earned through a ~15-minute
-          live video check, never bought. QR codes and ZCard business-card ads are advertiser products; see Advertise.
+          Membership and verification is {money(verified.price)} for the six-month Foundation Edition. The identity badge
+          is earned through a ~15-minute live video check, never bought. See Community for the optional photo landing page.
         </p>
         <Link className="btn mt-4" href={`/upgrade?listing=${l.id}`}>
           Upgrade to Verified
@@ -31,8 +31,7 @@ export function QrSection({ l }: { l: Listing }) {
         Your QR code
       </h2>
       <p className="mt-2">
-        Use {QR_USES}. Every scan opens your ZCard bridge through <strong>{short}</strong> and is counted in your
-        monthly scan report. {brand.qrLine}
+        Use {QR_USES}. Every scan opens your ZCard bridge through <strong>{short}</strong> and the scan is counted. {brand.qrLine}
       </p>
       <div className="mt-4 flex flex-wrap items-start gap-6">
         {/* eslint-disable-next-line @next/next/no-img-element -- static SVG from our own route */}

@@ -1,8 +1,7 @@
+import { requireAdmin } from "@/lib/adminGuard";
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { AdminFrame } from "@/components/admin/AdminFrame";
 import { RangePicker, Stat } from "@/components/admin/Charts";
-import { isAdmin } from "@/lib/adminSession";
 import { rangeDays } from "@/lib/dashRange";
 import { getOverview } from "@/lib/dashboards";
 import { getHub } from "@/lib/adminEditDb";
@@ -19,7 +18,7 @@ type SP = Promise<{ days?: string; sort?: string; dir?: string; kind?: string; m
 /** Admin hub: overall site analytics + one sortable table of every listing, ad and ZCard. Cached 5 min. */
 export default async function Page({ searchParams }: { searchParams: SP }) {
   const { days: d, sort, dir, kind, msg } = await searchParams;
-  if (!(await isAdmin())) notFound();
+  await requireAdmin("/admin");
   const days = rangeDays(d);
   const [o, hub] = await Promise.all([
     getOverview(days).catch((e: Error) => (console.error("[hub]", e.message), null)),
