@@ -373,7 +373,7 @@ test("analytics access control: signed results links, paid vs free, admin key", 
   await expect(page.getByRole("row", { name: /QR scans/ })).toBeVisible();
   await page.goto(`/results/tax-02?t=${hmac("tax-02")}`);
   await expect(page.getByText("Your listing is being counted")).toBeVisible();
-  await expect(page.getByRole("link", { name: "Upgrade to see your results" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Ask about reporting" })).toBeVisible();
   await expect(page.getByRole("img", { name: /Views and clicks/ })).toHaveCount(0);
   await expect(page.getByRole("row", { name: /QR scans/ })).toHaveCount(0);
   for (const url of ["/admin/analytics", "/admin/analytics?key=wrong", "/admin/analytics/summary?key=wrong"])
@@ -444,7 +444,7 @@ test("event submission validates then succeeds (member featured event is free)",
   );
 });
 
-test("pilot menu = two tiers: Free / Verified $199 per issue (everything included); no add-ons; prices from config", async ({
+test("Foundation menu retains approved membership pricing and optional photo enquiry", async ({
   page,
 }) => {
   const price = Object.fromEntries(guide.adMenu.map((a) => [a.id, a.price]));
@@ -490,7 +490,7 @@ test("pilot menu = two tiers: Free / Verified $199 per issue (everything include
     );
     await expect(page.getByText(/pay-per-lead|per lead/i)).toHaveCount(0);
     await expect(
-      page.getByText(/Verified is \$199 for the Foundation Edition \(six-month pilot\), in CAD, shown before tax \(no HST charged\)/),
+      page.getByText(/Verified is \$199 for the Foundation Edition \(six-month pilot\), in CAD \(no HST charged\)/),
     ).toBeVisible();
   }
   await page.goto("/upgrade");

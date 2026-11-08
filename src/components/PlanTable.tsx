@@ -39,7 +39,7 @@ export function PlanTable() {
       <div className="overflow-x-auto" role="region" aria-label="Listing options" tabIndex={0}>
         <table className="w-full rounded-2xl bg-white text-left">
           <caption className="p-3 text-left text-sm">
-            Verified is $199 for the Foundation Edition (six-month pilot), in CAD, shown before tax (no HST charged). Foundation Edition memberships are limited to 100. Two
+            Verified is $199 for the Foundation Edition (six-month pilot), in CAD (no HST charged). Foundation Edition memberships are limited to 100. Two
             choices: a free listing, or Membership and verification. {brand.adsNote}
           </caption>
           <thead className="bg-sea text-white">

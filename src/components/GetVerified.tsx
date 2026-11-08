@@ -73,7 +73,7 @@ export function GetVerified({ l }: { l?: Pick<Listing, "id" | "name"> }) {
             <p className="mt-1 text-3xl font-extrabold text-ink">
               {money(verified.price)} <span className="text-base font-semibold text-muted">{verified.unit}</span>
             </p>
-            <p className="text-sm text-muted">For the Foundation Edition: a six-month pilot limited to 100 memberships. Shown before tax; no HST is charged. Future editions run for one year; ended editions are archived and remain available to view.</p>
+            <p className="text-sm text-muted">For the Foundation Edition: a six-month pilot limited to 100 memberships. No HST is charged. Future editions run for one year; ended editions are archived and remain available to view.</p>
             <ul className="mt-4 space-y-2">
               {VERIFIED.map((f) => (
                 <li key={f} className="flex gap-2">
